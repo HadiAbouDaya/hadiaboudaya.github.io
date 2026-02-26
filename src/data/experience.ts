@@ -45,7 +45,7 @@ export const experiences: Experience[] = [
       "PostgreSQL",
     ],
     logoPath: "/Media/experience/freelance/supportful-logo.png",
-    companyUrl: "https://supportful.space",
+    companyUrl: "https://supportful.world",
   },
   {
     id: "savencia",
