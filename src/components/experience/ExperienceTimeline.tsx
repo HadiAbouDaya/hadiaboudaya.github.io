@@ -3,10 +3,11 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { experiences } from "@/data/experience";
-import { TimelineCard } from "./TimelineCard";
+import { TimelineCard, typeConfig } from "./TimelineCard";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { cn } from "@/lib/utils";
 import { Briefcase, GraduationCap, Layers } from "lucide-react";
+import type { Experience } from "@/types";
 
 const FILTERS = [
   { key: "all", label: "All", icon: Layers },
@@ -20,33 +21,47 @@ function getYearFromDate(dateStr: string): number {
   return new Date(dateStr).getFullYear();
 }
 
-type TimelineEntry =
+function sortByStartDesc(a: Experience, b: Experience): number {
+  const startDiff =
+    new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+  if (startDiff !== 0) return startDiff;
+  const aEnd = a.endDate ? new Date(a.endDate).getTime() : Date.now();
+  const bEnd = b.endDate ? new Date(b.endDate).getTime() : Date.now();
+  return bEnd - aEnd;
+}
+
+type SingleEntry =
   | { kind: "year"; year: number }
-  | {
-      kind: "card";
-      item: (typeof experiences)[number];
-      position: "left" | "right";
-    };
+  | { kind: "card"; item: Experience; position: "left" | "right" };
 
 export function ExperienceTimeline() {
   const [filter, setFilter] = useState<FilterKey>("all");
 
+  const activeExperiences = useMemo(() => {
+    const now = new Date();
+    return experiences.filter((e) => new Date(e.startDate) <= now);
+  }, []);
+
   const professional = useMemo(
     () =>
-      experiences.filter((e) => e.type === "work" || e.type === "freelance"),
-    []
-  );
-  const education = useMemo(
-    () => experiences.filter((e) => e.type === "education"),
-    []
+      [...activeExperiences]
+        .filter((e) => e.type === "work" || e.type === "freelance")
+        .sort(sortByStartDesc),
+    [activeExperiences]
   );
 
-  const allSorted = useMemo(() => {
-    return [...experiences].sort(
-      (a, b) =>
-        new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
-    );
-  }, []);
+  const education = useMemo(
+    () =>
+      [...activeExperiences]
+        .filter((e) => e.type === "education")
+        .sort(sortByStartDesc),
+    [activeExperiences]
+  );
+
+  const allSorted = useMemo(
+    () => [...activeExperiences].sort(sortByStartDesc),
+    [activeExperiences]
+  );
 
   const filtered = useMemo(() => {
     if (filter === "professional") return professional;
@@ -56,34 +71,39 @@ export function ExperienceTimeline() {
 
   const isDualLane = filter === "all";
 
-  // Build timeline entries with year dividers injected between groups
-  const timelineEntries = useMemo(() => {
-    const entries: TimelineEntry[] = [];
+  // --- Single-lane entries (used for filtered views + mobile "All") ---
+  const singleLaneEntries = useMemo(() => {
+    const entries: SingleEntry[] = [];
     let lastYear = 0;
-    let cardIndex = 0;
-
-    filtered.forEach((item) => {
+    filtered.forEach((item, index) => {
       const year = getYearFromDate(item.startDate);
       if (year !== lastYear) {
         entries.push({ kind: "year", year });
         lastYear = year;
       }
-
-      const isEducation = item.type === "education";
-      const position: "left" | "right" = isDualLane
-        ? isEducation
-          ? "right"
-          : "left"
-        : cardIndex % 2 === 0
-        ? "left"
-        : "right";
-
-      entries.push({ kind: "card", item, position });
-      cardIndex++;
+      entries.push({
+        kind: "card",
+        item,
+        position: index % 2 === 0 ? "left" : "right",
+      });
     });
-
     return entries;
-  }, [filtered, isDualLane]);
+  }, [filtered]);
+
+  // --- Dual-lane: left column entries with year markers ---
+  const dualLeftEntries = useMemo(() => {
+    const entries: SingleEntry[] = [];
+    let lastYear = 0;
+    professional.forEach((item) => {
+      const year = getYearFromDate(item.startDate);
+      if (year !== lastYear) {
+        entries.push({ kind: "year", year });
+        lastYear = year;
+      }
+      entries.push({ kind: "card", item, position: "left" });
+    });
+    return entries;
+  }, [professional]);
 
   return (
     <div>
@@ -129,16 +149,6 @@ export function ExperienceTimeline() {
 
       {/* Timeline */}
       <div className="relative">
-        {/* Center vertical line */}
-        <div
-          className={cn(
-            "absolute top-0 bottom-0 w-0.5",
-            "left-4 md:left-1/2 md:-translate-x-1/2",
-            "bg-gradient-to-b from-primary-300 via-slate-200 to-slate-100"
-          )}
-        />
-
-        {/* Entries */}
         <AnimatePresence mode="wait">
           <motion.div
             key={filter}
@@ -146,43 +156,107 @@ export function ExperienceTimeline() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.35 }}
-            className="space-y-4 md:space-y-6"
           >
-            {timelineEntries.map((entry) => {
-              if (entry.kind === "year") {
-                return (
-                  <div
-                    key={`year-${entry.year}`}
-                    className="relative h-10"
-                  >
+            {/* ========== DESKTOP DUAL LANE ========== */}
+            {isDualLane && (
+              <div className="hidden md:flex flex-row items-stretch w-full relative">
+                {/* Center line */}
+                <div className="absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-300 via-slate-200 to-slate-100 left-1/2 -translate-x-1/2 z-0" />
+
+                {/* Left column — Professional & Freelance */}
+                <div className="w-1/2 flex flex-col pr-8 relative z-10 pt-4 pb-16">
+                  {dualLeftEntries.map((entry) => {
+                    if (entry.kind === "year") {
+                      return (
+                        <div
+                          key={`left-year-${entry.year}`}
+                          className="sticky top-24 h-10 w-[200%] flex items-center justify-center my-4 z-30"
+                        >
+                          <span className="inline-block bg-slate-800 text-white rounded-full px-5 py-1.5 text-sm font-bold shadow-lg">
+                            {entry.year}
+                          </span>
+                        </div>
+                      );
+                    }
+                    return (
+                      <div
+                        key={entry.item.id}
+                        className="relative w-full mb-10"
+                      >
+                        <ScrollReveal direction="left" delay={0.05}>
+                          <TimelineCard
+                            item={entry.item}
+                            position="left"
+                            isDualLane
+                          />
+                        </ScrollReveal>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Right column — Education (each card is sticky) */}
+                <div className="w-1/2 flex flex-col pl-8 relative z-20 pt-4 pb-16">
+                  {education.map((item) => (
                     <div
-                      className={cn(
-                        "absolute z-20",
-                        "top-1/2 -translate-x-1/2 -translate-y-1/2",
-                        "left-4 md:left-1/2"
-                      )}
+                      key={item.id}
+                      className="sticky top-28 z-20 mb-10"
                     >
-                      <span className="inline-block bg-slate-800 text-white rounded-full px-5 py-1.5 text-sm font-bold shadow-md">
-                        {entry.year}
-                      </span>
+                      <ScrollReveal direction="right" delay={0.15}>
+                        <TimelineCard
+                          item={item}
+                          position="right"
+                          isDualLane
+                        />
+                      </ScrollReveal>
                     </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* ========== SINGLE LANE (desktop filtered) + MOBILE ALL ========== */}
+            <div
+              className={cn(
+                "relative space-y-4 md:space-y-6",
+                isDualLane ? "md:hidden" : "block"
+              )}
+            >
+              {/* Center line */}
+              <div className="absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-300 via-slate-200 to-slate-100 left-4 md:left-1/2 md:-translate-x-1/2 z-0" />
+
+              {singleLaneEntries.map((entry) => {
+                if (entry.kind === "year") {
+                  return (
+                    <div
+                      key={`year-${entry.year}`}
+                      className="relative h-10"
+                    >
+                      <div className="absolute z-20 top-1/2 -translate-x-1/2 -translate-y-1/2 left-4 md:left-1/2">
+                        <span className="inline-block bg-slate-800 text-white rounded-full px-5 py-1.5 text-sm font-bold shadow-md">
+                          {entry.year}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                }
+                return (
+                  <div key={entry.item.id} className="relative z-10 w-full">
+                    <ScrollReveal
+                      direction={
+                        entry.position === "left" ? "left" : "right"
+                      }
+                      delay={0.05}
+                    >
+                      <TimelineCard
+                        item={entry.item}
+                        position={entry.position}
+                      />
+                    </ScrollReveal>
                   </div>
                 );
-              }
-
-              return (
-                <ScrollReveal
-                  key={entry.item.id}
-                  direction={entry.position === "left" ? "left" : "right"}
-                  delay={0.05}
-                >
-                  <TimelineCard
-                    item={entry.item}
-                    position={entry.position}
-                  />
-                </ScrollReveal>
-              );
-            })}
+              })}
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>

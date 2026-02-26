@@ -17,9 +17,11 @@ import { cn } from "@/lib/utils";
 interface TimelineCardProps {
   item: Experience;
   position: "left" | "right";
+  showDot?: boolean;
+  isDualLane?: boolean;
 }
 
-const typeConfig = {
+export const typeConfig = {
   work: {
     icon: Briefcase,
     dotColor: "bg-primary-600",
@@ -55,7 +57,8 @@ function getDuration(startDate: string, endDate: string): string {
   const months =
     (end.getFullYear() - start.getFullYear()) * 12 +
     end.getMonth() -
-    start.getMonth();
+    start.getMonth() +
+    1;
   const years = Math.floor(months / 12);
   const rem = months % 12;
   if (years === 0) return `${rem} mo`;
@@ -63,44 +66,66 @@ function getDuration(startDate: string, endDate: string): string {
   return `${years} yr ${rem} mo`;
 }
 
-export function TimelineCard({ item, position }: TimelineCardProps) {
+export function TimelineCard({ item, position, showDot = true, isDualLane = false }: TimelineCardProps) {
   const config = typeConfig[item.type];
   const Icon = config.icon;
 
   return (
     <div
       className={cn(
-        "relative flex items-start",
-        position === "left" ? "md:flex-row" : "md:flex-row-reverse"
+        "relative flex items-start w-full",
+        !isDualLane && (position === "left" ? "md:flex-row" : "md:flex-row-reverse")
       )}
     >
-      {/* Timeline dot with colored ring */}
-      <div
-        className={cn(
-          "absolute left-4 md:left-1/2 -translate-x-1/2 mt-6 z-10"
-        )}
-      >
+      {/* Mobile dot */}
+      {showDot && (
+        <div className="md:hidden absolute left-4 -translate-x-1/2 mt-6 z-10">
+          <div className={cn("w-4 h-4 rounded-full shadow-sm ring-4", config.dotColor, config.ringColor)} />
+        </div>
+      )}
+
+      {/* Desktop dot */}
+      {showDot && (
         <div
           className={cn(
-            "w-4 h-4 rounded-full shadow-sm ring-4",
-            config.dotColor,
-            config.ringColor
+            "hidden md:block absolute mt-6 z-10",
+            !isDualLane && "left-1/2 -translate-x-1/2",
+            isDualLane && position === "left" && "-right-8 translate-x-[50%]",
+            isDualLane && position === "right" && "-left-8 -translate-x-[50%]"
+          )}
+        >
+          <div className={cn("w-4 h-4 rounded-full shadow-sm ring-4", config.dotColor, config.ringColor)} />
+        </div>
+      )}
+
+      {/* Horizontal connector to the center line */}
+      {showDot && (
+        <div
+          className={cn(
+            "hidden md:block absolute top-[2.125rem] border-t-[3px] border-dashed border-slate-300 -z-10",
+            !isDualLane && "w-[calc(50%-2rem)]",
+            !isDualLane && position === "left" && "right-1/2",
+            !isDualLane && position === "right" && "left-1/2",
+            isDualLane && "w-8",
+            isDualLane && position === "left" && "-right-8",
+            isDualLane && position === "right" && "-left-8"
           )}
         />
-      </div>
+      )}
 
       {/* Card container */}
       <div
         className={cn(
-          "ml-10 md:ml-0 md:w-[calc(50%-2rem)]",
-          position === "left" ? "md:mr-auto" : "md:ml-auto"
+          "ml-10 md:ml-0 relative z-10 w-full",
+          !isDualLane && "md:w-[calc(50%-2rem)]",
+          !isDualLane && (position === "left" ? "md:mr-auto" : "md:ml-auto")
         )}
       >
         <div
           className={cn(
-            "bg-white rounded-xl border border-slate-200 border-t-[3px] p-5",
+            "bg-white rounded-xl border border-slate-200 border-t-[4px] p-6",
             config.borderColor,
-            "shadow-sm hover:shadow-lg transition-all duration-300",
+            "shadow-md hover:shadow-xl transition-all duration-300",
             "group"
           )}
         >
