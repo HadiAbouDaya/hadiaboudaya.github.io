@@ -1,0 +1,59 @@
+---
+title: "Causal Inference in Manufacturing: Beyond Correlation"
+date: "2025-11-20"
+tags: ["Causal Inference", "Industry", "Data Science", "DoWhy"]
+excerpt: "How I applied causal inference techniques at Savencia to understand what truly drives lactoferrin production yield."
+coverImage: "/Media/blog/covers/causal-inference.jpg"
+---
+
+# Causal Inference in Manufacturing
+
+In industrial settings, correlation-based models can be misleading. A temperature spike might correlate with lower yield, but is it the cause — or just a symptom of a deeper process issue?
+
+## The Challenge at Savencia
+
+During my internship at Savencia, I worked on optimizing **lactoferrin production**. The R&D team had years of production data but struggled to identify which operational changes actually improved yield versus which were coincidental.
+
+Traditional ML models could predict yield, but they couldn't answer the crucial question: *"If we change X, will Y improve?"*
+
+## The Causal Toolkit
+
+I built Databricks pipelines using three complementary frameworks:
+
+- **DoWhy** for defining causal graphs (DAGs) and running identification algorithms
+- **EconML** for estimating heterogeneous treatment effects with Double ML and Causal Forests
+- **CausalNex** for learning Bayesian network structures from data
+
+```python
+import dowhy
+from econml.dml import CausalForestDML
+
+# Define the causal model
+model = dowhy.CausalModel(
+    data=production_df,
+    treatment="temperature_adjustment",
+    outcome="lactoferrin_yield",
+    graph=causal_dag
+)
+
+# Identify and estimate
+identified = model.identify_effect()
+estimate = model.estimate_effect(
+    identified,
+    method_name="backdoor.econml.dml.CausalForestDML"
+)
+```
+
+## Key Methods Applied
+
+1. **Propensity Score Matching** — to create balanced comparison groups from observational data
+2. **Double Machine Learning** — to estimate treatment effects while controlling for confounders
+3. **Causal Forest** — to understand how effects vary across different production conditions
+
+## Results
+
+The causal analysis revealed that certain process parameters had been overvalued by correlation-based models, while others — previously considered unimportant — had significant causal effects on yield. These findings gave the R&D team actionable levers to optimize production.
+
+## Takeaway
+
+Moving from *"what predicts yield"* to *"what causes yield changes"* is the difference between a dashboard and a decision-support system. Causal inference bridges that gap.

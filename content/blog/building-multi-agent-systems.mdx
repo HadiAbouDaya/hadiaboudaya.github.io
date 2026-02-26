@@ -1,0 +1,46 @@
+---
+title: "Building Multi-Agent Systems with LangGraph"
+date: "2026-02-15"
+tags: ["AI", "LangGraph", "Agents", "LLM"]
+excerpt: "A deep dive into orchestrating multiple LLM agents with LangGraph for production B2B workflows — lessons from building Cyrus AI."
+coverImage: "/Media/blog/covers/multi-agent-systems.jpg"
+---
+
+# Building Multi-Agent Systems with LangGraph
+
+When building production AI products, single-prompt LLM calls quickly hit their limits. Real-world B2B workflows need multiple specialized agents working together — each with its own tools, context, and decision logic.
+
+## Why Multi-Agent?
+
+At Supportful, we built **Cyrus AI**, a B2B sales intelligence platform. A single agent couldn't handle the full pipeline: qualifying leads from Salesforce, drafting personalized outreach, routing approvals through Slack, and updating CRM records. Each step required different tools, different prompts, and different reliability guarantees.
+
+## The LangGraph Approach
+
+LangGraph lets you model agent workflows as directed graphs. Each node is an agent or tool call, and edges define the flow based on conditions:
+
+```python
+from langgraph.graph import StateGraph
+
+graph = StateGraph(SalesState)
+graph.add_node("qualify", qualify_lead)
+graph.add_node("research", research_company)
+graph.add_node("draft", draft_outreach)
+graph.add_node("review", human_review)
+
+graph.add_edge("qualify", "research")
+graph.add_edge("research", "draft")
+graph.add_edge("draft", "review")
+```
+
+The key insight: **state machines beat chain-of-thought for production systems**. You get deterministic routing, retry logic, and human-in-the-loop checkpoints — all without sacrificing the flexibility of LLM reasoning within each node.
+
+## Lessons Learned
+
+1. **Keep agents focused.** Each agent should do one thing well. A "lead qualifier" shouldn't also draft emails.
+2. **State is everything.** Design your state schema carefully — it's the contract between agents.
+3. **Human-in-the-loop is non-negotiable** for B2B. No one wants an AI sending emails to their CEO without approval.
+4. **Multi-tenant isolation matters.** In SaaS, each customer needs isolated vector stores and databases.
+
+## What's Next
+
+The future of AI products isn't a single brilliant model — it's orchestrated systems of specialized agents, each contributing their expertise to solve complex business problems.
