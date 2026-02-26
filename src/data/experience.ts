@@ -126,7 +126,7 @@ export const experiences: Experience[] = [
       "Co-designed multi-LLM agent system with a lead agent orchestrating specialized tool agents",
       "Implemented RAG pipelines with vector embeddings, knowledge graphs, and semantic routers",
       "Developed speech-to-text and translation services, deployed on AWS ECS",
-      "Migrated database layer to PostgreSQL with vector search capabilities; contributed to $5M seed raise",
+      "Migrated database layer to PostgreSQL with vector search capabilities",
     ],
     technologies: [
       "LangChain",
@@ -170,9 +170,9 @@ export const experiences: Experience[] = [
     description:
       "Built and deployed ML-powered services for content moderation, anomaly detection, ad traffic optimization, and logo detection across AWS infrastructure.",
     bullets: [
-      "Built AWS content moderation service achieving 96% recall with Angular and .NET Core frontend",
+      "Built AWS content moderation service with Angular and .NET Core frontend",
       "Developed AI anomaly detection on AWS Lambda for real-time earnings monitoring",
-      "Created predictive engine on SageMaker for ad traffic optimization, increasing revenue by 30%",
+      "Created predictive engine on SageMaker for ad traffic optimization",
       "Trained and deployed YOLOv8 logo detection model on Dockerized AWS EC2",
     ],
     technologies: [
@@ -197,7 +197,7 @@ export const experiences: Experience[] = [
     bullets: [
       "Trained computer vision models on GPU-accelerated AWS EC2 instances using NVIDIA TAO Toolkit",
       "Built inference pipelines with DeepStream SDK on Jetson Nano and Jetson Orin edge devices",
-      "Implemented collision warning, lane detection, and traffic sign detection systems running at ~60 FPS",
+      "Implemented collision warning, lane detection, and traffic sign detection systems for real-time inference",
     ],
     technologies: [
       "TensorFlow",

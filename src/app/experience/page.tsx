@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Timeline } from "@/components/experience/Timeline";
+import { ExperienceTimeline } from "@/components/experience/ExperienceTimeline";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default function ExperiencePage() {
           title="Experience"
           subtitle="My professional journey from 2018 to today"
         />
-        <Timeline />
+        <ExperienceTimeline />
       </div>
     </div>
   );
