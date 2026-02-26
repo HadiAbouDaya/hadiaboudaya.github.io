@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cp -r Media public/Media 2>/dev/null; next dev",
-    "build": "cp -r Media public/Media && next build",
+    "build": "if [ -d Media ]; then cp -r Media public/Media; else mkdir -p public/Media; fi && next build",
     "start": "next start",
     "lint": "next lint"
   },
