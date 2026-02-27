@@ -32,9 +32,17 @@ export interface Certification {
   badgePath: string;
 }
 
-export interface Skill {
-  name: string;
-  category: "AI/ML" | "Cloud & MLOps" | "Software Engineering";
+export interface Event {
+  slug: string;
+  title: string;
+  date: string;
+  location: string;
+  category: "career" | "education" | "project" | "achievement";
+  summary: string;
+  description: string;
+  relatedExperienceId?: string;
+  imagePath?: string;
+  tags: string[];
 }
 
 export interface BlogPost {

@@ -6,7 +6,7 @@ import { JourneySection } from "@/components/about/JourneySection";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Learn about Hadi Abou Daya — AI/ML engineer, consultant, and lifelong learner based in Paris.",
+    "Learn about Hadi Abou Daya, AI/ML engineer, consultant, and lifelong learner based in Paris.",
 };
 
 export default function AboutPage() {

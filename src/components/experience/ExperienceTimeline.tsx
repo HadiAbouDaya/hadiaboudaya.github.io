@@ -163,7 +163,7 @@ export function ExperienceTimeline() {
                 {/* Center line */}
                 <div className="absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-300 via-slate-200 to-slate-100 left-1/2 -translate-x-1/2 z-0" />
 
-                {/* Left column — Professional & Freelance */}
+                {/* Left column - Professional & Freelance */}
                 <div className="w-1/2 flex flex-col pr-8 relative z-10 pt-4 pb-16">
                   {dualLeftEntries.map((entry) => {
                     if (entry.kind === "year") {
@@ -195,7 +195,7 @@ export function ExperienceTimeline() {
                   })}
                 </div>
 
-                {/* Right column — Education (each card is sticky) */}
+                {/* Right column - Education (each card is sticky) */}
                 <div className="w-1/2 flex flex-col pl-8 relative z-20 pt-4 pb-16">
                   {education.map((item) => (
                     <div

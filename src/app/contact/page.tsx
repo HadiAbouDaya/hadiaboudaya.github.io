@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Hadi Abou Daya — AI/ML Engineer & Consultant based in Paris.",
+    "Get in touch with Hadi Abou Daya, AI/ML Engineer & Consultant based in Paris.",
 };
 
 export default function ContactPage() {
