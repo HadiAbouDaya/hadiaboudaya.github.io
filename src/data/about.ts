@@ -8,7 +8,7 @@ export const KEY_FACTS: KeyFact[] = [
     icon: "Briefcase",
     label: "Experience",
     value: "Since 2020",
-    detail: "7+ years across CV, NLP, LLM agents, and cloud ML",
+    detail: "5+ years across CV, NLP, LLM agents, and cloud ML",
   },
   {
     icon: "Award",
