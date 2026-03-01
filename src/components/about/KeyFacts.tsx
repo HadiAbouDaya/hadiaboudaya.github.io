@@ -23,7 +23,7 @@ export function KeyFacts() {
           const Icon = iconMap[fact.icon];
           return (
             <StaggerItem key={fact.label}>
-              <Card className="text-center group">
+              <Card className="text-center group h-full">
                 {Icon && (
                   <Icon className="w-8 h-8 text-primary-600 mx-auto mb-3 group-hover:scale-110 transition-transform" />
                 )}
