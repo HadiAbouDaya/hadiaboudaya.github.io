@@ -32,17 +32,34 @@ export interface Certification {
   badgePath: string;
 }
 
+export type EventCategory =
+  | "workshop"
+  | "conference"
+  | "hackathon"
+  | "certification"
+  | "community"
+  | "thought-leadership"
+  | "knowledge-sharing"
+  | "project"
+  | "career"
+  | "education"
+  | "achievement";
+
 export interface Event {
   slug: string;
   title: string;
   date: string;
   location: string;
-  category: "career" | "education" | "project" | "achievement";
+  category: EventCategory;
+  role?: string;
+  organizations?: string[];
   summary: string;
   description: string;
   relatedExperienceId?: string;
-  imagePath?: string;
+  linkedinUrl?: string;
+  images?: string[];
   tags: string[];
+  tier: "featured" | "standard";
 }
 
 export interface BlogPost {

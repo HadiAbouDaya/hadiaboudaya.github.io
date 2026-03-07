@@ -1,23 +1,26 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import type { Event } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
-import { Calendar, MapPin, ArrowLeft } from "lucide-react";
-
-const categoryColors: Record<Event["category"], string> = {
-  career: "bg-primary-50 text-primary-700",
-  education: "bg-emerald-50 text-emerald-700",
-  project: "bg-violet-50 text-violet-700",
-  achievement: "bg-amber-50 text-amber-700",
-};
+import { categoryConfig } from "@/data/eventCategories";
+import {
+  Calendar,
+  MapPin,
+  ArrowLeft,
+  ExternalLink,
+} from "lucide-react";
 
 interface EventDetailProps {
   event: Event;
 }
 
 export function EventDetail({ event }: EventDetailProps) {
+  const config = categoryConfig[event.category];
+  const CategoryIcon = config.icon;
+
   const formattedDate = new Date(event.date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
@@ -36,9 +39,11 @@ export function EventDetail({ event }: EventDetailProps) {
         </Link>
 
         <div className="flex flex-wrap items-center gap-3 mb-4">
-          <Badge className={categoryColors[event.category]}>
-            {event.category}
+          <Badge className={config.color}>
+            <CategoryIcon className="w-3 h-3 mr-1" />
+            {config.label}
           </Badge>
+          {event.role && <Badge variant="primary">{event.role}</Badge>}
           <span className="flex items-center gap-1 text-sm text-slate-500">
             <Calendar className="w-4 h-4" />
             {formattedDate}
@@ -57,12 +62,49 @@ export function EventDetail({ event }: EventDetailProps) {
           {event.summary}
         </p>
 
+        {event.images && event.images.length > 0 && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
+            {event.images.map((img, i) => (
+              <div
+                key={i}
+                className="relative aspect-[4/3] rounded-xl overflow-hidden"
+              >
+                <Image
+                  src={img}
+                  alt={`${event.title} ${i + 1}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 50vw, 33vw"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="prose prose-slate max-w-none">
           <p className="text-slate-700 leading-relaxed">{event.description}</p>
         </div>
 
-        {event.tags.length > 0 && (
+        {event.organizations && event.organizations.length > 0 && (
           <div className="mt-8 pt-6 border-t border-slate-200">
+            <h3 className="text-sm font-semibold text-slate-700 mb-3">
+              Organizations
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {event.organizations.map((org) => (
+                <span
+                  key={org}
+                  className="text-sm px-3 py-1 bg-slate-50 text-slate-600 rounded-full border border-slate-200"
+                >
+                  {org}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {event.tags.length > 0 && (
+          <div className="mt-6 pt-6 border-t border-slate-200">
             <h3 className="text-sm font-semibold text-slate-700 mb-3">Tags</h3>
             <div className="flex flex-wrap gap-2">
               {event.tags.map((tag) => (
@@ -71,6 +113,20 @@ export function EventDetail({ event }: EventDetailProps) {
                 </Badge>
               ))}
             </div>
+          </div>
+        )}
+
+        {event.linkedinUrl && (
+          <div className="mt-6 pt-6 border-t border-slate-200">
+            <a
+              href={event.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors"
+            >
+              <ExternalLink className="w-4 h-4" />
+              View on LinkedIn
+            </a>
           </div>
         )}
       </ScrollReveal>

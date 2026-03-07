@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 export const metadata: Metadata = {
   title: "Events",
   description:
-    "Key milestones and events in Hadi Abou Daya's career, from edge AI to cloud-scale LLM systems.",
+    "Workshops, conferences, hackathons, certifications, and milestones across Hadi Abou Daya's journey.",
 };
 
 export default function EventsPage() {
@@ -14,7 +14,7 @@ export default function EventsPage() {
       <div className="container-main">
         <SectionHeading
           title="Events"
-          subtitle="Key milestones and projects across my journey"
+          subtitle="Workshops, conferences, hackathons, and milestones across my journey"
         />
         <EventFilter />
       </div>
