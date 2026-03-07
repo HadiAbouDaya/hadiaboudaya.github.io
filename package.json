@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cp -r Media public/Media 2>/dev/null; next dev",
-    "build": "if [ -d Media ]; then cp -r Media public/Media; else mkdir -p public/Media; fi && next build",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },

@@ -1,11 +1,9 @@
 Knowledge/*
-Media/IMAGE_GUIDE.md
 
 # Next.js
 .next/
 out/
 node_modules/
-public/Media/
 
 # Environment
 .env*.local
