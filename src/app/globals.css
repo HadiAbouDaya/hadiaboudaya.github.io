@@ -43,6 +43,12 @@
 
 html {
   scroll-behavior: smooth;
+  overscroll-behavior-y: none;
+}
+
+html.dark {
+  background-color: #0f172a;
+  color-scheme: dark;
 }
 
 body {
