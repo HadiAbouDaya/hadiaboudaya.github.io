@@ -4,7 +4,7 @@ import { personJsonLd } from "@/lib/jsonld";
 
 export default function HomePage() {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative isolate h-screen flex items-center justify-center overflow-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd()) }}
