@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { BioSection } from "@/components/about/BioSection";
 import { KeyFacts } from "@/components/about/KeyFacts";
 import { JourneySection } from "@/components/about/JourneySection";
+import { breadcrumbJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: "About",
@@ -12,6 +13,10 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="section-padding pt-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "About", href: "/about" }])) }}
+      />
       <div className="container-main">
         <BioSection />
         <KeyFacts />

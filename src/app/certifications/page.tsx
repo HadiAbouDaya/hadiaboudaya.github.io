@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CertFilter } from "@/components/certifications/CertFilter";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { breadcrumbJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: "Certifications",
@@ -11,6 +12,10 @@ export const metadata: Metadata = {
 export default function CertificationsPage() {
   return (
     <div className="section-padding pt-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "Certifications", href: "/certifications" }])) }}
+      />
       <div className="container-main">
         <SectionHeading
           title="Certifications"

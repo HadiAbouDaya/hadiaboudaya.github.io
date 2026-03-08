@@ -16,7 +16,7 @@ export function MobileMenu({ pathname, onClose }: MobileMenuProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm md:hidden"
+      className="fixed inset-0 z-[60] bg-black/40 dark:bg-black/60 backdrop-blur-sm md:hidden"
       onClick={onClose}
     >
       <motion.div
@@ -24,14 +24,14 @@ export function MobileMenu({ pathname, onClose }: MobileMenuProps) {
         animate={{ x: 0 }}
         exit={{ x: "100%" }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="absolute right-0 top-0 bottom-0 w-72 bg-white shadow-xl"
+        className="absolute right-0 top-0 bottom-0 w-72 bg-white dark:bg-slate-900 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-4 border-b border-slate-100">
-          <span className="text-lg font-bold text-primary-600">HA</span>
+        <div className="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-800">
+          <span className="text-lg font-bold text-primary-600 dark:text-primary-400">HA</span>
           <button
             onClick={onClose}
-            className="p-2 text-slate-600 hover:text-slate-900"
+            className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
             aria-label="Close menu"
           >
             <X className="w-5 h-5" />
@@ -46,8 +46,8 @@ export function MobileMenu({ pathname, onClose }: MobileMenuProps) {
               onClick={onClose}
               className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                 pathname === link.href || pathname.startsWith(link.href + "/")
-                  ? "text-primary-600 bg-primary-50"
-                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                  ? "text-primary-600 bg-primary-50 dark:text-primary-400 dark:bg-primary-900/30"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800"
               }`}
             >
               {link.label}

@@ -33,8 +33,8 @@ export function ContactForm() {
     return (
       <div className="flex flex-col items-center justify-center py-12 text-center">
         <CheckCircle className="w-12 h-12 text-emerald-500 mb-4" />
-        <h3 className="text-xl font-bold text-slate-900">Message Sent!</h3>
-        <p className="text-slate-600 mt-2">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white">Message Sent!</h3>
+        <p className="text-slate-600 dark:text-slate-400 mt-2">
           Thanks for reaching out. I&apos;ll get back to you soon.
         </p>
         <button
@@ -52,7 +52,7 @@ export function ContactForm() {
       <div>
         <label
           htmlFor="name"
-          className="block text-sm font-medium text-slate-700 mb-1.5"
+          className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5"
         >
           Name
         </label>
@@ -61,7 +61,7 @@ export function ContactForm() {
           id="name"
           name="name"
           required
-          className="w-full px-4 py-3 rounded-lg border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
+          className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
           placeholder="Your name"
         />
       </div>
@@ -69,7 +69,7 @@ export function ContactForm() {
       <div>
         <label
           htmlFor="email"
-          className="block text-sm font-medium text-slate-700 mb-1.5"
+          className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5"
         >
           Email
         </label>
@@ -78,7 +78,7 @@ export function ContactForm() {
           id="email"
           name="email"
           required
-          className="w-full px-4 py-3 rounded-lg border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
+          className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
           placeholder="you@example.com"
         />
       </div>
@@ -86,7 +86,7 @@ export function ContactForm() {
       <div>
         <label
           htmlFor="message"
-          className="block text-sm font-medium text-slate-700 mb-1.5"
+          className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5"
         >
           Message
         </label>
@@ -101,7 +101,7 @@ export function ContactForm() {
       </div>
 
       {status === "error" && (
-        <div className="flex items-center gap-2 text-sm text-red-600">
+        <div className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400">
           <AlertCircle className="w-4 h-4" />
           Something went wrong. Please try again or email me directly.
         </div>

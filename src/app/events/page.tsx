@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { EventFilter } from "@/components/events/EventFilter";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { breadcrumbJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -11,6 +12,10 @@ export const metadata: Metadata = {
 export default function EventsPage() {
   return (
     <div className="section-padding pt-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "Events", href: "/events" }])) }}
+      />
       <div className="container-main">
         <SectionHeading
           title="Events"

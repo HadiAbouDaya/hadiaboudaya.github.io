@@ -12,7 +12,7 @@ export function BioSection() {
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-12 items-center">
         <ScrollReveal direction="left" className="md:col-span-3">
-          <p className="text-lg text-slate-600 leading-relaxed">{BIO}</p>
+          <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">{BIO}</p>
         </ScrollReveal>
 
         <ScrollReveal direction="right" className="md:col-span-2 flex justify-center">

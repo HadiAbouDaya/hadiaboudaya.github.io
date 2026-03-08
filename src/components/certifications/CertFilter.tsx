@@ -30,26 +30,31 @@ export function CertFilter() {
   return (
     <div>
       {/* Filter pills */}
-      <div className="flex flex-wrap justify-center gap-2 mb-10">
-        {FILTERS.map((filter) => (
-          <button
-            key={filter}
-            onClick={() => setActive(filter)}
-            className={cn(
-              "px-4 py-2 rounded-full text-sm font-medium transition-all",
-              active === filter
-                ? "bg-primary-600 text-white shadow-md"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-            )}
-          >
-            {filter}
-            {filter !== "All" && (
-              <span className="ml-1.5 text-xs opacity-70">
-                ({certifications.filter((c) => c.category === filter).length})
-              </span>
-            )}
-          </button>
-        ))}
+      <div className="flex flex-wrap justify-center gap-2 mb-10" role="radiogroup" aria-label="Filter certifications by category">
+        {FILTERS.map((filter) => {
+          const isActive = active === filter;
+          return (
+            <button
+              key={filter}
+              role="radio"
+              aria-checked={isActive}
+              onClick={() => setActive(filter)}
+              className={cn(
+                "px-4 py-2 rounded-full text-sm font-medium transition-all",
+                isActive
+                  ? "bg-primary-600 text-white shadow-md"
+                  : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
+              )}
+            >
+              {filter}
+              {filter !== "All" && (
+                <span className="ml-1.5 text-xs opacity-70">
+                  ({certifications.filter((c) => c.category === filter).length})
+                </span>
+              )}
+            </button>
+          );
+        })}
       </div>
 
       {/* Card grid */}

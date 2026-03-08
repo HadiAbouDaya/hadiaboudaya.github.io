@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { TypingEffect } from "@/components/ui/TypingEffect";
 import { Mail, ArrowRight } from "lucide-react";
 
 export function HeroContent() {
@@ -21,9 +22,9 @@ export function HeroContent() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="mt-4 text-xl sm:text-2xl text-accent-400 font-medium"
+        className="mt-4 text-xl sm:text-2xl text-accent-400 font-medium h-8 sm:h-9"
       >
-        AI/ML Engineer &amp; Consultant
+        <TypingEffect texts={["AI/ML Engineer", "LLM Agent Architect", "Cloud ML Consultant"]} />
       </motion.p>
 
       <motion.p

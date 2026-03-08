@@ -22,7 +22,7 @@ export function CertCard({ cert }: CertCardProps) {
     >
       <Card className="h-full flex flex-col">
         <div className="flex items-start gap-4">
-          <div className="flex-shrink-0 w-14 h-14 rounded-lg overflow-hidden bg-slate-50">
+          <div className="flex-shrink-0 w-14 h-14 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-200">
             <ImageWithFallback
               src={cert.badgePath}
               alt={cert.name}
@@ -35,20 +35,20 @@ export function CertCard({ cert }: CertCardProps) {
           </div>
 
           <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-bold text-slate-900 leading-tight">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white leading-tight">
               {cert.name}
             </h3>
-            <p className="text-xs text-slate-500 mt-0.5">{cert.issuer}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{cert.issuer}</p>
           </div>
         </div>
 
-        <div className="mt-3 flex items-center gap-3 text-xs text-slate-500">
+        <div className="mt-3 flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
           <span className="flex items-center gap-1">
             <Calendar className="w-3 h-3" />
             {cert.issuedDate}
           </span>
           {cert.expiryDate && (
-            <span className="text-slate-400">
+            <span className="text-slate-400 dark:text-slate-500">
               Expires {cert.expiryDate}
             </span>
           )}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ContactInfo } from "@/components/contact/ContactInfo";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { breadcrumbJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -12,6 +13,10 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="section-padding pt-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "Contact", href: "/contact" }])) }}
+      />
       <div className="container-main max-w-5xl">
         <SectionHeading
           title="Get in Touch"

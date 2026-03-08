@@ -18,7 +18,7 @@ export function PostCard({ post }: PostCardProps) {
       <Link href={`/blog/${post.slug}`}>
         <Card className="overflow-hidden group">
           {/* Cover image */}
-          <div className="relative h-48 -mx-6 -mt-6 mb-4 overflow-hidden bg-slate-100">
+          <div className="relative h-48 -mx-6 -mt-6 mb-4 overflow-hidden bg-slate-100 dark:bg-slate-700">
             <ImageWithFallback
               src={post.coverImage}
               alt={post.title}
@@ -39,11 +39,11 @@ export function PostCard({ post }: PostCardProps) {
             ))}
           </div>
 
-          <h2 className="text-xl font-bold text-slate-900 group-hover:text-primary-600 transition-colors">
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary-600 transition-colors">
             {post.title}
           </h2>
 
-          <div className="flex items-center gap-4 mt-2 text-xs text-slate-500">
+          <div className="flex items-center gap-4 mt-2 text-xs text-slate-500 dark:text-slate-400">
             <span className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
               {new Date(post.date).toLocaleDateString("en-US", {
@@ -58,7 +58,7 @@ export function PostCard({ post }: PostCardProps) {
             </span>
           </div>
 
-          <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
             {post.excerpt}
           </p>
 

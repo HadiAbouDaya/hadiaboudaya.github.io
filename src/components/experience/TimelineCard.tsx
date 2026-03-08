@@ -102,7 +102,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
       {showDot && (
         <div
           className={cn(
-            "hidden md:block absolute top-[2.125rem] border-t-[3px] border-dashed border-slate-300 -z-10",
+            "hidden md:block absolute top-[2.125rem] border-t-[3px] border-dashed border-slate-300 dark:border-slate-600 -z-10",
             !isDualLane && "w-[calc(50%-2rem)]",
             !isDualLane && position === "left" && "right-1/2",
             !isDualLane && position === "right" && "left-1/2",
@@ -123,7 +123,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
       >
         <div
           className={cn(
-            "bg-white rounded-xl border border-slate-200 border-t-[4px] p-6",
+            "bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 border-t-[4px] p-6",
             config.borderColor,
             "shadow-md hover:shadow-xl transition-all duration-300",
             "group"
@@ -131,7 +131,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
         >
           <div className="flex items-start gap-4">
             {/* Company logo */}
-            <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-slate-50 border border-slate-100">
+            <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-200 border border-slate-100 dark:border-slate-300">
               <ImageWithFallback
                 src={item.logoPath}
                 alt={item.company}
@@ -160,14 +160,14 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
                 >
                   {config.label}
                 </span>
-                <span className="text-xs text-slate-400 flex items-center gap-1 ml-auto">
+                <span className="text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1 ml-auto">
                   <Clock className="w-3 h-3" />
                   {getDuration(item.startDate, item.endDate)}
                 </span>
               </div>
 
               {/* Role */}
-              <h3 className="text-lg font-bold text-slate-900 leading-tight group-hover:text-primary-700 transition-colors">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-tight group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
                 {item.role}
               </h3>
 
@@ -190,7 +190,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
               </div>
 
               {/* Period + location */}
-              <div className="flex flex-wrap gap-3 mt-2 text-xs text-slate-500">
+              <div className="flex flex-wrap gap-3 mt-2 text-xs text-slate-500 dark:text-slate-400">
                 <span className="flex items-center gap-1">
                   <Calendar className="w-3.5 h-3.5" />
                   {item.period}
@@ -202,7 +202,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
               </div>
 
               {/* Description */}
-              <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 {item.description}
               </p>
 
@@ -212,7 +212,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
                   {item.bullets.map((bullet, i) => (
                     <li
                       key={i}
-                      className="text-sm text-slate-600 flex items-start gap-2"
+                      className="text-sm text-slate-600 dark:text-slate-400 flex items-start gap-2"
                     >
                       <span
                         className={cn(

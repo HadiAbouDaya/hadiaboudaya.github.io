@@ -32,7 +32,7 @@ export function EventDetail({ event }: EventDetailProps) {
       <ScrollReveal>
         <Link
           href="/events"
-          className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600 transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary-600 transition-colors mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Events
@@ -44,21 +44,21 @@ export function EventDetail({ event }: EventDetailProps) {
             {config.label}
           </Badge>
           {event.role && <Badge variant="primary">{event.role}</Badge>}
-          <span className="flex items-center gap-1 text-sm text-slate-500">
+          <span className="flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400">
             <Calendar className="w-4 h-4" />
             {formattedDate}
           </span>
-          <span className="flex items-center gap-1 text-sm text-slate-500">
+          <span className="flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400">
             <MapPin className="w-4 h-4" />
             {event.location}
           </span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">
+        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
           {event.title}
         </h1>
 
-        <p className="text-lg text-slate-600 leading-relaxed mb-8">
+        <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
           {event.summary}
         </p>
 
@@ -81,20 +81,20 @@ export function EventDetail({ event }: EventDetailProps) {
           </div>
         )}
 
-        <div className="prose prose-slate max-w-none">
-          <p className="text-slate-700 leading-relaxed">{event.description}</p>
+        <div className="prose prose-slate dark:prose-invert max-w-none">
+          <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{event.description}</p>
         </div>
 
         {event.organizations && event.organizations.length > 0 && (
-          <div className="mt-8 pt-6 border-t border-slate-200">
-            <h3 className="text-sm font-semibold text-slate-700 mb-3">
+          <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+            <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
               Organizations
             </h3>
             <div className="flex flex-wrap gap-2">
               {event.organizations.map((org) => (
                 <span
                   key={org}
-                  className="text-sm px-3 py-1 bg-slate-50 text-slate-600 rounded-full border border-slate-200"
+                  className="text-sm px-3 py-1 bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full border border-slate-200 dark:border-slate-700"
                 >
                   {org}
                 </span>
@@ -104,8 +104,8 @@ export function EventDetail({ event }: EventDetailProps) {
         )}
 
         {event.tags.length > 0 && (
-          <div className="mt-6 pt-6 border-t border-slate-200">
-            <h3 className="text-sm font-semibold text-slate-700 mb-3">Tags</h3>
+          <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
+            <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Tags</h3>
             <div className="flex flex-wrap gap-2">
               {event.tags.map((tag) => (
                 <Badge key={tag} variant="primary">
@@ -117,7 +117,7 @@ export function EventDetail({ event }: EventDetailProps) {
         )}
 
         {event.linkedinUrl && (
-          <div className="mt-6 pt-6 border-t border-slate-200">
+          <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
             <a
               href={event.linkedinUrl}
               target="_blank"

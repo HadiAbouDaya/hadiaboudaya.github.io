@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getAllPosts } from "@/lib/mdx";
 import { PostCard } from "@/components/blog/PostCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { breadcrumbJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -14,6 +15,10 @@ export default function BlogPage() {
 
   return (
     <div className="section-padding pt-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "Blog", href: "/blog" }])) }}
+      />
       <div className="container-main max-w-4xl">
         <SectionHeading
           title="Blog"

@@ -13,7 +13,7 @@ export function PostContent({ post, children }: PostContentProps) {
   return (
     <div className="pt-16">
       {/* Cover banner */}
-      <div className="relative h-64 sm:h-80 lg:h-96 bg-slate-100">
+      <div className="relative h-64 sm:h-80 lg:h-96 bg-slate-100 dark:bg-slate-800">
         <ImageWithFallback
           src={post.coverImage}
           alt={post.title}
@@ -45,11 +45,11 @@ export function PostContent({ post, children }: PostContentProps) {
             ))}
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight">
             {post.title}
           </h1>
 
-          <div className="flex items-center gap-4 mt-4 text-sm text-slate-500">
+          <div className="flex items-center gap-4 mt-4 text-sm text-slate-500 dark:text-slate-400">
             <span className="flex items-center gap-1">
               <Calendar className="w-4 h-4" />
               {new Date(post.date).toLocaleDateString("en-US", {
@@ -65,7 +65,7 @@ export function PostContent({ post, children }: PostContentProps) {
           </div>
 
           {/* MDX Content */}
-          <div className="mt-8 prose prose-slate lg:prose-lg prose-headings:text-slate-900 prose-a:text-primary-600 prose-code:text-primary-700 prose-pre:bg-slate-900">
+          <div className="mt-8 prose prose-slate dark:prose-invert lg:prose-lg prose-headings:text-slate-900 dark:prose-headings:text-white prose-a:text-primary-600 prose-code:text-primary-700 dark:prose-code:text-primary-300 prose-pre:bg-slate-900">
             {children}
           </div>
         </article>

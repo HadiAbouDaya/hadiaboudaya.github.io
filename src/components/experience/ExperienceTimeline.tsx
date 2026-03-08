@@ -150,7 +150,7 @@ export function ExperienceTimeline() {
                 "inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300",
                 filter === f.key
                   ? "bg-primary-600 text-white shadow-lg scale-105"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:shadow-sm"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:shadow-sm dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
               )}
             >
               <Icon className="w-4 h-4" />
@@ -165,15 +165,15 @@ export function ExperienceTimeline() {
         <div className="hidden md:flex justify-center gap-6 mb-10 text-sm">
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-full bg-primary-600 ring-2 ring-primary-200" />
-            <span className="text-slate-500">Professional</span>
+            <span className="text-slate-500 dark:text-slate-400">Professional</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-full bg-violet-600 ring-2 ring-violet-200" />
-            <span className="text-slate-500">Freelance</span>
+            <span className="text-slate-500 dark:text-slate-400">Freelance</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-full bg-emerald-600 ring-2 ring-emerald-200" />
-            <span className="text-slate-500">Education</span>
+            <span className="text-slate-500 dark:text-slate-400">Education</span>
           </div>
         </div>
       )}
@@ -200,7 +200,7 @@ export function ExperienceTimeline() {
                 }}
               >
                 {/* Center line */}
-                <div className="absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-300 via-slate-200 to-slate-100 left-1/2 -translate-x-1/2 z-0" />
+                <div className="absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-300 via-slate-200 to-slate-100 dark:from-primary-700 dark:via-slate-700 dark:to-slate-800 left-1/2 -translate-x-1/2 z-0" />
 
                 {/* Year markers — span both columns */}
                 {allYears.map((year, i) => {
@@ -291,7 +291,7 @@ export function ExperienceTimeline() {
               )}
             >
               {/* Center line */}
-              <div className="absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-300 via-slate-200 to-slate-100 left-4 md:left-1/2 md:-translate-x-1/2 z-0" />
+              <div className="absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-300 via-slate-200 to-slate-100 dark:from-primary-700 dark:via-slate-700 dark:to-slate-800 left-4 md:left-1/2 md:-translate-x-1/2 z-0" />
 
               {singleLaneEntries.map((entry) => {
                 if (entry.kind === "year") {

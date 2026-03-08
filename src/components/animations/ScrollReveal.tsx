@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -23,6 +24,12 @@ export function ScrollReveal({
   delay = 0,
   className,
 }: ScrollRevealProps) {
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, ...directionMap[direction] }}

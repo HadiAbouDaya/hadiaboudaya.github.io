@@ -29,7 +29,7 @@ export function ImageWithFallback({
     return (
       <div
         className={cn(
-          "flex items-center justify-center bg-gradient-to-br from-primary-100 to-accent-400/20 text-primary-600",
+          "flex items-center justify-center bg-gradient-to-br from-primary-100 to-accent-400/20 dark:from-primary-900/30 dark:to-accent-400/10 text-primary-600 dark:text-primary-400",
           fallbackClassName
         )}
         style={{ width, height }}

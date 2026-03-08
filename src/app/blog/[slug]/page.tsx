@@ -5,6 +5,7 @@ import rehypeSlug from "rehype-slug";
 import { PostContent } from "@/components/blog/PostContent";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { articleJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
 
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -33,16 +34,26 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   return (
-    <PostContent post={post}>
-      <MDXRemote
-        source={post.content}
-        options={{
-          mdxOptions: {
-            remarkPlugins: [remarkGfm],
-            rehypePlugins: [rehypeSlug],
-          },
-        }}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd(post)) }}
       />
-    </PostContent>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "Blog", href: "/blog" }, { name: post.title, href: "/blog/" + post.slug }])) }}
+      />
+      <PostContent post={post}>
+        <MDXRemote
+          source={post.content}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkGfm],
+              rehypePlugins: [rehypeSlug],
+            },
+          }}
+        />
+      </PostContent>
+    </>
   );
 }

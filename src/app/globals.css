@@ -2,6 +2,8 @@
 
 @plugin "@tailwindcss/typography";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-primary-50: #eff6ff;
   --color-primary-100: #dbeafe;
@@ -74,4 +76,33 @@ body {
   max-width: 80rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Dark mode overrides */
+.dark body {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark .glass {
+  background: rgba(15, 23, 42, 0.8);
+  border-bottom-color: rgba(51, 65, 85, 0.5);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus indicators */
+:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
 }

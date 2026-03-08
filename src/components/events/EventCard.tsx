@@ -38,7 +38,13 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
           className={`relative overflow-hidden border-l-4 ${config.borderColor} cursor-pointer`}
           hover={!isExpanded}
         >
-          <div onClick={onToggle}>
+          <div
+            role="button"
+            tabIndex={0}
+            aria-expanded={isExpanded}
+            onClick={onToggle}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onToggle(); } }}
+          >
             <div className="flex flex-col sm:flex-row gap-4">
               {event.images?.[0] && (
                 <div className="relative w-full sm:w-48 h-36 sm:h-auto rounded-lg overflow-hidden shrink-0">
@@ -63,11 +69,11 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
                   )}
                 </div>
 
-                <h3 className="text-base font-bold text-slate-900 leading-tight mb-1.5">
+                <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight mb-1.5">
                   {event.title}
                 </h3>
 
-                <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 mb-2">
+                <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mb-2">
                   <span className="flex items-center gap-1">
                     <Calendar className="w-3 h-3" />
                     {formattedDate}
@@ -78,7 +84,7 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
                   </span>
                 </div>
 
-                <p className="text-sm text-slate-600 leading-relaxed line-clamp-2">
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
                   {event.summary}
                 </p>
 
@@ -87,13 +93,13 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
                     {event.organizations.slice(0, 3).map((org) => (
                       <span
                         key={org}
-                        className="text-[10px] px-2 py-0.5 bg-slate-100 text-slate-500 rounded-full"
+                        className="text-[10px] px-2 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 rounded-full"
                       >
                         {org}
                       </span>
                     ))}
                     {event.organizations.length > 3 && (
-                      <span className="text-[10px] px-2 py-0.5 bg-slate-100 text-slate-500 rounded-full">
+                      <span className="text-[10px] px-2 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 rounded-full">
                         +{event.organizations.length - 3}
                       </span>
                     )}
@@ -105,7 +111,7 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
                     animate={{ rotate: isExpanded ? 180 : 0 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <ChevronDown className="w-4 h-4 text-slate-400" />
+                    <ChevronDown className="w-4 h-4 text-slate-400 dark:text-slate-500" />
                   </motion.div>
                 </div>
               </div>
@@ -134,7 +140,13 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
         className="h-full cursor-pointer"
         hover={!isExpanded}
       >
-        <div onClick={onToggle}>
+        <div
+          role="button"
+          tabIndex={0}
+          aria-expanded={isExpanded}
+          onClick={onToggle}
+          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onToggle(); } }}
+        >
           <div className="flex items-start gap-3">
             <div
               className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${config.color}`}
@@ -143,23 +155,23 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider">
+                <span className="text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                   {formattedDate}
                 </span>
                 {event.role && (
-                  <span className="text-[10px] text-slate-400">
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500">
                     {event.role}
                   </span>
                 )}
               </div>
-              <h3 className="text-sm font-semibold text-slate-900 leading-tight mb-1">
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-white leading-tight mb-1">
                 {event.title}
               </h3>
-              <p className="text-xs text-slate-500 line-clamp-2">
+              <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
                 {event.summary}
               </p>
               <div className="flex items-center justify-between mt-2">
-                <span className="flex items-center gap-1 text-[10px] text-slate-400">
+                <span className="flex items-center gap-1 text-[10px] text-slate-400 dark:text-slate-500">
                   <MapPin className="w-2.5 h-2.5" />
                   {event.location}
                 </span>
@@ -167,7 +179,7 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
                   animate={{ rotate: isExpanded ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
                 </motion.div>
               </div>
             </div>

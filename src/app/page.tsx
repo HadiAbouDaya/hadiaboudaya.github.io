@@ -1,9 +1,14 @@
 import { HeroContent } from "@/components/hero/HeroContent";
 import { GlobeWrapper } from "@/components/hero/GlobeWrapper";
+import { personJsonLd } from "@/lib/jsonld";
 
 export default function HomePage() {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd()) }}
+      />
       <div className="absolute inset-0 -z-10">
         <GlobeWrapper />
       </div>
