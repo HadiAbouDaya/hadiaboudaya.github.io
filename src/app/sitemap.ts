@@ -5,7 +5,7 @@ import { events } from "@/data/events";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://hadiaboudaya.github.io";
+  const baseUrl = "https://hadi.aboudaya.com";
   const blogSlugs = getAllSlugs();
 
   const staticPages = [
