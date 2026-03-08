@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ExperienceTimeline } from "@/components/experience/ExperienceTimeline";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { PageNextSection } from "@/components/ui/PageNextSection";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
@@ -22,6 +23,13 @@ export default function ExperiencePage() {
           subtitle="A timeline of my professional and academic journey from 2018 to present."
         />
         <ExperienceTimeline />
+        <PageNextSection
+          suggestions={[
+            { label: "Certifications", description: "45+ professional credentials", href: "/certifications", icon: "award" },
+            { label: "Events", description: "Conferences & hackathons", href: "/events", icon: "calendar" },
+            { label: "Blog", description: "Technical articles", href: "/blog", icon: "book-open" },
+          ]}
+        />
       </div>
     </div>
   );

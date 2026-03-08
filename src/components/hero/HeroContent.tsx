@@ -1,11 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { TypingEffect } from "@/components/ui/TypingEffect";
 import { Mail, ArrowRight } from "lucide-react";
 
-export function HeroContent() {
+interface HeroContentProps {
+  latestPostSlug?: string | null;
+  latestPostTitle?: string | null;
+}
+
+export function HeroContent({ latestPostSlug, latestPostTitle }: HeroContentProps = {}) {
   return (
     <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
       <motion.h1
@@ -55,6 +61,22 @@ export function HeroContent() {
           Request CV
         </Button>
       </motion.div>
+
+      {latestPostSlug && latestPostTitle && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="mt-5"
+        >
+          <Link
+            href={`/blog/${latestPostSlug}`}
+            className="text-sm text-white/50 hover:text-white/80 transition-colors"
+          >
+            or read my latest post: <span className="underline underline-offset-2">{latestPostTitle}</span>
+          </Link>
+        </motion.div>
+      )}
     </div>
   );
 }

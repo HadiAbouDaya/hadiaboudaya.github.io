@@ -1,15 +1,22 @@
 import type { BlogPost } from "@/types";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { Badge } from "@/components/ui/Badge";
-import { Calendar, Clock, ArrowLeft } from "lucide-react";
+import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
+
+interface AdjacentPost {
+  slug: string;
+  title: string;
+}
 
 interface PostContentProps {
   post: BlogPost;
+  prevPost?: AdjacentPost | null;
+  nextPost?: AdjacentPost | null;
   children: React.ReactNode;
 }
 
-export function PostContent({ post, children }: PostContentProps) {
+export function PostContent({ post, prevPost, nextPost, children }: PostContentProps) {
   return (
     <div className="pt-16">
       {/* Cover banner */}
@@ -68,6 +75,34 @@ export function PostContent({ post, children }: PostContentProps) {
           <div className="mt-8 prose prose-slate dark:prose-invert lg:prose-lg prose-headings:text-slate-900 dark:prose-headings:text-white prose-a:text-primary-600 prose-code:text-primary-700 dark:prose-code:text-primary-300 prose-pre:bg-slate-900">
             {children}
           </div>
+
+          {/* Prev / Next navigation */}
+          {(prevPost || nextPost) && (
+            <nav className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700 flex items-start justify-between gap-4">
+              {prevPost ? (
+                <Link
+                  href={`/blog/${prevPost.slug}`}
+                  className="group flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600 dark:text-slate-400 dark:hover:text-primary-400 transition-colors min-w-0"
+                >
+                  <ArrowLeft className="w-4 h-4 shrink-0 group-hover:-translate-x-0.5 transition-transform" />
+                  <span className="truncate">{prevPost.title}</span>
+                </Link>
+              ) : (
+                <span />
+              )}
+              {nextPost ? (
+                <Link
+                  href={`/blog/${nextPost.slug}`}
+                  className="group flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600 dark:text-slate-400 dark:hover:text-primary-400 transition-colors min-w-0 text-right ml-auto"
+                >
+                  <span className="truncate">{nextPost.title}</span>
+                  <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+              ) : (
+                <span />
+              )}
+            </nav>
+          )}
         </article>
       </div>
     </div>

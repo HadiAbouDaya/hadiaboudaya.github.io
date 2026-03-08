@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CertFilter } from "@/components/certifications/CertFilter";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { PageNextSection } from "@/components/ui/PageNextSection";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
@@ -22,6 +23,13 @@ export default function CertificationsPage() {
           subtitle="45+ professional certifications across AI, cloud, and engineering"
         />
         <CertFilter />
+        <PageNextSection
+          suggestions={[
+            { label: "Experience", description: "My career journey", href: "/experience", icon: "briefcase" },
+            { label: "Blog", description: "Technical articles & insights", href: "/blog", icon: "book-open" },
+            { label: "Contact", description: "Get in touch", href: "/contact", icon: "mail" },
+          ]}
+        />
       </div>
     </div>
   );

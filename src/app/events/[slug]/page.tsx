@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { events } from "@/data/events";
 import { EventDetail } from "@/components/events/EventDetail";
+import { RelatedEvents } from "@/components/events/RelatedEvents";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -34,6 +35,13 @@ export default async function EventPage({ params }: PageProps) {
     <div className="section-padding pt-24">
       <div className="container-main">
         <EventDetail event={event} />
+        <div className="max-w-3xl mx-auto">
+          <RelatedEvents
+            currentSlug={event.slug}
+            currentCategory={event.category}
+            currentTags={event.tags}
+          />
+        </div>
       </div>
     </div>
   );

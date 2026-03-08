@@ -48,6 +48,11 @@ export default async function BlogPostPage({
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
+  const allPosts = getAllPosts();
+  const currentIndex = allPosts.findIndex((p) => p.slug === slug);
+  const prevPost = currentIndex < allPosts.length - 1 ? { slug: allPosts[currentIndex + 1].slug, title: allPosts[currentIndex + 1].title } : null;
+  const nextPost = currentIndex > 0 ? { slug: allPosts[currentIndex - 1].slug, title: allPosts[currentIndex - 1].title } : null;
+
   return (
     <>
       <script
@@ -58,7 +63,7 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "Blog", href: "/blog" }, { name: post.title, href: "/blog/" + post.slug }])) }}
       />
-      <PostContent post={post}>
+      <PostContent post={post} prevPost={prevPost} nextPost={nextPost}>
         <MDXRemote
           source={post.content}
           options={{

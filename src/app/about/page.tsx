@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { BioSection } from "@/components/about/BioSection";
 import { KeyFacts } from "@/components/about/KeyFacts";
 import { JourneySection } from "@/components/about/JourneySection";
+import { PageNextSection } from "@/components/ui/PageNextSection";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
@@ -21,6 +22,13 @@ export default function AboutPage() {
         <BioSection />
         <KeyFacts />
         <JourneySection />
+        <PageNextSection
+          suggestions={[
+            { label: "Experience", description: "See my career timeline", href: "/experience", icon: "briefcase" },
+            { label: "Events", description: "Workshops & conferences", href: "/events", icon: "calendar" },
+            { label: "Contact", description: "Let's connect", href: "/contact", icon: "mail" },
+          ]}
+        />
       </div>
     </div>
   );
