@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { Download, ArrowRight } from "lucide-react";
+import { Mail, ArrowRight } from "lucide-react";
 
 export function HeroContent() {
   return (
@@ -46,12 +46,12 @@ export function HeroContent() {
           About Me
         </Button>
         <Button
-          href="/Media/resume/Hadi_Abou_Daya_CV.pdf"
+          href="mailto:hadi.aboudaya@hotmail.com?subject=Request%20for%20CV&body=Hi%20Hadi%2C%0A%0ACould%20you%20please%20send%20me%20your%20CV%3F%0A%0AThank%20you!"
           external
           variant="primary"
         >
-          <Download className="w-4 h-4" />
-          Download CV
+          <Mail className="w-4 h-4" />
+          Request CV
         </Button>
       </motion.div>
     </div>

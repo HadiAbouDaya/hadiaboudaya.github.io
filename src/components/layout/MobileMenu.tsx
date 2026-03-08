@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { X, Download } from "lucide-react";
+import { X } from "lucide-react";
 import { NAV_LINKS } from "@/data/navigation";
 
 interface MobileMenuProps {
@@ -54,17 +54,6 @@ export function MobileMenu({ pathname, onClose }: MobileMenuProps) {
             </Link>
           ))}
 
-          <div className="mt-4 pt-4 border-t border-slate-100">
-            <a
-              href="/Media/resume/Hadi_Abou_Daya_CV.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-700 transition-colors"
-            >
-              <Download className="w-4 h-4" />
-              Download CV
-            </a>
-          </div>
         </nav>
       </motion.div>
     </motion.div>

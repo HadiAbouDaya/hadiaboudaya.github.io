@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 import { NAV_LINKS } from "@/data/navigation";
 import { MobileMenu } from "./MobileMenu";
@@ -58,19 +58,7 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="hidden md:flex items-center gap-3">
-            <a
-              href="/Media/resume/Hadi_Abou_Daya_CV.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-600 text-white text-sm font-medium hover:bg-primary-700 transition-colors"
-            >
-              <Download className="w-4 h-4" />
-              Download CV
-            </a>
-          </div>
-
-          <button
+<button
             onClick={() => setIsMobileOpen(true)}
             className="md:hidden p-2 text-slate-600 hover:text-slate-900"
             aria-label="Open menu"
