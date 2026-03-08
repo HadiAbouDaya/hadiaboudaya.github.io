@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Download } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
@@ -29,9 +30,16 @@ export function Navbar() {
         <nav className="container-main flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
           <Link
             href="/"
-            className="text-xl font-bold text-primary-600 hover:text-primary-700 transition-colors"
+            className="hover:opacity-80 transition-opacity"
           >
-            HA
+            <Image
+              src="/Media/branding/logo.png"
+              alt="Hadi Abou Daya"
+              width={40}
+              height={40}
+              className="rounded-full"
+              priority
+            />
           </Link>
 
           <div className="hidden md:flex items-center gap-1">
