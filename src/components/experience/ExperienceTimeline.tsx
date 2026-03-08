@@ -195,7 +195,7 @@ export function ExperienceTimeline() {
                 style={{
                   gridTemplateColumns: "1fr 1fr",
                   gridTemplateRows: allYears
-                    .flatMap(() => ["auto", "minmax(0, auto)"])
+                    .map(() => "minmax(0, auto)")
                     .join(" "),
                 }}
               >
@@ -203,17 +203,26 @@ export function ExperienceTimeline() {
                 <div className="absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-300 via-slate-200 to-slate-100 left-1/2 -translate-x-1/2 z-0" />
 
                 {/* Year markers — span both columns */}
-                {allYears.map((year, i) => (
-                  <div
-                    key={`year-${year}`}
-                    style={{ gridRow: 2 * i + 1, gridColumn: "1 / -1" }}
-                    className="sticky top-24 h-10 flex items-center justify-center my-4 z-30"
-                  >
-                    <span className="inline-block bg-slate-800 text-white rounded-full px-5 py-1.5 text-sm font-bold shadow-lg">
-                      {year}
-                    </span>
-                  </div>
-                ))}
+                {allYears.map((year, i) => {
+                  if (!leftByYear.has(year)) return null;
+                  return (
+                    <div
+                      key={`year-${year}`}
+                      style={{
+                        gridRow: i + 1,
+                        gridColumn: "1 / -1",
+                        height: 0,
+                        overflow: "visible",
+                        pointerEvents: "none",
+                      }}
+                      className="flex items-start justify-center z-30"
+                    >
+                      <span className="sticky top-24 inline-block bg-slate-800 text-white rounded-full px-5 py-1.5 text-sm font-bold shadow-lg pointer-events-auto">
+                        {year}
+                      </span>
+                    </div>
+                  );
+                })}
 
                 {/* Left column — professional cards in their year's content row */}
                 {allYears.map((year, i) => {
@@ -222,11 +231,11 @@ export function ExperienceTimeline() {
                   return (
                     <div
                       key={`left-${year}`}
-                      style={{ gridRow: 2 * i + 2, gridColumn: 1 }}
+                      style={{ gridRow: i + 1, gridColumn: 1 }}
                       className="pr-8 relative z-10"
                     >
                       {items.map((item) => (
-                        <div key={item.id} className="relative w-full mb-10">
+                        <div key={item.id} className="relative w-full mb-4">
                           <ScrollReveal direction="left" delay={0.05}>
                             <TimelineCard
                               item={item}
@@ -249,7 +258,7 @@ export function ExperienceTimeline() {
                     <div
                       key={`edu-group-${gi}`}
                       style={{
-                        gridRow: `${2 * startRowIdx + 2} / ${2 * endRowIdx + 3}`,
+                        gridRow: `${startRowIdx + 1} / ${endRowIdx + 2}`,
                         gridColumn: 2,
                       }}
                       className="pl-8 relative z-20"
@@ -257,7 +266,7 @@ export function ExperienceTimeline() {
                       {group.items.map((item) => (
                         <div
                           key={item.id}
-                          className="sticky top-28 z-20 mb-10"
+                          className="sticky top-28 z-20 mb-4"
                         >
                           <ScrollReveal direction="right" delay={0.15}>
                             <TimelineCard
@@ -289,9 +298,9 @@ export function ExperienceTimeline() {
                   return (
                     <div
                       key={`year-${entry.year}`}
-                      className="relative h-10"
+                      className="relative h-0 overflow-visible pointer-events-none -my-2"
                     >
-                      <div className="absolute z-20 top-1/2 -translate-x-1/2 -translate-y-1/2 left-4 md:left-1/2">
+                      <div className="absolute z-20 top-0 -translate-x-1/2 -translate-y-1/2 left-4 md:left-1/2 pointer-events-auto">
                         <span className="inline-block bg-slate-800 text-white rounded-full px-5 py-1.5 text-sm font-bold shadow-md">
                           {entry.year}
                         </span>
