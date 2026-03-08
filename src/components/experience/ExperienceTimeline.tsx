@@ -90,20 +90,51 @@ export function ExperienceTimeline() {
     return entries;
   }, [filtered]);
 
-  // --- Dual-lane: left column entries with year markers ---
-  const dualLeftEntries = useMemo(() => {
-    const entries: SingleEntry[] = [];
-    let lastYear = 0;
-    professional.forEach((item) => {
-      const year = getYearFromDate(item.startDate);
-      if (year !== lastYear) {
-        entries.push({ kind: "year", year });
-        lastYear = year;
-      }
-      entries.push({ kind: "card", item, position: "left" });
+  // --- Dual-lane: all years + left column entries ---
+  const allYears = useMemo(() => {
+    const years = activeExperiences.map((e) => getYearFromDate(e.startDate));
+    const min = Math.min(...years);
+    const max = Math.max(...years);
+    return Array.from({ length: max - min + 1 }, (_, i) => max - i);
+  }, [activeExperiences]);
+
+  // --- Dual-lane: left entries by year, education groups for grid spanning ---
+  const leftByYear = useMemo(() => {
+    const map = new Map<number, Experience[]>();
+    professional.forEach((p) => {
+      const y = getYearFromDate(p.startDate);
+      if (!map.has(y)) map.set(y, []);
+      map.get(y)!.push(p);
     });
-    return entries;
+    return map;
   }, [professional]);
+
+  const educationGroups = useMemo(() => {
+    const sorted = [...education].sort((a, b) => {
+      const aEnd = a.endDate ? new Date(a.endDate).getTime() : Date.now();
+      const bEnd = b.endDate ? new Date(b.endDate).getTime() : Date.now();
+      return bEnd - aEnd;
+    });
+    const groups: {
+      items: Experience[];
+      endYear: number;
+      startYear: number;
+    }[] = [];
+    sorted.forEach((item) => {
+      const endY = item.endDate
+        ? getYearFromDate(item.endDate)
+        : new Date().getFullYear();
+      const startY = getYearFromDate(item.startDate);
+      const last = groups[groups.length - 1];
+      if (last && endY >= last.startYear) {
+        last.items.push(item);
+        last.startYear = Math.min(last.startYear, startY);
+      } else {
+        groups.push({ items: [item], endYear: endY, startYear: startY });
+      }
+    });
+    return groups;
+  }, [education]);
 
   return (
     <div>
@@ -157,61 +188,89 @@ export function ExperienceTimeline() {
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.35 }}
           >
-            {/* ========== DESKTOP DUAL LANE ========== */}
+            {/* ========== DESKTOP DUAL LANE (CSS Grid) ========== */}
             {isDualLane && (
-              <div className="hidden md:flex flex-row items-stretch w-full relative">
+              <div
+                className="hidden md:grid relative pt-4 pb-16"
+                style={{
+                  gridTemplateColumns: "1fr 1fr",
+                  gridTemplateRows: allYears
+                    .flatMap(() => ["auto", "minmax(0, auto)"])
+                    .join(" "),
+                }}
+              >
                 {/* Center line */}
                 <div className="absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-300 via-slate-200 to-slate-100 left-1/2 -translate-x-1/2 z-0" />
 
-                {/* Left column - Professional & Freelance */}
-                <div className="w-1/2 flex flex-col pr-8 relative z-10 pt-4 pb-16">
-                  {dualLeftEntries.map((entry) => {
-                    if (entry.kind === "year") {
-                      return (
-                        <div
-                          key={`left-year-${entry.year}`}
-                          className="sticky top-24 h-10 w-[200%] flex items-center justify-center my-4 z-30"
-                        >
-                          <span className="inline-block bg-slate-800 text-white rounded-full px-5 py-1.5 text-sm font-bold shadow-lg">
-                            {entry.year}
-                          </span>
-                        </div>
-                      );
-                    }
-                    return (
-                      <div
-                        key={entry.item.id}
-                        className="relative w-full mb-10"
-                      >
-                        <ScrollReveal direction="left" delay={0.05}>
-                          <TimelineCard
-                            item={entry.item}
-                            position="left"
-                            isDualLane
-                          />
-                        </ScrollReveal>
-                      </div>
-                    );
-                  })}
-                </div>
+                {/* Year markers — span both columns */}
+                {allYears.map((year, i) => (
+                  <div
+                    key={`year-${year}`}
+                    style={{ gridRow: 2 * i + 1, gridColumn: "1 / -1" }}
+                    className="sticky top-24 h-10 flex items-center justify-center my-4 z-30"
+                  >
+                    <span className="inline-block bg-slate-800 text-white rounded-full px-5 py-1.5 text-sm font-bold shadow-lg">
+                      {year}
+                    </span>
+                  </div>
+                ))}
 
-                {/* Right column - Education (each card is sticky) */}
-                <div className="w-1/2 flex flex-col pl-8 relative z-20 pt-4 pb-16">
-                  {education.map((item) => (
+                {/* Left column — professional cards in their year's content row */}
+                {allYears.map((year, i) => {
+                  const items = leftByYear.get(year);
+                  if (!items?.length) return null;
+                  return (
                     <div
-                      key={item.id}
-                      className="sticky top-28 z-20 mb-10"
+                      key={`left-${year}`}
+                      style={{ gridRow: 2 * i + 2, gridColumn: 1 }}
+                      className="pr-8 relative z-10"
                     >
-                      <ScrollReveal direction="right" delay={0.15}>
-                        <TimelineCard
-                          item={item}
-                          position="right"
-                          isDualLane
-                        />
-                      </ScrollReveal>
+                      {items.map((item) => (
+                        <div key={item.id} className="relative w-full mb-10">
+                          <ScrollReveal direction="left" delay={0.05}>
+                            <TimelineCard
+                              item={item}
+                              position="left"
+                              isDualLane
+                            />
+                          </ScrollReveal>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  );
+                })}
+
+                {/* Right column — education groups spanning their date range */}
+                {educationGroups.map((group, gi) => {
+                  const startRowIdx = allYears.indexOf(group.endYear);
+                  const endRowIdx = allYears.indexOf(group.startYear);
+                  if (startRowIdx === -1 || endRowIdx === -1) return null;
+                  return (
+                    <div
+                      key={`edu-group-${gi}`}
+                      style={{
+                        gridRow: `${2 * startRowIdx + 2} / ${2 * endRowIdx + 3}`,
+                        gridColumn: 2,
+                      }}
+                      className="pl-8 relative z-20"
+                    >
+                      {group.items.map((item) => (
+                        <div
+                          key={item.id}
+                          className="sticky top-28 z-20 mb-10"
+                        >
+                          <ScrollReveal direction="right" delay={0.15}>
+                            <TimelineCard
+                              item={item}
+                              position="right"
+                              isDualLane
+                            />
+                          </ScrollReveal>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })}
               </div>
             )}
 
