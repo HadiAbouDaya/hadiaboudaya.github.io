@@ -5,10 +5,8 @@ import {
   Briefcase,
   Code2,
   GraduationCap,
-  Lightbulb,
   Users,
   Trophy,
-  BookOpen,
   Share2,
   Layers,
 } from "lucide-react";
@@ -57,13 +55,6 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     borderColor: "border-l-teal-500",
     icon: Users,
     filterGroup: "events",
-  },
-  "thought-leadership": {
-    label: "Thought Leadership",
-    color: "bg-indigo-50 text-indigo-700",
-    borderColor: "border-l-indigo-500",
-    icon: Lightbulb,
-    filterGroup: "thought",
   },
   "knowledge-sharing": {
     label: "Knowledge Sharing",
@@ -115,5 +106,4 @@ export const FILTER_GROUPS: FilterGroup[] = [
   { key: "projects", label: "Projects", icon: Code2 },
   { key: "career", label: "Career & Education", icon: Briefcase },
   { key: "certs", label: "Certs & Awards", icon: Award },
-  { key: "thought", label: "Thought Leadership", icon: BookOpen },
 ];

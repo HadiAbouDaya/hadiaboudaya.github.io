@@ -25,7 +25,7 @@ export const certifications: Certification[] = [
   },
   {
     id: 3,
-    name: "PMP",
+    name: "Project Management Professional (PMP)\u00AE",
     issuer: "Project Management Institute",
     category: "Business",
     issuedDate: "Aug 2024",

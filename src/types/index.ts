@@ -38,7 +38,6 @@ export type EventCategory =
   | "hackathon"
   | "certification"
   | "community"
-  | "thought-leadership"
   | "knowledge-sharing"
   | "project"
   | "career"

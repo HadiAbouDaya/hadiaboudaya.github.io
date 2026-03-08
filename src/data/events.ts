@@ -132,22 +132,6 @@ export const events: Event[] = [
   // ─── 2025 ───────────────────────────────────────────────────────────────────
 
   {
-    slug: "vl-jepa-analysis",
-    title: "Thought Leadership: Meta's VL-JEPA Analysis",
-    date: "2025-12-31",
-    location: "Remote",
-    category: "thought-leadership",
-    role: "Author",
-    summary:
-      "Published analysis of Meta's VL-JEPA paper and Yann LeCun's vision for non-generative AI models.",
-    description:
-      "Thought-leadership post about Meta's VL-JEPA paper discussing how VL-JEPA is a non-generative model that predicts continuous semantic embeddings instead of tokens, maintains a 'silent semantic state,' and promises better efficiency/intelligence per parameter.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7412117212418883584/",
-    tags: ["AI", "Meta", "Research", "Thought Leadership"],
-    tier: "standard",
-  },
-  {
     slug: "aws-ml-cloud-certifications",
     title: "AWS ML Specialty and Cloud Practitioner Certifications",
     date: "2025-12-01",
@@ -222,22 +206,6 @@ export const events: Event[] = [
       "https://www.linkedin.com/feed/update/urn:li:activity:7373256861258526720/",
     images: ["/Media/events/agentic-ai-conference-by-data-science-dojo/1.jpg"],
     tags: ["Agentic AI", "Conference", "Data Science Dojo"],
-    tier: "standard",
-  },
-  {
-    slug: "critical-thinking-llms",
-    title: "Thought Leadership: Critical Thinking and LLMs",
-    date: "2025-08-21",
-    location: "Remote",
-    category: "thought-leadership",
-    role: "Author",
-    summary:
-      "Published a post about the importance of maintaining critical thinking when using LLMs, advocating for AI as a partner rather than replacement.",
-    description:
-      "Opinion piece about how relying too much on LLMs weakens critical thinking ability. Recommends using AI for proofreading, sparking ideas, and negative feedback, but never replacing own thinking. 'Don't use AI to do your work for you, use it as a partner.'",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7364266013380476928/",
-    tags: ["AI", "Thought Leadership", "Critical Thinking"],
     tier: "standard",
   },
   {
