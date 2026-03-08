@@ -1,11 +1,78 @@
 "use client";
 
+import { useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import type { Event } from "@/types";
 import { Badge } from "@/components/ui/Badge";
-import { ExternalLink, Share2 } from "lucide-react";
+import { ExternalLink, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+
+function ImageCarousel({ images, title }: { images: string[]; title: string }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+  }, []);
+
+  const scroll = (direction: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const amount = el.clientWidth * 0.7;
+    el.scrollBy({ left: direction === "left" ? -amount : amount, behavior: "smooth" });
+  };
+
+  return (
+    <div className="mb-4 relative group" onClick={(e) => e.stopPropagation()}>
+      <div
+        ref={scrollRef}
+        onScroll={updateScrollState}
+        className="flex gap-2 overflow-x-auto pb-2 scroll-smooth snap-x snap-mandatory scrollbar-hide"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        {images.map((img, i) => (
+          <div
+            key={i}
+            className="relative w-40 h-28 sm:w-48 sm:h-32 rounded-lg overflow-hidden shrink-0 snap-start"
+          >
+            <Image
+              src={img}
+              alt={`${title} ${i + 1}`}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 160px, 192px"
+            />
+          </div>
+        ))}
+      </div>
+
+      {canScrollLeft && (
+        <button
+          onClick={() => scroll("left")}
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-8 h-8 rounded-full bg-white/90 dark:bg-slate-800/90 shadow-md flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-colors opacity-0 group-hover:opacity-100"
+          aria-label="Scroll left"
+        >
+          <ChevronLeft className="w-4 h-4" />
+        </button>
+      )}
+
+      {canScrollRight && (
+        <button
+          onClick={() => scroll("right")}
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 w-8 h-8 rounded-full bg-white/90 dark:bg-slate-800/90 shadow-md flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-colors opacity-0 group-hover:opacity-100"
+          aria-label="Scroll right"
+        >
+          <ChevronRight className="w-4 h-4" />
+        </button>
+      )}
+    </div>
+  );
+}
 
 interface EventExpandedContentProps {
   event: Event;
@@ -44,31 +111,7 @@ export function EventExpandedContent({ event }: EventExpandedContentProps) {
         )}
 
         {event.images && event.images.length > 1 && (
-          <div className="mb-4">
-            <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1">
-              {event.images.slice(0, 4).map((img, i) => (
-                <div
-                  key={i}
-                  className="relative w-28 h-20 rounded-lg overflow-hidden shrink-0"
-                >
-                  <Image
-                    src={img}
-                    alt={`${event.title} ${i + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="112px"
-                  />
-                </div>
-              ))}
-              {event.images.length > 4 && (
-                <div className="w-28 h-20 rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center shrink-0">
-                  <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                    +{event.images.length - 4} more
-                  </span>
-                </div>
-              )}
-            </div>
-          </div>
+          <ImageCarousel images={event.images} title={event.title} />
         )}
 
         {event.tags.length > 0 && (
@@ -82,6 +125,14 @@ export function EventExpandedContent({ event }: EventExpandedContentProps) {
         )}
 
         <div className="flex items-center gap-3">
+          <Link
+            href={`/events/${event.slug}`}
+            className="inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors"
+            onClick={(e) => e.stopPropagation()}
+          >
+            View Details
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
           {event.linkedinUrl && (
             <a
               href={event.linkedinUrl}
@@ -91,17 +142,9 @@ export function EventExpandedContent({ event }: EventExpandedContentProps) {
               onClick={(e) => e.stopPropagation()}
             >
               <ExternalLink className="w-3 h-3" />
-              View on LinkedIn
+              LinkedIn
             </a>
           )}
-          <Link
-            href={`/events/${event.slug}`}
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Share2 className="w-3 h-3" />
-            Permalink
-          </Link>
         </div>
       </div>
     </motion.div>

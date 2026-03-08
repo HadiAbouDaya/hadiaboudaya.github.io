@@ -2,11 +2,12 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import type { Event } from "@/types";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { categoryConfig } from "@/data/eventCategories";
-import { Calendar, MapPin, ChevronDown } from "lucide-react";
+import { Calendar, MapPin, ChevronDown, ArrowUpRight } from "lucide-react";
 import { EventExpandedContent } from "./EventExpandedContent";
 
 interface EventCardProps {
@@ -69,8 +70,16 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
                   )}
                 </div>
 
-                <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight mb-1.5">
-                  {event.title}
+                <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight mb-1.5 flex items-start gap-1.5">
+                  <span className="flex-1">{event.title}</span>
+                  <Link
+                    href={`/events/${event.slug}`}
+                    className="shrink-0 mt-0.5 p-1 rounded-md text-slate-400 hover:text-primary-600 hover:bg-primary-50 dark:hover:text-primary-400 dark:hover:bg-primary-900/30 transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                    aria-label={`Open ${event.title}`}
+                  >
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
                 </h3>
 
                 <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mb-2">
@@ -164,8 +173,16 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
                   </span>
                 )}
               </div>
-              <h3 className="text-sm font-semibold text-slate-900 dark:text-white leading-tight mb-1">
-                {event.title}
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-white leading-tight mb-1 flex items-start gap-1">
+                <span className="flex-1">{event.title}</span>
+                <Link
+                  href={`/events/${event.slug}`}
+                  className="shrink-0 p-0.5 rounded text-slate-400 hover:text-primary-600 hover:bg-primary-50 dark:hover:text-primary-400 dark:hover:bg-primary-900/30 transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                  aria-label={`Open ${event.title}`}
+                >
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </Link>
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
                 {event.summary}
