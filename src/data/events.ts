@@ -4,22 +4,6 @@ export const events: Event[] = [
   // ─── 2026 ───────────────────────────────────────────────────────────────────
 
   {
-    slug: "joined-aws-emea",
-    title: "Joined AWS EMEA as AI/ML Delivery Consultant",
-    date: "2026-07-01",
-    location: "France",
-    category: "career",
-    role: "Career",
-    organizations: ["AWS EMEA SARL"],
-    summary:
-      "Starting as an Associate Delivery Consultant for AI/ML at AWS EMEA, designing production-grade GenAI solutions for enterprise customers.",
-    description:
-      "Joining the AWS EMEA Professional Services team to support large-scale AI/ML delivery engagements. The role involves designing and implementing production-grade machine learning and generative AI solutions on AWS for enterprise customers across the EMEA region, including end-to-end MLOps pipelines and model deployment strategies.",
-    relatedExperienceId: "aws-emea",
-    tags: ["AWS", "AI/ML", "GenAI", "Enterprise", "Consulting"],
-    tier: "featured",
-  },
-  {
     slug: "lau-intro-to-ai",
     title: "Introduction to AI at Lebanese American University",
     date: "2026-02-16",

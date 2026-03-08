@@ -1,7 +1,7 @@
 import type { KeyFact } from "@/types";
 
 export const BIO =
-  "Lebanese-born AI/ML engineer based in Paris. From edge-deployed computer vision on NVIDIA Jetson to multi-LLM agent systems with LangGraph, I build intelligent products that scale on AWS. Currently consulting as an AI engineer and joining AWS EMEA as an AI/ML Delivery Consultant in July 2026.";
+  "Lebanese-born AI/ML engineer based in Paris. From edge-deployed computer vision on NVIDIA Jetson to multi-LLM agent systems with LangGraph, I build intelligent products that scale on AWS. Currently consulting as an AI engineer.";
 
 export const KEY_FACTS: KeyFact[] = [
   {
@@ -38,5 +38,5 @@ export const JOURNEY_PARAGRAPHS = [
   "At Mobile Arts, I scaled ML to production on AWS: content moderation services, anomaly detection pipelines on Lambda, and predictive engines on SageMaker. This experience cemented my passion for building ML systems that deliver real business value.",
   "The emergence of large language models shifted my focus toward multi-agent systems. At MOPO, I co-architected a multi-LLM orchestration platform with RAG pipelines and knowledge graphs. As a freelance consultant, I built RAG chatbots, sales copilots, and voice-to-JSON agents for startups across Paris, Beirut, and San Francisco.",
   "In parallel, I pursued a Master's in Data Science & AI Strategy at emlyon business school, with an exchange semester at McGill University in Montreal. My end-of-studies internship at Savencia applied causal inference to optimize industrial manufacturing processes.",
-  "Today, I consult on AI-powered SaaS products at Supportful, building multi-agent systems with LangGraph for B2B sales intelligence and sports facility management. In July 2026, I join AWS EMEA as an Associate Delivery Consultant for AI/ML, helping enterprises design and deploy production-grade GenAI solutions at scale.",
+  "Today, I consult on AI-powered SaaS products at Supportful, building multi-agent systems with LangGraph for B2B sales intelligence and sports facility management.",
 ];

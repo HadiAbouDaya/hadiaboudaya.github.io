@@ -2,26 +2,6 @@ import type { Experience } from "@/types";
 
 export const experiences: Experience[] = [
   {
-    id: "aws-emea",
-    company: "AWS EMEA SARL",
-    role: "Associate Delivery Consultant AI/ML",
-    type: "work",
-    period: "Jul 2026 - Future",
-    startDate: "2026-07-01",
-    endDate: "",
-    location: "France",
-    description:
-      "Supporting large-scale AI/ML delivery engagements for enterprise customers, designing and implementing production-grade machine learning and generative AI solutions on AWS.",
-    bullets: [
-      "Deliver AI/ML solutions for enterprise customers across the EMEA region",
-      "Design production-grade ML and GenAI architectures on AWS services",
-      "Consult on end-to-end MLOps pipelines and model deployment strategies",
-    ],
-    technologies: ["AWS SageMaker", "Lambda", "ECS", "Bedrock", "MLOps"],
-    logoPath: "/Media/experience/aws/logo.png",
-    companyUrl: "https://aws.amazon.com",
-  },
-  {
     id: "supportful",
     company: "Supportful",
     role: "AI Consultant",
