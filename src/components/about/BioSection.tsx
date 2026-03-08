@@ -16,14 +16,14 @@ export function BioSection() {
         </ScrollReveal>
 
         <ScrollReveal direction="right" className="md:col-span-2 flex justify-center">
-          <div className="relative w-64 h-64 lg:w-80 lg:h-80 rounded-2xl overflow-hidden shadow-xl">
+          <div className="relative w-56 h-72 lg:w-64 lg:h-80 rounded-2xl overflow-hidden shadow-xl">
             <ImageWithFallback
               src="/Media/profile/headshot.jpg"
               alt="Hadi Abou Daya"
               width={320}
-              height={320}
+              height={400}
               fallbackText="HA"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-[center_20%]"
               fallbackClassName="w-full h-full rounded-2xl text-3xl"
             />
           </div>
