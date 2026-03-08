@@ -14,7 +14,7 @@ export default function ExperiencePage() {
       <div className="container-main">
         <SectionHeading
           title="Experience"
-          subtitle="My professional journey from 2018 to today"
+          subtitle="A timeline of my professional and academic journey from 2018 to present."
         />
         <ExperienceTimeline />
       </div>
