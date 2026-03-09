@@ -24,6 +24,9 @@ export const events: Event[] = [
       "https://www.linkedin.com/feed/update/urn:li:activity:7429474423969054720/",
     images: [
       "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/1.jpg",
+      "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/2.jpg",
+      "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/3.jpg",
+      "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/4.jpg",
     ],
     tags: ["AI", "Machine Learning", "Data Science", "Workshop", "University"],
     tier: "featured",

@@ -7,6 +7,7 @@ import Link from "next/link";
 import type { Event } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { ImageLightbox } from "@/components/ui/ImageLightbox";
+import { CreativeCarousel } from "@/components/ui/CreativeCarousel";
 import { ExternalLink, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 function ImageCarousel({ images, title, onImageClick }: { images: string[]; title: string; onImageClick?: (index: number) => void }) {
@@ -114,9 +115,19 @@ export function EventExpandedContent({ event }: EventExpandedContentProps) {
 
         {event.images && event.images.length > 1 && (
           <ImageLightbox images={event.images} alt={event.title}>
-            {(openAt) => (
-              <ImageCarousel images={event.images!} title={event.title} onImageClick={openAt} />
-            )}
+            {(openAt) =>
+              event.images!.length > 3 ? (
+                <div className="mx-4 sm:mx-0">
+                  <CreativeCarousel
+                    images={event.images!}
+                    alt={event.title}
+                    onImageClick={openAt}
+                  />
+                </div>
+              ) : (
+                <ImageCarousel images={event.images!} title={event.title} onImageClick={openAt} />
+              )
+            }
           </ImageLightbox>
         )}
 
