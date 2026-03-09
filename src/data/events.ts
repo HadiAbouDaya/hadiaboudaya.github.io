@@ -431,12 +431,16 @@ export const events: Event[] = [
     role: "Earned",
     organizations: ["PMI"],
     summary:
-      "Earned the Project Management Professional (PMP) certification from PMI.",
+      "Earned the Project Management Professional (PMP) certification from PMI, demonstrating advanced project management expertise and commitment to professional excellence.",
     description:
-      "Earned the PMP certification after meeting all eligibility requirements and dedicating time to prepare. As an AI engineer, this certification helps lead projects more effectively and significantly impacts career growth in AI.",
+      "Successfully earned the globally recognized PMP certification from the Project Management Institute after meeting rigorous eligibility requirements and preparation. This certification validates expertise in leading and directing projects, combining technical knowledge with leadership capabilities. As an AI/ML engineer, this credential enhances the ability to deliver complex AI projects on time, within scope, and with measurable business impact, bridging the gap between technical innovation and strategic project execution.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7243642747339894784/",
-    tags: ["PMP", "Certification", "Project Management"],
+    credlyUrls: [
+      "https://www.credly.com/badges/84e5ad07-84f3-407c-88db-99ab1a8c7925/public_url",
+    ],
+    images: ["/Media/events/pmp-certification-earned/1.jpg"],
+    tags: ["PMP", "Certification", "Project Management", "PMI", "Leadership"],
     tier: "standard",
   },
   {

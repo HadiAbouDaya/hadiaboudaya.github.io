@@ -148,21 +148,33 @@ export function EventDetail({ event }: EventDetailProps) {
         {event.credlyUrls && event.credlyUrls.length > 0 && (
           <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
             <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
-              Certification Badges
+              Certification {event.credlyUrls.length > 1 ? "Badges" : "Badge"}
             </h3>
             <div className="flex flex-wrap gap-3">
-              {event.credlyUrls.map((url, index) => (
-                <a
-                  key={index}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors border border-slate-200 dark:border-slate-600"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  {index === 0 ? "AWS ML Specialty" : "AWS Cloud Practitioner"}
-                </a>
-              ))}
+              {event.credlyUrls.map((url, index) => {
+                // Extract badge name from URL or use generic label
+                let badgeLabel = "View Certification Badge";
+
+                // Check if this is an AWS certification event
+                if (event.slug === "aws-ml-cloud-certifications") {
+                  badgeLabel = index === 0 ? "AWS ML Specialty" : "AWS Cloud Practitioner";
+                } else if (event.credlyUrls!.length > 1) {
+                  badgeLabel = `Certification Badge ${index + 1}`;
+                }
+
+                return (
+                  <a
+                    key={index}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors border border-slate-200 dark:border-slate-600"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    {badgeLabel}
+                  </a>
+                );
+              })}
             </div>
           </div>
         )}
