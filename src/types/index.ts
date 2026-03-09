@@ -56,6 +56,7 @@ export interface Event {
   description: string;
   relatedExperienceId?: string;
   linkedinUrl?: string;
+  credlyUrls?: string[];
   images?: string[];
   tags: string[];
   tier: "featured" | "standard";

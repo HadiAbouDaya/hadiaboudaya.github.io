@@ -144,6 +144,28 @@ export function EventDetail({ event }: EventDetailProps) {
             </a>
           </div>
         )}
+
+        {event.credlyUrls && event.credlyUrls.length > 0 && (
+          <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
+            <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+              Certification Badges
+            </h3>
+            <div className="flex flex-wrap gap-3">
+              {event.credlyUrls.map((url, index) => (
+                <a
+                  key={index}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors border border-slate-200 dark:border-slate-600"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  {index === 0 ? "AWS ML Specialty" : "AWS Cloud Practitioner"}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </ScrollReveal>
     </div>
   );

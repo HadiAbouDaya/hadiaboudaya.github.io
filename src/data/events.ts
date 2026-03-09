@@ -86,21 +86,6 @@ export const events: Event[] = [
     tier: "featured",
   },
   {
-    slug: "built-cyrus-ai",
-    title: "Built Cyrus AI: Multi-Agent Sales Copilot",
-    date: "2026-02-01",
-    location: "Remote",
-    category: "project",
-    organizations: ["Supportful"],
-    summary:
-      "Developed a multi-agent sales copilot using LangGraph for automated lead qualification and Slack draft generation with Salesforce and Gmail integrations.",
-    description:
-      "Built Cyrus AI at Supportful: a multi-agent sales copilot powered by LangGraph that automates lead qualification and generates Slack draft messages. The system integrates with Salesforce and Gmail, deployed as a multi-tenant SaaS platform on AWS with isolated DBs and vector stores for enterprise-compliant agentic workflows.",
-    relatedExperienceId: "supportful",
-    tags: ["LangGraph", "Multi-Agent", "SaaS", "Salesforce", "AWS"],
-    tier: "standard",
-  },
-  {
     slug: "aws-ug-speaker-spotlight",
     title: "AWS User Group Lebanon Speaker Spotlight",
     date: "2026-01-31",
@@ -116,21 +101,6 @@ export const events: Event[] = [
       "https://www.linkedin.com/feed/update/urn:li:activity:7423361802513690624/",
     images: ["/Media/events/aws-user-group-lebanon-speaker-spotlight/1.jpg"],
     tags: ["AWS", "Community", "Speaker"],
-    tier: "standard",
-  },
-  {
-    slug: "built-zameel-ai",
-    title: "Built Zameel AI: NL Booking & BI Platform",
-    date: "2026-01-15",
-    location: "Remote",
-    category: "project",
-    organizations: ["Supportful"],
-    summary:
-      "Created a LangGraph + Gemini platform enabling natural language court booking, scheduling, payments, and conversational BI with auto-generated React charts.",
-    description:
-      "Developed Zameel AI at Supportful: a LangGraph and Gemini-powered platform that enables users to book sports courts, manage schedules, and process payments using natural language. The platform includes an NL BI layer that auto-generates React charts from conversational queries, making data exploration accessible to non-technical users.",
-    relatedExperienceId: "supportful",
-    tags: ["LangGraph", "Gemini", "NLP", "React", "BI"],
     tier: "standard",
   },
 
@@ -150,11 +120,12 @@ export const events: Event[] = [
       "After 4 years of using AWS to power most projects, kicked off the certification journey properly. Earned the ML Specialty and Cloud Practitioner badges as self-validation for lessons learned along the way.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7402750695927640064/",
+    credlyUrls: [
+      "https://www.credly.com/badges/8db8c943-b337-46de-92d6-205b7c53136f/public_url",
+      "https://www.credly.com/badges/9fbeb8b2-f24d-44bc-9a34-814002e480ed/public_url",
+    ],
     images: [
       "/Media/events/aws-ml-specialty-and-cloud-practitioner-certifications/1.jpg",
-      "/Media/events/aws-ml-specialty-and-cloud-practitioner-certifications/2.jpg",
-      "/Media/events/aws-ml-specialty-and-cloud-practitioner-certifications/3.jpg",
-      "/Media/events/aws-ml-specialty-and-cloud-practitioner-certifications/4.jpg",
     ],
     tags: ["AWS", "Certification", "Machine Learning", "Cloud"],
     tier: "featured",
