@@ -317,6 +317,29 @@ export const events: Event[] = [
     tier: "standard",
   },
   {
+    slug: "wids-paris-emlyon-datathon",
+    title: "WiDS Paris @ emlyon Datathon (Mentor)",
+    date: "2025-01-06",
+    location: "Paris, France",
+    category: "hackathon",
+    role: "Mentor",
+    organizations: ["WiDS Worldwide", "Stanford University", "emlyon business school", "Le Village by CA Paris"],
+    summary:
+      "Mentored teams at the WiDS Paris @ emlyon Datathon, addressing challenges in autonomous AI systems.",
+    description:
+      "Participated as a mentor at the Women in Data Science (WiDS) Paris @ emlyon Datathon, organized in partnership with Stanford University and Le Village by CA Paris. The datathon focused on 'Harnessing AI Safely: Addressing the Challenges of Autonomous Systems,' bringing together data science enthusiasts to tackle real-world challenges in AI safety and autonomous systems.",
+    linkedinUrl:
+      "https://www.linkedin.com/posts/imenebrigui_ai-autonomous-activity-7304125582236090368-8tE6",
+    images: [
+      "/Media/events/wids-paris-emlyon-datathon/1.jpg",
+      "/Media/events/wids-paris-emlyon-datathon/2.jpg",
+      "/Media/events/wids-paris-emlyon-datathon/3.jpg",
+      "/Media/events/wids-paris-emlyon-datathon/4.jpg",
+    ],
+    tags: ["WiDS", "Datathon", "AI", "Autonomous Systems", "Mentorship", "emlyon"],
+    tier: "standard",
+  },
+  {
     slug: "philippe-rambach-ai-scale",
     title: 'Philippe Rambach "AI @ Scale" at emlyon',
     date: "2025-01-15",
@@ -369,13 +392,13 @@ export const events: Event[] = [
     date: "2024-09-01",
     location: "Paris, France",
     category: "education",
-    role: "Student",
     organizations: ["emlyon business school"],
     summary:
       "Began the Master of Science in Data Science & AI Strategy at emlyon business school in Paris.",
     description:
       "Enrolled in the MSc Data Science & AI Strategy program at emlyon business school in Paris, with a focus on causal inference, AI-driven business strategy, and applied machine learning. Received the LIFE Lebanon Scholarship and was elected class representative.",
     relatedExperienceId: "emlyon",
+    images: ["/Media/events/started-msc-at-emlyon-business-school/1.jpg"],
     tags: ["emlyon", "MSc", "AI Strategy", "Data Science", "Scholarship"],
     tier: "featured",
   },
@@ -492,6 +515,7 @@ export const events: Event[] = [
     description:
       "Launched a freelance AI consulting practice serving clients across Paris, Beirut, and San Francisco. Key engagements included: building an LLM chatbot and RAG agent on Azure AI Search for TowardsChange, developing a CV ranking system for ShebangNow, leading GenAI architecture design at AI.skilled, and building a voice-to-JSON agent for Traveln.ai.",
     relatedExperienceId: "freelance-ai-consultant",
+    images: ["/Media/events/launched-freelance-ai-consulting-practice/1.jpg"],
     tags: ["Freelance", "Consulting", "LLMs", "RAG", "Azure AI"],
     tier: "featured",
   },
