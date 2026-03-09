@@ -79,6 +79,8 @@ export const events: Event[] = [
       "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/4.jpg",
       "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/5.jpg",
       "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/6.jpg",
+      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/7.jpg",
+      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/8.jpg",
     ],
     tags: ["AWS", "re:Invent", "Cloud", "AI", "Speaking", "Supportful"],
     tier: "featured",
