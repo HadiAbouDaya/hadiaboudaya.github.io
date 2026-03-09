@@ -6,6 +6,7 @@ import type { Event } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { categoryConfig } from "@/data/eventCategories";
+import { ImageLightbox } from "@/components/ui/ImageLightbox";
 import {
   Calendar,
   MapPin,
@@ -63,22 +64,27 @@ export function EventDetail({ event }: EventDetailProps) {
         </p>
 
         {event.images && event.images.length > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
-            {event.images.map((img, i) => (
-              <div
-                key={i}
-                className="relative aspect-[4/3] rounded-xl overflow-hidden"
-              >
-                <Image
-                  src={img}
-                  alt={`${event.title} ${i + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 50vw, 33vw"
-                />
+          <ImageLightbox images={event.images} alt={event.title}>
+            {(openAt) => (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
+                {event.images!.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => openAt(i)}
+                    className="relative aspect-[4/3] rounded-xl overflow-hidden cursor-zoom-in"
+                  >
+                    <Image
+                      src={img}
+                      alt={`${event.title} ${i + 1}`}
+                      fill
+                      className="object-cover hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 640px) 50vw, 33vw"
+                    />
+                  </button>
+                ))}
               </div>
-            ))}
-          </div>
+            )}
+          </ImageLightbox>
         )}
 
         <div className="prose prose-slate dark:prose-invert max-w-none">

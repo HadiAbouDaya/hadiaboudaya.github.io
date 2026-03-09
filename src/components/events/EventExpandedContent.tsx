@@ -6,9 +6,10 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Event } from "@/types";
 import { Badge } from "@/components/ui/Badge";
+import { ImageLightbox } from "@/components/ui/ImageLightbox";
 import { ExternalLink, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
-function ImageCarousel({ images, title }: { images: string[]; title: string }) {
+function ImageCarousel({ images, title, onImageClick }: { images: string[]; title: string; onImageClick?: (index: number) => void }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -36,18 +37,19 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {images.map((img, i) => (
-          <div
+          <button
             key={i}
-            className="relative w-40 h-28 sm:w-48 sm:h-32 rounded-lg overflow-hidden shrink-0 snap-start"
+            onClick={() => onImageClick?.(i)}
+            className="relative w-40 h-28 sm:w-48 sm:h-32 rounded-lg overflow-hidden shrink-0 snap-start cursor-zoom-in"
           >
             <Image
               src={img}
               alt={`${title} ${i + 1}`}
               fill
-              className="object-cover"
+              className="object-cover hover:scale-105 transition-transform duration-300"
               sizes="(max-width: 640px) 160px, 192px"
             />
-          </div>
+          </button>
         ))}
       </div>
 
@@ -111,7 +113,11 @@ export function EventExpandedContent({ event }: EventExpandedContentProps) {
         )}
 
         {event.images && event.images.length > 1 && (
-          <ImageCarousel images={event.images} title={event.title} />
+          <ImageLightbox images={event.images} alt={event.title}>
+            {(openAt) => (
+              <ImageCarousel images={event.images!} title={event.title} onImageClick={openAt} />
+            )}
+          </ImageLightbox>
         )}
 
         {event.tags.length > 0 && (
