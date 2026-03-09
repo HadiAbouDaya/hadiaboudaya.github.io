@@ -345,12 +345,12 @@ export const events: Event[] = [
     date: "2025-01-15",
     location: "Paris, France",
     category: "education",
-    role: "Presented / Animated Session",
+    role: "Session Organizer",
     organizations: ["emlyon business school", "Schneider Electric"],
     summary:
-      'Animated a session with Philippe Rambach (CAIO of Schneider Electric) on "AI @ Scale" at emlyon business school.',
+      'Introduced and helped organize a session with Philippe Rambach (CAIO of Schneider Electric) on "AI @ Scale" at emlyon business school.',
     description:
-      'Had the privilege of participating in an inspiring session with Philippe Rambach, Chief Artificial Intelligence Officer at Schneider Electric, during his talk on "AI @ Scale". His insights into how AI is driving sustainability and transforming industries were truly eye-opening.',
+      'Had the privilege of introducing Philippe Rambach, Chief Artificial Intelligence Officer at Schneider Electric, and helping organize his talk on "AI @ Scale" at emlyon business school. His insights into how AI is driving sustainability and transforming industries were truly eye-opening.',
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7285372021775982592/",
     images: [
@@ -520,27 +520,6 @@ export const events: Event[] = [
     tier: "featured",
   },
   {
-    slug: "beirut-ai-birthday",
-    title: "Beirut AI Birthday Celebration",
-    date: "2023-08-01",
-    location: "Beirut, Lebanon",
-    category: "community",
-    role: "Community Member",
-    organizations: ["Beirut AI"],
-    summary:
-      "Celebrated Beirut AI's birthday, marking a milestone for the AI community in Lebanon.",
-    description:
-      "Celebrated the birthday of Christophe Zoghbi, a leader who has significantly shaped the Beirut AI community. His steadfast dedication to cultivating an inclusive, vibrant tech ecosystem is genuinely commendable.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7090669954336706560/",
-    images: [
-      "/Media/events/beirut-ai-birthday-celebration/1.jpg",
-      "/Media/events/beirut-ai-birthday-celebration/2.jpg",
-    ],
-    tags: ["Beirut AI", "Community", "Celebration"],
-    tier: "standard",
-  },
-  {
     slug: "tech-accessibility-hackathon",
     title: "Tech for Accessibility Hackathon - Winner",
     date: "2023-07-15",
@@ -557,6 +536,8 @@ export const events: Event[] = [
     images: [
       "/Media/events/tech-for-accessibility-hackathon-winner/1.jpg",
       "/Media/events/tech-for-accessibility-hackathon-winner/2.jpg",
+      "/Media/events/tech-for-accessibility-hackathon-winner/3.jpg",
+      "/Media/events/tech-for-accessibility-hackathon-winner/4.jpg",
     ],
     tags: ["Hackathon", "Winner", "Accessibility", "AUB", "Innovation"],
     tier: "featured",
