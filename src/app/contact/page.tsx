@@ -23,7 +23,7 @@ export default function ContactPage() {
           subtitle="Have a project in mind or just want to chat? I'd love to hear from you."
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:items-end">
           <div className="lg:col-span-3">
             <ContactForm />
           </div>
