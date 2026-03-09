@@ -1081,11 +1081,13 @@ export const events: Event[] = [
     location: "Lebanon / Remote",
     category: "project",
     role: "Researcher",
+    organizations: ["Faculté de médecine dentaire (FMD)"],
     summary:
-      "Participated in medical research combining AI and medicine in dental surgery and medical imaging.",
+      "Collaborated with dentistry students at USJ FMD to develop an object detection model for identifying dental cavities and their types.",
     description:
-      "Contributed to medical research collaborations at the intersection of AI and healthcare, focusing on dental surgery applications and medical imaging analysis. Applied machine learning techniques to support clinical decision-making and diagnostic processes.",
-    tags: ["Medical AI", "Dental Surgery", "Medical Imaging", "Research"],
+      "Worked with dentistry students at Université Saint-Joseph's Faculté de médecine dentaire (FMD) to develop an AI-powered object detection system. The goal was to identify dental cavities and classify their types using machine learning, supporting diagnostic processes in dental care.",
+    images: ["/Media/events/medical-ai-research/1.jpg"],
+    tags: ["Medical AI", "Dental Imaging", "Object Detection", "Research", "USJ"],
     tier: "standard",
   },
 ];
