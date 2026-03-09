@@ -26,7 +26,7 @@ export function JourneySection() {
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/60 z-10 transition-opacity duration-300"></div>
 
                 <ImageWithFallback
-                  src="/Media/profile/journey.png"
+                  src="/Media/profile/journey.webp"
                   alt="Hadi Abou Daya"
                   width={400}
                   height={500}
