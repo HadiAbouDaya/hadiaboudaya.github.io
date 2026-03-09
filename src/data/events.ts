@@ -196,6 +196,12 @@ export const events: Event[] = [
     description:
       "Led a research project at Savencia applying causal inference methods to optimize lactoferrin production in dairy manufacturing. Built end-to-end Databricks data pipelines for experiment tracking and causal analysis. Applied Propensity Score Matching, Double ML, and Causal Forest to identify key production drivers.",
     relatedExperienceId: "savencia",
+    images: [
+      "/Media/events/causal-inference-research-at-savencia/4.jpg",
+      "/Media/events/causal-inference-research-at-savencia/3.jpg",
+      "/Media/events/causal-inference-research-at-savencia/2.jpg",
+      "/Media/events/causal-inference-research-at-savencia/1.jpg",
+    ],
     tags: ["Causal Inference", "DoWhy", "EconML", "Databricks", "Manufacturing"],
     tier: "standard",
   },
