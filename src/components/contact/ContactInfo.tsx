@@ -1,6 +1,7 @@
-import { Mail, Linkedin, Github, Phone, MapPin } from "lucide-react";
+import { Mail, Linkedin, Phone, MapPin, Calendar } from "lucide-react";
 import { SOCIAL_LINKS } from "@/data/social";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import { Button } from "@/components/ui/Button";
 
 const contactMethods = [
   {
@@ -16,14 +17,7 @@ const contactMethods = [
     href: SOCIAL_LINKS.linkedin,
     external: true,
   },
-  {
-    icon: Github,
-    label: "GitHub",
-    value: "github.com/HadiAbouDaya",
-    href: SOCIAL_LINKS.github,
-    external: true,
-  },
-  {
+{
     icon: Phone,
     label: "Phone",
     value: SOCIAL_LINKS.phone,
@@ -81,6 +75,18 @@ export function ContactInfo() {
           );
         })}
       </div>
+
+      <ScrollReveal direction="right" delay={contactMethods.length * 0.1}>
+        <Button
+          href="https://calendly.com/hadiad/one-on-one"
+          external
+          variant="primary"
+          className="w-full mt-2"
+        >
+          <Calendar className="w-4 h-4" />
+          Book a Meeting
+        </Button>
+      </ScrollReveal>
     </div>
   );
 }
