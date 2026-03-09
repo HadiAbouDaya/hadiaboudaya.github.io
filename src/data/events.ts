@@ -445,19 +445,20 @@ export const events: Event[] = [
   },
   {
     slug: "zaka-ml-specialization",
-    title: "ZAKA ML Specialization Program",
+    title: "ZAKA ML Specialization Program (Featured Graduate)",
     date: "2024-01-01",
     location: "Beirut, Lebanon",
     category: "certification",
-    role: "Graduate",
+    role: "Featured Graduate",
     organizations: ["ZAKA"],
     summary:
-      "ZAKA's Machine Learning Specialization Program graduate, featured in testimonial for upcoming cohort.",
+      "Graduated from ZAKA's Machine Learning Specialization Program and featured in promotional materials to share experiences and promote the program to upcoming cohorts.",
     description:
-      "Graduated from ZAKA's Machine Learning Specialization Program with hands-on training in modern ML frameworks and tools. Featured in a testimonial video to promote the upcoming AI Certification program.",
+      "Completed ZAKA's Machine Learning Specialization Program, gaining hands-on experience with modern ML frameworks and tools. Featured in promotional materials and testimonial videos to share the learning journey and encourage aspiring AI/ML practitioners to join the program. Highlighted the program's impact on building practical machine learning skills and advancing AI career development.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7148793112461533184/",
-    tags: ["ZAKA", "Machine Learning", "Certification", "AI"],
+    images: ["/Media/events/zaka-ml-specialization-program/1.png"],
+    tags: ["ZAKA", "Machine Learning", "Certification", "AI", "Community"],
     tier: "standard",
   },
 
