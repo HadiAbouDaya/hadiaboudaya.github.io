@@ -277,6 +277,11 @@ export const events: Event[] = [
       "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/2.jpg",
       "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/3.jpg",
       "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/4.jpg",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/5.jpg",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/6.jpg",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/7.jpg",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/8.jpg",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/9.jpg",
     ],
     tags: [
       "MWC",
