@@ -466,17 +466,19 @@ export const events: Event[] = [
 
   {
     slug: "mopo-multi-llm",
-    title: "Co-Architected Multi-LLM Orchestration at MOPO",
+    title: "Led Multi-LLM Orchestration Architecture at MOPO",
     date: "2023-08-01",
     location: "San Francisco (Remote)",
     category: "project",
+    role: "Technical Lead",
     organizations: ["MOPO"],
     summary:
-      "Co-designed a multi-LLM agent system with RAG pipelines, knowledge graphs, and speech services for an AI-native startup.",
+      "Led the design and implementation of a sophisticated multi-LLM agent system with RAG pipelines, knowledge graphs, and speech services for an AI-native startup.",
     description:
-      "Co-designed and built a multi-LLM agent system at MOPO, where a lead agent orchestrates specialized tool agents. Implemented RAG pipelines with vector embeddings, knowledge graphs, and semantic routers. Developed speech-to-text and translation services deployed on AWS ECS. Contributed to $5M seed raise.",
+      "Led the architecture and development of MOPO's core multi-LLM agent system, where a lead agent orchestrates specialized tool agents for complex task execution. Spearheaded the implementation of RAG pipelines with vector embeddings, knowledge graphs, and semantic routers to enable intelligent information retrieval. Architected and deployed speech-to-text and translation services on AWS ECS. The technical foundation contributed to the company securing seed funding.",
     relatedExperienceId: "mopo",
-    tags: ["LLMs", "RAG", "Multi-Agent", "Knowledge Graphs", "AWS ECS"],
+    images: ["/Media/events/led-multi-llm-orchestration-architecture-at-mopo/1.png"],
+    tags: ["LLMs", "RAG", "Multi-Agent", "Knowledge Graphs", "AWS ECS", "Technical Leadership"],
     tier: "standard",
   },
   {
