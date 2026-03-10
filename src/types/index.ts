@@ -81,3 +81,9 @@ export interface KeyFact {
   value: string;
   detail?: string;
 }
+
+export interface Language {
+  greeting: string;
+  name: string;
+  proficiency: string;
+}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { BioSection } from "@/components/about/BioSection";
 import { KeyFacts } from "@/components/about/KeyFacts";
 import { JourneySection } from "@/components/about/JourneySection";
+import { LanguagesSection } from "@/components/about/LanguagesSection";
 import { PageNextSection } from "@/components/ui/PageNextSection";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 
@@ -21,6 +22,7 @@ export default function AboutPage() {
       <div className="container-main">
         <BioSection />
         <KeyFacts />
+        <LanguagesSection />
         <JourneySection />
         <PageNextSection
           suggestions={[

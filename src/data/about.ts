@@ -1,4 +1,4 @@
-import type { KeyFact } from "@/types";
+import type { KeyFact, Language } from "@/types";
 
 export const BIO =
   "Lebanese-born AI/ML engineer based in Paris. From edge-deployed computer vision on NVIDIA Jetson to multi-LLM agent systems with LangGraph, I build intelligent products that scale on AWS. Currently consulting as an AI engineer.";
@@ -30,6 +30,12 @@ export const KEY_FACTS: KeyFact[] = [
     detail:
       "Lebanon, France, Canada, Spain, Germany, Italy, and more",
   },
+];
+
+export const LANGUAGES: Language[] = [
+  { greeting: "Bonjour", name: "French", proficiency: "Fluent" },
+  { greeting: "Hello", name: "English", proficiency: "Fluent" },
+  { greeting: "مرحبا", name: "Arabic", proficiency: "Native" },
 ];
 
 export const JOURNEY_PARAGRAPHS = [
