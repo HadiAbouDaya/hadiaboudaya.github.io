@@ -641,39 +641,22 @@ export const events: Event[] = [
   // ─── 2022 ───────────────────────────────────────────────────────────────────
 
   {
-    slug: "ijcr-ai-workshop",
-    title: "Intro to AI Workshop for IJCR Members",
-    date: "2022-10-01",
+    slug: "digital-health-ijcr",
+    title: "Digital Health & AI Workshops for IJCR Members",
+    date: "2022-09-01",
     location: "Beirut, Lebanon",
     category: "workshop",
     role: "Workshop Host",
     organizations: ["IJCR", "Beirut AI"],
     summary:
-      "Hosted an introduction to AI workshop for 40+ IJCR members from different countries, focusing on AI applications in medicine.",
+      "Hosted AI and digital health workshops for 40+ IJCR members from different countries, covering AI fundamentals and applications in medicine.",
     description:
-      "Honored to give the Intro to AI workshop to IJCR members. 40+ people joined from different countries to get introduced to the world of artificial intelligence and its uses in medicine.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:6982374257397747712/",
-    tags: ["AI", "Medicine", "Healthcare", "Workshop", "International"],
-    tier: "featured",
-  },
-  {
-    slug: "digital-health-ijcr",
-    title: "Digital Health Workshop: AI Applications in Medicine",
-    date: "2022-09-01",
-    location: "Beirut, Lebanon",
-    category: "workshop",
-    role: "Workshop Host",
-    organizations: ["IJCR"],
-    summary:
-      "Hosted a digital health workshop on AI applications in medicine for IJCR members.",
-    description:
-      "Hosted a digital health workshop introducing Artificial Intelligence and its application in the field of medicine. No previous programming or AI experience was necessary, with certification of attendance provided.",
+      "Hosted a series of workshops for IJCR members introducing Artificial Intelligence and its applications in the field of medicine. No previous programming or AI experience was necessary, with certification of attendance provided. 40+ people joined from different countries to get introduced to the world of artificial intelligence and its uses in medicine.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6978455580260581376/",
     images: ["/Media/events/digital-health-workshop-ai-applications-in-medicine/1.jpg"],
-    tags: ["Digital Health", "AI", "Medicine", "Workshop"],
-    tier: "standard",
+    tags: ["Digital Health", "AI", "Medicine", "Healthcare", "Workshop", "International"],
+    tier: "featured",
   },
   {
     slug: "yolo-workshop-beirut-ai",
@@ -689,6 +672,9 @@ export const events: Event[] = [
       "Led a 2-hour hands-on and interactive workshop about Object Detection with YOLO. Started by defining object detection, discussed why YOLO algorithms are great, covered YOLO history and learning algorithm, then wrapped up with hands-on training of YOLOv7 on a custom dataset.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6967789965795598337/",
+    images: [
+      "/Media/events/microsoft-azure-certifications-ai900-az900-via-zaka-ai-ready/1.jpg",
+    ],
     tags: ["YOLO", "YOLOv7", "Object Detection", "Computer Vision", "Workshop"],
     tier: "featured",
   },
@@ -704,24 +690,33 @@ export const events: Event[] = [
       "Completed the ZAKA 16-week Machine Learning Engineer certification program.",
     description:
       "Completed ZAKA's intensive 16-week AI programme covering machine learning fundamentals, deep learning, model deployment, and real-world AI applications with hands-on training.",
+    images: [
+      "/Media/events/zaka-certified-machine-learning-engineer-program/1.jpg",
+      "/Media/events/zaka-certified-machine-learning-engineer-program/2.png",
+    ],
     tags: ["ZAKA", "Machine Learning", "Certification", "AI"],
     tier: "standard",
   },
   {
     slug: "mobile-arts-ml",
-    title: "Scaled ML to Production at Mobile Arts",
+    title: "Mobile Arts Team Trip to Egypt",
     date: "2022-06-01",
-    location: "Beirut, Lebanon",
-    category: "career",
-    role: "ML Specialist",
+    location: "Cairo, Egypt",
+    category: "community",
+    role: "Team Member",
     organizations: ["Mobile Arts"],
     summary:
-      "Built and deployed ML-powered services for content moderation, anomaly detection, and ad optimization across AWS infrastructure.",
+      "Celebrated Mobile Arts' achievements with a team trip to Egypt, recognizing the company's milestones and growth.",
     description:
-      "Joined Mobile Arts as ML Specialist and built production ML services across AWS. Created a content moderation service with 96% recall, deployed anomaly detection on AWS Lambda, built a predictive engine on SageMaker increasing ad revenue by ~30%, and trained YOLOv8 for logo detection.",
+      "Joined the Mobile Arts team on a trip to Egypt to celebrate the company's achievements and milestones. A well-deserved getaway to recognize the hard work and success of the team.",
     relatedExperienceId: "mobile-arts",
-    tags: ["AWS", "SageMaker", "YOLOv8", "Content Moderation", "MLOps"],
-    tier: "featured",
+    images: [
+      "/Media/events/mobile-arts-egypt-trip/3.jpg",
+      "/Media/events/mobile-arts-egypt-trip/1.jpg",
+      "/Media/events/mobile-arts-egypt-trip/2.jpg",
+    ],
+    tags: ["Mobile Arts", "Team", "Egypt", "Celebration"],
+    tier: "standard",
   },
 
   // ─── 2021 ───────────────────────────────────────────────────────────────────
@@ -740,6 +735,10 @@ export const events: Event[] = [
       "Completed the Google Data Analytics Professional Certificate covering data analysis phases, R programming, and data-driven decisions. Also completed Stanford's Machine Learning course by Andrew Ng, covering regression, neural networks, SVMs, PCA, K-Means, anomaly detection, and recommender systems.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6851575708825747457/",
+    images: [
+      "/Media/events/google-data-analytics-stanford-ml-course/1.jpg",
+      "/Media/events/google-data-analytics-stanford-ml-course/2.jpg",
+    ],
     tags: ["Google", "Stanford", "Machine Learning", "Andrew Ng", "Coursera"],
     tier: "standard",
   },
@@ -757,8 +756,12 @@ export const events: Event[] = [
       "The AI Ready program provided great learning about data and cloud concepts, Azure features and services, and fundamental principles of AI and ML on the Azure cloud. This knowledge helped earn both the Azure AI Fundamentals and Azure Fundamentals certifications.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6817855104096464896/",
+    credlyUrls: [
+      "https://www.credly.com/badges/c5d08c12-88f3-407a-95bd-13878ee18f32/public_url",
+      "https://www.credly.com/badges/ff9e3dcf-ec5d-4c65-af41-f73e4b8405f3/public_url",
+    ],
     images: [
-      "/Media/events/microsoft-azure-certifications-ai900-az900-via-zaka-ai-ready/1.jpg",
+      "/Media/events/microsoft-azure-certifications-ai900-az900-via-zaka-ai-ready/badges.png",
     ],
     tags: ["Microsoft", "Azure", "AI-900", "AZ-900", "Certification"],
     tier: "standard",
@@ -809,6 +812,12 @@ export const events: Event[] = [
       "Earned the DP-900 certification through the ZAKA program, covering Azure data services and fundamentals.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6798677473883127808/",
+    credlyUrls: [
+      "https://www.credly.com/badges/e164a28c-3251-4556-a5a1-5919dbe73f0c/public_url",
+    ],
+    images: [
+      "/Media/events/microsoft-azure-dp900-certification/badge.png",
+    ],
     tags: ["Microsoft", "Azure", "DP-900", "Data", "Certification"],
     tier: "standard",
   },
@@ -1024,6 +1033,9 @@ export const events: Event[] = [
       "Conducted workshops on AWS SageMaker, BERT, YOLO, and MLOps for around 180 attendees in collaboration with AWS Community and multiple universities.",
     description:
       "Advanced the technical acumen within Beirut AI, leading in-depth workshops on Hugging Face BERT transformers and YOLO object detection. Directed collaborative events with AWS and universities (AUB, LAU, USJ, USAL). Championed AI literacy through formats ranging from introductory principles to model deployment strategies. Mentored a growing AI community focused on technical mastery.",
+    images: [
+      "/Media/events/beirut-ai-technical-ambassador/1.gif",
+    ],
     tags: ["Beirut AI", "Ambassador", "Workshops", "AWS", "BERT", "YOLO"],
     tier: "featured",
   },
@@ -1039,6 +1051,9 @@ export const events: Event[] = [
       "Pioneered Beirut AI's strategic initiatives, introducing university students to the community and organizing hackathons.",
     description:
       "Pioneered Beirut AI's strategic initiatives, cementing its status as a pivotal institution for AI knowledge in the MENA region. Introduced university students to the community, increased engagement in workshops and events, and promoted collaboration through hackathons across Lebanese universities.",
+    images: [
+      "/Media/events/beirut-ai-technical-ambassador/2.png",
+    ],
     tags: ["Beirut AI", "Student Ambassador", "Community", "Hackathons"],
     tier: "standard",
   },
