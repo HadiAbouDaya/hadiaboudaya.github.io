@@ -42,32 +42,6 @@ export function EventFilter() {
 
   return (
     <div>
-      {/* Stats */}
-      <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8">
-        <span className="text-sm text-slate-500 dark:text-slate-500">
-          <span className="font-semibold text-slate-800 dark:text-white">{events.length}</span>{" "}
-          Events
-        </span>
-        <span className="text-sm text-slate-500 dark:text-slate-500">
-          <span className="font-semibold text-slate-800 dark:text-white">
-            {events.filter((e) => e.category === "workshop").length}
-          </span>{" "}
-          Workshops Hosted
-        </span>
-        <span className="text-sm text-slate-500 dark:text-slate-500">
-          <span className="font-semibold text-slate-800 dark:text-white">
-            {events.filter((e) => e.category === "hackathon").length}
-          </span>{" "}
-          Hackathons
-        </span>
-        <span className="text-sm text-slate-500 dark:text-slate-500">
-          <span className="font-semibold text-slate-800 dark:text-white">
-            {events.filter((e) => e.category === "certification").length}
-          </span>{" "}
-          Certifications
-        </span>
-      </div>
-
       {/* Filter bar */}
       <div className="flex flex-wrap justify-center gap-2 mb-8" role="radiogroup" aria-label="Filter events by category">
         {FILTER_GROUPS.map((group) => {
@@ -111,11 +85,6 @@ export function EventFilter() {
           );
         })}
       </div>
-
-      {/* Showing count */}
-      <p className="text-xs text-slate-400 dark:text-slate-500 text-center mb-6" aria-live="polite">
-        Showing {filtered.length} event{filtered.length !== 1 ? "s" : ""}
-      </p>
 
       {/* Year-grouped events */}
       <div className="space-y-12">
