@@ -768,23 +768,6 @@ export const events: Event[] = [
     tier: "standard",
   },
   {
-    slug: "tesla-ai-day",
-    title: "Tesla AI Day Observation",
-    date: "2021-08-01",
-    location: "Remote",
-    category: "community",
-    role: "Observed",
-    organizations: ["Tesla"],
-    summary:
-      "Watched and analyzed Tesla AI Day, sharing insights on autonomous driving AI and neural network architectures.",
-    description:
-      "Watched Tesla AI Day and shared detailed analysis of Tesla's computer vision models, the Dojo supercomputer chip, 4D labeling, auto labeling, and simulated driving scenarios. Tesla demonstrated innovations from neural networks predicting in vector space to the upcoming Tesla Bot.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:6835256152746430464/",
-    tags: ["Tesla", "AI Day", "Autonomous Driving"],
-    tier: "standard",
-  },
-  {
     slug: "azure-certifications-zaka",
     title: "Microsoft Azure Certifications (AI-900, AZ-900)",
     date: "2021-07-01",
