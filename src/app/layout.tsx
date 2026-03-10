@@ -36,6 +36,9 @@ export const metadata: Metadata = {
       "AI/ML Engineer & Consultant based in Paris. Building intelligent systems from edge to cloud.",
     images: ["/Media/branding/og-default.jpg"],
   },
+  verification: {
+    google: "-8FTmhn4B2a5yeiFTgf6BUxDDoiu3NVZVmUAbnBYVts",
+  },
   alternates: {
     canonical: "/",
   },
