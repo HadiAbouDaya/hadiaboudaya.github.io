@@ -60,10 +60,7 @@ export function JourneySection() {
                   {/* Timeline dot */}
                   <div className="absolute left-[-4px] top-2 w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)] ring-4 ring-white dark:ring-slate-900"></div>
 
-                  <p className={`leading-relaxed tracking-wide ${i === 0
-                    ? 'text-lg lg:text-xl font-medium text-slate-800 dark:text-slate-200'
-                    : 'text-base lg:text-lg text-slate-600 dark:text-slate-400'
-                    }`}>
+                  <p className="text-base lg:text-lg leading-relaxed tracking-wide text-slate-600 dark:text-slate-400">
                     {paragraph}
                   </p>
                 </div>
