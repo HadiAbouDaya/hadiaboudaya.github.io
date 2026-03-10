@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import { NAV_LINKS } from "@/data/navigation";
@@ -28,7 +29,13 @@ export function MobileMenu({ pathname, onClose }: MobileMenuProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-800">
-          <span className="text-lg font-bold text-primary-600 dark:text-primary-400">HA</span>
+          <Image
+              src="/Media/branding/logo.png"
+              alt="Hadi Abou Daya"
+              width={32}
+              height={32}
+              className="rounded-full"
+            />
           <button
             onClick={onClose}
             className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
