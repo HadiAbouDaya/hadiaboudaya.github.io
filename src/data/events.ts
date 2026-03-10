@@ -780,6 +780,12 @@ export const events: Event[] = [
       "Within a period of 5 days, the bootcamp covered deep learning, NLP, computer vision, and time series analysis. Reached the finals of the Agri-hackathon with a project recommending the best crop for a particular land based on soil chemicals and climate factors.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6763485354323406849/",
+    images: [
+      "/Media/events/beirut-ai-bootcamp-agri-hackathon/1.png",
+      "/Media/events/beirut-ai-bootcamp-agri-hackathon/2.jpg",
+      "/Media/events/beirut-ai-bootcamp-agri-hackathon/3.jpg",
+      "/Media/events/beirut-ai-bootcamp-agri-hackathon/4.jpg",
+    ],
     tags: ["Bootcamp", "Hackathon", "Agriculture", "Deep Learning", "NLP"],
     tier: "standard",
   },
@@ -795,6 +801,10 @@ export const events: Event[] = [
     description:
       "Developed real-time computer vision systems for automotive safety. Trained models using NVIDIA TAO Toolkit, built inference pipelines with DeepStream SDK on Jetson Nano and Jetson Orin. Achieved ~60 FPS for collision warning, lane detection, and traffic sign detection.",
     relatedExperienceId: "decentra-tech",
+    images: [
+      "/Media/events/edge-ai-deployment-at-decentra-tech/1.jpg",
+      "/Media/events/edge-ai-deployment-at-decentra-tech/2.jpg",
+    ],
     tags: ["Computer Vision", "NVIDIA Jetson", "Edge AI", "DeepStream", "ADAS"],
     tier: "standard",
   },
@@ -834,6 +844,9 @@ export const events: Event[] = [
       "Completed the Cisco CCNAv7 Introduction to Networks certification, covering networking fundamentals, IP addressing, Ethernet, and network architecture concepts.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6775318696387719168/",
+    images: [
+      "/Media/events/ccnav7-introduction-to-networks/1.jpg",
+    ],
     tags: ["Cisco", "CCNA", "Networking", "Certification"],
     tier: "standard",
   },
