@@ -715,6 +715,22 @@ export const events: Event[] = [
     tier: "standard",
   },
   {
+    slug: "intro-to-ai-aust-ieee",
+    title: "Introduction to AI Workshop at AUST IEEE",
+    date: "2022-07-23",
+    location: "Online",
+    category: "workshop",
+    role: "Workshop Host",
+    organizations: ["AUST IEEE Student Branch", "Beirut AI"],
+    summary:
+      "Hosted a hands-on Introduction to AI workshop for IEEE AUST Student Branch in collaboration with Beirut AI, with certification provided.",
+    description:
+      "Hosted an Introduction to Artificial Intelligence online workshop organized by the IEEE AUST Student Branch in collaboration with Beirut AI. Included a hands-on application session and certification of attendance for participants.",
+    images: ["/Media/events/intro-to-ai-aust-ieee/1.jpeg"],
+    tags: ["AI", "Workshop", "IEEE", "AUST", "Introduction"],
+    tier: "standard",
+  },
+  {
     slug: "mobile-arts-ml",
     title: "Mobile Arts Team Trip to Egypt",
     date: "2022-06-01",
