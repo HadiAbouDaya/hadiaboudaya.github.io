@@ -63,9 +63,9 @@ export const experiences: Experience[] = [
     endDate: "2025-07-31",
     location: "Montreal, Canada",
     description:
-      "Exchange semester at McGill University focused on Data Science and AI Strategy coursework.",
+      "Exchange semester at McGill University focused on AI Strategy and business in North America.",
     bullets: [
-      "Completed exchange semester in Data Science and AI Strategy",
+      "Studied AI Strategy, business development, and innovation management in the North American market",
     ],
     technologies: [],
     logoPath: "/Media/education/mcgill/logo.png",
@@ -74,18 +74,18 @@ export const experiences: Experience[] = [
   {
     id: "emlyon",
     company: "emlyon business school",
-    role: "MSc Data Science & AI Strategy",
+    role: "MSc Data Science & Artificial Intelligence Strategy",
     type: "education",
     period: "Sep 2024 - Jan 2026",
     startDate: "2024-09-01",
     endDate: "2026-01-31",
     location: "Paris, France",
     description:
-      "Master of Science in Data Science and AI Strategy with a focus on causal inference, AI-driven business strategy, and applied machine learning.",
+      "Master of Science bridging advanced data science with AI-driven business strategy, covering machine learning, deep learning, NLP, cloud computing, and data governance.",
     bullets: [
-      "Master's in Data Science & AI Strategy with focus on causal inference and AI strategy",
+      "Focused on AI strategy, data governance, and leveraging data science for business decision-making",
+      "Applied ML, NLP, and generative models to solve real-world business challenges through consulting projects",
       "LIFE Lebanon Scholarship recipient",
-      "Elected class representative",
     ],
     technologies: [],
     logoPath: "/Media/education/emlyon/logo.png",
@@ -101,12 +101,12 @@ export const experiences: Experience[] = [
     endDate: "2025-07-31",
     location: "San Francisco (Remote)",
     description:
-      "Co-designed and built a multi-LLM agent system with RAG pipelines, speech services, and scalable cloud infrastructure for an AI-native startup.",
+      "Architected and built a multi-LLM agent system with RAG pipelines, speech services, and scalable cloud infrastructure for an AI-native startup.",
     bullets: [
-      "Co-designed multi-LLM agent system with a lead agent orchestrating specialized tool agents",
-      "Implemented RAG pipelines with vector embeddings, knowledge graphs, and semantic routers",
-      "Developed speech-to-text and translation services, deployed on AWS ECS",
-      "Migrated database layer to PostgreSQL with vector search capabilities",
+      "Architected multi-LLM agent system with a lead agent orchestrating specialized tool agents",
+      "Implemented RAG pipelines with vector embeddings, knowledge graphs, semantic routers, and speech and translation services",
+      "Led scalable and secure deployment of the full product on AWS",
+      "Migrated database layer to PostgreSQL with vector search",
     ],
     technologies: [
       "LangChain",
@@ -132,7 +132,7 @@ export const experiences: Experience[] = [
     bullets: [
       "TowardsChange: Built LLM chatbot and RAG agent on Azure AI Search for knowledge retrieval",
       "ShebangNow: Developed CV ranking system and RAG chatbot for recruitment automation",
-      "AI.skilled: Led GenAI architecture design and managed a team of 3 engineers",
+      "AI.skilled: Led GenAI architecture design and managed a team of 3 engineers to build a POC with a roadmap to scale beyond",
       "Traveln.ai: Built RAG system and voice-to-JSON agent for travel booking automation",
     ],
     technologies: ["LLMs", "Azure AI", "RAG", "Vector Search"],
@@ -150,9 +150,9 @@ export const experiences: Experience[] = [
     description:
       "Built and deployed ML-powered services for content moderation, anomaly detection, ad traffic optimization, and logo detection across AWS infrastructure.",
     bullets: [
-      "Built AWS content moderation service with Angular and .NET Core frontend",
+      "Built AWS content moderation service with Angular frontend and .NET Core backend",
       "Developed AI anomaly detection on AWS Lambda for real-time earnings monitoring",
-      "Created predictive engine on SageMaker for ad traffic optimization",
+      "Created predictive engine on SageMaker to optimize ad traffic allocation and maximize EPC",
       "Trained and deployed YOLOv8 logo detection model on Dockerized AWS EC2",
     ],
     technologies: [
@@ -175,7 +175,7 @@ export const experiences: Experience[] = [
     description:
       "Trained and deployed computer vision models for real-time automotive safety applications on edge devices, achieving high-FPS inference on NVIDIA Jetson hardware.",
     bullets: [
-      "Trained computer vision models on GPU-accelerated AWS EC2 instances using NVIDIA TAO Toolkit",
+      "Trained and pruned computer vision models on GPU-accelerated AWS EC2 instances using NVIDIA TAO Toolkit",
       "Built inference pipelines with DeepStream SDK on Jetson Nano and Jetson Orin edge devices",
       "Implemented collision warning, lane detection, and traffic sign detection systems for real-time inference",
     ],
@@ -270,7 +270,7 @@ export const experiences: Experience[] = [
     description:
       "Assisted electricians on-site with troubleshooting, diagnostics, and repair of electrical systems.",
     bullets: [
-      "Assisted electricians on construction sites, troubleshot and diagnosed root causes of electrical issues, and executed repairs",
+      "Assisted electricians in the factory, troubleshot and diagnosed root causes of electrical issues, and executed repairs",
     ],
     technologies: ["Electrical Systems", "Troubleshooting"],
     logoPath: "/Media/experience/fomaco/logo.png",
@@ -289,7 +289,7 @@ export const experiences: Experience[] = [
     bullets: [
       "Software Engineering degree with progressive focus on ML, computer vision, and AI",
       "Vice President of the Student Representative Committee (Amicale)",
-      "Projects: gene mutation prediction, solar panel detection, licence plate recognition, pose estimation, MinervaHub",
+      "Projects: gene mutation prediction, solar panel detection, licence plate recognition, pose estimation",
     ],
     technologies: [],
     logoPath: "/Media/education/usj-esib/logo.png",
