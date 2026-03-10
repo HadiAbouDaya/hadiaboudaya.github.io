@@ -1071,7 +1071,8 @@ export const events: Event[] = [
     summary:
       "Began a five-year Software Engineering degree at USJ-ESIB with progressive specialization in ML, computer vision, and AI.",
     description:
-      "Enrolled in the five-year Software Engineering program at USJ-ESIB in Beirut. The program featured progressive specialization towards machine learning, computer vision, and artificial intelligence. Served as VP of the Student Representative Committee and completed projects including gene mutation prediction, solar panel detection, licence plate recognition, pose estimation, and MinervaHub.",
+      "Enrolled in the five-year Software Engineering program at USJ-ESIB in Beirut. The program featured progressive specialization towards machine learning, computer vision, and artificial intelligence. Served as VP of the Student Representative Committee and completed projects including gene mutation prediction, solar panel detection, licence plate recognition, and pose estimation.",
+    images: ["/Media/events/usj-esib-engineering/1.png"],
     relatedExperienceId: "usj-esib",
     tags: ["Software Engineering", "USJ", "ESIB", "Computer Science"],
     tier: "featured",
