@@ -13,6 +13,8 @@ import {
   MapPin,
   ArrowLeft,
   ExternalLink,
+  Github,
+  Globe,
 } from "lucide-react";
 
 interface EventDetailProps {
@@ -131,17 +133,41 @@ export function EventDetail({ event }: EventDetailProps) {
           </div>
         )}
 
-        {event.linkedinUrl && (
-          <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
-            <a
-              href={event.linkedinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors"
-            >
-              <ExternalLink className="w-4 h-4" />
-              View on LinkedIn
-            </a>
+        {(event.linkedinUrl || event.githubUrl || event.websiteUrl) && (
+          <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700 flex flex-wrap gap-3">
+            {event.linkedinUrl && (
+              <a
+                href={event.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors"
+              >
+                <ExternalLink className="w-4 h-4" />
+                View on LinkedIn
+              </a>
+            )}
+            {event.githubUrl && (
+              <a
+                href={event.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 text-white rounded-lg text-sm font-medium hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 transition-colors"
+              >
+                <Github className="w-4 h-4" />
+                View on GitHub
+              </a>
+            )}
+            {event.websiteUrl && (
+              <a
+                href={event.websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium hover:bg-emerald-700 transition-colors"
+              >
+                <Globe className="w-4 h-4" />
+                View Case Study
+              </a>
+            )}
           </div>
         )}
 

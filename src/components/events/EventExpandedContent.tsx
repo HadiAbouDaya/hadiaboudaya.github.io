@@ -8,7 +8,7 @@ import type { Event } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { ImageLightbox } from "@/components/ui/ImageLightbox";
 import { CreativeCarousel } from "@/components/ui/CreativeCarousel";
-import { ExternalLink, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ExternalLink, ArrowRight, ChevronLeft, ChevronRight, Github, Globe } from "lucide-react";
 
 function ImageCarousel({ images, title, onImageClick }: { images: string[]; title: string; onImageClick?: (index: number) => void }) {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -159,6 +159,30 @@ export function EventExpandedContent({ event }: EventExpandedContentProps) {
             >
               <ExternalLink className="w-3 h-3" />
               LinkedIn
+            </a>
+          )}
+          {event.githubUrl && (
+            <a
+              href={event.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100 transition-colors"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Github className="w-3 h-3" />
+              GitHub
+            </a>
+          )}
+          {event.websiteUrl && (
+            <a
+              href={event.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600 hover:text-emerald-700 transition-colors"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Globe className="w-3 h-3" />
+              Case Study
             </a>
           )}
         </div>

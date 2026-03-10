@@ -56,6 +56,8 @@ export interface Event {
   description: string;
   relatedExperienceId?: string;
   linkedinUrl?: string;
+  githubUrl?: string;
+  websiteUrl?: string;
   credlyUrls?: string[];
   images?: string[];
   tags: string[];

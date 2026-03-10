@@ -861,6 +861,10 @@ export const events: Event[] = [
       "Built sentiment analysis and NER pipelines on restaurant review data using LSTM and BERT models.",
     description:
       "Developed NLP models at Vee Smart for sentiment analysis and named entity recognition on Zomato restaurant reviews. Built pipelines using LSTM and BERT models, implementing aspect-based sentiment extraction.",
+    websiteUrl:
+      "https://lelabodigital.com/case-studies/veesmart-automated-customer-experience-cx-analysis-powered-by-ai/",
+    githubUrl: "https://github.com/HadiAbouDaya/VeeSmart",
+    images: ["/Media/events/vee-smart-nlp/1.webp"],
     relatedExperienceId: "vee-smart",
     tags: ["NLP", "BERT", "LSTM", "Sentiment Analysis", "NER"],
     tier: "standard",
