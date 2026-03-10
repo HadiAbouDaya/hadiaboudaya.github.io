@@ -655,7 +655,10 @@ export const events: Event[] = [
       "Hosted an Introduction to AI workshop for IJCR's Digital Health Chapter in collaboration with Beirut AI. Covered AI fundamentals and applications in the field of medicine. No previous programming or AI experience was necessary, with certification of attendance provided. 40+ people joined from different countries to get introduced to the world of artificial intelligence and its uses in medicine.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6978455580260581376/",
-    images: ["/Media/events/digital-health-workshop-ai-applications-in-medicine/1.jpg"],
+    images: [
+      "/Media/events/digital-health-workshop-ai-applications-in-medicine/1.jpg",
+      "/Media/events/digital-health-workshop-ai-applications-in-medicine/2.jpg",
+    ],
     tags: ["Digital Health", "AI", "Medicine", "Healthcare", "Workshop", "International"],
     tier: "featured",
   },
