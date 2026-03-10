@@ -633,6 +633,7 @@ export const events: Event[] = [
       "/Media/events/dataseccode-event-at-usal/2.jpg",
       "/Media/events/dataseccode-event-at-usal/3.jpg",
       "/Media/events/dataseccode-event-at-usal/4.jpg",
+      "/Media/events/dataseccode-event-at-usal/5.jpg",
     ],
     tags: ["Data Science", "Community", "USAL", "Speaking"],
     tier: "standard",
@@ -642,21 +643,37 @@ export const events: Event[] = [
 
   {
     slug: "digital-health-ijcr",
-    title: "Digital Health & AI Workshops for IJCR Members",
-    date: "2022-09-01",
-    location: "Beirut, Lebanon",
+    title: "Introduction to AI Workshop for Digital Health Chapter",
+    date: "2022-09-24",
+    location: "Online",
     category: "workshop",
     role: "Workshop Host",
-    organizations: ["IJCR", "Beirut AI"],
+    organizations: ["Digital Health Chapter", "Beirut AI"],
     summary:
-      "Hosted AI and digital health workshops for 40+ IJCR members from different countries, covering AI fundamentals and applications in medicine.",
+      "Hosted an Introduction to AI workshop for the Digital Health Chapter x Beirut AI, covering AI fundamentals and applications in medicine.",
     description:
-      "Hosted a series of workshops for IJCR members introducing Artificial Intelligence and its applications in the field of medicine. No previous programming or AI experience was necessary, with certification of attendance provided. 40+ people joined from different countries to get introduced to the world of artificial intelligence and its uses in medicine.",
+      "Hosted an Introduction to AI workshop for IJCR's Digital Health Chapter in collaboration with Beirut AI. Covered AI fundamentals and applications in the field of medicine. No previous programming or AI experience was necessary, with certification of attendance provided. 40+ people joined from different countries to get introduced to the world of artificial intelligence and its uses in medicine.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6978455580260581376/",
     images: ["/Media/events/digital-health-workshop-ai-applications-in-medicine/1.jpg"],
     tags: ["Digital Health", "AI", "Medicine", "Healthcare", "Workshop", "International"],
     tier: "featured",
+  },
+  {
+    slug: "digital-health-ijcr-august",
+    title: "Introduction to AI for IJCR",
+    date: "2022-08-11",
+    location: "Online",
+    category: "workshop",
+    role: "Workshop Host",
+    organizations: ["IJCR", "Beirut AI"],
+    summary:
+      "Delivered an Introduction to AI session for the Digital Health Chapter x Beirut AI, introducing AI concepts to healthcare professionals.",
+    description:
+      "Delivered an Introduction to AI session for IJCR's Digital Health Chapter in collaboration with Beirut AI. Introduced AI concepts and their applications in healthcare to an international audience of medical professionals.",
+    images: ["/Media/events/digital-health-ijcr-august/1.jpeg"],
+    tags: ["Digital Health", "AI", "Medicine", "Healthcare", "Workshop", "International"],
+    tier: "standard",
   },
   {
     slug: "yolo-workshop-beirut-ai",
