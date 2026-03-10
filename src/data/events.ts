@@ -880,6 +880,11 @@ export const events: Event[] = [
       "Trained a YOLOv3 model for vine detection from satellite and drone imagery for Chateau Kefraya vineyards.",
     description:
       "First hands-on machine learning project at Kefraya-AI (USJ), training a YOLOv3 object detection model to identify vines from satellite and drone imagery for Chateau Kefraya vineyards. Marked the transition from academic ML to applied computer vision.",
+    githubUrl: "https://github.com/HadiAbouDaya/Kefraya-AI",
+    images: [
+      "/Media/events/kefraya-ai-vine-detection/1.jpg",
+      "/Media/events/kefraya-ai-vine-detection/2.jpg",
+    ],
     relatedExperienceId: "kefraya-ai",
     tags: ["YOLOv3", "Computer Vision", "Agriculture", "Satellite Imagery"],
     tier: "standard",
