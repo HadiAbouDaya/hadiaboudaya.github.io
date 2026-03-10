@@ -34,8 +34,7 @@ function ImageCarousel({ images, title, onImageClick }: { images: string[]; titl
       <div
         ref={scrollRef}
         onScroll={updateScrollState}
-        className="flex gap-2 overflow-x-auto pb-2 scroll-smooth snap-x snap-mandatory scrollbar-hide"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        className="flex gap-2 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory"
       >
         {images.map((img, i) => (
           <button

@@ -19,6 +19,8 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
   const [hoveredDotIndex, setHoveredDotIndex] = useState<number | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndexRef = useRef(0);
+  const isNavigating = useRef(false);
 
   const x = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 300, damping: 30 });
@@ -29,29 +31,34 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
     setCanScrollLeft(el.scrollLeft > 10);
     setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 10);
 
-    // Calculate active index based on scroll position and centering
+    // Don't override activeIndex during programmatic navigation (dot/arrow clicks)
+    if (isNavigating.current) return;
+
     const cardWidth = window.innerWidth >= 640 ? 360 : 320;
     const gap = 16;
-    const containerWidth = el.clientWidth;
-    const scrollPosition = el.scrollLeft;
-    // Add half container width to account for centering
-    const centerOffset = (containerWidth - cardWidth) / 2;
-    const adjustedScrollPosition = scrollPosition + centerOffset;
-    const index = Math.round(adjustedScrollPosition / (cardWidth + gap));
-    setActiveIndex(Math.max(0, Math.min(index, images.length - 1)));
+    const maxScroll = el.scrollWidth - el.clientWidth;
+
+    let index;
+    if (maxScroll > 0 && el.scrollLeft >= maxScroll - 2) {
+      // At the very end of scroll → last card
+      index = images.length - 1;
+    } else {
+      index = Math.round(el.scrollLeft / (cardWidth + gap));
+    }
+
+    index = Math.max(0, Math.min(index, images.length - 1));
+    activeIndexRef.current = index;
+    setActiveIndex(index);
   }, [images.length]);
 
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
 
-    // Initial check
     updateScrollState();
 
-    // Add scroll listener
     el.addEventListener("scroll", updateScrollState);
 
-    // Add resize listener
     const resizeObserver = new ResizeObserver(updateScrollState);
     resizeObserver.observe(el);
 
@@ -61,58 +68,48 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
     };
   }, [updateScrollState]);
 
-  const scroll = (direction: "left" | "right") => {
+  const navigateTo = useCallback((index: number) => {
     const el = scrollRef.current;
     if (!el) return;
     const cardWidth = window.innerWidth >= 640 ? 360 : 320;
     const gap = 16;
-    const containerWidth = el.clientWidth;
-    const centerOffset = (containerWidth - cardWidth) / 2;
+    isNavigating.current = true;
+    activeIndexRef.current = index;
+    setActiveIndex(index);
+    el.scrollTo({ left: index * (cardWidth + gap), behavior: "smooth" });
+  }, []);
 
-    // Calculate current centered index
-    const currentScrollPosition = el.scrollLeft;
-    const adjustedScrollPosition = currentScrollPosition + centerOffset;
-    const currentIndex = Math.round(adjustedScrollPosition / (cardWidth + gap));
-
-    // Move to next/previous index
+  const scroll = (direction: "left" | "right") => {
     const newIndex = direction === "left"
-      ? Math.max(0, currentIndex - 1)
-      : Math.min(images.length - 1, currentIndex + 1);
-
-    // Center the new card
-    const scrollTo = newIndex * (cardWidth + gap) - centerOffset;
-    el.scrollTo({ left: Math.max(0, scrollTo), behavior: "smooth" });
+      ? Math.max(0, activeIndexRef.current - 1)
+      : Math.min(images.length - 1, activeIndexRef.current + 1);
+    navigateTo(newIndex);
   };
 
   return (
     <div className="relative my-8 group">
       {/* Decorative gradient overlay on left */}
       <div
-        className={`absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white dark:from-slate-900 to-transparent z-10 pointer-events-none transition-opacity duration-300 ${
-          canScrollLeft ? "opacity-100" : "opacity-0"
-        }`}
+        className={`absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white dark:from-slate-900 to-transparent z-10 pointer-events-none transition-opacity duration-300 ${canScrollLeft ? "opacity-100" : "opacity-0"
+          }`}
       />
 
       {/* Decorative gradient overlay on right */}
       <div
-        className={`absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white dark:from-slate-900 to-transparent z-10 pointer-events-none transition-opacity duration-300 ${
-          canScrollRight ? "opacity-100" : "opacity-0"
-        }`}
+        className={`absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white dark:from-slate-900 to-transparent z-10 pointer-events-none transition-opacity duration-300 ${canScrollRight ? "opacity-100" : "opacity-0"
+          }`}
       />
 
 
       {/* Main scrollable container */}
       <div
         ref={scrollRef}
-        onMouseDown={() => setIsDragging(true)}
+        onMouseDown={() => { setIsDragging(true); isNavigating.current = false; }}
         onMouseUp={() => setIsDragging(false)}
         onMouseLeave={() => setIsDragging(false)}
-        className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 px-2 cursor-grab active:cursor-grabbing"
-        style={{
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-          WebkitOverflowScrolling: "touch"
-        }}
+        onTouchStart={() => { isNavigating.current = false; }}
+        className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 px-2 cursor-grab active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
+        style={{ scrollbarWidth: "none" }}
       >
         {images.map((img, i) => (
           <motion.div
@@ -218,47 +215,58 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
         )}
       </AnimatePresence>
 
-      {/* Progress indicator dots */}
-      <div className="flex items-center justify-center gap-3 mt-6">
-        {images.map((_, i) => {
-          const isActive = activeIndex === i;
-          const isHovered = hoveredDotIndex === i;
+      {/* Progress indicator with track and dots */}
+      <div className="relative flex items-center justify-center mt-6">
+        {/* Track line behind dots */}
+        <div className="absolute h-[2px] bg-slate-200 dark:bg-slate-700/60 rounded-full" style={{ width: `${(images.length - 1) * 44}px` }} />
+        {/* Animated progress fill */}
+        <motion.div
+          className="absolute left-1/2 h-[2px] rounded-full bg-indigo-500/40 dark:bg-indigo-400/30 origin-left"
+          style={{
+            width: `${(images.length - 1) * 44}px`,
+            x: `-50%`,
+          }}
+          initial={false}
+        >
+          <motion.div
+            className="h-full rounded-full bg-indigo-600 dark:bg-indigo-400"
+            animate={{
+              width: images.length > 1 ? `${(activeIndex / (images.length - 1)) * 100}%` : "100%",
+            }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          />
+        </motion.div>
+        {/* Dots */}
+        <div className="relative flex items-center gap-[36px]">
+          {images.map((_, i) => {
+            const isActive = activeIndex === i;
+            const isHovered = hoveredDotIndex === i;
 
-          return (
-            <motion.button
-              key={i}
-              onClick={() => {
-                const el = scrollRef.current;
-                if (!el) return;
-                const cardWidth = window.innerWidth >= 640 ? 360 : 320;
-                const gap = 16;
-                const containerWidth = el.clientWidth;
-                // Center the card in the viewport
-                const scrollTo = i * (cardWidth + gap) - (containerWidth - cardWidth) / 2;
-                el.scrollTo({ left: Math.max(0, scrollTo), behavior: "smooth" });
-                setActiveIndex(i);
-              }}
-              onMouseEnter={() => setHoveredDotIndex(i)}
-              onMouseLeave={() => setHoveredDotIndex(null)}
-              className="p-2 -m-2 cursor-pointer transition-transform relative group"
-              aria-label={`Go to image ${i + 1}`}
-              aria-current={isActive ? "true" : "false"}
-              whileHover={{ scale: 1.15 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <div className="relative">
+            return (
+              <motion.button
+                key={i}
+                onClick={() => navigateTo(i)}
+                onMouseEnter={() => setHoveredDotIndex(i)}
+                onMouseLeave={() => setHoveredDotIndex(null)}
+                className="relative p-2 -m-2 cursor-pointer"
+                aria-label={`Go to image ${i + 1}`}
+                aria-current={isActive ? "true" : "false"}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+              >
                 <motion.div
-                  className="rounded-full shadow-sm"
+                  className="rounded-full"
                   animate={{
-                    width: isActive ? 32 : isHovered ? 20 : 8,
-                    height: 8,
-                  }}
-                  style={{
+                    width: isActive ? 12 : 8,
+                    height: isActive ? 12 : 8,
                     backgroundColor: isActive
                       ? "rgb(79, 70, 229)"
                       : isHovered
-                      ? "rgb(99, 102, 241)"
-                      : "rgb(203, 213, 225)"
+                        ? "rgb(99, 102, 241)"
+                        : "rgb(203, 213, 225)",
+                    boxShadow: isActive
+                      ? "0 0 0 3px rgba(79, 70, 229, 0.2)"
+                      : "none",
                   }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 />
@@ -275,18 +283,12 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
                     </motion.span>
                   )}
                 </AnimatePresence>
-              </div>
-            </motion.button>
-          );
-        })}
+              </motion.button>
+            );
+          })}
+        </div>
       </div>
 
-      {/* CSS to hide scrollbar */}
-      <style jsx>{`
-        div::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </div>
   );
 }
