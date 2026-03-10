@@ -556,7 +556,11 @@ export const events: Event[] = [
       "In collaboration with the Michel Daher Foundation, Beirut AI brought its captivating AI workshop to Zahle. Participants discovered the world of Artificial Intelligence and its various applications, followed by a practical hands-on workshop where they coded along and built their first AI model.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7080583457717776384/",
-    images: ["/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/1.jpg"],
+    images: [
+      "/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/1.jpg",
+      "/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/2.jpg",
+      "/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/3.jpg",
+    ],
     tags: ["AI", "Workshop", "Zahle", "Michel Daher Foundation", "Beirut AI"],
     tier: "featured",
   },
@@ -614,7 +618,12 @@ export const events: Event[] = [
       "Spoke at the DatasecCode event organized by Binary Brains club in collaboration with Beirut AI at the University of Sciences and Arts in Lebanon (USAL). Delivered an Introduction to AI with a hands-on project for the enthusiastic audience.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7044988891073773569/",
-    images: ["/Media/events/dataseccode-event-at-usal/1.jpg"],
+    images: [
+      "/Media/events/dataseccode-event-at-usal/1.jpg",
+      "/Media/events/dataseccode-event-at-usal/2.jpg",
+      "/Media/events/dataseccode-event-at-usal/3.jpg",
+      "/Media/events/dataseccode-event-at-usal/4.jpg",
+    ],
     tags: ["Data Science", "Community", "USAL", "Speaking"],
     tier: "standard",
   },
@@ -651,22 +660,6 @@ export const events: Event[] = [
       "https://www.linkedin.com/feed/update/urn:li:activity:7045826644019732480/",
     tags: ["Beirut AI", "Workshop", "BDD", "AWS", "SageMaker", "BERT"],
     tier: "featured",
-  },
-  {
-    slug: "yolov8-repost",
-    title: "YOLOv8 Release Announcement",
-    date: "2023-01-15",
-    location: "Remote",
-    category: "knowledge-sharing",
-    role: "Shared",
-    organizations: ["Ultralytics"],
-    summary: "Shared the announcement of YOLOv8 release by Ultralytics.",
-    description:
-      "Shared Arnaud Bastide's announcement of YOLOv8 release by Ultralytics, highlighting the latest advancement in real-time object detection.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7018502027039113217/",
-    tags: ["Computer Vision", "YOLO", "Deep Learning"],
-    tier: "standard",
   },
 
   // ─── 2022 ───────────────────────────────────────────────────────────────────
@@ -923,6 +916,8 @@ export const events: Event[] = [
       "Completed the DeepLearning.AI Deep Learning specialization, learning about neural networks, deep neural network optimization, ML project structure, CNNs, and sequence models. Taught by Andrew Ng, it provided a superpower for building AI applications.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6729094193362300928/",
+    credlyUrls: ["https://coursera.org/verify/specialization/56RYX6BMDXX5"],
+    images: ["/Media/events/deeplearning-ai-deep-learning-specialization/1.jpg"],
     tags: ["DeepLearning.AI", "Deep Learning", "CNNs", "Neural Networks"],
     tier: "standard",
   },
@@ -940,6 +935,7 @@ export const events: Event[] = [
       "Three months of amazing experience attending the Amideast Start Your Own Business Workshop. Got mentored by Andre Abi Awad and gained an entrepreneurial mindset through shared information, experiences, and networking.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6709903035121864704/",
+    images: ["/Media/events/amideast-start-your-own-business-workshop/1.jpg"],
     tags: ["Entrepreneurship", "Business", "Amideast", "Workshop"],
     tier: "standard",
   },
@@ -956,6 +952,7 @@ export const events: Event[] = [
     description:
       "Joined Eddys Group as a Laravel Developer, building backend services and APIs for business applications. This role provided foundational experience in professional software development, REST API design, and database management with MySQL.",
     relatedExperienceId: "eddys-group",
+    images: ["/Media/events/backend-development-at-eddys-group/1.jpg"],
     tags: ["Laravel", "PHP", "MySQL", "Backend", "API"],
     tier: "standard",
   },
@@ -971,6 +968,7 @@ export const events: Event[] = [
     description:
       "Started freelancing by building and customizing WordPress websites for local businesses and clients in Lebanon. Handled design, development, and deployment end-to-end, gaining early entrepreneurial experience.",
     relatedExperienceId: "freelance-wordpress",
+    images: ["/Media/events/started-freelance-wordpress-development/1.png"],
     tags: ["WordPress", "Freelance", "Web Development", "PHP"],
     tier: "standard",
   },
@@ -989,6 +987,11 @@ export const events: Event[] = [
       "Elected as Vice-President of the Student Representative Committee (Amicale) at CEUZB, championing student interests and organizing events.",
     description:
       "Championed student interests as elected VP, expertly steering communications between students and administration, leading event planning, and fostering community spirit. Organized a fundraising and aid campaign to support those affected by Lebanon's economic crisis and the Lebanese Revolution.",
+    images: [
+      "/Media/events/vp-student-representative-at-ceuzb-usj/1.jpg",
+      "/Media/events/vp-student-representative-at-ceuzb-usj/2.jpg",
+      "/Media/events/vp-student-representative-at-ceuzb-usj/3.jpg",
+    ],
     tags: ["Student Leadership", "USJ", "Community", "Lebanon"],
     tier: "featured",
   },
@@ -999,12 +1002,14 @@ export const events: Event[] = [
     location: "Beirut, Lebanon",
     category: "community",
     role: "Organizer",
-    organizations: ["CEUZB", "Saint Joseph University"],
+    organizations: ["CEUZB", "Université Saint-Joseph"],
     summary:
-      "Organized a fundraising and aid campaign to support those affected by Lebanon's economic crisis and the Lebanese Revolution.",
+      "Organized a student-led fundraising and aid campaign at USJ during the Lebanese Revolution to support those affected by the economic crisis.",
     description:
-      "During the Lebanese Revolution of 2019, organized a fundraising and aid campaign as VP of the student representative committee to support those affected by the economic crisis and civil unrest, channeling student energy into meaningful community support.",
-    tags: ["Lebanon", "Revolution", "Aid", "Community", "Leadership"],
+      "During the Lebanese Revolution of 2019, organized a fundraising and aid campaign as VP of the student representative committee (CEUZB) at Université Saint-Joseph. Led student volunteers in collecting and distributing essential supplies, channeling student energy into meaningful community support during Lebanon's economic crisis and civil unrest.",
+    linkedinUrl: "https://www.usj.edu.lb/news.php?id=8302",
+    images: ["/Media/events/lebanese-revolution-aid-campaign/1.jpg"],
+    tags: ["Lebanon", "Revolution", "Aid", "Community", "Leadership", "USJ"],
     tier: "standard",
   },
   {
@@ -1019,6 +1024,10 @@ export const events: Event[] = [
       "Summer internship as an assistant technician, troubleshooting and repairing electrical systems on-site.",
     description:
       "Assisted electricians on site; responded to issues, troubleshot and diagnosed root causes, planned solutions, executed repairs, and verified that machines worked as expected.",
+    images: [
+      "/Media/events/fomaco-sarl-assistant-technician-summer/1.jpg",
+      "/Media/events/fomaco-sarl-assistant-technician-summer/2.jpg",
+    ],
     tags: ["Electrical", "Troubleshooting", "Internship"],
     tier: "standard",
   },
