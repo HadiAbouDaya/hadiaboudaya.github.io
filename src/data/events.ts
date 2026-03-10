@@ -566,17 +566,25 @@ export const events: Event[] = [
   },
   {
     slug: "beirut-ai-bert-workshop",
-    title: "Beirut AI - BERT Transformers Workshop",
-    date: "2023-06-01",
+    title: "Beirut AI - BERT Transformers & NLP in Production Workshops",
+    date: "2023-03-01",
     location: "Beirut, Lebanon",
     category: "workshop",
     role: "Speaker",
-    organizations: ["Beirut AI"],
+    organizations: ["Beirut AI", "AWS Community", "ZAKA", "Berytech", "Beirut Digital District"],
     summary:
-      "Led a workshop on deploying BERT transformers for NLP applications including sentiment analysis on AWS SageMaker.",
+      "Led a series of NLP workshops at Beirut Digital District with 150+ attendees, covering BERT transformers, sentiment analysis, and deploying models on AWS SageMaker.",
     description:
-      "Conducted a technical workshop for Beirut AI members on BERT transformers, covering how to fine-tune and deploy Hugging Face BERT models for various NLP tasks. Delivered a live demo deploying a BERT model for sentiment analysis on AWS SageMaker serverless endpoint.",
-    tags: ["BERT", "NLP", "Transformers", "Hugging Face", "Beirut AI"],
+      "Led a series of workshops at Beirut Digital District in partnership with the AWS Community Group, ZAKA, and Berytech. Spoke at the BDD event with around 150 attendees, delivering a live demo on deploying a Hugging Face BERT transformers model for sentiment analysis on AWS SageMaker serverless endpoint and showcasing ready-to-use AI services on AWS. Conducted two follow-up workshops on NLP in Production: exploring state-of-the-art transformers for Sentiment Analysis, and deploying the trained model in an AWS environment with production monitoring. Certificates were provided to attendees.",
+    linkedinUrl:
+      "https://www.linkedin.com/feed/update/urn:li:activity:7045826644019732480/",
+    images: [
+      "/Media/events/beirut-ai-bert-transformers-workshop/1.jpg",
+      "/Media/events/beirut-ai-bert-transformers-workshop/2.jpg",
+      "/Media/events/beirut-ai-bert-transformers-workshop/3.jpg",
+      "/Media/events/beirut-ai-bert-transformers-workshop/4.jpg",
+    ],
+    tags: ["BERT", "NLP", "Transformers", "Hugging Face", "Beirut AI", "AWS", "SageMaker"],
     tier: "featured",
   },
   {
@@ -628,40 +636,6 @@ export const events: Event[] = [
     ],
     tags: ["Data Science", "Community", "USAL", "Speaking"],
     tier: "standard",
-  },
-  {
-    slug: "beirut-ai-nlp-production",
-    title: "Beirut AI NLP in Production Workshops",
-    date: "2023-03-06",
-    location: "Beirut, Lebanon",
-    category: "workshop",
-    role: "Speaker",
-    organizations: ["Beirut AI", "AWS Community", "ZAKA", "Berytech"],
-    summary:
-      "Two in-person workshops on NLP in Production: sentiment analysis with transformers on March 6, and deploying the model on AWS on March 8.",
-    description:
-      "Two workshops at Beirut Digital District 1280. March 6: explored NLP with state-of-the-art transformers for Sentiment Analysis. March 8: deployed the trained transformer model in an AWS environment and monitored its performance in production. Certificates were provided to attendees.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7035281584463212544/",
-    tags: ["NLP", "Beirut AI", "Workshop", "AWS", "Sentiment Analysis"],
-    tier: "featured",
-  },
-  {
-    slug: "beirut-ai-bdd-150",
-    title: "Beirut AI Workshop - BDD Event (150+ Attendees)",
-    date: "2023-03-01",
-    location: "Beirut, Lebanon",
-    category: "workshop",
-    role: "Speaker",
-    organizations: ["Beirut AI", "Beirut Digital District"],
-    summary:
-      "Spoke at a Beirut AI event at BDD with over 150 attendees, deploying BERT on AWS SageMaker live.",
-    description:
-      "Spoke at the BDD event in partnership with the Beirut AWS Community Group with around 150 attendees. Delivered a live demo on deploying a Hugging Face BERT transformers model for sentiment analysis on AWS SageMaker serverless endpoint and showcased ready-to-use AI services on AWS.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7045826644019732480/",
-    tags: ["Beirut AI", "Workshop", "BDD", "AWS", "SageMaker", "BERT"],
-    tier: "featured",
   },
 
   // ─── 2022 ───────────────────────────────────────────────────────────────────
