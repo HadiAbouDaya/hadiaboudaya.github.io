@@ -7,15 +7,14 @@ import { JOURNEY_PARAGRAPHS } from "@/data/about";
 export function JourneySection() {
   return (
     <section className="mt-20 lg:mt-32 relative">
-      <ScrollReveal className="mb-12 lg:mb-16">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
-          My Journey
-        </h2>
-      </ScrollReveal>
-
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start relative">
-        {/* Sticky Image Column */}
-        <div className="w-full lg:w-5/12 lg:sticky lg:top-32 z-10">
+        {/* Sticky Left Column */}
+        <div className="w-full lg:w-5/12 lg:sticky lg:top-24 z-10">
+          <ScrollReveal className="mb-8 lg:mb-10">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
+              My Journey
+            </h2>
+          </ScrollReveal>
           <ScrollReveal direction="left">
             <div className="relative group">
               {/* Decorative background blobs */}
