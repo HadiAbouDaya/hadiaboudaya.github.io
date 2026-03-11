@@ -72,8 +72,9 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
 
   return (
     <div
+      id={`exp-${item.id}`}
       className={cn(
-        "relative flex items-start w-full",
+        "relative flex items-start w-full scroll-mt-24",
         !isDualLane && (position === "left" ? "md:flex-row" : "md:flex-row-reverse")
       )}
     >

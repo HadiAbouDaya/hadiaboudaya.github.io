@@ -14,6 +14,8 @@ interface CertCardProps {
 export function CertCard({ cert }: CertCardProps) {
   return (
     <motion.div
+      id={`cert-${cert.id}`}
+      className="scroll-mt-24"
       layout
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
