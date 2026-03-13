@@ -1,4 +1,5 @@
 import type { KeyFact, Language } from "@/types";
+import { certifications } from "./certifications";
 
 export const BIO =
   "Lebanese-born AI/ML engineer based in Paris. From edge-deployed computer vision on NVIDIA Jetson to multi-LLM agent systems with LangGraph, I build intelligent products that scale on AWS. Currently consulting as an AI engineer.";
@@ -13,7 +14,7 @@ export const KEY_FACTS: KeyFact[] = [
   {
     icon: "Award",
     label: "Certifications",
-    value: "45+",
+    value: `${certifications.length}+`,
     detail: "AWS ML Specialty, PMP, Azure, TensorFlow Developer, and more",
   },
   {

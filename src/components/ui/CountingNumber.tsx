@@ -50,8 +50,14 @@ export function CountingNumber({
 
   return (
     <span ref={ref}>
-      {prefersReducedMotion ? value : display}
-      {suffix}
+      <span className="sr-only">
+        {value}
+        {suffix}
+      </span>
+      <span aria-hidden="true">
+        {prefersReducedMotion ? value : display}
+        {suffix}
+      </span>
     </span>
   );
 }
