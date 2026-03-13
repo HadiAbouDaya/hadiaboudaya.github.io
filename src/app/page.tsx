@@ -1,7 +1,7 @@
 import { HeroContent } from "@/components/hero/HeroContent";
 import { GlobeWrapper } from "@/components/hero/GlobeWrapper";
 import { HomeHighlights } from "@/components/home/HomeHighlights";
-import { personJsonLd } from "@/lib/jsonld";
+import { personJsonLd, websiteJsonLd } from "@/lib/jsonld";
 import { experiences } from "@/data/experience";
 import { events } from "@/data/events";
 import { certifications } from "@/data/certifications";
@@ -19,6 +19,10 @@ export default function HomePage() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
         />
         <div className="absolute inset-0 -z-10">
           <GlobeWrapper />

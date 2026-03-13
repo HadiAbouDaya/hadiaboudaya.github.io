@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Certifications",
   description:
     "45+ professional certifications including AWS, Azure, PMP, and AI/ML credentials.",
+  alternates: { canonical: "/certifications/" },
 };
 
 export default function CertificationsPage() {

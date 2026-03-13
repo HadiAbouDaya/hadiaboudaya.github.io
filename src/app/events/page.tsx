@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Events",
   description:
     "Workshops, conferences, hackathons, certifications, and milestones across Hadi Abou Daya's journey.",
+  alternates: { canonical: "/events/" },
 };
 
 export default function EventsPage() {

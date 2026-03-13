@@ -4,12 +4,13 @@ import { KeyFacts } from "@/components/about/KeyFacts";
 import { JourneySection } from "@/components/about/JourneySection";
 import { LanguagesSection } from "@/components/about/LanguagesSection";
 import { PageNextSection } from "@/components/ui/PageNextSection";
-import { breadcrumbJsonLd } from "@/lib/jsonld";
+import { breadcrumbJsonLd, profilePageJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: "About",
   description:
     "Learn about Hadi Abou Daya, AI/ML engineer, consultant, and lifelong learner based in Paris.",
+  alternates: { canonical: "/about/" },
 };
 
 export default function AboutPage() {
@@ -18,6 +19,10 @@ export default function AboutPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "About", href: "/about" }])) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd()) }}
       />
       <div className="container-main">
         <BioSection />

@@ -22,6 +22,7 @@ export async function generateMetadata({
   return {
     title: event.title,
     description: event.summary,
+    alternates: { canonical: `/events/${slug}/` },
   };
 }
 

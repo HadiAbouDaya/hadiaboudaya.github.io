@@ -1,21 +1,21 @@
 import { MetadataRoute } from "next";
-import { getAllSlugs } from "@/lib/mdx";
+import { getAllPosts } from "@/lib/mdx";
 import { events } from "@/data/events";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://hadi.aboudaya.com";
-  const blogSlugs = getAllSlugs();
+  const posts = getAllPosts();
 
   const staticPages = [
     "",
-    "/about",
-    "/experience",
-    "/events",
-    "/certifications",
-    "/blog",
-    "/contact",
+    "/about/",
+    "/experience/",
+    "/events/",
+    "/certifications/",
+    "/blog/",
+    "/contact/",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -24,15 +24,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const eventPages = events.map((event) => ({
-    url: `${baseUrl}/events/${event.slug}`,
-    lastModified: new Date(),
+    url: `${baseUrl}/events/${event.slug}/`,
+    lastModified: new Date(event.date),
     changeFrequency: "yearly" as const,
     priority: 0.6,
   }));
 
-  const blogPages = blogSlugs.map((slug) => ({
-    url: `${baseUrl}/blog/${slug}`,
-    lastModified: new Date(),
+  const blogPages = posts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}/`,
+    lastModified: new Date(post.date),
     changeFrequency: "yearly" as const,
     priority: 0.6,
   }));

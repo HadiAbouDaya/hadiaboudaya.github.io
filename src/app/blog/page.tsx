@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Blog",
   description:
     "Articles on AI, machine learning, causal inference, and engineering by Hadi Abou Daya.",
+  alternates: { canonical: "/blog/" },
 };
 
 export default function BlogPage() {

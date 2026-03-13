@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Experience",
   description:
     "Career timeline of Hadi Abou Daya: from edge AI to cloud-scale LLM systems.",
+  alternates: { canonical: "/experience/" },
 };
 
 export default function ExperiencePage() {

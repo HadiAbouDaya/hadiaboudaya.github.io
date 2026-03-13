@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Get in touch with Hadi Abou Daya, AI/ML Engineer & Consultant based in Paris.",
+  alternates: { canonical: "/contact/" },
 };
 
 export default function ContactPage() {
