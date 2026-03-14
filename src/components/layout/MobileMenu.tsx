@@ -30,7 +30,7 @@ export function MobileMenu({ pathname, onClose }: MobileMenuProps) {
       >
         <div className="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-800">
           <Image
-              src="/Media/branding/logo.png"
+              src="/Media/branding/logo.webp"
               alt="Hadi Abou Daya"
               width={32}
               height={32}

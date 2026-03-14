@@ -10,7 +10,7 @@ export const certifications: Certification[] = [
     expiryDate: "Dec 2028",
     credentialUrl:
       "https://www.credly.com/earner/earned/badge/8db8c943-b337-46de-92d6-205b7c53136f",
-    badgePath: "/Media/certifications/badges/aws-ml-specialty.png",
+    badgePath: "/Media/certifications/badges/aws-ml-specialty.webp",
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ export const certifications: Certification[] = [
     expiryDate: "Apr 2028",
     credentialUrl:
       "https://cp.certmetrics.com/amazon/en/public/verify/credential/6ae809da23ad49d3bdb36cce98c0d788",
-    badgePath: "/Media/certifications/badges/aws-cloud-practitioner.png",
+    badgePath: "/Media/certifications/badges/aws-cloud-practitioner.webp",
   },
   {
     id: 3,
@@ -32,7 +32,7 @@ export const certifications: Certification[] = [
     expiryDate: "Aug 2027",
     credentialUrl:
       "https://www.pmi.org/certifications/certification-resources/registry?certificationId=3908873&firstName=Hadi&lastName=Abou%20Daya#search-info",
-    badgePath: "/Media/certifications/badges/pmp.png",
+    badgePath: "/Media/certifications/badges/pmp.webp",
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ export const certifications: Certification[] = [
     issuedDate: "Jul 2021",
     credentialUrl:
       "https://hadiaboudaya.github.io/Certificates.github.io/Microsoft_Certified_Professional_Certificate_0.pdf",
-    badgePath: "/Media/certifications/badges/az-900.png",
+    badgePath: "/Media/certifications/badges/az-900.webp",
   },
   {
     id: 5,
@@ -52,7 +52,7 @@ export const certifications: Certification[] = [
     issuedDate: "Jun 2021",
     credentialUrl:
       "https://hadiaboudaya.github.io/Certificates.github.io/AI-900Certificate.pdf",
-    badgePath: "/Media/certifications/badges/ai-900.png",
+    badgePath: "/Media/certifications/badges/ai-900.webp",
   },
   {
     id: 6,
@@ -62,7 +62,7 @@ export const certifications: Certification[] = [
     issuedDate: "May 2021",
     credentialUrl:
       "https://hadiaboudaya.github.io/Certificates.github.io/DP-900Certificate.pdf",
-    badgePath: "/Media/certifications/badges/dp-900.png",
+    badgePath: "/Media/certifications/badges/dp-900.webp",
   },
   {
     id: 7,
@@ -72,7 +72,7 @@ export const certifications: Certification[] = [
     issuedDate: "Feb 2021",
     credentialUrl:
       "https://hadiaboudaya.github.io/Certificates.github.io/CCNAv7.pdf",
-    badgePath: "/Media/certifications/badges/ccna.png",
+    badgePath: "/Media/certifications/badges/ccna.webp",
   },
   {
     id: 8,
@@ -82,7 +82,7 @@ export const certifications: Certification[] = [
     issuedDate: "Sep 2020",
     credentialUrl:
       "https://hadiaboudaya.github.io/Certificates.github.io/Cybersecurity.pdf",
-    badgePath: "/Media/certifications/badges/cybersecurity.png",
+    badgePath: "/Media/certifications/badges/cybersecurity.webp",
   },
   {
     id: 9,
@@ -92,7 +92,7 @@ export const certifications: Certification[] = [
     issuedDate: "Sep 2021",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/specialization/certificate/267FPGPLEMK4",
-    badgePath: "/Media/certifications/badges/google-data-analytics.png",
+    badgePath: "/Media/certifications/badges/google-data-analytics.webp",
   },
   {
     id: 10,
@@ -102,7 +102,7 @@ export const certifications: Certification[] = [
     issuedDate: "Nov 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/specialization/certificate/56RYX6BMDXX5",
-    badgePath: "/Media/certifications/badges/deep-learning-spec.png",
+    badgePath: "/Media/certifications/badges/deep-learning-spec.webp",
   },
   {
     id: 11,
@@ -112,7 +112,7 @@ export const certifications: Certification[] = [
     issuedDate: "Dec 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/specialization/certificate/SJNSY3K332X5",
-    badgePath: "/Media/certifications/badges/tensorflow-developer.png",
+    badgePath: "/Media/certifications/badges/tensorflow-developer.webp",
   },
   {
     id: 12,
@@ -122,7 +122,7 @@ export const certifications: Certification[] = [
     issuedDate: "Sep 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/J73VYAPFNFZF",
-    badgePath: "/Media/certifications/badges/neural-networks.png",
+    badgePath: "/Media/certifications/badges/neural-networks.webp",
   },
   {
     id: 13,
@@ -132,7 +132,7 @@ export const certifications: Certification[] = [
     issuedDate: "Oct 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/TJN7YAZ54E7G",
-    badgePath: "/Media/certifications/badges/improving-dnn.png",
+    badgePath: "/Media/certifications/badges/improving-dnn.webp",
   },
   {
     id: 14,
@@ -142,7 +142,7 @@ export const certifications: Certification[] = [
     issuedDate: "Oct 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/NVQ4BKZ9XTZA",
-    badgePath: "/Media/certifications/badges/structuring-ml.png",
+    badgePath: "/Media/certifications/badges/structuring-ml.webp",
   },
   {
     id: 15,
@@ -152,7 +152,7 @@ export const certifications: Certification[] = [
     issuedDate: "Oct 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/25Y9UQKMJVPN",
-    badgePath: "/Media/certifications/badges/cnn.png",
+    badgePath: "/Media/certifications/badges/cnn.webp",
   },
   {
     id: 16,
@@ -162,7 +162,7 @@ export const certifications: Certification[] = [
     issuedDate: "Nov 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/B4Q2Q4XPWX2Z",
-    badgePath: "/Media/certifications/badges/sequence-models.png",
+    badgePath: "/Media/certifications/badges/sequence-models.webp",
   },
   {
     id: 17,
@@ -172,7 +172,7 @@ export const certifications: Certification[] = [
     issuedDate: "Dec 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/7CMHE9NGZBHE",
-    badgePath: "/Media/certifications/badges/cnn-tensorflow.png",
+    badgePath: "/Media/certifications/badges/cnn-tensorflow.webp",
   },
   {
     id: 18,
@@ -182,7 +182,7 @@ export const certifications: Certification[] = [
     issuedDate: "Nov 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/LT6KYRLZ5792",
-    badgePath: "/Media/certifications/badges/nlp-tensorflow.png",
+    badgePath: "/Media/certifications/badges/nlp-tensorflow.webp",
   },
   {
     id: 19,
@@ -192,7 +192,7 @@ export const certifications: Certification[] = [
     issuedDate: "Nov 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/LXFHJYYBL3DY",
-    badgePath: "/Media/certifications/badges/time-series.png",
+    badgePath: "/Media/certifications/badges/time-series.webp",
   },
   {
     id: 20,
@@ -202,7 +202,7 @@ export const certifications: Certification[] = [
     issuedDate: "Dec 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/GRKNMF47M434",
-    badgePath: "/Media/certifications/badges/intro-tensorflow.png",
+    badgePath: "/Media/certifications/badges/intro-tensorflow.webp",
   },
   {
     id: 21,
@@ -212,7 +212,7 @@ export const certifications: Certification[] = [
     issuedDate: "Dec 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/2T96LBU4GMP9",
-    badgePath: "/Media/certifications/badges/stanford-ml.png",
+    badgePath: "/Media/certifications/badges/stanford-ml.webp",
   },
   {
     id: 22,
@@ -222,7 +222,7 @@ export const certifications: Certification[] = [
     issuedDate: "Nov 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/L4ECNKDQBRLY",
-    badgePath: "/Media/certifications/badges/ml-for-all.png",
+    badgePath: "/Media/certifications/badges/ml-for-all.webp",
   },
   {
     id: 23,
@@ -232,7 +232,7 @@ export const certifications: Certification[] = [
     issuedDate: "Dec 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/4DUA4A9Y5ABR",
-    badgePath: "/Media/certifications/badges/regression.png",
+    badgePath: "/Media/certifications/badges/regression.webp",
   },
   {
     id: 24,
@@ -242,7 +242,7 @@ export const certifications: Certification[] = [
     issuedDate: "Dec 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/E5CY3VMX6GBC",
-    badgePath: "/Media/certifications/badges/practical-ml.png",
+    badgePath: "/Media/certifications/badges/practical-ml.webp",
   },
   {
     id: 25,
@@ -252,7 +252,7 @@ export const certifications: Certification[] = [
     issuedDate: "Dec 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/9K6XH2F9NAQT",
-    badgePath: "/Media/certifications/badges/statistical-inference.png",
+    badgePath: "/Media/certifications/badges/statistical-inference.webp",
   },
   {
     id: 26,
@@ -262,7 +262,7 @@ export const certifications: Certification[] = [
     issuedDate: "Dec 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/3RGCMT5MXFZG",
-    badgePath: "/Media/certifications/badges/eda.png",
+    badgePath: "/Media/certifications/badges/eda.webp",
   },
   {
     id: 27,
@@ -272,7 +272,7 @@ export const certifications: Certification[] = [
     issuedDate: "Dec 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/X5BHVEWDXCKQ",
-    badgePath: "/Media/certifications/badges/r-programming.png",
+    badgePath: "/Media/certifications/badges/r-programming.webp",
   },
   {
     id: 28,
@@ -282,7 +282,7 @@ export const certifications: Certification[] = [
     issuedDate: "Dec 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/27W8TVL6WHRF",
-    badgePath: "/Media/certifications/badges/cleaning-data.png",
+    badgePath: "/Media/certifications/badges/cleaning-data.webp",
   },
   {
     id: 29,
@@ -292,7 +292,7 @@ export const certifications: Certification[] = [
     issuedDate: "Dec 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/6GDJX2468XZG",
-    badgePath: "/Media/certifications/badges/ds-toolbox.png",
+    badgePath: "/Media/certifications/badges/ds-toolbox.webp",
   },
   {
     id: 30,
@@ -302,7 +302,7 @@ export const certifications: Certification[] = [
     issuedDate: "Nov 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/FSWUYHQQESTW",
-    badgePath: "/Media/certifications/badges/gcp-bigdata.png",
+    badgePath: "/Media/certifications/badges/gcp-bigdata.webp",
   },
   {
     id: 31,
@@ -312,7 +312,7 @@ export const certifications: Certification[] = [
     issuedDate: "Nov 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/NUR59C2D65CN",
-    badgePath: "/Media/certifications/badges/tf2-imperial.png",
+    badgePath: "/Media/certifications/badges/tf2-imperial.webp",
   },
   {
     id: 32,
@@ -322,7 +322,7 @@ export const certifications: Certification[] = [
     issuedDate: "Sep 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/4HYMA5NTFWNM",
-    badgePath: "/Media/certifications/badges/sql-data-science.png",
+    badgePath: "/Media/certifications/badges/sql-data-science.webp",
   },
   {
     id: 33,
@@ -332,7 +332,7 @@ export const certifications: Certification[] = [
     issuedDate: "Nov 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/WUJH76F2WSU5",
-    badgePath: "/Media/certifications/badges/self-driving.png",
+    badgePath: "/Media/certifications/badges/self-driving.webp",
   },
   {
     id: 34,
@@ -342,7 +342,7 @@ export const certifications: Certification[] = [
     issuedDate: "Dec 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/LMD49RRKLCRD",
-    badgePath: "/Media/certifications/badges/encryption-cpp.png",
+    badgePath: "/Media/certifications/badges/encryption-cpp.webp",
   },
   {
     id: 35,
@@ -352,7 +352,7 @@ export const certifications: Certification[] = [
     issuedDate: "Nov 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/5Z3GQBNMYCVK",
-    badgePath: "/Media/certifications/badges/aws-s3-hosting.png",
+    badgePath: "/Media/certifications/badges/aws-s3-hosting.webp",
   },
   {
     id: 36,
@@ -362,7 +362,7 @@ export const certifications: Certification[] = [
     issuedDate: "Oct 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/9UJ272Y8QQ2H",
-    badgePath: "/Media/certifications/badges/javascript.png",
+    badgePath: "/Media/certifications/badges/javascript.webp",
   },
   {
     id: 37,
@@ -372,7 +372,7 @@ export const certifications: Certification[] = [
     issuedDate: "Oct 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/6PK9K3U34HJE",
-    badgePath: "/Media/certifications/badges/responsive-design.png",
+    badgePath: "/Media/certifications/badges/responsive-design.webp",
   },
   {
     id: 38,
@@ -382,7 +382,7 @@ export const certifications: Certification[] = [
     issuedDate: "Oct 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/HV4F47RQ94EB",
-    badgePath: "/Media/certifications/badges/php.png",
+    badgePath: "/Media/certifications/badges/php.webp",
   },
   {
     id: 39,
@@ -392,7 +392,7 @@ export const certifications: Certification[] = [
     issuedDate: "Oct 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/JX52XK4E5CML",
-    badgePath: "/Media/certifications/badges/sql-intro.png",
+    badgePath: "/Media/certifications/badges/sql-intro.webp",
   },
   {
     id: 40,
@@ -402,7 +402,7 @@ export const certifications: Certification[] = [
     issuedDate: "Oct 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/4GHXVF6424PA",
-    badgePath: "/Media/certifications/badges/cpp-epfl.png",
+    badgePath: "/Media/certifications/badges/cpp-epfl.webp",
   },
   {
     id: 41,
@@ -412,7 +412,7 @@ export const certifications: Certification[] = [
     issuedDate: "Sep 2020",
     credentialUrl:
       "https://www.coursera.org/account/accomplishments/certificate/FHJB5VN4SFVM",
-    badgePath: "/Media/certifications/badges/network-security.png",
+    badgePath: "/Media/certifications/badges/network-security.webp",
   },
   {
     id: 42,
@@ -422,7 +422,7 @@ export const certifications: Certification[] = [
     issuedDate: "Jul 2020",
     credentialUrl:
       "https://hadiaboudaya.github.io/Certificates.github.io/createyourownbusiness.pdf",
-    badgePath: "/Media/certifications/badges/berytech.png",
+    badgePath: "/Media/certifications/badges/berytech.webp",
   },
   {
     id: 43,
@@ -432,7 +432,7 @@ export const certifications: Certification[] = [
     issuedDate: "Sep 2020",
     credentialUrl:
       "https://hadiaboudaya.github.io/Certificates.github.io/startyourownbusiness.pdf",
-    badgePath: "/Media/certifications/badges/amideast.png",
+    badgePath: "/Media/certifications/badges/amideast.webp",
   },
   {
     id: 44,
@@ -442,7 +442,7 @@ export const certifications: Certification[] = [
     issuedDate: "May 2020",
     credentialUrl:
       "https://www.udemy.com/certificate/UC-759b5c8d-8411-4f81-8f73-bd1ac716f7f8/",
-    badgePath: "/Media/certifications/badges/python-ds.png",
+    badgePath: "/Media/certifications/badges/python-ds.webp",
   },
   {
     id: 45,
@@ -452,6 +452,6 @@ export const certifications: Certification[] = [
     issuedDate: "Mar 2020",
     credentialUrl:
       "https://www.udemy.com/certificate/UC-02065209-43b1-4398-b764-e2907eba5838/",
-    badgePath: "/Media/certifications/badges/python-masterclass.png",
+    badgePath: "/Media/certifications/badges/python-masterclass.webp",
   },
 ];

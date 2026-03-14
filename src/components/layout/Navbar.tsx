@@ -48,7 +48,7 @@ export function Navbar() {
             className="hover:opacity-80 transition-opacity"
           >
             <Image
-              src="/Media/branding/logo.png"
+              src="/Media/branding/logo.webp"
               alt="Hadi Abou Daya"
               width={40}
               height={40}

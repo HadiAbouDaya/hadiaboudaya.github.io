@@ -23,10 +23,10 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7429474423969054720/",
     images: [
-      "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/1.jpg",
-      "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/2.jpg",
-      "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/3.jpg",
-      "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/4.jpg",
+      "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/1.webp",
+      "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/2.webp",
+      "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/3.webp",
+      "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/4.webp",
     ],
     tags: ["AI", "Machine Learning", "Data Science", "Workshop", "University"],
     tier: "featured",
@@ -46,10 +46,10 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7427637633083863040/",
     images: [
-      "/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/1.jpg",
-      "/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/2.jpg",
-      "/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/3.jpg",
-      "/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/4.jpg",
+      "/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/1.webp",
+      "/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/2.webp",
+      "/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/3.webp",
+      "/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/4.webp",
     ],
     tags: ["Blockchain", "Finance", "DeFi", "Tokenization", "HEC Paris"],
     tier: "standard",
@@ -73,14 +73,14 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7425957060875386881/",
     images: [
-      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/1.jpg",
-      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/2.jpg",
-      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/3.jpg",
-      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/4.jpg",
-      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/5.jpg",
-      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/6.jpg",
-      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/7.jpg",
-      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/8.jpg",
+      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/1.webp",
+      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/2.webp",
+      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/3.webp",
+      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/4.webp",
+      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/5.webp",
+      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/6.webp",
+      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/7.webp",
+      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/8.webp",
     ],
     tags: ["AWS", "re:Invent", "Cloud", "AI", "Speaking", "Supportful"],
     tier: "featured",
@@ -99,7 +99,7 @@ export const events: Event[] = [
       "Featured as a speaker for the upcoming AWS re:Invent re:Cap event. The spotlight highlighted work as a Data Scientist and AI Engineer building LLM agents, RAG systems, computer vision, and causal inference projects for SaaS, ad-tech, mobility, and F&B companies.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7423361802513690624/",
-    images: ["/Media/events/aws-user-group-lebanon-speaker-spotlight/1.jpg"],
+    images: ["/Media/events/aws-user-group-lebanon-speaker-spotlight/1.webp"],
     tags: ["AWS", "Community", "Speaker"],
     tier: "standard",
   },
@@ -125,7 +125,7 @@ export const events: Event[] = [
       "https://www.credly.com/badges/9fbeb8b2-f24d-44bc-9a34-814002e480ed/public_url",
     ],
     images: [
-      "/Media/events/aws-ml-specialty-and-cloud-practitioner-certifications/1.jpg",
+      "/Media/events/aws-ml-specialty-and-cloud-practitioner-certifications/1.webp",
     ],
     tags: ["AWS", "Certification", "Machine Learning", "Cloud"],
     tier: "featured",
@@ -145,15 +145,15 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7397193174491860992/",
     images: [
-      "/Media/events/building-smarter-with-aws-in-bekaa/1.jpg",
-      "/Media/events/building-smarter-with-aws-in-bekaa/2.jpg",
-      "/Media/events/building-smarter-with-aws-in-bekaa/3.jpg",
-      "/Media/events/building-smarter-with-aws-in-bekaa/4.jpg",
-      "/Media/events/building-smarter-with-aws-in-bekaa/5.jpg",
-      "/Media/events/building-smarter-with-aws-in-bekaa/6.jpg",
-      "/Media/events/building-smarter-with-aws-in-bekaa/7.jpg",
-      "/Media/events/building-smarter-with-aws-in-bekaa/8.jpg",
-      "/Media/events/building-smarter-with-aws-in-bekaa/9.jpg",
+      "/Media/events/building-smarter-with-aws-in-bekaa/1.webp",
+      "/Media/events/building-smarter-with-aws-in-bekaa/2.webp",
+      "/Media/events/building-smarter-with-aws-in-bekaa/3.webp",
+      "/Media/events/building-smarter-with-aws-in-bekaa/4.webp",
+      "/Media/events/building-smarter-with-aws-in-bekaa/5.webp",
+      "/Media/events/building-smarter-with-aws-in-bekaa/6.webp",
+      "/Media/events/building-smarter-with-aws-in-bekaa/7.webp",
+      "/Media/events/building-smarter-with-aws-in-bekaa/8.webp",
+      "/Media/events/building-smarter-with-aws-in-bekaa/9.webp",
     ],
     tags: [
       "AWS",
@@ -180,7 +180,7 @@ export const events: Event[] = [
       "Attended the free virtual Agentic AI Conference organized by Data Science Dojo (September 15-19, 2025), attracting over 51,000 attendees globally. Featured tutorials and panels with AI industry thought leaders discussing agentic AI technologies, trends, and tools.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7373256861258526720/",
-    images: ["/Media/events/agentic-ai-conference-by-data-science-dojo/1.jpg"],
+    images: ["/Media/events/agentic-ai-conference-by-data-science-dojo/1.webp"],
     tags: ["Agentic AI", "Conference", "Data Science Dojo"],
     tier: "standard",
   },
@@ -197,10 +197,10 @@ export const events: Event[] = [
       "Led a research project at Savencia applying causal inference methods to optimize lactoferrin production in dairy manufacturing. Built end-to-end Databricks data pipelines for experiment tracking and causal analysis. Applied Propensity Score Matching, Double ML, and Causal Forest to identify key production drivers.",
     relatedExperienceId: "savencia",
     images: [
-      "/Media/events/causal-inference-research-at-savencia/4.jpg",
-      "/Media/events/causal-inference-research-at-savencia/3.jpg",
-      "/Media/events/causal-inference-research-at-savencia/2.jpg",
-      "/Media/events/causal-inference-research-at-savencia/1.jpg",
+      "/Media/events/causal-inference-research-at-savencia/4.webp",
+      "/Media/events/causal-inference-research-at-savencia/3.webp",
+      "/Media/events/causal-inference-research-at-savencia/2.webp",
+      "/Media/events/causal-inference-research-at-savencia/1.webp",
     ],
     tags: ["Causal Inference", "DoWhy", "EconML", "Databricks", "Manufacturing"],
     tier: "standard",
@@ -220,10 +220,10 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7335225108149485568/",
     images: [
-      "/Media/events/mcgill-university-exchange-semester/1.jpg",
-      "/Media/events/mcgill-university-exchange-semester/2.jpg",
-      "/Media/events/mcgill-university-exchange-semester/3.jpg",
-      "/Media/events/mcgill-university-exchange-semester/4.jpg",
+      "/Media/events/mcgill-university-exchange-semester/1.webp",
+      "/Media/events/mcgill-university-exchange-semester/2.webp",
+      "/Media/events/mcgill-university-exchange-semester/3.webp",
+      "/Media/events/mcgill-university-exchange-semester/4.webp",
     ],
     relatedExperienceId: "mcgill",
     tags: ["McGill", "Exchange", "Data Science", "Canada", "Google"],
@@ -244,10 +244,10 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7327710511259619329/",
     images: [
-      "/Media/events/generative-ai-session-at-aust-bhamdoun/1.jpg",
-      "/Media/events/generative-ai-session-at-aust-bhamdoun/2.jpg",
-      "/Media/events/generative-ai-session-at-aust-bhamdoun/3.jpg",
-      "/Media/events/generative-ai-session-at-aust-bhamdoun/4.jpg",
+      "/Media/events/generative-ai-session-at-aust-bhamdoun/1.webp",
+      "/Media/events/generative-ai-session-at-aust-bhamdoun/2.webp",
+      "/Media/events/generative-ai-session-at-aust-bhamdoun/3.webp",
+      "/Media/events/generative-ai-session-at-aust-bhamdoun/4.webp",
     ],
     tags: ["Generative AI", "LLMs", "RAG", "n8n", "Workshop", "AUST"],
     tier: "featured",
@@ -273,15 +273,15 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7304599888686686208/",
     images: [
-      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/1.jpg",
-      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/2.jpg",
-      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/3.jpg",
-      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/4.jpg",
-      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/5.jpg",
-      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/6.jpg",
-      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/7.jpg",
-      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/8.jpg",
-      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/9.jpg",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/1.webp",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/2.webp",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/3.webp",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/4.webp",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/5.webp",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/6.webp",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/7.webp",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/8.webp",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/9.webp",
     ],
     tags: [
       "MWC",
@@ -308,10 +308,10 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7302696840741711873/",
     images: [
-      "/Media/events/emlyon-international-seminar-in-lisbon/1.jpg",
-      "/Media/events/emlyon-international-seminar-in-lisbon/2.jpg",
-      "/Media/events/emlyon-international-seminar-in-lisbon/3.jpg",
-      "/Media/events/emlyon-international-seminar-in-lisbon/4.jpg",
+      "/Media/events/emlyon-international-seminar-in-lisbon/1.webp",
+      "/Media/events/emlyon-international-seminar-in-lisbon/2.webp",
+      "/Media/events/emlyon-international-seminar-in-lisbon/3.webp",
+      "/Media/events/emlyon-international-seminar-in-lisbon/4.webp",
     ],
     tags: ["emlyon", "Lisbon", "AI Strategy", "Education", "Seminar"],
     tier: "standard",
@@ -331,10 +331,10 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/posts/imenebrigui_ai-autonomous-activity-7304125582236090368-8tE6",
     images: [
-      "/Media/events/wids-paris-emlyon-datathon/1.jpg",
-      "/Media/events/wids-paris-emlyon-datathon/2.jpg",
-      "/Media/events/wids-paris-emlyon-datathon/3.jpg",
-      "/Media/events/wids-paris-emlyon-datathon/4.jpg",
+      "/Media/events/wids-paris-emlyon-datathon/1.webp",
+      "/Media/events/wids-paris-emlyon-datathon/2.webp",
+      "/Media/events/wids-paris-emlyon-datathon/3.webp",
+      "/Media/events/wids-paris-emlyon-datathon/4.webp",
     ],
     tags: ["WiDS", "Datathon", "AI", "Autonomous Systems", "Mentorship", "emlyon"],
     tier: "standard",
@@ -354,8 +354,8 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7285372021775982592/",
     images: [
-      "/Media/events/philippe-rambach-ai-scale-at-emlyon-business-school/1.jpg",
-      "/Media/events/philippe-rambach-ai-scale-at-emlyon-business-school/2.jpg",
+      "/Media/events/philippe-rambach-ai-scale-at-emlyon-business-school/1.webp",
+      "/Media/events/philippe-rambach-ai-scale-at-emlyon-business-school/2.webp",
     ],
     tags: ["Schneider Electric", "AI", "Sustainability", "emlyon", "Speaking"],
     tier: "featured",
@@ -378,10 +378,10 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7275841618690142208/",
     images: [
-      "/Media/events/emlyon-data-science-missions-launch/1.jpg",
-      "/Media/events/emlyon-data-science-missions-launch/2.jpg",
-      "/Media/events/emlyon-data-science-missions-launch/3.jpg",
-      "/Media/events/emlyon-data-science-missions-launch/4.jpg",
+      "/Media/events/emlyon-data-science-missions-launch/1.webp",
+      "/Media/events/emlyon-data-science-missions-launch/2.webp",
+      "/Media/events/emlyon-data-science-missions-launch/3.webp",
+      "/Media/events/emlyon-data-science-missions-launch/4.webp",
     ],
     tags: ["emlyon", "Data Science", "AI", "Industry Partners"],
     tier: "standard",
@@ -398,7 +398,7 @@ export const events: Event[] = [
     description:
       "Enrolled in the MSc Data Science & AI Strategy program at emlyon business school in Paris, with a focus on causal inference, AI-driven business strategy, and applied machine learning. Received the LIFE Lebanon Scholarship and was elected class representative.",
     relatedExperienceId: "emlyon",
-    images: ["/Media/events/started-msc-at-emlyon-business-school/1.jpg"],
+    images: ["/Media/events/started-msc-at-emlyon-business-school/1.webp"],
     tags: ["emlyon", "MSc", "AI Strategy", "Data Science", "Scholarship"],
     tier: "featured",
   },
@@ -416,7 +416,7 @@ export const events: Event[] = [
       "Delivered a 4-hour hackathon as part of Park Innovation's IdeaLab Program in partnership with Berytech and co-funded by the Embassy of the Kingdom of the Netherlands. Brought together UX/UI designers, full stack developers, DevOps engineers, and digital marketers for a deep dive into AI applications in Agritech and Cleantech.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7200523301931114496/",
-    images: ["/Media/events/park-innovation-idealab-4hour-hackathon/1.jpg"],
+    images: ["/Media/events/park-innovation-idealab-4hour-hackathon/1.webp"],
     tags: ["Hackathon", "Agritech", "Cleantech", "Innovation", "Mentoring"],
     tier: "featured",
   },
@@ -438,9 +438,9 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7192549378484584448/",
     images: [
-      "/Media/events/startup-weekend-support-sws-2024-jury-member/1.jpg",
-      "/Media/events/startup-weekend-support-sws-2024-jury-member/2.jpg",
-      "/Media/events/startup-weekend-support-sws-2024-jury-member/3.jpg",
+      "/Media/events/startup-weekend-support-sws-2024-jury-member/1.webp",
+      "/Media/events/startup-weekend-support-sws-2024-jury-member/2.webp",
+      "/Media/events/startup-weekend-support-sws-2024-jury-member/3.webp",
     ],
     tags: ["Jury", "Hackathon", "Agritech", "Medtech", "SaaS", "Startups"],
     tier: "featured",
@@ -462,7 +462,7 @@ export const events: Event[] = [
     credlyUrls: [
       "https://www.credly.com/badges/84e5ad07-84f3-407c-88db-99ab1a8c7925/public_url",
     ],
-    images: ["/Media/events/pmp-certification-earned/1.jpg"],
+    images: ["/Media/events/pmp-certification-earned/1.webp"],
     tags: ["PMP", "Certification", "Project Management", "PMI", "Leadership"],
     tier: "standard",
   },
@@ -480,7 +480,7 @@ export const events: Event[] = [
       "Completed ZAKA's Machine Learning Specialization Program, gaining hands-on experience with modern ML frameworks and tools. Featured in promotional materials and testimonial videos to share the learning journey and encourage aspiring AI/ML practitioners to join the program. Highlighted the program's impact on building practical machine learning skills and advancing AI career development.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7148793112461533184/",
-    images: ["/Media/events/zaka-ml-specialization-program/1.png"],
+    images: ["/Media/events/zaka-ml-specialization-program/1.webp"],
     tags: ["ZAKA", "Machine Learning", "Certification", "AI", "Community"],
     tier: "standard",
   },
@@ -500,7 +500,7 @@ export const events: Event[] = [
     description:
       "Led the architecture and development of MOPO's core multi-LLM agent system, where a lead agent orchestrates specialized tool agents for complex task execution. Spearheaded the implementation of RAG pipelines with vector embeddings, knowledge graphs, and semantic routers to enable intelligent information retrieval. Architected and deployed speech-to-text and translation services on AWS ECS. The technical foundation contributed to the company securing seed funding.",
     relatedExperienceId: "mopo",
-    images: ["/Media/events/led-multi-llm-orchestration-architecture-at-mopo/1.png"],
+    images: ["/Media/events/led-multi-llm-orchestration-architecture-at-mopo/1.webp"],
     tags: ["LLMs", "RAG", "Multi-Agent", "Knowledge Graphs", "AWS ECS", "Technical Leadership"],
     tier: "standard",
   },
@@ -515,7 +515,7 @@ export const events: Event[] = [
     description:
       "Launched a freelance AI consulting practice serving clients across Paris, Beirut, and San Francisco. Key engagements included: building an LLM chatbot and RAG agent on Azure AI Search for TowardsChange, developing a CV ranking system for ShebangNow, leading GenAI architecture design at AI.skilled, and building a voice-to-JSON agent for Traveln.ai.",
     relatedExperienceId: "freelance-ai-consultant",
-    images: ["/Media/events/launched-freelance-ai-consulting-practice/1.jpg"],
+    images: ["/Media/events/launched-freelance-ai-consulting-practice/1.webp"],
     tags: ["Freelance", "Consulting", "LLMs", "RAG", "Azure AI"],
     tier: "featured",
   },
@@ -534,10 +534,10 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7090669954336706560/",
     images: [
-      "/Media/events/tech-for-accessibility-hackathon-winner/1.jpg",
-      "/Media/events/tech-for-accessibility-hackathon-winner/2.jpg",
-      "/Media/events/tech-for-accessibility-hackathon-winner/3.jpg",
-      "/Media/events/tech-for-accessibility-hackathon-winner/4.jpg",
+      "/Media/events/tech-for-accessibility-hackathon-winner/1.webp",
+      "/Media/events/tech-for-accessibility-hackathon-winner/2.webp",
+      "/Media/events/tech-for-accessibility-hackathon-winner/3.webp",
+      "/Media/events/tech-for-accessibility-hackathon-winner/4.webp",
     ],
     tags: ["Hackathon", "Winner", "Accessibility", "AUB", "Innovation"],
     tier: "featured",
@@ -557,9 +557,9 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7080583457717776384/",
     images: [
-      "/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/1.jpg",
-      "/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/2.jpg",
-      "/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/3.jpg",
+      "/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/1.webp",
+      "/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/2.webp",
+      "/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/3.webp",
     ],
     tags: ["AI", "Workshop", "Zahle", "Michel Daher Foundation", "Beirut AI"],
     tier: "featured",
@@ -579,10 +579,10 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7045826644019732480/",
     images: [
-      "/Media/events/beirut-ai-bert-transformers-workshop/1.jpg",
-      "/Media/events/beirut-ai-bert-transformers-workshop/2.jpg",
-      "/Media/events/beirut-ai-bert-transformers-workshop/3.jpg",
-      "/Media/events/beirut-ai-bert-transformers-workshop/4.jpg",
+      "/Media/events/beirut-ai-bert-transformers-workshop/1.webp",
+      "/Media/events/beirut-ai-bert-transformers-workshop/2.webp",
+      "/Media/events/beirut-ai-bert-transformers-workshop/3.webp",
+      "/Media/events/beirut-ai-bert-transformers-workshop/4.webp",
     ],
     tags: ["BERT", "NLP", "Transformers", "Hugging Face", "Beirut AI", "AWS", "SageMaker"],
     tier: "featured",
@@ -602,14 +602,14 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7068188045170073600/",
     images: [
-      "/Media/events/beirut-ai-workshops-in-baalbek/1.jpg",
-      "/Media/events/beirut-ai-workshops-in-baalbek/8.jpg",
-      "/Media/events/beirut-ai-workshops-in-baalbek/9.jpg",
-      "/Media/events/beirut-ai-workshops-in-baalbek/3.jpg",
-      "/Media/events/beirut-ai-workshops-in-baalbek/4.jpg",
-      "/Media/events/beirut-ai-workshops-in-baalbek/5.jpg",
-      "/Media/events/beirut-ai-workshops-in-baalbek/6.jpg",
-      "/Media/events/beirut-ai-workshops-in-baalbek/7.jpg",
+      "/Media/events/beirut-ai-workshops-in-baalbek/1.webp",
+      "/Media/events/beirut-ai-workshops-in-baalbek/8.webp",
+      "/Media/events/beirut-ai-workshops-in-baalbek/9.webp",
+      "/Media/events/beirut-ai-workshops-in-baalbek/3.webp",
+      "/Media/events/beirut-ai-workshops-in-baalbek/4.webp",
+      "/Media/events/beirut-ai-workshops-in-baalbek/5.webp",
+      "/Media/events/beirut-ai-workshops-in-baalbek/6.webp",
+      "/Media/events/beirut-ai-workshops-in-baalbek/7.webp",
     ],
     tags: ["Beirut AI", "Baalbek", "Workshop", "AI Education", "Community"],
     tier: "featured",
@@ -629,11 +629,11 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:7044988891073773569/",
     images: [
-      "/Media/events/dataseccode-event-at-usal/1.jpg",
-      "/Media/events/dataseccode-event-at-usal/2.jpg",
-      "/Media/events/dataseccode-event-at-usal/3.jpg",
-      "/Media/events/dataseccode-event-at-usal/4.jpg",
-      "/Media/events/dataseccode-event-at-usal/5.jpg",
+      "/Media/events/dataseccode-event-at-usal/1.webp",
+      "/Media/events/dataseccode-event-at-usal/2.webp",
+      "/Media/events/dataseccode-event-at-usal/3.webp",
+      "/Media/events/dataseccode-event-at-usal/4.webp",
+      "/Media/events/dataseccode-event-at-usal/5.webp",
     ],
     tags: ["Data Science", "Community", "USAL", "Speaking"],
     tier: "standard",
@@ -656,8 +656,8 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6978455580260581376/",
     images: [
-      "/Media/events/digital-health-workshop-ai-applications-in-medicine/1.jpg",
-      "/Media/events/digital-health-workshop-ai-applications-in-medicine/2.jpg",
+      "/Media/events/digital-health-workshop-ai-applications-in-medicine/1.webp",
+      "/Media/events/digital-health-workshop-ai-applications-in-medicine/2.webp",
     ],
     tags: ["Digital Health", "AI", "Medicine", "Healthcare", "Workshop", "International"],
     tier: "featured",
@@ -693,7 +693,7 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6967789965795598337/",
     images: [
-      "/Media/events/microsoft-azure-certifications-ai900-az900-via-zaka-ai-ready/1.jpg",
+      "/Media/events/microsoft-azure-certifications-ai900-az900-via-zaka-ai-ready/1.webp",
     ],
     tags: ["YOLO", "YOLOv7", "Object Detection", "Computer Vision", "Workshop"],
     tier: "featured",
@@ -711,8 +711,8 @@ export const events: Event[] = [
     description:
       "Completed ZAKA's intensive 16-week AI programme covering machine learning fundamentals, deep learning, model deployment, and real-world AI applications with hands-on training.",
     images: [
-      "/Media/events/zaka-certified-machine-learning-engineer-program/1.jpg",
-      "/Media/events/zaka-certified-machine-learning-engineer-program/2.png",
+      "/Media/events/zaka-certified-machine-learning-engineer-program/1.webp",
+      "/Media/events/zaka-certified-machine-learning-engineer-program/2.webp",
     ],
     tags: ["ZAKA", "Machine Learning", "Certification", "AI"],
     tier: "standard",
@@ -747,9 +747,9 @@ export const events: Event[] = [
       "Joined the Mobile Arts team on a trip to Egypt to celebrate the company's achievements and milestones. A well-deserved getaway to recognize the hard work and success of the team.",
     relatedExperienceId: "mobile-arts",
     images: [
-      "/Media/events/mobile-arts-egypt-trip/3.jpg",
-      "/Media/events/mobile-arts-egypt-trip/1.jpg",
-      "/Media/events/mobile-arts-egypt-trip/2.jpg",
+      "/Media/events/mobile-arts-egypt-trip/3.webp",
+      "/Media/events/mobile-arts-egypt-trip/1.webp",
+      "/Media/events/mobile-arts-egypt-trip/2.webp",
     ],
     tags: ["Mobile Arts", "Team", "Egypt", "Celebration"],
     tier: "standard",
@@ -772,8 +772,8 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6851575708825747457/",
     images: [
-      "/Media/events/google-data-analytics-stanford-ml-course/1.jpg",
-      "/Media/events/google-data-analytics-stanford-ml-course/2.jpg",
+      "/Media/events/google-data-analytics-stanford-ml-course/1.webp",
+      "/Media/events/google-data-analytics-stanford-ml-course/2.webp",
     ],
     tags: ["Google", "Stanford", "Machine Learning", "Andrew Ng", "Coursera"],
     tier: "standard",
@@ -797,7 +797,7 @@ export const events: Event[] = [
       "https://www.credly.com/badges/ff9e3dcf-ec5d-4c65-af41-f73e4b8405f3/public_url",
     ],
     images: [
-      "/Media/events/microsoft-azure-certifications-ai900-az900-via-zaka-ai-ready/badges.png",
+      "/Media/events/microsoft-azure-certifications-ai900-az900-via-zaka-ai-ready/badges.webp",
     ],
     tags: ["Microsoft", "Azure", "AI-900", "AZ-900", "Certification"],
     tier: "standard",
@@ -817,10 +817,10 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6763485354323406849/",
     images: [
-      "/Media/events/beirut-ai-bootcamp-agri-hackathon/1.png",
-      "/Media/events/beirut-ai-bootcamp-agri-hackathon/2.jpg",
-      "/Media/events/beirut-ai-bootcamp-agri-hackathon/3.jpg",
-      "/Media/events/beirut-ai-bootcamp-agri-hackathon/4.jpg",
+      "/Media/events/beirut-ai-bootcamp-agri-hackathon/1.webp",
+      "/Media/events/beirut-ai-bootcamp-agri-hackathon/2.webp",
+      "/Media/events/beirut-ai-bootcamp-agri-hackathon/3.webp",
+      "/Media/events/beirut-ai-bootcamp-agri-hackathon/4.webp",
     ],
     tags: ["Bootcamp", "Hackathon", "Agriculture", "Deep Learning", "NLP"],
     tier: "standard",
@@ -838,8 +838,8 @@ export const events: Event[] = [
       "Developed real-time computer vision systems for automotive safety. Trained models using NVIDIA TAO Toolkit, built inference pipelines with DeepStream SDK on Jetson Nano and Jetson Orin. Achieved ~60 FPS for collision warning, lane detection, and traffic sign detection.",
     relatedExperienceId: "decentra-tech",
     images: [
-      "/Media/events/edge-ai-deployment-at-decentra-tech/1.jpg",
-      "/Media/events/edge-ai-deployment-at-decentra-tech/2.jpg",
+      "/Media/events/edge-ai-deployment-at-decentra-tech/1.webp",
+      "/Media/events/edge-ai-deployment-at-decentra-tech/2.webp",
     ],
     tags: ["Computer Vision", "NVIDIA Jetson", "Edge AI", "DeepStream", "ADAS"],
     tier: "standard",
@@ -862,7 +862,7 @@ export const events: Event[] = [
       "https://www.credly.com/badges/e164a28c-3251-4556-a5a1-5919dbe73f0c/public_url",
     ],
     images: [
-      "/Media/events/microsoft-azure-dp900-certification/badge.png",
+      "/Media/events/microsoft-azure-dp900-certification/badge.webp",
     ],
     tags: ["Microsoft", "Azure", "DP-900", "Data", "Certification"],
     tier: "standard",
@@ -881,7 +881,7 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6775318696387719168/",
     images: [
-      "/Media/events/ccnav7-introduction-to-networks/1.jpg",
+      "/Media/events/ccnav7-introduction-to-networks/1.webp",
     ],
     tags: ["Cisco", "CCNA", "Networking", "Certification"],
     tier: "standard",
@@ -918,8 +918,8 @@ export const events: Event[] = [
       "First hands-on machine learning project at Kefraya-AI (USJ), training a YOLOv3 object detection model to identify vines from satellite and drone imagery for Chateau Kefraya vineyards. Marked the transition from academic ML to applied computer vision.",
     githubUrl: "https://github.com/HadiAbouDaya/Kefraya-AI",
     images: [
-      "/Media/events/kefraya-ai-vine-detection/1.jpg",
-      "/Media/events/kefraya-ai-vine-detection/2.jpg",
+      "/Media/events/kefraya-ai-vine-detection/1.webp",
+      "/Media/events/kefraya-ai-vine-detection/2.webp",
     ],
     relatedExperienceId: "kefraya-ai",
     tags: ["YOLOv3", "Computer Vision", "Agriculture", "Satellite Imagery"],
@@ -943,7 +943,7 @@ export const events: Event[] = [
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6729094193362300928/",
     credlyUrls: ["https://coursera.org/verify/specialization/56RYX6BMDXX5"],
-    images: ["/Media/events/deeplearning-ai-deep-learning-specialization/1.jpg"],
+    images: ["/Media/events/deeplearning-ai-deep-learning-specialization/1.webp"],
     tags: ["DeepLearning.AI", "Deep Learning", "CNNs", "Neural Networks"],
     tier: "standard",
   },
@@ -961,7 +961,7 @@ export const events: Event[] = [
       "Three months of amazing experience attending the Amideast Start Your Own Business Workshop. Got mentored by Andre Abi Awad and gained an entrepreneurial mindset through shared information, experiences, and networking.",
     linkedinUrl:
       "https://www.linkedin.com/feed/update/urn:li:activity:6709903035121864704/",
-    images: ["/Media/events/amideast-start-your-own-business-workshop/1.jpg"],
+    images: ["/Media/events/amideast-start-your-own-business-workshop/1.webp"],
     tags: ["Entrepreneurship", "Business", "Amideast", "Workshop"],
     tier: "standard",
   },
@@ -978,7 +978,7 @@ export const events: Event[] = [
     description:
       "Joined Eddys Group as a Laravel Developer, building backend services and APIs for business applications. This role provided foundational experience in professional software development, REST API design, and database management with MySQL.",
     relatedExperienceId: "eddys-group",
-    images: ["/Media/events/backend-development-at-eddys-group/1.jpg"],
+    images: ["/Media/events/backend-development-at-eddys-group/1.webp"],
     tags: ["Laravel", "PHP", "MySQL", "Backend", "API"],
     tier: "standard",
   },
@@ -994,7 +994,7 @@ export const events: Event[] = [
     description:
       "Started freelancing by building and customizing WordPress websites for local businesses and clients in Lebanon. Handled design, development, and deployment end-to-end, gaining early entrepreneurial experience.",
     relatedExperienceId: "freelance-wordpress",
-    images: ["/Media/events/started-freelance-wordpress-development/1.png"],
+    images: ["/Media/events/started-freelance-wordpress-development/1.webp"],
     tags: ["WordPress", "Freelance", "Web Development", "PHP"],
     tier: "standard",
   },
@@ -1014,9 +1014,9 @@ export const events: Event[] = [
     description:
       "Championed student interests as elected VP, expertly steering communications between students and administration, leading event planning, and fostering community spirit. Organized a fundraising and aid campaign to support those affected by Lebanon's economic crisis and the Lebanese Revolution.",
     images: [
-      "/Media/events/vp-student-representative-at-ceuzb-usj/1.jpg",
-      "/Media/events/vp-student-representative-at-ceuzb-usj/2.jpg",
-      "/Media/events/vp-student-representative-at-ceuzb-usj/3.jpg",
+      "/Media/events/vp-student-representative-at-ceuzb-usj/1.webp",
+      "/Media/events/vp-student-representative-at-ceuzb-usj/2.webp",
+      "/Media/events/vp-student-representative-at-ceuzb-usj/3.webp",
     ],
     tags: ["Student Leadership", "USJ", "Community", "Lebanon"],
     tier: "featured",
@@ -1034,7 +1034,7 @@ export const events: Event[] = [
     description:
       "During the Lebanese Revolution of 2019, organized a fundraising and aid campaign as VP of the student representative committee (CEUZB) at Université Saint-Joseph. Led student volunteers in collecting and distributing essential supplies, channeling student energy into meaningful community support during Lebanon's economic crisis and civil unrest.",
     linkedinUrl: "https://www.usj.edu.lb/news.php?id=8302",
-    images: ["/Media/events/lebanese-revolution-aid-campaign/1.jpg"],
+    images: ["/Media/events/lebanese-revolution-aid-campaign/1.webp"],
     tags: ["Lebanon", "Revolution", "Aid", "Community", "Leadership", "USJ"],
     tier: "standard",
   },
@@ -1051,8 +1051,8 @@ export const events: Event[] = [
     description:
       "Assisted electricians on site; responded to issues, troubleshot and diagnosed root causes, planned solutions, executed repairs, and verified that machines worked as expected.",
     images: [
-      "/Media/events/fomaco-sarl-assistant-technician-summer/1.jpg",
-      "/Media/events/fomaco-sarl-assistant-technician-summer/2.jpg",
+      "/Media/events/fomaco-sarl-assistant-technician-summer/1.webp",
+      "/Media/events/fomaco-sarl-assistant-technician-summer/2.webp",
     ],
     tags: ["Electrical", "Troubleshooting", "Internship"],
     tier: "standard",
@@ -1072,7 +1072,7 @@ export const events: Event[] = [
       "Began a five-year Software Engineering degree at USJ-ESIB with progressive specialization in ML, computer vision, and AI.",
     description:
       "Enrolled in the five-year Software Engineering program at USJ-ESIB in Beirut. The program featured progressive specialization towards machine learning, computer vision, and artificial intelligence. Served as VP of the Student Representative Committee and completed projects including gene mutation prediction, solar panel detection, licence plate recognition, and pose estimation.",
-    images: ["/Media/events/usj-esib-engineering/1.png"],
+    images: ["/Media/events/usj-esib-engineering/1.webp"],
     relatedExperienceId: "usj-esib",
     tags: ["Software Engineering", "USJ", "ESIB", "Computer Science"],
     tier: "featured",
@@ -1111,7 +1111,7 @@ export const events: Event[] = [
     description:
       "Pioneered Beirut AI's strategic initiatives, cementing its status as a pivotal institution for AI knowledge in the MENA region. Introduced university students to the community, increased engagement in workshops and events, and promoted collaboration through hackathons across Lebanese universities.",
     images: [
-      "/Media/events/beirut-ai-technical-ambassador/2.png",
+      "/Media/events/beirut-ai-technical-ambassador/2.webp",
     ],
     tags: ["Beirut AI", "Student Ambassador", "Community", "Hackathons"],
     tier: "standard",
@@ -1128,7 +1128,7 @@ export const events: Event[] = [
       "Collaborated with dentistry students at USJ FMD to develop an object detection model for identifying dental cavities and their types.",
     description:
       "Worked with dentistry students at Université Saint-Joseph's Faculté de médecine dentaire (FMD) to develop an AI-powered object detection system. The goal was to identify dental cavities and classify their types using machine learning, supporting diagnostic processes in dental care.",
-    images: ["/Media/events/medical-ai-research/1.jpg"],
+    images: ["/Media/events/medical-ai-research/1.webp"],
     tags: ["Medical AI", "Dental Imaging", "Object Detection", "Research", "USJ"],
     tier: "standard",
   },

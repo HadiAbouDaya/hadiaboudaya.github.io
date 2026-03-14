@@ -24,7 +24,7 @@ export const experiences: Experience[] = [
       "React",
       "PostgreSQL",
     ],
-    logoPath: "/Media/experience/freelance/supportful-logo.png",
+    logoPath: "/Media/experience/freelance/supportful-logo.webp",
     companyUrl: "https://supportful.world",
   },
   {
@@ -50,7 +50,7 @@ export const experiences: Experience[] = [
       "Databricks",
       "Python",
     ],
-    logoPath: "/Media/experience/savencia/logo.png",
+    logoPath: "/Media/experience/savencia/logo.webp",
     companyUrl: "https://www.savencia.com",
   },
   {
@@ -68,7 +68,7 @@ export const experiences: Experience[] = [
       "Studied AI Strategy, business development, and innovation management in the North American market",
     ],
     technologies: [],
-    logoPath: "/Media/education/mcgill/logo.png",
+    logoPath: "/Media/education/mcgill/logo.webp",
     companyUrl: "https://www.mcgill.ca",
   },
   {
@@ -88,7 +88,7 @@ export const experiences: Experience[] = [
       "LIFE Lebanon Scholarship recipient",
     ],
     technologies: [],
-    logoPath: "/Media/education/emlyon/logo.png",
+    logoPath: "/Media/education/emlyon/logo.webp",
     companyUrl: "https://em-lyon.com",
   },
   {
@@ -116,7 +116,7 @@ export const experiences: Experience[] = [
       "Docker",
       "PostgreSQL",
     ],
-    logoPath: "/Media/experience/mopo/logo.png",
+    logoPath: "/Media/experience/mopo/logo.webp",
   },
   {
     id: "freelance-ai-consultant",
@@ -136,7 +136,7 @@ export const experiences: Experience[] = [
       "Traveln.ai: Built RAG system and voice-to-JSON agent for travel booking automation",
     ],
     technologies: ["LLMs", "Azure AI", "RAG", "Vector Search"],
-    logoPath: "/Media/experience/freelance/logo.png",
+    logoPath: "/Media/experience/freelance/logo.webp",
   },
   {
     id: "mobile-arts",
@@ -161,7 +161,7 @@ export const experiences: Experience[] = [
       ".NET Core",
       "YOLOv8",
     ],
-    logoPath: "/Media/experience/mobile-arts/logo.png",
+    logoPath: "/Media/experience/mobile-arts/logo.webp",
   },
   {
     id: "decentra-tech",
@@ -187,7 +187,7 @@ export const experiences: Experience[] = [
       "DeepStream",
       "Docker",
     ],
-    logoPath: "/Media/experience/decentra-tech/logo.png",
+    logoPath: "/Media/experience/decentra-tech/logo.webp",
   },
   {
     id: "vee-smart",
@@ -205,7 +205,7 @@ export const experiences: Experience[] = [
       "Implemented Named Entity Recognition for aspect-based sentiment extraction",
     ],
     technologies: ["Python", "BERT", "LSTM", "NLP"],
-    logoPath: "/Media/experience/vee-smart/logo.png",
+    logoPath: "/Media/experience/vee-smart/logo.webp",
   },
   {
     id: "kefraya-ai",
@@ -222,7 +222,7 @@ export const experiences: Experience[] = [
       "Trained YOLOv3 model for vine detection from satellite and drone imagery for Chateau Kefraya vineyards",
     ],
     technologies: ["Python", "YOLOv3", "Computer Vision"],
-    logoPath: "/Media/experience/kefraya-ai/logo.png",
+    logoPath: "/Media/experience/kefraya-ai/logo.webp",
   },
   {
     id: "eddys-group",
@@ -239,7 +239,7 @@ export const experiences: Experience[] = [
       "Developed backend services and APIs using the Laravel PHP framework",
     ],
     technologies: ["Laravel", "PHP", "MySQL"],
-    logoPath: "/Media/experience/eddys-group/logo.png",
+    logoPath: "/Media/experience/eddys-group/logo.webp",
   },
   {
     id: "freelance-wordpress",
@@ -256,7 +256,7 @@ export const experiences: Experience[] = [
       "Built and customized WordPress websites for local clients, handling design, development, and deployment",
     ],
     technologies: ["WordPress", "PHP", "CSS"],
-    logoPath: "/Media/experience/freelance/wordpress-logo.png",
+    logoPath: "/Media/experience/freelance/wordpress-logo.webp",
   },
   {
     id: "fomaco",
@@ -273,7 +273,7 @@ export const experiences: Experience[] = [
       "Assisted electricians in the factory, troubleshot and diagnosed root causes of electrical issues, and executed repairs",
     ],
     technologies: ["Electrical Systems", "Troubleshooting"],
-    logoPath: "/Media/experience/fomaco/logo.png",
+    logoPath: "/Media/experience/fomaco/logo.webp",
   },
   {
     id: "usj-esib",
@@ -292,7 +292,7 @@ export const experiences: Experience[] = [
       "Projects: gene mutation prediction, solar panel detection, licence plate recognition, pose estimation",
     ],
     technologies: [],
-    logoPath: "/Media/education/usj-esib/logo.png",
+    logoPath: "/Media/education/usj-esib/logo.webp",
     companyUrl: "https://www.usj.edu.lb",
   },
 ];
