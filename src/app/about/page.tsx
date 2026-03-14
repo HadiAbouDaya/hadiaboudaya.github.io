@@ -4,7 +4,7 @@ import { KeyFacts } from "@/components/about/KeyFacts";
 import { JourneySection } from "@/components/about/JourneySection";
 import { LanguagesSection } from "@/components/about/LanguagesSection";
 import { PageNextSection } from "@/components/ui/PageNextSection";
-import { breadcrumbJsonLd, profilePageJsonLd } from "@/lib/jsonld";
+import { breadcrumbJsonLd, personJsonLd, profilePageJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: "About",
@@ -19,6 +19,10 @@ export default function AboutPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "About", href: "/about" }])) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd()) }}
       />
       <script
         type="application/ld+json"

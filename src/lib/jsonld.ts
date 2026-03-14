@@ -1,3 +1,5 @@
+import type { Event, EventCategory } from "@/types";
+
 const SITE_URL = "https://hadi.aboudaya.com";
 
 export function websiteJsonLd() {
@@ -10,6 +12,11 @@ export function websiteJsonLd() {
     description:
       "AI/ML Engineer & Consultant based in Paris. Building intelligent systems from edge to cloud.",
     publisher: { "@id": `${SITE_URL}/#person` },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${SITE_URL}/?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
   };
 }
 
@@ -23,8 +30,23 @@ export function personJsonLd() {
     description:
       "AI/ML Engineer & Consultant based in Paris. Building intelligent systems from edge to cloud.",
     jobTitle: "AI/ML Engineer & Consultant",
+    worksFor: {
+      "@type": "Organization",
+      name: "Supportful",
+      url: "https://supportful.world",
+    },
+    alumniOf: [
+      { "@type": "CollegeOrUniversity", name: "emlyon business school" },
+      { "@type": "CollegeOrUniversity", name: "McGill University" },
+      {
+        "@type": "CollegeOrUniversity",
+        name: "Saint Joseph University of Beirut (ESIB)",
+      },
+    ],
+    knowsLanguage: ["en", "fr", "ar"],
+    nationality: { "@type": "Country", name: "Lebanon" },
     sameAs: [
-      "https://linkedin.com/in/hadiad",
+      "https://www.linkedin.com/in/hadiad",
       "https://github.com/HadiAbouDaya",
     ],
     knowsAbout: [
@@ -81,6 +103,43 @@ export function articleJsonLd(post: {
   };
 }
 
+const EVENT_TYPE_MAP: Record<EventCategory, string> = {
+  workshop: "EducationEvent",
+  conference: "Event",
+  hackathon: "Event",
+  certification: "EducationEvent",
+  community: "SocialEvent",
+  "knowledge-sharing": "EducationEvent",
+  project: "Event",
+  career: "Event",
+  education: "EducationEvent",
+  achievement: "Event",
+};
+
+export function eventJsonLd(event: Event) {
+  return {
+    "@context": "https://schema.org",
+    "@type": EVENT_TYPE_MAP[event.category] || "Event",
+    name: event.title,
+    startDate: event.date,
+    description: event.summary,
+    location: {
+      "@type": "Place",
+      name: event.location,
+    },
+    organizer: event.organizations?.map((org) => ({
+      "@type": "Organization",
+      name: org,
+    })),
+    image: event.images?.[0]
+      ? `${SITE_URL}${event.images[0]}`
+      : undefined,
+    url: `${SITE_URL}/events/${event.slug}/`,
+    eventAttendanceMode:
+      "https://schema.org/OfflineEventAttendanceMode",
+  };
+}
+
 export function breadcrumbJsonLd(
   items: { name: string; href: string }[]
 ) {
@@ -88,12 +147,17 @@ export function breadcrumbJsonLd(
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${SITE_URL}/`,
+      },
       ...items.map((item, i) => ({
         "@type": "ListItem",
         position: i + 2,
         name: item.name,
-        item: `${SITE_URL}${item.href}`,
+        item: `${SITE_URL}${item.href.endsWith("/") ? item.href : `${item.href}/`}`,
       })),
     ],
   };
