@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Linkedin, Github, Mail, ArrowUp } from "lucide-react";
 import { SOCIAL_LINKS } from "@/data/social";
 import { NAV_LINKS } from "@/data/navigation";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 export function Footer() {
   const scrollToTop = () => {
@@ -43,6 +44,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="p-2 text-slate-400 hover:text-white transition-colors"
               aria-label="LinkedIn"
+              onClick={() => trackEvent(EVENTS.EXTERNAL_LINK_CLICKED, { url: SOCIAL_LINKS.linkedin, context: "footer" })}
             >
               <Linkedin className="w-5 h-5" />
             </a>
@@ -52,6 +54,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="p-2 text-slate-400 hover:text-white transition-colors"
               aria-label="GitHub"
+              onClick={() => trackEvent(EVENTS.EXTERNAL_LINK_CLICKED, { url: SOCIAL_LINKS.github, context: "footer" })}
             >
               <Github className="w-5 h-5" />
             </a>
@@ -59,6 +62,7 @@ export function Footer() {
               href={`mailto:${SOCIAL_LINKS.email}`}
               className="p-2 text-slate-400 hover:text-white transition-colors"
               aria-label="Email"
+              onClick={() => trackEvent(EVENTS.EXTERNAL_LINK_CLICKED, { url: `mailto:${SOCIAL_LINKS.email}`, context: "footer" })}
             >
               <Mail className="w-5 h-5" />
             </a>

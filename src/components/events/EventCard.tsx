@@ -8,6 +8,7 @@ import { categoryConfig } from "@/data/eventCategories";
 import { Calendar, MapPin, ChevronDown, ArrowUpRight } from "lucide-react";
 import { EventExpandedContent } from "./EventExpandedContent";
 import { cn } from "@/lib/utils";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 interface EventCardProps {
   event: Event;
@@ -47,7 +48,7 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
           role="button"
           tabIndex={0}
           aria-expanded={isExpanded}
-          onClick={onToggle}
+          onClick={() => { trackEvent(EVENTS.EVENT_CARD_TOGGLED, { title: event.title, expanded: !isExpanded }); onToggle(); }}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();

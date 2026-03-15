@@ -6,6 +6,7 @@ import { events } from "@/data/events";
 import { categoryConfig, FILTER_GROUPS } from "@/data/eventCategories";
 import { EventCard } from "./EventCard";
 import { cn } from "@/lib/utils";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 export function EventFilter() {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -63,6 +64,7 @@ export function EventFilter() {
               onClick={() => {
                 setActiveFilter(group.key);
                 setExpandedSlug(null);
+                trackEvent(EVENTS.EVENT_FILTER_CHANGED, { category: group.key });
               }}
               className={cn(
                 "inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300",

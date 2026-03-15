@@ -1,7 +1,10 @@
+"use client";
+
 import { Mail, Linkedin, Phone, MapPin, Calendar } from "lucide-react";
 import { SOCIAL_LINKS } from "@/data/social";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { Button } from "@/components/ui/Button";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 const contactMethods = [
   {
@@ -65,6 +68,7 @@ export function ContactInfo() {
                   href={method.href}
                   target={method.external ? "_blank" : undefined}
                   rel={method.external ? "noopener noreferrer" : undefined}
+                  onClick={() => trackEvent(EVENTS.EXTERNAL_LINK_CLICKED, { url: method.href, context: "contact_info" })}
                 >
                   {content}
                 </a>
@@ -82,6 +86,7 @@ export function ContactInfo() {
           external
           variant="primary"
           className="w-full mt-2"
+          onClick={() => trackEvent(EVENTS.CALENDLY_CLICKED, { location: "contact_info" })}
         >
           <Calendar className="w-4 h-4" />
           Book a Meeting

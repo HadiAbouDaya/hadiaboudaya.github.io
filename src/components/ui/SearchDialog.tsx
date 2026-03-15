@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback, Fragment } from "react";
+import { useState, useEffect, useRef, useCallback, Fragment, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -20,6 +20,7 @@ import {
   type SearchItem,
   type SearchResult,
 } from "@/lib/search";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 interface SearchDialogProps {
   open: boolean;
@@ -197,6 +198,16 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
     setSelectedIndex(-1);
   }, [query]);
 
+  // Debounced search tracking (1s after user stops typing)
+  useEffect(() => {
+    if (!query || query.length < 2) return;
+    const timer = setTimeout(() => {
+      const resultCount = search(query).length;
+      trackEvent(EVENTS.SEARCH_PERFORMED, { query, result_count: resultCount });
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [query]);
+
   // Auto-scroll selected item into view
   useEffect(() => {
     if (selectedIndex < 0 || !scrollRef.current) return;
@@ -205,7 +216,10 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
   }, [selectedIndex]);
 
   const navigate = useCallback(
-    (href: string) => {
+    (href: string, trackProps?: { title: string; category: string; position: number }) => {
+      if (trackProps) {
+        trackEvent(EVENTS.SEARCH_RESULT_CLICKED, { query, ...trackProps });
+      }
       onClose();
       router.push(href);
 
@@ -245,7 +259,8 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
       results[selectedIndex]
     ) {
       e.preventDefault();
-      navigate(results[selectedIndex].item.href);
+      const r = results[selectedIndex];
+      navigate(r.item.href, { title: r.item.title, category: r.item.category, position: selectedIndex });
     }
   };
 
@@ -414,7 +429,7 @@ function SearchResults({
   tokens: string[];
   selectedIndex: number;
   setSelectedIndex: (i: number) => void;
-  navigate: (href: string) => void;
+  navigate: (href: string, trackProps?: { title: string; category: string; position: number }) => void;
   flatIndexRef: { current: number };
   mobile?: boolean;
 }) {
@@ -452,7 +467,7 @@ function SearchResults({
                 <button
                   key={result.item.id}
                   data-result-item
-                  onClick={() => navigate(result.item.href)}
+                  onClick={() => navigate(result.item.href, { title: result.item.title, category: result.item.category, position: idx })}
                   onMouseEnter={() => setSelectedIndex(idx)}
                   className={`w-full flex items-start gap-3 px-4 ${mobile ? "py-4" : "py-3"} text-left transition-all duration-150 ${
                     idx === selectedIndex

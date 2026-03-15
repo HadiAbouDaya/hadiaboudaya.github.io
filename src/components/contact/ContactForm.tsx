@@ -3,6 +3,7 @@
 import { useState, FormEvent } from "react";
 import { Button } from "@/components/ui/Button";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 const FORMSPREE_URL = "https://formspree.io/f/myknzbav";
 
@@ -23,9 +24,12 @@ export function ContactForm() {
         body: formData,
         headers: { Accept: "application/json" },
       });
-      setStatus(res.ok ? "success" : "error");
+      const success = res.ok;
+      setStatus(success ? "success" : "error");
+      trackEvent(EVENTS.CONTACT_FORM_SUBMITTED, { success });
     } catch {
       setStatus("error");
+      trackEvent(EVENTS.CONTACT_FORM_SUBMITTED, { success: false });
     }
   }
 

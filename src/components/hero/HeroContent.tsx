@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { TypingEffect } from "@/components/ui/TypingEffect";
 import { Calendar, ArrowRight } from "lucide-react";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 interface HeroContentProps {
   latestPostSlug?: string | null;
@@ -48,7 +49,11 @@ export function HeroContent({ latestPostSlug, latestPostTitle }: HeroContentProp
         transition={{ duration: 0.8, delay: 0.8 }}
         className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
       >
-        <Button href="/about" className="bg-white/10 border-2 border-white/30 text-white hover:bg-white/20 hover:border-white/50">
+        <Button
+          href="/about"
+          className="bg-white/10 border-2 border-white/30 text-white hover:bg-white/20 hover:border-white/50"
+          onClick={() => trackEvent(EVENTS.CTA_CLICKED, { label: "About Me", href: "/about" })}
+        >
           <ArrowRight className="w-4 h-4" />
           About Me
         </Button>
@@ -56,6 +61,7 @@ export function HeroContent({ latestPostSlug, latestPostTitle }: HeroContentProp
           href="https://calendly.com/hadiad/one-on-one"
           external
           variant="primary"
+          onClick={() => trackEvent(EVENTS.CALENDLY_CLICKED, { location: "hero" })}
         >
           <Calendar className="w-4 h-4" />
           Book a Meeting

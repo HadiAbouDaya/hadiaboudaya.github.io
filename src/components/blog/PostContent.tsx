@@ -1,6 +1,7 @@
 import type { BlogPost } from "@/types";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { Badge } from "@/components/ui/Badge";
+import { BlogReadTracker } from "@/components/blog/BlogReadTracker";
 import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
@@ -72,9 +73,11 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
           </div>
 
           {/* MDX Content */}
-          <div className="mt-8 prose prose-slate dark:prose-invert lg:prose-lg prose-headings:text-slate-900 dark:prose-headings:text-white prose-a:text-primary-600 prose-code:text-primary-700 dark:prose-code:text-primary-300 prose-pre:bg-slate-900">
-            {children}
-          </div>
+          <BlogReadTracker slug={post.slug} title={post.title} readingTime={post.readingTime}>
+            <div className="mt-8 prose prose-slate dark:prose-invert lg:prose-lg prose-headings:text-slate-900 dark:prose-headings:text-white prose-a:text-primary-600 prose-code:text-primary-700 dark:prose-code:text-primary-300 prose-pre:bg-slate-900">
+              {children}
+            </div>
+          </BlogReadTracker>
 
           {/* Prev / Next navigation */}
           {(prevPost || nextPost) && (

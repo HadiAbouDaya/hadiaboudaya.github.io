@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { certifications } from "@/data/certifications";
 import { CertCard } from "./CertCard";
 import { cn } from "@/lib/utils";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 const FILTERS = [
   "All",
@@ -38,7 +39,7 @@ export function CertFilter() {
               key={filter}
               role="radio"
               aria-checked={isActive}
-              onClick={() => setActive(filter)}
+              onClick={() => { setActive(filter); trackEvent(EVENTS.CERTIFICATION_FILTER_CHANGED, { category: filter }); }}
               className={cn(
                 "px-4 py-2 rounded-full text-sm font-medium transition-all",
                 isActive

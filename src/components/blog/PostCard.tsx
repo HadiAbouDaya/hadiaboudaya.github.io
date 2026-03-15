@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/Badge";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 interface PostCardProps {
   post: BlogPost;
@@ -15,7 +16,7 @@ interface PostCardProps {
 export function PostCard({ post }: PostCardProps) {
   return (
     <ScrollReveal>
-      <Link href={`/blog/${post.slug}`}>
+      <Link href={`/blog/${post.slug}`} onClick={() => trackEvent(EVENTS.BLOG_POST_CLICKED, { slug: post.slug, title: post.title })}>
         <Card className="overflow-hidden group">
           {/* Cover image */}
           <div className="relative h-48 -mx-6 -mt-6 mb-4 overflow-hidden bg-slate-100 dark:bg-slate-700">

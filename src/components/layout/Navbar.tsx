@@ -10,6 +10,7 @@ import { NAV_LINKS } from "@/data/navigation";
 import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { SearchDialog } from "@/components/ui/SearchDialog";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -91,7 +92,7 @@ export function Navbar() {
             </button>
             <ThemeToggle />
             <button
-              onClick={() => setIsMobileOpen(true)}
+              onClick={() => { setIsMobileOpen(true); trackEvent(EVENTS.MOBILE_MENU_TOGGLED, { opened: true }); }}
               className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
               aria-label="Open menu"
             >
@@ -107,7 +108,7 @@ export function Navbar() {
         {isMobileOpen && (
           <MobileMenu
             pathname={pathname}
-            onClose={() => setIsMobileOpen(false)}
+            onClose={() => { setIsMobileOpen(false); trackEvent(EVENTS.MOBILE_MENU_TOGGLED, { opened: false }); }}
           />
         )}
       </AnimatePresence>

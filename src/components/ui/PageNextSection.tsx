@@ -10,6 +10,7 @@ import {
   BookOpen,
 } from "lucide-react";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import { trackEvent, EVENTS } from "@/lib/analytics";
 
 const iconMap = {
   briefcase: Briefcase,
@@ -46,6 +47,7 @@ export function PageNextSection({ suggestions }: PageNextSectionProps) {
               <Link
                 key={s.href}
                 href={s.href}
+                onClick={() => trackEvent(EVENTS.PAGE_SUGGESTION_CLICKED, { target: s.href, label: s.label })}
                 className="group flex items-start gap-3 p-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
               >
                 <Icon className="w-5 h-5 mt-0.5 text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors shrink-0" />
