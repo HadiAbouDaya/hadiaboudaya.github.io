@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { SkipToContent } from "@/components/ui/SkipToContent";
+import { PostHogProvider } from "@/components/PostHogProvider";
 import "./globals.css";
 import type { Metadata } from "next";
 
@@ -61,14 +62,16 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="font-sans bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200 antialiased">
-        <ThemeProvider>
-          <SkipToContent />
-          <Navbar />
-          <main id="main-content" tabIndex={-1}>
-            {children}
-          </main>
-          <Footer />
-        </ThemeProvider>
+        <PostHogProvider>
+          <ThemeProvider>
+            <SkipToContent />
+            <Navbar />
+            <main id="main-content" tabIndex={-1}>
+              {children}
+            </main>
+            <Footer />
+          </ThemeProvider>
+        </PostHogProvider>
       </body>
     </html>
   );
