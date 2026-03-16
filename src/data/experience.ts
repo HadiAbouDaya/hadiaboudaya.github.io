@@ -13,8 +13,8 @@ export const experiences: Experience[] = [
     description:
       "Building AI-powered products as a freelance consultant, delivering multi-agent systems and natural language interfaces for SaaS platforms.",
     bullets: [
-      "Built Cyrus AI: multi-agent sales copilot using LangGraph for automated lead qualification and Slack draft generation with Salesforce and Gmail integrations; deployed as multi-tenant SaaS on AWS",
-      "Built Zameel AI: LangGraph + Gemini platform enabling natural language court booking, scheduling, and payments with an NL BI layer that auto-generates React charts from conversational queries",
+      "(B2B Sales Intelligence Platform) Architected a multi-agent sales copilot using LangGraph to automate lead qualification and human-in-the-loop Slack drafts with Salesforce, Gmail, and other integrations; deployed as multi-tenant SaaS on AWS with isolated DBs and vector stores for enterprise-compliant agentic workflows",
+      "(Sports Facility Management SaaS) Delivered a LangGraph + Gemini platform enabling natural language court booking, scheduling, and payments via stateful conversational flows, plus a Natural Language BI layer that translates manager queries into auto-generated React charts for revenue and staff analytics",
     ],
     technologies: [
       "LangGraph",
