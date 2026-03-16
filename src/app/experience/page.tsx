@@ -1,8 +1,16 @@
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
-import { ExperienceTimeline } from "@/components/experience/ExperienceTimeline";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { PageNextSection } from "@/components/ui/PageNextSection";
+import { LazyLoad } from "@/components/ui/LazyLoad";
+import { TimelineSkeleton, PageNextSkeleton } from "@/components/ui/Skeleton";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
+
+const ExperienceTimeline = dynamic(
+  () => import("@/components/experience/ExperienceTimeline").then((m) => m.ExperienceTimeline),
+);
+const PageNextSection = dynamic(
+  () => import("@/components/ui/PageNextSection").then((m) => m.PageNextSection),
+);
 
 export const metadata: Metadata = {
   title: "Experience",
@@ -23,14 +31,18 @@ export default function ExperiencePage() {
           title="Experience"
           subtitle="A timeline of my professional and academic journey from 2018 to present."
         />
-        <ExperienceTimeline />
-        <PageNextSection
-          suggestions={[
-            { label: "Certifications", description: "45+ professional credentials", href: "/certifications", icon: "award" },
-            { label: "Events", description: "Conferences & hackathons", href: "/events", icon: "calendar" },
-            { label: "Blog", description: "Technical articles", href: "/blog", icon: "book-open" },
-          ]}
-        />
+        <LazyLoad fallback={<TimelineSkeleton />}>
+          <ExperienceTimeline />
+        </LazyLoad>
+        <LazyLoad fallback={<PageNextSkeleton />}>
+          <PageNextSection
+            suggestions={[
+              { label: "Certifications", description: "45+ professional credentials", href: "/certifications", icon: "award" },
+              { label: "Events", description: "Conferences & hackathons", href: "/events", icon: "calendar" },
+              { label: "Blog", description: "Technical articles", href: "/blog", icon: "book-open" },
+            ]}
+          />
+        </LazyLoad>
       </div>
     </div>
   );

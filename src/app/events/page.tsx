@@ -1,7 +1,13 @@
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
-import { EventFilter } from "@/components/events/EventFilter";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { LazyLoad } from "@/components/ui/LazyLoad";
+import { CardGridSkeleton } from "@/components/ui/Skeleton";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
+
+const EventFilter = dynamic(
+  () => import("@/components/events/EventFilter").then((m) => m.EventFilter),
+);
 
 export const metadata: Metadata = {
   title: "Events",
@@ -22,7 +28,9 @@ export default function EventsPage() {
           title="Events"
           subtitle="Workshops, conferences, hackathons, and milestones across my journey"
         />
-        <EventFilter />
+        <LazyLoad fallback={<CardGridSkeleton cols={2} rows={3} />}>
+          <EventFilter />
+        </LazyLoad>
       </div>
     </div>
   );

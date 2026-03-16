@@ -1,11 +1,17 @@
+import dynamic from "next/dynamic";
 import { HeroContent } from "@/components/hero/HeroContent";
 import { GlobeWrapper } from "@/components/hero/GlobeWrapper";
-import { HomeHighlights } from "@/components/home/HomeHighlights";
+import { LazyLoad } from "@/components/ui/LazyLoad";
+import { HighlightsSkeleton } from "@/components/ui/Skeleton";
 import { personJsonLd, websiteJsonLd } from "@/lib/jsonld";
 import { experiences } from "@/data/experience";
 import { events } from "@/data/events";
 import { certifications } from "@/data/certifications";
 import { getAllPosts } from "@/lib/mdx";
+
+const HomeHighlights = dynamic(
+  () => import("@/components/home/HomeHighlights").then((m) => m.HomeHighlights)
+);
 
 export default function HomePage() {
   const latestRole = experiences[0];
@@ -48,12 +54,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <HomeHighlights
-        latestRole={{ role: latestRole.role, company: latestRole.company, period: latestRole.period }}
-        featuredEvent={{ title: featuredEvent.title, date: featuredEvent.date, category: featuredEvent.category }}
-        certCount={certifications.length}
-        latestPost={latestPost ? { slug: latestPost.slug, title: latestPost.title, excerpt: latestPost.excerpt } : null}
-      />
+      <LazyLoad fallback={<HighlightsSkeleton />}>
+        <HomeHighlights
+          latestRole={{ role: latestRole.role, company: latestRole.company, period: latestRole.period }}
+          featuredEvent={{ title: featuredEvent.title, date: featuredEvent.date, category: featuredEvent.category }}
+          certCount={certifications.length}
+          latestPost={latestPost ? { slug: latestPost.slug, title: latestPost.title, excerpt: latestPost.excerpt } : null}
+        />
+      </LazyLoad>
     </>
   );
 }

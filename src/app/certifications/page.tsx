@@ -1,8 +1,16 @@
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
-import { CertFilter } from "@/components/certifications/CertFilter";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { PageNextSection } from "@/components/ui/PageNextSection";
+import { LazyLoad } from "@/components/ui/LazyLoad";
+import { CardGridSkeleton, PageNextSkeleton } from "@/components/ui/Skeleton";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
+
+const CertFilter = dynamic(
+  () => import("@/components/certifications/CertFilter").then((m) => m.CertFilter),
+);
+const PageNextSection = dynamic(
+  () => import("@/components/ui/PageNextSection").then((m) => m.PageNextSection),
+);
 
 export const metadata: Metadata = {
   title: "Certifications",
@@ -23,14 +31,18 @@ export default function CertificationsPage() {
           title="Certifications"
           subtitle="45+ professional certifications across AI, cloud, and engineering"
         />
-        <CertFilter />
-        <PageNextSection
-          suggestions={[
-            { label: "Experience", description: "My career journey", href: "/experience", icon: "briefcase" },
-            { label: "Blog", description: "Technical articles & insights", href: "/blog", icon: "book-open" },
-            { label: "Contact", description: "Get in touch", href: "/contact", icon: "mail" },
-          ]}
-        />
+        <LazyLoad fallback={<CardGridSkeleton cols={3} rows={3} />}>
+          <CertFilter />
+        </LazyLoad>
+        <LazyLoad fallback={<PageNextSkeleton />}>
+          <PageNextSection
+            suggestions={[
+              { label: "Experience", description: "My career journey", href: "/experience", icon: "briefcase" },
+              { label: "Blog", description: "Technical articles & insights", href: "/blog", icon: "book-open" },
+              { label: "Contact", description: "Get in touch", href: "/contact", icon: "mail" },
+            ]}
+          />
+        </LazyLoad>
       </div>
     </div>
   );

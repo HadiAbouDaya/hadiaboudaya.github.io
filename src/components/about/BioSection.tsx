@@ -22,6 +22,7 @@ export function BioSection() {
               alt="Hadi Abou Daya"
               width={320}
               height={400}
+              priority
               fallbackText="HA"
               className="w-full h-full object-cover object-[center_20%]"
               fallbackClassName="w-full h-full rounded-2xl text-3xl"

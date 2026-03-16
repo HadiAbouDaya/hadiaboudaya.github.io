@@ -1,8 +1,16 @@
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
-import { ContactForm } from "@/components/contact/ContactForm";
-import { ContactInfo } from "@/components/contact/ContactInfo";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { LazyLoad } from "@/components/ui/LazyLoad";
+import { FormSkeleton, ContactInfoSkeleton } from "@/components/ui/Skeleton";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
+
+const ContactForm = dynamic(
+  () => import("@/components/contact/ContactForm").then((m) => m.ContactForm),
+);
+const ContactInfo = dynamic(
+  () => import("@/components/contact/ContactInfo").then((m) => m.ContactInfo),
+);
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -26,10 +34,14 @@ export default function ContactPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:items-end">
           <div className="lg:col-span-3">
-            <ContactForm />
+            <LazyLoad fallback={<FormSkeleton />} rootMargin="400px">
+              <ContactForm />
+            </LazyLoad>
           </div>
           <div className="lg:col-span-2">
-            <ContactInfo />
+            <LazyLoad fallback={<ContactInfoSkeleton />} rootMargin="400px">
+              <ContactInfo />
+            </LazyLoad>
           </div>
         </div>
       </div>
