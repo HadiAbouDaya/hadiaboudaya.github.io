@@ -37,7 +37,7 @@ export default function ExperiencePage() {
         <LazyLoad fallback={<PageNextSkeleton />}>
           <PageNextSection
             suggestions={[
-              { label: "Certifications", description: "45+ professional credentials", href: "/certifications", icon: "award" },
+              { label: "Certifications", description: "Credentials & courses", href: "/certifications", icon: "award" },
               { label: "Events", description: "Conferences & hackathons", href: "/events", icon: "calendar" },
               { label: "Blog", description: "Technical articles", href: "/blog", icon: "book-open" },
             ]}

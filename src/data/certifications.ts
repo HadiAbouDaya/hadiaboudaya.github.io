@@ -5,6 +5,7 @@ export const certifications: Certification[] = [
     id: 1,
     name: "AWS Certified Machine Learning - Specialty",
     issuer: "AWS",
+    type: "certification",
     category: "AWS",
     issuedDate: "Dec 2025",
     expiryDate: "Dec 2028",
@@ -16,6 +17,7 @@ export const certifications: Certification[] = [
     id: 2,
     name: "AWS Certified Cloud Practitioner",
     issuer: "AWS",
+    type: "certification",
     category: "AWS",
     issuedDate: "Apr 2025",
     expiryDate: "Apr 2028",
@@ -27,6 +29,7 @@ export const certifications: Certification[] = [
     id: 3,
     name: "Project Management Professional (PMP)\u00AE",
     issuer: "Project Management Institute",
+    type: "certification",
     category: "Business",
     issuedDate: "Aug 2024",
     expiryDate: "Aug 2027",
@@ -35,9 +38,21 @@ export const certifications: Certification[] = [
     badgePath: "/Media/certifications/badges/pmp.webp",
   },
   {
+    id: 46,
+    name: "ZAKA Certified Machine Learning Engineer",
+    issuer: "ZAKA",
+    type: "certification",
+    category: "AI/ML",
+    issuedDate: "Nov 2022",
+    credentialUrl:
+      "https://www.credential.net/d2fb4603-d828-4c8f-8df0-bbf2a85314e8",
+    badgePath: "/Media/certifications/badges/zaka-aic.webp",
+  },
+  {
     id: 4,
     name: "Azure Fundamentals AZ-900",
     issuer: "Microsoft",
+    type: "certification",
     category: "Azure",
     issuedDate: "Jul 2021",
     credentialUrl:
@@ -48,6 +63,7 @@ export const certifications: Certification[] = [
     id: 5,
     name: "Azure AI Fundamentals AI-900",
     issuer: "Microsoft",
+    type: "certification",
     category: "Azure",
     issuedDate: "Jun 2021",
     credentialUrl:
@@ -58,6 +74,7 @@ export const certifications: Certification[] = [
     id: 6,
     name: "Azure Data Fundamentals DP-900",
     issuer: "Microsoft",
+    type: "certification",
     category: "Azure",
     issuedDate: "May 2021",
     credentialUrl:
@@ -68,6 +85,7 @@ export const certifications: Certification[] = [
     id: 7,
     name: "CCNAv7: Introduction to Networks",
     issuer: "Cisco",
+    type: "certification",
     category: "Security",
     issuedDate: "Feb 2021",
     credentialUrl:
@@ -78,6 +96,7 @@ export const certifications: Certification[] = [
     id: 8,
     name: "Introduction to Cybersecurity",
     issuer: "Cisco",
+    type: "certification",
     category: "Security",
     issuedDate: "Sep 2020",
     credentialUrl:
@@ -88,6 +107,7 @@ export const certifications: Certification[] = [
     id: 9,
     name: "Google Data Analytics Specialization",
     issuer: "Google",
+    type: "certification",
     category: "Data Science",
     issuedDate: "Sep 2021",
     credentialUrl:
@@ -98,6 +118,7 @@ export const certifications: Certification[] = [
     id: 10,
     name: "Deep Learning Specialization",
     issuer: "DeepLearning.AI",
+    type: "certification",
     category: "AI/ML",
     issuedDate: "Nov 2020",
     credentialUrl:
@@ -108,6 +129,7 @@ export const certifications: Certification[] = [
     id: 11,
     name: "TensorFlow Developer",
     issuer: "DeepLearning.AI",
+    type: "certification",
     category: "AI/ML",
     issuedDate: "Dec 2020",
     credentialUrl:
@@ -118,6 +140,7 @@ export const certifications: Certification[] = [
     id: 12,
     name: "Neural Networks and Deep Learning",
     issuer: "DeepLearning.AI",
+    type: "course",
     category: "AI/ML",
     issuedDate: "Sep 2020",
     credentialUrl:
@@ -128,6 +151,7 @@ export const certifications: Certification[] = [
     id: 13,
     name: "Improving Deep Neural Networks",
     issuer: "DeepLearning.AI",
+    type: "course",
     category: "AI/ML",
     issuedDate: "Oct 2020",
     credentialUrl:
@@ -138,6 +162,7 @@ export const certifications: Certification[] = [
     id: 14,
     name: "Structuring ML Projects",
     issuer: "DeepLearning.AI",
+    type: "course",
     category: "AI/ML",
     issuedDate: "Oct 2020",
     credentialUrl:
@@ -148,6 +173,7 @@ export const certifications: Certification[] = [
     id: 15,
     name: "Convolutional Neural Networks",
     issuer: "DeepLearning.AI",
+    type: "course",
     category: "AI/ML",
     issuedDate: "Oct 2020",
     credentialUrl:
@@ -158,6 +184,7 @@ export const certifications: Certification[] = [
     id: 16,
     name: "Sequence Models",
     issuer: "DeepLearning.AI",
+    type: "course",
     category: "AI/ML",
     issuedDate: "Nov 2020",
     credentialUrl:
@@ -168,6 +195,7 @@ export const certifications: Certification[] = [
     id: 17,
     name: "CNNs in TensorFlow",
     issuer: "DeepLearning.AI",
+    type: "course",
     category: "AI/ML",
     issuedDate: "Dec 2020",
     credentialUrl:
@@ -178,6 +206,7 @@ export const certifications: Certification[] = [
     id: 18,
     name: "NLP in TensorFlow",
     issuer: "DeepLearning.AI",
+    type: "course",
     category: "AI/ML",
     issuedDate: "Nov 2020",
     credentialUrl:
@@ -188,6 +217,7 @@ export const certifications: Certification[] = [
     id: 19,
     name: "Sequences, Time Series and Prediction",
     issuer: "DeepLearning.AI",
+    type: "course",
     category: "AI/ML",
     issuedDate: "Nov 2020",
     credentialUrl:
@@ -198,6 +228,7 @@ export const certifications: Certification[] = [
     id: 20,
     name: "Intro to TensorFlow for AI/ML/DL",
     issuer: "DeepLearning.AI",
+    type: "course",
     category: "AI/ML",
     issuedDate: "Dec 2020",
     credentialUrl:
@@ -208,6 +239,7 @@ export const certifications: Certification[] = [
     id: 21,
     name: "Machine Learning (Stanford)",
     issuer: "Stanford University",
+    type: "course",
     category: "AI/ML",
     issuedDate: "Dec 2020",
     credentialUrl:
@@ -218,6 +250,7 @@ export const certifications: Certification[] = [
     id: 22,
     name: "Machine Learning for All",
     issuer: "University of London",
+    type: "course",
     category: "AI/ML",
     issuedDate: "Nov 2020",
     credentialUrl:
@@ -228,6 +261,7 @@ export const certifications: Certification[] = [
     id: 23,
     name: "Regression Models",
     issuer: "Johns Hopkins",
+    type: "course",
     category: "Data Science",
     issuedDate: "Dec 2020",
     credentialUrl:
@@ -238,6 +272,7 @@ export const certifications: Certification[] = [
     id: 24,
     name: "Practical ML",
     issuer: "Johns Hopkins",
+    type: "course",
     category: "Data Science",
     issuedDate: "Dec 2020",
     credentialUrl:
@@ -248,6 +283,7 @@ export const certifications: Certification[] = [
     id: 25,
     name: "Statistical Inference",
     issuer: "Johns Hopkins",
+    type: "course",
     category: "Data Science",
     issuedDate: "Dec 2020",
     credentialUrl:
@@ -258,6 +294,7 @@ export const certifications: Certification[] = [
     id: 26,
     name: "Exploratory Data Analysis",
     issuer: "Johns Hopkins",
+    type: "course",
     category: "Data Science",
     issuedDate: "Dec 2020",
     credentialUrl:
@@ -268,6 +305,7 @@ export const certifications: Certification[] = [
     id: 27,
     name: "R Programming",
     issuer: "Johns Hopkins",
+    type: "course",
     category: "Data Science",
     issuedDate: "Dec 2020",
     credentialUrl:
@@ -278,6 +316,7 @@ export const certifications: Certification[] = [
     id: 28,
     name: "Getting and Cleaning Data",
     issuer: "Johns Hopkins",
+    type: "course",
     category: "Data Science",
     issuedDate: "Dec 2020",
     credentialUrl:
@@ -288,6 +327,7 @@ export const certifications: Certification[] = [
     id: 29,
     name: "Data Scientist's Toolbox",
     issuer: "Johns Hopkins",
+    type: "course",
     category: "Data Science",
     issuedDate: "Dec 2020",
     credentialUrl:
@@ -298,6 +338,7 @@ export const certifications: Certification[] = [
     id: 30,
     name: "GCP Big Data & ML Fundamentals",
     issuer: "Google",
+    type: "course",
     category: "Data Science",
     issuedDate: "Nov 2020",
     credentialUrl:
@@ -308,6 +349,7 @@ export const certifications: Certification[] = [
     id: 31,
     name: "Getting started with TF2",
     issuer: "Imperial College London",
+    type: "course",
     category: "AI/ML",
     issuedDate: "Nov 2020",
     credentialUrl:
@@ -318,6 +360,7 @@ export const certifications: Certification[] = [
     id: 32,
     name: "SQL for Data Science",
     issuer: "UC Davis",
+    type: "course",
     category: "Data Science",
     issuedDate: "Sep 2020",
     credentialUrl:
@@ -328,6 +371,7 @@ export const certifications: Certification[] = [
     id: 33,
     name: "Intro to Self-Driving Cars",
     issuer: "University of Toronto",
+    type: "course",
     category: "Software Engineering",
     issuedDate: "Nov 2020",
     credentialUrl:
@@ -338,6 +382,7 @@ export const certifications: Certification[] = [
     id: 34,
     name: "Encryption Using C++",
     issuer: "Coursera",
+    type: "course",
     category: "Software Engineering",
     issuedDate: "Dec 2020",
     credentialUrl:
@@ -348,6 +393,7 @@ export const certifications: Certification[] = [
     id: 35,
     name: "Static Website in AWS S3",
     issuer: "Coursera",
+    type: "course",
     category: "Software Engineering",
     issuedDate: "Nov 2020",
     credentialUrl:
@@ -358,6 +404,7 @@ export const certifications: Certification[] = [
     id: 36,
     name: "Interactivity with JavaScript",
     issuer: "UMich",
+    type: "course",
     category: "Software Engineering",
     issuedDate: "Oct 2020",
     credentialUrl:
@@ -368,6 +415,7 @@ export const certifications: Certification[] = [
     id: 37,
     name: "Advanced Styling with Responsive Design",
     issuer: "UMich",
+    type: "course",
     category: "Software Engineering",
     issuedDate: "Oct 2020",
     credentialUrl:
@@ -378,6 +426,7 @@ export const certifications: Certification[] = [
     id: 38,
     name: "Building Web Apps in PHP",
     issuer: "UMich",
+    type: "course",
     category: "Software Engineering",
     issuedDate: "Oct 2020",
     credentialUrl:
@@ -388,6 +437,7 @@ export const certifications: Certification[] = [
     id: 39,
     name: "Intro to SQL",
     issuer: "UMich",
+    type: "course",
     category: "Software Engineering",
     issuedDate: "Oct 2020",
     credentialUrl:
@@ -398,6 +448,7 @@ export const certifications: Certification[] = [
     id: 40,
     name: "Initiation a la programmation (C++)",
     issuer: "EPFL",
+    type: "course",
     category: "Software Engineering",
     issuedDate: "Oct 2020",
     credentialUrl:
@@ -408,6 +459,7 @@ export const certifications: Certification[] = [
     id: 41,
     name: "Network Security & DB Vulnerabilities",
     issuer: "IBM",
+    type: "course",
     category: "Security",
     issuedDate: "Sep 2020",
     credentialUrl:
@@ -418,6 +470,7 @@ export const certifications: Certification[] = [
     id: 42,
     name: "Create My Own Business",
     issuer: "Berytech",
+    type: "course",
     category: "Business",
     issuedDate: "Jul 2020",
     credentialUrl:
@@ -428,6 +481,7 @@ export const certifications: Certification[] = [
     id: 43,
     name: "Start Your Own Business",
     issuer: "Amideast",
+    type: "course",
     category: "Business",
     issuedDate: "Sep 2020",
     credentialUrl:
@@ -438,6 +492,7 @@ export const certifications: Certification[] = [
     id: 44,
     name: "Python for DS, Algorithms",
     issuer: "Udemy",
+    type: "course",
     category: "Data Science",
     issuedDate: "May 2020",
     credentialUrl:
@@ -448,6 +503,7 @@ export const certifications: Certification[] = [
     id: 45,
     name: "Learn Python Masterclass",
     issuer: "Udemy",
+    type: "course",
     category: "Data Science",
     issuedDate: "Mar 2020",
     credentialUrl:

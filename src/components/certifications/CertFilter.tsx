@@ -1,13 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { certifications } from "@/data/certifications";
 import { CertCard } from "./CertCard";
 import { cn } from "@/lib/utils";
 import { trackEvent, EVENTS } from "@/lib/analytics";
 
-const FILTERS = [
+const TYPE_TABS = ["All", "Certifications", "Courses"] as const;
+type TypeTab = (typeof TYPE_TABS)[number];
+
+const CATEGORIES = [
   "All",
   "AWS",
   "Azure",
@@ -17,29 +20,76 @@ const FILTERS = [
   "Security",
   "Business",
 ] as const;
-
-type FilterType = (typeof FILTERS)[number];
+type CategoryFilter = (typeof CATEGORIES)[number];
 
 export function CertFilter() {
-  const [active, setActive] = useState<FilterType>("All");
+  const [activeType, setActiveType] = useState<TypeTab>("All");
+  const [activeCategory, setActiveCategory] = useState<CategoryFilter>("All");
 
-  const filtered =
-    active === "All"
-      ? certifications
-      : certifications.filter((c) => c.category === active);
+  const typeFiltered = useMemo(() => {
+    if (activeType === "All") return certifications;
+    const type = activeType === "Certifications" ? "certification" : "course";
+    return certifications.filter((c) => c.type === type);
+  }, [activeType]);
+
+  const filtered = useMemo(() => {
+    if (activeCategory === "All") return typeFiltered;
+    return typeFiltered.filter((c) => c.category === activeCategory);
+  }, [typeFiltered, activeCategory]);
+
+  const handleTypeChange = (tab: TypeTab) => {
+    setActiveType(tab);
+    setActiveCategory("All");
+    trackEvent(EVENTS.CERTIFICATION_FILTER_CHANGED, { type: tab });
+  };
 
   return (
     <div>
-      {/* Filter pills */}
+      {/* Type tabs */}
+      <div className="flex justify-center gap-2 mb-6" role="tablist" aria-label="Filter by type">
+        {TYPE_TABS.map((tab) => {
+          const isActive = activeType === tab;
+          const count =
+            tab === "All"
+              ? certifications.length
+              : certifications.filter((c) =>
+                  c.type === (tab === "Certifications" ? "certification" : "course")
+                ).length;
+          return (
+            <button
+              key={tab}
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => handleTypeChange(tab)}
+              className={cn(
+                "px-5 py-2.5 rounded-full text-sm font-semibold transition-all",
+                isActive
+                  ? "bg-primary-600 text-white shadow-md"
+                  : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
+              )}
+            >
+              {tab}
+              <span className="ml-1.5 text-xs opacity-70">({count})</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Category filter pills */}
       <div className="flex flex-wrap justify-center gap-2 mb-10" role="radiogroup" aria-label="Filter certifications by category">
-        {FILTERS.map((filter) => {
-          const isActive = active === filter;
+        {CATEGORIES.map((filter) => {
+          const isActive = activeCategory === filter;
+          const count =
+            filter === "All"
+              ? typeFiltered.length
+              : typeFiltered.filter((c) => c.category === filter).length;
+          if (filter !== "All" && count === 0) return null;
           return (
             <button
               key={filter}
               role="radio"
               aria-checked={isActive}
-              onClick={() => { setActive(filter); trackEvent(EVENTS.CERTIFICATION_FILTER_CHANGED, { category: filter }); }}
+              onClick={() => { setActiveCategory(filter); trackEvent(EVENTS.CERTIFICATION_FILTER_CHANGED, { category: filter }); }}
               className={cn(
                 "px-4 py-2 rounded-full text-sm font-medium transition-all",
                 isActive
@@ -49,9 +99,7 @@ export function CertFilter() {
             >
               {filter}
               {filter !== "All" && (
-                <span className="ml-1.5 text-xs opacity-70">
-                  ({certifications.filter((c) => c.category === filter).length})
-                </span>
+                <span className="ml-1.5 text-xs opacity-70">({count})</span>
               )}
             </button>
           );

@@ -18,6 +18,7 @@ export interface Certification {
   id: number;
   name: string;
   issuer: string;
+  type: "certification" | "course";
   category:
     | "AWS"
     | "Azure"

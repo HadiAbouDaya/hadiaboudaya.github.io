@@ -8,7 +8,7 @@
 - [About](https://hadi.aboudaya.com/about/): Bio, key facts, languages, and personal journey
 - [Experience](https://hadi.aboudaya.com/experience/): Career timeline from 2018 to present
 - [Events](https://hadi.aboudaya.com/events/): Workshops, conferences, hackathons, and milestones
-- [Certifications](https://hadi.aboudaya.com/certifications/): 45+ professional certifications (AWS, Azure, PMP, AI/ML)
+- [Certifications](https://hadi.aboudaya.com/certifications/): Industry-recognized certifications and courses (AWS, Azure, PMP, AI/ML)
 - [Blog](https://hadi.aboudaya.com/blog/): Articles on AI, machine learning, causal inference, and engineering
 - [Contact](https://hadi.aboudaya.com/contact/): Contact form and information
 
@@ -23,7 +23,7 @@
 
 ## About Hadi Abou Daya
 
-Hadi Abou Daya is an AI/ML Engineer & Consultant based in Paris. He specializes in building intelligent systems spanning edge devices to cloud-scale infrastructure. His expertise includes LLM agents, computer vision, and cloud architecture. He holds 45+ professional certifications and actively participates in conferences and hackathons.
+Hadi Abou Daya is an AI/ML Engineer & Consultant based in Paris. He specializes in building intelligent systems spanning edge devices to cloud-scale infrastructure. His expertise includes LLM agents, computer vision, and cloud architecture. He holds industry-recognized certifications across AI, cloud, and project management, and actively participates in conferences and hackathons.
 
 ## Links
 

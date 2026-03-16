@@ -1,5 +1,4 @@
 import type { KeyFact, Language } from "@/types";
-import { certifications } from "./certifications";
 
 export const BIO =
   "Lebanese-born AI/ML engineer based in Paris. From edge-deployed computer vision on NVIDIA Jetson to multi-LLM agent systems with LangGraph, I build intelligent products that scale on AWS. Currently consulting as an AI engineer.";
@@ -14,22 +13,22 @@ export const KEY_FACTS: KeyFact[] = [
   {
     icon: "Award",
     label: "Certifications",
-    value: `${certifications.length}+`,
+    value: "AI \u00b7 Cloud \u00b7 PM",
     detail: "AWS ML Specialty, PMP, Azure, TensorFlow Developer, and more",
   },
   {
     icon: "GraduationCap",
     label: "Education",
-    value: "Engineering + Strategy",
+    value: "Engineering & Strategy",
     detail:
       "MSc Data Science & AI Strategy (emlyon x McGill) + Engineer's Degree (USJ-ESIB)",
   },
   {
     icon: "Globe",
-    label: "Countries",
-    value: "13+",
+    label: "International Experience",
+    value: "Multicultural",
     detail:
-      "Lebanon, France, Canada, Spain, Germany, Italy, and more",
+      "Lebanon, France, Canada, Spain, Saudi Arabia, USA, and more",
   },
 ];
 
