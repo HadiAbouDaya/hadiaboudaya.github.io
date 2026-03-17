@@ -18,7 +18,7 @@ export function Footer() {
           <div className="text-center md:text-left">
             <h3 className="text-lg font-bold">Hadi Abou Daya</h3>
             <p className="text-slate-400 text-sm mt-1">
-              AI/ML Engineer &mdash; Paris, France
+              AI/ML Engineer - Paris, France
             </p>
           </div>
 

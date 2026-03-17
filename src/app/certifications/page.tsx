@@ -15,7 +15,7 @@ const PageNextSection = dynamic(
 export const metadata: Metadata = {
   title: "Certifications",
   description:
-    "Industry-recognized certifications and courses across AI, cloud, security, and project management.",
+    "AWS, Azure, PMP, and AI/ML certifications held by Hadi Abou Daya. Industry-recognized credentials in cloud computing, AI, and project management.",
   alternates: { canonical: "/certifications/" },
 };
 

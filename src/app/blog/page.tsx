@@ -7,7 +7,7 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Articles on AI, machine learning, causal inference, and engineering by Hadi Abou Daya.",
+    "Blog by Hadi Abou Daya. Articles on AI, large language models, computer vision, causal inference, and ML engineering.",
   alternates: { canonical: "/blog/" },
 };
 

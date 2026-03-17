@@ -1,4 +1,4 @@
-# Media Folder — Image Guide
+# Media Folder  - Image Guide
 
 > Drop your images in the right folder. This file tells you exactly what's needed per page.
 > Mark items with [x] as you add them.
@@ -9,10 +9,10 @@
 
 Images of you for the hero, about page, navbar, and social previews.
 
-- [ ] **headshot.jpg** — High-quality professional headshot (square, min 800x800). Used on About page and OG social preview.
-- [ ] **headshot-casual.jpg** — A more relaxed / candid photo (optional, for variety).
-- [ ] **full-body.jpg** — Standing or sitting photo, good for hero section or about page layout (optional).
-- [ ] **speaking.jpg** — You presenting, teaching, or on stage (great for credibility).
+- [ ] **headshot.jpg**  - High-quality professional headshot (square, min 800x800). Used on About page and OG social preview.
+- [ ] **headshot-casual.jpg**  - A more relaxed / candid photo (optional, for variety).
+- [ ] **full-body.jpg**  - Standing or sitting photo, good for hero section or about page layout (optional).
+- [ ] **speaking.jpg**  - You presenting, teaching, or on stage (great for credibility).
 
 **Tips:** Neutral or simple background. Good lighting. At least one photo in professional attire.
 
@@ -23,16 +23,16 @@ Images of you for the hero, about page, navbar, and social previews.
 One subfolder per company/role. Add anything that shows your work there.
 
 ### experience/aws/
-- [ ] **logo.png** — AWS logo (transparent PNG)
+- [ ] **logo.png**  - AWS logo (transparent PNG)
 - [ ] Any photos from your time at AWS (office, team, events)
 
 ### experience/savencia/
-- [ ] **logo.png** — Savencia logo
+- [ ] **logo.png**  - Savencia logo
 - [ ] Screenshots of dashboards, DAGs, or causal inference visualisations (anonymised)
 - [ ] Any photos from the factory or office
 
 ### experience/mopo/
-- [ ] **logo.png** — MOPO logo
+- [ ] **logo.png**  - MOPO logo
 - [ ] Screenshots of the multi-agent system UI, architecture diagrams, or product demos
 - [ ] Any team photos or product launch moments
 
@@ -42,27 +42,27 @@ One subfolder per company/role. Add anything that shows your work there.
 - [ ] Architecture diagrams you can share publicly
 
 ### experience/mobile-arts/
-- [ ] **logo.png** — Mobile Arts logo
+- [ ] **logo.png**  - Mobile Arts logo
 - [ ] Screenshots of content moderation dashboard, anomaly detection system, logo detection output
 
 ### experience/decentra-tech/
-- [ ] **logo.png** — Decentra Tech logo
+- [ ] **logo.png**  - Decentra Tech logo
 - [ ] Screenshots or GIFs of real-time inference (lane detection, collision warning, traffic signs)
 - [ ] Photos of NVIDIA Jetson hardware setup
 
 ### experience/vee-smart/
-- [ ] **logo.png** — Vee Smart logo
+- [ ] **logo.png**  - Vee Smart logo
 - [ ] Visualisations: sentiment analysis results, NER outputs
 
 ### experience/kefraya-ai/
-- [ ] **logo.png** — Chateau Kefraya or USJ logo
+- [ ] **logo.png**  - Chateau Kefraya or USJ logo
 - [ ] Satellite/drone imagery samples with detection overlay (if shareable)
 
 ### experience/eddys-group/
-- [ ] **logo.png** — Eddys Group logo
+- [ ] **logo.png**  - Eddys Group logo
 
 ### experience/fomaco/
-- [ ] **logo.png** — Fomaco logo
+- [ ] **logo.png**  - Fomaco logo
 - [ ] Any on-site work photos
 
 ---
@@ -101,7 +101,7 @@ Full certificate PDFs or screenshots (for download/zoom links):
 - [ ] Badge, venue, or panel photos
 
 ### community/hackathons/
-- [ ] AUB Tech for Accessibility Hackathon — winner photo, team photo, project demo
+- [ ] AUB Tech for Accessibility Hackathon  - winner photo, team photo, project demo
 - [ ] Any other hackathon photos
 
 ### community/events/
@@ -147,12 +147,12 @@ Full certificate PDFs or screenshots (for download/zoom links):
 ## branding/
 
 Site-wide branding assets:
-- [ ] **logo.svg** — Your personal logo or wordmark (if you have one)
-- [ ] **logo-icon.svg** — Compact icon version for favicon and small spaces
-- [ ] **favicon.ico** — 32x32 favicon
-- [ ] **favicon.svg** — SVG favicon (modern browsers)
-- [ ] **apple-touch-icon.png** — 180x180 for iOS home screen
-- [ ] **og-default.jpg** — Default Open Graph image (1200x630) for social sharing when no page-specific image exists
+- [ ] **logo.svg**  - Your personal logo or wordmark (if you have one)
+- [ ] **logo-icon.svg**  - Compact icon version for favicon and small spaces
+- [ ] **favicon.ico**  - 32x32 favicon
+- [ ] **favicon.svg**  - SVG favicon (modern browsers)
+- [ ] **apple-touch-icon.png**  - 180x180 for iOS home screen
+- [ ] **og-default.jpg**  - Default Open Graph image (1200x630) for social sharing when no page-specific image exists
 
 **If you don't have a logo yet**, I can help generate one or we can use your initials (HA / HAD) as a typographic mark.
 
@@ -161,16 +161,16 @@ Site-wide branding assets:
 ## social/
 
 Social media preview images (auto-generated is possible, but custom ones look better):
-- [ ] **og-home.jpg** — 1200x630, for the homepage
-- [ ] **og-about.jpg** — 1200x630, for the about page
-- [ ] **og-blog.jpg** — 1200x630, for the blog listing
+- [ ] **og-home.jpg**  - 1200x630, for the homepage
+- [ ] **og-about.jpg**  - 1200x630, for the about page
+- [ ] **og-blog.jpg**  - 1200x630, for the blog listing
 
 ---
 
 ## resume/
 
-- [ ] **Hadi_Abou_Daya_CV.pdf** — Latest CV/resume for download
-- [ ] **resume-preview.jpg** — Thumbnail of the first page (for a visual preview on the site)
+- [ ] **Hadi_Abou_Daya_CV.pdf**  - Latest CV/resume for download
+- [ ] **resume-preview.jpg**  - Thumbnail of the first page (for a visual preview on the site)
 
 ---
 

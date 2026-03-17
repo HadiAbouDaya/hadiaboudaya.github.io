@@ -15,7 +15,7 @@ const ContactInfo = dynamic(
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Hadi Abou Daya, AI/ML Engineer & Consultant based in Paris.",
+    "Contact Hadi Abou Daya for AI/ML consulting, collaboration, or speaking opportunities. Based in Paris, France.",
   alternates: { canonical: "/contact/" },
 };
 

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     template: "%s | Hadi Abou Daya",
   },
   description:
-    "AI/ML Engineer & Consultant based in Paris. Building intelligent systems from edge to cloud.",
+    "Hadi Abou Daya, AI/ML Engineer & Consultant in Paris. Specializing in LLM agents, computer vision, and cloud-scale AI systems. AWS & Azure certified.",
   metadataBase: new URL("https://hadi.aboudaya.com"),
   icons: {
     icon: "/favicon.png",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Hadi Abou Daya | AI Engineer & Consultant",
     description:
-      "AI/ML Engineer & Consultant based in Paris. Building intelligent systems from edge to cloud.",
+      "Hadi Abou Daya, AI/ML Engineer & Consultant in Paris. Specializing in LLM agents, computer vision, and cloud-scale AI systems. AWS & Azure certified.",
     images: ["/Media/branding/og-default.jpg"],
   },
   verification: {

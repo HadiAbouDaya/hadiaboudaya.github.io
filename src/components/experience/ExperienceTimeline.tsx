@@ -202,7 +202,7 @@ export function ExperienceTimeline() {
                 {/* Center line */}
                 <div className="absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-300 via-slate-200 to-slate-100 dark:from-primary-700 dark:via-slate-700 dark:to-slate-800 left-1/2 -translate-x-1/2 z-0" />
 
-                {/* Year markers — span both columns */}
+                {/* Year markers  - span both columns */}
                 {allYears.map((year, i) => {
                   if (!leftByYear.has(year)) return null;
                   return (
@@ -224,7 +224,7 @@ export function ExperienceTimeline() {
                   );
                 })}
 
-                {/* Left column — professional cards in their year's content row */}
+                {/* Left column  - professional cards in their year's content row */}
                 {allYears.map((year, i) => {
                   const items = leftByYear.get(year);
                   if (!items?.length) return null;
@@ -249,7 +249,7 @@ export function ExperienceTimeline() {
                   );
                 })}
 
-                {/* Right column — education groups spanning their date range */}
+                {/* Right column  - education groups spanning their date range */}
                 {educationGroups.map((group, gi) => {
                   const startRowIdx = allYears.indexOf(group.endYear);
                   const endRowIdx = allYears.indexOf(group.startYear);

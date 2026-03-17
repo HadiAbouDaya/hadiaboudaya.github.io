@@ -15,7 +15,7 @@ const PageNextSection = dynamic(
 export const metadata: Metadata = {
   title: "Experience",
   description:
-    "Career timeline of Hadi Abou Daya: from edge AI to cloud-scale LLM systems.",
+    "Hadi Abou Daya's career in AI/ML engineering, from edge AI and IoT to cloud-scale LLM systems and consulting.",
   alternates: { canonical: "/experience/" },
 };
 

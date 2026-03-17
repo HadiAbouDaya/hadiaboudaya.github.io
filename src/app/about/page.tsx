@@ -19,7 +19,7 @@ const PageNextSection = dynamic(
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Learn about Hadi Abou Daya, AI/ML engineer, consultant, and lifelong learner based in Paris.",
+    "About Hadi Abou Daya, AI/ML Engineer building intelligent systems from edge AI to cloud infrastructure. Based in Paris, France.",
   alternates: { canonical: "/about/" },
 };
 

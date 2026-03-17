@@ -26,7 +26,7 @@ export default async function Image() {
           position: "relative",
         }}
       >
-        {/* Cyan glow — top right */}
+        {/* Cyan glow  - top right */}
         <div
           style={{
             position: "absolute",
@@ -40,7 +40,7 @@ export default async function Image() {
           }}
         />
 
-        {/* Blue glow — bottom left */}
+        {/* Blue glow  - bottom left */}
         <div
           style={{
             position: "absolute",
@@ -65,7 +65,7 @@ export default async function Image() {
             justifyContent: "space-between",
           }}
         >
-          {/* Left — text */}
+          {/* Left  - text */}
           <div
             style={{
               display: "flex",
@@ -172,7 +172,7 @@ export default async function Image() {
             </div>
           </div>
 
-          {/* Right — photo ring */}
+          {/* Right  - photo ring */}
           <div
             style={{
               display: "flex",

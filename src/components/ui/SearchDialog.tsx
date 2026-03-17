@@ -320,7 +320,7 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
           <DesktopFooter resultCount={query ? results.length : 0} hasQuery={!!query} />
         </motion.div>
 
-        {/* Mobile dialog — full screen */}
+        {/* Mobile dialog  - full screen */}
         <motion.div
           key="search-dialog-mobile"
           variants={mobileDialogVariants}

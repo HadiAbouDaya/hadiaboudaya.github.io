@@ -12,7 +12,7 @@ const EventFilter = dynamic(
 export const metadata: Metadata = {
   title: "Events",
   description:
-    "Workshops, conferences, hackathons, certifications, and milestones across Hadi Abou Daya's journey.",
+    "AI conferences, hackathons, and workshops attended by Hadi Abou Daya, including Beirut AI, AWS events, and technical meetups.",
   alternates: { canonical: "/events/" },
 };
 
