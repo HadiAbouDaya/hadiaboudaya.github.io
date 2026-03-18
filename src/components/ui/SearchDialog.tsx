@@ -309,6 +309,7 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
           <SearchResults
             scrollRef={scrollRef}
             query={query}
+            setQuery={setQuery}
             results={results}
             grouped={grouped}
             tokens={tokens}
@@ -342,6 +343,7 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
             <SearchResults
               scrollRef={scrollRef}
               query={query}
+              setQuery={setQuery}
               results={results}
               grouped={grouped}
               tokens={tokens}
@@ -410,9 +412,12 @@ function SearchInput({
   );
 }
 
+const SUGGESTED_SEARCHES = ["AWS", "re:Invent re:Cap", "Supportful", "McGill"];
+
 function SearchResults({
   scrollRef,
   query,
+  setQuery,
   results,
   grouped,
   tokens,
@@ -424,6 +429,7 @@ function SearchResults({
 }: {
   scrollRef: React.RefObject<HTMLDivElement | null>;
   query: string;
+  setQuery: (q: string) => void;
   results: SearchResult[];
   grouped: Record<string, SearchResult[]>;
   tokens: string[];
@@ -521,9 +527,22 @@ function SearchResults({
       })}
 
       {!query && (
-        <p className="text-center text-sm text-slate-400 dark:text-slate-500 py-8">
-          Start typing to search...
-        </p>
+        <div className="flex flex-col items-center py-8 px-4 gap-3">
+          <p className="text-sm text-slate-400 dark:text-slate-500">
+            Try searching for
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {SUGGESTED_SEARCHES.map((term) => (
+              <button
+                key={term}
+                onClick={() => setQuery(term)}
+                className="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-100/80 dark:bg-slate-700/40 text-slate-500 dark:text-slate-400 hover:bg-primary-500/10 hover:text-primary-600 dark:hover:bg-primary-400/10 dark:hover:text-primary-400 transition-colors cursor-pointer"
+              >
+                {term}
+              </button>
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );

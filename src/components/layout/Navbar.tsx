@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, Search } from "lucide-react";
-import { AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { NAV_LINKS } from "@/data/navigation";
 import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -77,7 +77,14 @@ export function Navbar() {
               className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 transition-colors"
               aria-label="Search"
             >
-              <Search className="w-5 h-5" />
+              <motion.div
+                key={pathname}
+                initial={{ scale: 1 }}
+                animate={{ scale: [1, 1.3, 1, 1.3, 1] }}
+                transition={{ duration: 1.6, delay: 1, ease: "easeInOut" }}
+              >
+                <Search className="w-5 h-5" />
+              </motion.div>
             </button>
             <ThemeToggle />
           </div>
@@ -88,7 +95,14 @@ export function Navbar() {
               className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
               aria-label="Search"
             >
-              <Search className="w-5 h-5" />
+              <motion.div
+                key={pathname}
+                initial={{ scale: 1 }}
+                animate={{ scale: [1, 1.3, 1, 1.3, 1] }}
+                transition={{ duration: 1.6, delay: 1, ease: "easeInOut" }}
+              >
+                <Search className="w-5 h-5" />
+              </motion.div>
             </button>
             <ThemeToggle />
             <button

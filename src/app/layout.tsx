@@ -61,11 +61,11 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="font-sans bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200 antialiased">
+      <body className="font-sans bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200 antialiased min-h-screen flex flex-col">
         <ThemeProvider>
           <SkipToContent />
           <Navbar />
-          <main id="main-content" tabIndex={-1}>
+          <main id="main-content" tabIndex={-1} className="flex-1">
             {children}
           </main>
           <Footer />

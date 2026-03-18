@@ -28,7 +28,7 @@ export function HeroContent({ latestPostSlug, latestPostTitle }: HeroContentProp
         transition={{ duration: 0.6, delay: 0.1 }}
         className="mt-4 text-xl sm:text-2xl text-accent-400 font-medium h-8 sm:h-9"
       >
-        <TypingEffect texts={["AI/ML Engineer", "LLM Agent Architect", "Cloud ML Consultant"]} />
+        <TypingEffect texts={["AI/ML Consultant", "Cloud Architect", "Web3 Builder", "Software Engineer"]} />
       </motion.p>
 
       <motion.p
