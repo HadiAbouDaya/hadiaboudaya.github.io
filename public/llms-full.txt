@@ -1,0 +1,99 @@
+# Hadi Abou Daya - Full Profile
+
+> AI/ML Consultant, Cloud Architect, Web3 Builder, and Software Engineer based in Paris, France. Building intelligent systems from edge to cloud.
+
+## Professional Summary
+
+Hadi Abou Daya is an AI/ML Consultant and Software Engineer with experience spanning LLM agent architectures, multi-agent systems, RAG pipelines, computer vision, cloud-native AI, and blockchain/Web3. He holds degrees from emlyon business school (MSc Data Science & AI Strategy) and McGill University, along with AWS and PMP certifications. Based in Paris, he works with clients globally to build AI-powered products.
+
+## Experience
+
+### AI Consultant at Supportful (Jan 2026 - Present)
+- Building AI-powered products as a freelance consultant
+- Architected a multi-agent sales copilot using LangGraph for B2B sales intelligence
+- Delivered a LangGraph + Gemini platform for natural language court booking and BI analytics
+- Technologies: LangGraph, Gemini, AWS, Salesforce, React, PostgreSQL
+
+### Data Scientist Intern at Savencia (Jul 2025 - Dec 2025)
+- Led causal inference research to optimize lactoferrin production in dairy manufacturing
+- Built end-to-end Databricks data pipelines for experiment tracking and causal analysis
+- Technologies: DoWhy, EconML, CausalNex, Databricks, Python
+
+### AI Software Engineer at MOPO (Aug 2023 - Jul 2025)
+- Architected multi-LLM agent system with lead agent orchestrating specialized tool agents
+- Implemented RAG pipelines with vector embeddings, knowledge graphs, and semantic routers
+- Led scalable deployment on AWS ECS
+- Technologies: LangChain, LLMs, RAG, AWS ECS, Docker, PostgreSQL
+
+### Freelance AI Consultant (Aug 2023 - Dec 2024)
+- TowardsChange: LLM chatbot and RAG agent on Azure AI Search
+- ShebangNow: CV ranking system and RAG chatbot for recruitment
+- AI.skilled: GenAI architecture design, managed team of 3 engineers
+- Traveln.ai: RAG system and voice-to-JSON agent for travel booking
+- Technologies: LLMs, Azure AI, RAG, Vector Search
+
+### ML Specialist at Mobile Arts (Jun 2022 - Aug 2023)
+- Built AWS content moderation service
+- Developed AI anomaly detection on AWS Lambda
+- Created predictive engine on SageMaker for ad traffic optimization
+- Trained and deployed YOLOv8 logo detection model
+- Technologies: AWS (Lambda, SageMaker, EC2, DynamoDB), Angular, .NET Core, YOLOv8
+
+### CV Developer at Decentra Tech (May 2021 - May 2022)
+- Trained and deployed computer vision models for automotive safety on edge devices
+- Built inference pipelines on NVIDIA Jetson Nano and Jetson Orin
+- Technologies: NVIDIA TAO, DeepStream SDK, TensorRT, Jetson
+
+## Education
+
+- **MSc Data Science & AI Strategy** - emlyon business school, Paris (2024-2026)
+- **Exchange Semester** - McGill University, Montreal (2025)
+- **BE Computer & Communications Engineering** - Saint Joseph University of Beirut (2018-2023)
+
+## Certifications
+
+- AWS Certified Machine Learning - Specialty (Dec 2025)
+- AWS Certified Cloud Practitioner (Apr 2025)
+- Project Management Professional (PMP) (Aug 2024)
+- ZAKA Certified Machine Learning Engineer (Nov 2022)
+- Microsoft Azure AI-900 (Jul 2023)
+- Google Data Analytics Professional (Jun 2023)
+- NVIDIA DLI: Computer Vision (Apr 2022)
+
+## Key Events & Speaking
+
+- Introduction to AI Workshop at Lebanese American University (Feb 2026)
+- Blockchain: The Future of Finance at HEC Paris (Feb 2026)
+- AWS re:Invent 2025 re:Cap Speaker at Beirut Digital District (Feb 2026)
+- Building Smarter with AWS in Bekaa - Speaker/Host (Nov 2025)
+- Beirut AI BERT Transformers Workshop Series (2023)
+- Beirut AI Technical Ambassador (2022-2023)
+
+## Blog
+
+- [Don't Let LLMs Think for You](https://hadi.aboudaya.com/blog/critical-thinking-and-llms/) - Critical thinking in the age of LLMs
+- [Meta's VL-JEPA Analysis](https://hadi.aboudaya.com/blog/meta-vl-jepa-analysis/) - Why the future of AI might not be generative
+
+## Core Skills
+
+- **AI/ML:** LLM Agents, Multi-Agent Systems, RAG, Computer Vision, NLP, Causal Inference, Deep Learning
+- **Cloud:** AWS (SageMaker, ECS, Lambda, EC2), Azure AI, Databricks, Docker, Kubernetes
+- **Languages:** Python, TypeScript, JavaScript, C#, SQL
+- **Frameworks:** LangChain, LangGraph, React, Next.js, Node.js
+- **Edge AI:** NVIDIA Jetson, TensorRT, DeepStream, TAO Toolkit
+- **Web3:** Blockchain, Smart Contracts, Decentralized Applications
+
+## Languages Spoken
+
+- English (Fluent)
+- French (Fluent)
+- Arabic (Native)
+
+## Contact
+
+- Website: https://hadi.aboudaya.com
+- LinkedIn: https://linkedin.com/in/hadiad
+- GitHub: https://github.com/HadiAbouDaya
+- Email: hadi.aboudaya@hotmail.com
+- Location: Paris, France
+- Booking: https://calendly.com/hadiad/one-on-one

@@ -10,7 +10,7 @@ export function websiteJsonLd() {
     name: "Hadi Abou Daya",
     url: SITE_URL,
     description:
-      "AI/ML Engineer & Consultant based in Paris. Building intelligent systems from edge to cloud.",
+      "AI/ML Consultant & Software Engineer based in Paris. Building intelligent systems from edge to cloud.",
     publisher: { "@id": `${SITE_URL}/#person` },
     potentialAction: {
       "@type": "SearchAction",
@@ -28,8 +28,8 @@ export function personJsonLd() {
     name: "Hadi Abou Daya",
     url: SITE_URL,
     description:
-      "AI/ML Engineer & Consultant based in Paris. Building intelligent systems from edge to cloud.",
-    jobTitle: "AI/ML Engineer & Consultant",
+      "AI/ML Consultant & Software Engineer based in Paris. Building intelligent systems from edge to cloud.",
+    jobTitle: "AI/ML Consultant & Software Engineer",
     worksFor: {
       "@type": "Organization",
       name: "Supportful",
@@ -53,8 +53,16 @@ export function personJsonLd() {
       "Artificial Intelligence",
       "Machine Learning",
       "LLM Agents",
-      "Cloud Computing",
+      "Multi-Agent Systems",
+      "Agentic Applications",
+      "Cloud Architecture",
+      "AWS",
+      "RAG Pipelines",
       "Computer Vision",
+      "Blockchain",
+      "Web3",
+      "Causal Inference",
+      "Software Engineering",
     ],
     image: `${SITE_URL}/Media/profile/headshot.jpg`,
   };

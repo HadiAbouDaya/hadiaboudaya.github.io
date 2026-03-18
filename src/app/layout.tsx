@@ -10,11 +10,11 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: "Hadi Abou Daya | AI Engineer & Consultant",
+    default: "Hadi Abou Daya | AI/ML Consultant & Software Engineer",
     template: "%s | Hadi Abou Daya",
   },
   description:
-    "Hadi Abou Daya, AI/ML Engineer & Consultant in Paris. Specializing in LLM agents, computer vision, and cloud-scale AI systems. AWS & Azure certified.",
+    "Hadi Abou Daya, AI/ML Consultant & Software Engineer in Paris. Specializing in LLM agents, agentic apps, cloud architecture, Web3, and computer vision. AWS certified.",
   metadataBase: new URL("https://hadi.aboudaya.com"),
   icons: {
     icon: "/favicon.png",
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hadi Abou Daya | AI Engineer & Consultant",
+    title: "Hadi Abou Daya | AI/ML Consultant & Software Engineer",
     description:
-      "Hadi Abou Daya, AI/ML Engineer & Consultant in Paris. Specializing in LLM agents, computer vision, and cloud-scale AI systems. AWS & Azure certified.",
+      "Hadi Abou Daya, AI/ML Consultant & Software Engineer in Paris. Specializing in LLM agents, agentic apps, cloud architecture, Web3, and computer vision. AWS certified.",
     images: ["/Media/branding/og-default.jpg"],
   },
   verification: {
