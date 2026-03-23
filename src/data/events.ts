@@ -4,6 +4,28 @@ export const events: Event[] = [
   // ─── 2026 ───────────────────────────────────────────────────────────────────
 
   {
+    slug: "copyalpha-launch",
+    title: "CopyAlpha - Crypto Copy-Trading Platform Launch",
+    date: "2026-03-23",
+    location: "Paris, France",
+    category: "achievement",
+    role: "Creator",
+    organizations: [],
+    summary:
+      "Built and launched CopyAlpha, a full-stack crypto copy-trading platform with automated signal processing, risk management, and multi-exchange execution.",
+    description:
+      "Designed and built CopyAlpha solo as a SaaS platform that automates crypto copy trading from Telegram signal channels. Features a FastAPI backend, Next.js 15 dashboard, 10-step risk validation chain, multi-exchange support via ccxt, DEX execution, and a tiered subscription model (Free/Pro/Whale). Handles everything from signal parsing to position management with real-time analytics.",
+    images: [
+      "/Media/events/copyalpha-launch/1.webp",
+      "/Media/events/copyalpha-launch/2.webp",
+      "/Media/events/copyalpha-launch/3.webp",
+      "/Media/events/copyalpha-launch/4.webp",
+      "/Media/events/copyalpha-launch/5.webp",
+    ],
+    tags: ["Crypto", "SaaS", "Full-Stack", "Trading", "FastAPI", "Next.js"],
+    tier: "standard",
+  },
+  {
     slug: "lau-intro-to-ai",
     title: "Introduction to AI at Lebanese American University",
     date: "2026-02-16",
