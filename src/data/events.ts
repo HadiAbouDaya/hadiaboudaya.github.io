@@ -7,7 +7,7 @@ export const events: Event[] = [
     slug: "copyalpha-launch",
     title: "CopyAlpha - Crypto Copy-Trading Platform Launch",
     date: "2026-03-23",
-    location: "Paris, France",
+    location: "Bekaa, Lebanon",
     category: "achievement",
     role: "Creator",
     organizations: [],
