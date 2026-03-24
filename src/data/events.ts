@@ -8,7 +8,7 @@ export const events: Event[] = [
     title: "CopyAlpha - Crypto Copy-Trading Platform Launch",
     date: "2026-03-23",
     location: "Bekaa, Lebanon",
-    category: "achievement",
+    category: "project",
     role: "Creator",
     organizations: [],
     summary:
@@ -82,6 +82,7 @@ export const events: Event[] = [
     date: "2026-02-07",
     location: "Beirut, Lebanon",
     category: "conference",
+    filterOverride: "speaking",
     role: "Speaker / Co-host",
     organizations: [
       "AWS User Group Lebanon",
@@ -113,6 +114,7 @@ export const events: Event[] = [
     date: "2026-01-31",
     location: "Beirut, Lebanon",
     category: "community",
+    filterOverride: "speaking",
     role: "Featured Speaker",
     organizations: ["AWS User Group Lebanon"],
     summary:
@@ -280,6 +282,7 @@ export const events: Event[] = [
     date: "2025-03-01",
     location: "Barcelona, Spain",
     category: "conference",
+    filterOverride: "speaking",
     role: "Jury Member",
     organizations: [
       "MWC Barcelona",
@@ -344,6 +347,7 @@ export const events: Event[] = [
     date: "2025-01-06",
     location: "Paris, France",
     category: "hackathon",
+    filterOverride: "speaking",
     role: "Mentor",
     organizations: ["WiDS Worldwide", "Stanford University", "emlyon business school", "Le Village by CA Paris"],
     summary:
@@ -367,6 +371,7 @@ export const events: Event[] = [
     date: "2025-01-15",
     location: "Paris, France",
     category: "education",
+    filterOverride: "speaking",
     role: "Session Organizer",
     organizations: ["emlyon business school", "Schneider Electric"],
     summary:
@@ -430,6 +435,7 @@ export const events: Event[] = [
     date: "2024-05-01",
     location: "Beirut, Lebanon",
     category: "hackathon",
+    filterOverride: "speaking",
     role: "Hackathon Host",
     organizations: ["Park Innovation", "Berytech"],
     summary:
@@ -448,6 +454,7 @@ export const events: Event[] = [
     date: "2024-04-01",
     location: "Beirut, Lebanon",
     category: "hackathon",
+    filterOverride: "events",
     role: "Jury Member",
     organizations: [
       "Union of Arab Chambers",
@@ -642,6 +649,7 @@ export const events: Event[] = [
     date: "2023-03-15",
     location: "Lebanon",
     category: "community",
+    filterOverride: "speaking",
     role: "Speaker",
     organizations: ["USAL University", "Binary Brains", "Beirut AI"],
     summary:
@@ -974,7 +982,7 @@ export const events: Event[] = [
     title: "Amideast Start Your Own Business Workshop",
     date: "2020-09-01",
     location: "Lebanon",
-    category: "workshop",
+    category: "education",
     role: "Participant",
     organizations: ["Amideast"],
     summary:
@@ -1028,7 +1036,7 @@ export const events: Event[] = [
     title: "VP Student Representative at CEUZB (USJ)",
     date: "2019-02-01",
     location: "Beirut, Lebanon",
-    category: "achievement",
+    category: "community",
     role: "Vice-President",
     organizations: ["Saint Joseph University", "CEUZB"],
     summary:

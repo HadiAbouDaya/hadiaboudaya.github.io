@@ -7,6 +7,11 @@ import { categoryConfig, FILTER_GROUPS } from "@/data/eventCategories";
 import { EventCard } from "./EventCard";
 import { cn } from "@/lib/utils";
 import { trackEvent, EVENTS } from "@/lib/analytics";
+import type { Event } from "@/types";
+
+function getFilterGroup(event: Event): string {
+  return event.filterOverride ?? categoryConfig[event.category].filterGroup;
+}
 
 export function EventFilter() {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -14,10 +19,7 @@ export function EventFilter() {
 
   const filtered = useMemo(() => {
     if (activeFilter === "all") return events;
-    return events.filter((e) => {
-      const config = categoryConfig[e.category];
-      return config.filterGroup === activeFilter;
-    });
+    return events.filter((e) => getFilterGroup(e) === activeFilter);
   }, [activeFilter]);
 
   const yearGroups = useMemo(() => {
@@ -50,7 +52,7 @@ export function EventFilter() {
             group.key === "all"
               ? events.length
               : events.filter(
-                  (e) => categoryConfig[e.category].filterGroup === group.key
+                  (e) => getFilterGroup(e) === group.key
                 ).length;
 
           const Icon = group.icon;

@@ -1,4 +1,4 @@
-import type { EventCategory } from "@/types";
+import type { EventCategory, FilterGroupKey } from "@/types";
 import {
   Mic2,
   Award,
@@ -17,7 +17,7 @@ export interface CategoryConfig {
   color: string;
   borderColor: string;
   icon: LucideIcon;
-  filterGroup: string;
+  filterGroup: FilterGroupKey;
 }
 
 export const categoryConfig: Record<EventCategory, CategoryConfig> = {
@@ -40,7 +40,7 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     color: "bg-rose-50 text-rose-700",
     borderColor: "border-l-rose-500",
     icon: Trophy,
-    filterGroup: "certs",
+    filterGroup: "events",
   },
   certification: {
     label: "Certification",
@@ -89,12 +89,12 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     color: "bg-amber-50 text-amber-700",
     borderColor: "border-l-amber-500",
     icon: Award,
-    filterGroup: "certs",
+    filterGroup: "events",
   },
 };
 
 export interface FilterGroup {
-  key: string;
+  key: "all" | FilterGroupKey;
   label: string;
   icon: LucideIcon;
 }
@@ -105,5 +105,5 @@ export const FILTER_GROUPS: FilterGroup[] = [
   { key: "events", label: "Conferences & Community", icon: Users },
   { key: "projects", label: "Projects", icon: Code2 },
   { key: "career", label: "Career & Education", icon: Briefcase },
-  { key: "certs", label: "Certs & Awards", icon: Award },
+  { key: "certs", label: "Certifications", icon: Award },
 ];

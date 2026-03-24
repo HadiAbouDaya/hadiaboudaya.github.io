@@ -45,12 +45,20 @@ export type EventCategory =
   | "education"
   | "achievement";
 
+export type FilterGroupKey =
+  | "speaking"
+  | "events"
+  | "projects"
+  | "career"
+  | "certs";
+
 export interface Event {
   slug: string;
   title: string;
   date: string;
   location: string;
   category: EventCategory;
+  filterOverride?: FilterGroupKey;
   role?: string;
   organizations?: string[];
   summary: string;
