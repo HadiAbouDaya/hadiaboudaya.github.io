@@ -1,5 +1,13 @@
 export const BLOG_POSTS = [
   {
+    slug: "deepseek-engram-llm-memory",
+    title: "DeepSeek's Engram Gives LLMs a Dedicated Memory Lane",
+    excerpt:
+      "Large language models waste enormous computational depth reconstructing facts they already know. DeepSeek's Engram module fixes this by adding a fast-lookup memory system alongside neural computation.",
+    tags: ["AI", "LLMs", "DeepSeek", "Research", "Architecture"],
+    date: "2026-03-24",
+  },
+  {
     slug: "critical-thinking-and-llms",
     title: "Don't Let LLMs Think for You",
     excerpt:
