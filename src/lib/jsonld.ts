@@ -1,4 +1,4 @@
-import type { Event, EventCategory } from "@/types";
+import type { Event, EventCategory, Certification, BlogPost } from "@/types";
 
 const SITE_URL = "https://hadi.aboudaya.com";
 
@@ -65,6 +65,13 @@ export function personJsonLd() {
       "Software Engineering",
     ],
     image: `${SITE_URL}/Media/profile/headshot.jpg`,
+    email: "hadi.aboudaya@hotmail.com",
+    telephone: "+33783267868",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Paris",
+      addressCountry: "FR",
+    },
   };
 }
 
@@ -135,10 +142,14 @@ export function eventJsonLd(event: Event) {
       "@type": "Place",
       name: event.location,
     },
-    organizer: event.organizations?.map((org) => ({
-      "@type": "Organization",
-      name: org,
-    })),
+    ...(event.organizations?.length
+      ? {
+          organizer: event.organizations.map((org) => ({
+            "@type": "Organization",
+            name: org,
+          })),
+        }
+      : {}),
     image: event.images?.[0]
       ? `${SITE_URL}${event.images[0]}`
       : undefined,
@@ -168,5 +179,68 @@ export function breadcrumbJsonLd(
         item: `${SITE_URL}${item.href.endsWith("/") ? item.href : `${item.href}/`}`,
       })),
     ],
+  };
+}
+
+export function credentialListJsonLd(certs: Certification[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Certifications & Credentials",
+    itemListElement: certs
+      .filter((c) => c.type === "certification")
+      .map((cert, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "EducationalOccupationalCredential",
+          name: cert.name,
+          credentialCategory: "certification",
+          recognizedBy: {
+            "@type": "Organization",
+            name: cert.issuer,
+          },
+          dateCreated: cert.issuedDate,
+          ...(cert.expiryDate ? { expires: cert.expiryDate } : {}),
+          url: cert.credentialUrl,
+        },
+      })),
+  };
+}
+
+export function blogJsonLd(posts: Pick<BlogPost, "title" | "slug" | "date" | "excerpt">[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Hadi Abou Daya's Blog",
+    url: `${SITE_URL}/blog/`,
+    author: { "@id": `${SITE_URL}/#person` },
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.title,
+      url: `${SITE_URL}/blog/${post.slug}/`,
+      datePublished: post.date,
+      description: post.excerpt,
+    })),
+  };
+}
+
+export function contactPointJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact Hadi Abou Daya",
+    url: `${SITE_URL}/contact/`,
+    mainEntity: {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      contactPoint: {
+        "@type": "ContactPoint",
+        email: "hadi.aboudaya@hotmail.com",
+        telephone: "+33783267868",
+        contactType: "professional",
+        availableLanguage: ["English", "French", "Arabic"],
+      },
+    },
   };
 }

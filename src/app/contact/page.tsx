@@ -1,22 +1,15 @@
-import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { LazyLoad } from "@/components/ui/LazyLoad";
-import { FormSkeleton, ContactInfoSkeleton } from "@/components/ui/Skeleton";
-import { breadcrumbJsonLd } from "@/lib/jsonld";
-
-const ContactForm = dynamic(
-  () => import("@/components/contact/ContactForm").then((m) => m.ContactForm),
-);
-const ContactInfo = dynamic(
-  () => import("@/components/contact/ContactInfo").then((m) => m.ContactInfo),
-);
+import { breadcrumbJsonLd, contactPointJsonLd } from "@/lib/jsonld";
+import { ContactForm } from "@/components/contact/ContactForm";
+import { ContactInfo } from "@/components/contact/ContactInfo";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact - AI/ML Consulting & Collaboration",
   description:
     "Contact Hadi Abou Daya for AI/ML consulting, collaboration, or speaking opportunities. Based in Paris, France.",
   alternates: { canonical: "/contact/" },
+  openGraph: { url: "/contact/" },
 };
 
 export default function ContactPage() {
@@ -26,6 +19,10 @@ export default function ContactPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "Contact", href: "/contact" }])) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPointJsonLd()) }}
+      />
       <div className="container-main max-w-5xl">
         <SectionHeading
           title="Get in Touch"
@@ -34,14 +31,10 @@ export default function ContactPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:items-end">
           <div className="lg:col-span-3">
-            <LazyLoad fallback={<FormSkeleton />} rootMargin="400px">
-              <ContactForm />
-            </LazyLoad>
+            <ContactForm />
           </div>
           <div className="lg:col-span-2">
-            <LazyLoad fallback={<ContactInfoSkeleton />} rootMargin="400px">
-              <ContactInfo />
-            </LazyLoad>
+            <ContactInfo />
           </div>
         </div>
       </div>

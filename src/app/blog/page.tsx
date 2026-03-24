@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { getAllPosts } from "@/lib/mdx";
 import { PostCard } from "@/components/blog/PostCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { breadcrumbJsonLd } from "@/lib/jsonld";
+import { breadcrumbJsonLd, blogJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Blog - AI, ML & Engineering Articles",
   description:
     "Blog by Hadi Abou Daya. Articles on AI, large language models, computer vision, causal inference, and ML engineering.",
   alternates: { canonical: "/blog/" },
+  openGraph: { url: "/blog/" },
 };
 
 export default function BlogPage() {
@@ -19,6 +20,10 @@ export default function BlogPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "Blog", href: "/blog" }])) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd(posts)) }}
       />
       <div className="container-main max-w-4xl">
         <SectionHeading

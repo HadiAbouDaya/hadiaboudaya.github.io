@@ -1,19 +1,14 @@
-import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { LazyLoad } from "@/components/ui/LazyLoad";
-import { CardGridSkeleton } from "@/components/ui/Skeleton";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
-
-const EventFilter = dynamic(
-  () => import("@/components/events/EventFilter").then((m) => m.EventFilter),
-);
+import { EventFilter } from "@/components/events/EventFilter";
 
 export const metadata: Metadata = {
-  title: "Events",
+  title: "Events - AI Conferences, Hackathons & Workshops",
   description:
     "AI conferences, hackathons, and workshops attended by Hadi Abou Daya, including Beirut AI, AWS events, and technical meetups.",
   alternates: { canonical: "/events/" },
+  openGraph: { url: "/events/" },
 };
 
 export default function EventsPage() {
@@ -28,9 +23,7 @@ export default function EventsPage() {
           title="Events"
           subtitle="Workshops, conferences, hackathons, and milestones across my journey"
         />
-        <LazyLoad fallback={<CardGridSkeleton cols={2} rows={3} />}>
-          <EventFilter />
-        </LazyLoad>
+        <EventFilter />
       </div>
     </div>
   );

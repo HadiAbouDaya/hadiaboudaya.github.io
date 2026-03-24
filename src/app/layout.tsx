@@ -16,6 +16,13 @@ export const metadata: Metadata = {
   description:
     "Hadi Abou Daya, AI/ML Consultant & Software Engineer in Paris. Specializing in LLM agents, agentic apps, cloud architecture, Web3, and computer vision. AWS certified.",
   metadataBase: new URL("https://hadi.aboudaya.com"),
+  robots: {
+    index: true,
+    follow: true,
+    "max-snippet": -1,
+    "max-image-preview": "large" as const,
+    "max-video-preview": -1,
+  },
   icons: {
     icon: "/favicon.png",
     apple: "/apple-touch-icon.png",
@@ -24,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://hadi.aboudaya.com",
+    url: "/",
     siteName: "Hadi Abou Daya",
     images: [
       { url: "/Media/branding/og-default.jpg", width: 1200, height: 630 },
@@ -32,9 +39,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hadi Abou Daya | AI/ML Consultant & Software Engineer",
-    description:
-      "Hadi Abou Daya, AI/ML Consultant & Software Engineer in Paris. Specializing in LLM agents, agentic apps, cloud architecture, Web3, and computer vision. AWS certified.",
     images: ["/Media/branding/og-default.jpg"],
   },
   verification: {

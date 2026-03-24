@@ -34,4 +34,10 @@ Allow: /
 User-agent: Cohere-ai
 Allow: /
 
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
 Sitemap: https://hadi.aboudaya.com/sitemap.xml

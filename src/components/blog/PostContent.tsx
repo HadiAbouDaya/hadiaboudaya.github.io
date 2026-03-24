@@ -53,7 +53,10 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
             ))}
           </div>
 
-          <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+            <Link href="/about" className="flex items-center gap-2 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+              <span className="font-medium text-slate-700 dark:text-slate-300">Hadi Abou Daya</span>
+            </Link>
             <span className="flex items-center gap-1">
               <Calendar className="w-4 h-4" />
               {new Date(post.date).toLocaleDateString("en-US", {

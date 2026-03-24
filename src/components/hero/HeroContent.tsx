@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { TypingEffect } from "@/components/ui/TypingEffect";
@@ -22,30 +21,15 @@ export function HeroContent({ latestPostSlug, latestPostTitle }: HeroContentProp
         Hadi Abou Daya
       </h1>
 
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        className="mt-4 text-xl sm:text-2xl text-accent-400 font-medium h-8 sm:h-9"
-      >
+      <p className="mt-4 text-xl sm:text-2xl text-accent-400 font-medium h-8 sm:h-9">
         <TypingEffect texts={["AI/ML Consultant", "Cloud Architect", "Web3 Builder", "Software Engineer"]} />
-      </motion.p>
+      </p>
 
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="mt-4 text-lg text-slate-300 max-w-xl mx-auto"
-      >
+      <p className="mt-4 text-lg text-slate-300 max-w-xl mx-auto">
         Building intelligent systems from edge to cloud
-      </motion.p>
+      </p>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
-      >
+      <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
         <Button
           href="/about"
           className="bg-white/10 border-2 border-white/30 text-white hover:bg-white/20 hover:border-white/50"
@@ -63,22 +47,17 @@ export function HeroContent({ latestPostSlug, latestPostTitle }: HeroContentProp
           <Calendar className="w-4 h-4" />
           Book a Meeting
         </Button>
-      </motion.div>
+      </div>
 
       {latestPostSlug && latestPostTitle && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-5"
-        >
+        <div className="mt-5">
           <Link
             href={`/blog/${latestPostSlug}`}
             className="text-sm text-white/50 hover:text-white/80 transition-colors"
           >
             or read my latest post: <span className="underline underline-offset-2">{latestPostTitle}</span>
           </Link>
-        </motion.div>
+        </div>
       )}
     </div>
   );

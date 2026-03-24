@@ -20,13 +20,19 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post) return { title: "Blog Post" };
 
+  const description =
+    post.excerpt.length > 155
+      ? post.excerpt.slice(0, 152) + "..."
+      : post.excerpt;
+
   return {
     title: post.title,
-    description: post.excerpt,
+    description,
     alternates: { canonical: `/blog/${slug}/` },
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description,
+      url: `/blog/${slug}/`,
       type: "article",
       publishedTime: post.date,
       images: [{ url: post.coverImage || "/Media/branding/og-default.jpg" }],
@@ -34,7 +40,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: post.title,
-      description: post.excerpt,
+      description,
     },
   };
 }
