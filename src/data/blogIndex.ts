@@ -1,5 +1,14 @@
 export const BLOG_POSTS = [
   {
+    slug: "arc-agi-3-benchmark-broke-every-frontier-model",
+    title:
+      "ARC-AGI-3 Just Broke Every Frontier AI Model. Here's Why That Matters.",
+    excerpt:
+      "Every frontier AI model scored below 1% on ARC-AGI-3. Humans scored 100%. The new benchmark abandons pattern-matching grids for interactive video game environments, exposing a fundamental gap between memorization and genuine intelligence.",
+    tags: ["AI", "Benchmarks", "AGI", "LLMs", "Research"],
+    date: "2026-03-28",
+  },
+  {
     slug: "deepseek-engram-llm-memory",
     title: "DeepSeek's Engram Gives LLMs a Dedicated Memory Lane",
     excerpt:

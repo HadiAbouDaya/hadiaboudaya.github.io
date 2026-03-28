@@ -1,0 +1,95 @@
+---
+title: "ARC-AGI-3 Just Broke Every Frontier AI Model. Here's Why That Matters."
+date: "2026-03-28"
+tags: ["AI", "Benchmarks", "AGI", "LLMs", "Research"]
+excerpt: "Every frontier AI model scored below 1% on ARC-AGI-3. Humans scored 100%. The new benchmark abandons pattern-matching grids for interactive video game environments, exposing a fundamental gap between memorization and genuine intelligence."
+coverImage: "/Media/blog/covers/arc-agi-3-benchmark-broke-every-frontier-model.jpg"
+---
+
+# ARC-AGI-3 Just Broke Every Frontier AI Model. Here's Why That Matters.
+
+Every frontier AI model just scored below 1% on a new benchmark. Humans scored 100%. And the best AI needed over $5,000 in compute to achieve its 0.37%. That's not a typo. The most powerful AI systems ever built, the ones writing code, passing bar exams, and generating entire applications, got absolutely humiliated by a set of interactive puzzles that any person can solve in under three minutes.
+
+ARC-AGI-3 launched on March 25, 2026, and it might be the most important benchmark in AI right now. Not because of the dramatic scores, but because of what those scores reveal about the gap between what AI can do and what intelligence actually is.
+
+## A Quick History of ARC-AGI
+
+To understand why ARC-AGI-3 is such a big deal, you need to know where it came from.
+
+François Chollet, the creator of Keras and one of the more contrarian voices in AI research, designed the original ARC-AGI benchmark in 2019 based on his paper "On the Measure of Intelligence." The core idea was simple. Show a system a few examples, ask it to spot the pattern, and apply that pattern to a new example. That's it. No language. No cultural knowledge. Just pure pattern recognition and generalization.
+
+ARC-AGI-1 looked like this: you'd see two or three grids, each showing some transformation. Maybe three pink squares appear, and a yellow square gets added to complete a 2x2 block. You see it happen twice, and then you get a third grid and have to complete the pattern yourself. A five-year-old could do it. GPT-2 scored 0%. GPT-3 scored 0%. For years, frontier models couldn't touch it.
+
+Then progress happened fast. OpenAI's o3 hit 87.5% at high compute in late 2024. By early 2026, Gemini 3.1 Pro reached 98%. The benchmark was basically saturated.
+
+ARC-AGI-2 came out in March 2025. Same format, but significantly harder. Multi-step reasoning, more complex transformations, the kind of puzzles where you really had to stare at the grid for a while before the pattern clicked. Human solve times jumped from about 30 seconds to around 5 minutes. Initial frontier model scores were dismal. o3-mini scored 0%, Claude 3.7 scored 0%. But within months, refinement-loop techniques pushed scores past 50%, and by early 2026, the best models were approaching 85%.
+
+So Chollet and his team did something nobody expected. They threw the entire format out.
+
+## ARC-AGI-3 Is a Video Game
+
+This is where things get genuinely interesting. ARC-AGI-3 is not a grid puzzle. It's not a pattern-matching exercise. It's a video game. A video game with zero instructions.
+
+You get dropped into a 64x64 grid environment. No tutorial. No rules. No stated objective. You have a character, a set of directional controls, and a limited number of turns. That's it. Figure out what the game is, figure out what winning looks like, and do it efficiently.
+
+I watched someone play through one of the public environments and the experience is fascinating. You spawn in what looks like a small maze. There's a yellow bar on the side that might be a health meter or a turn counter. There are some dots in one corner. There's a small shape in the bottom left that looks like it might be matching something in the main grid. And there's a plus sign sitting somewhere in the maze.
+
+So you start moving. You hit up. Your character moves. The yellow bar drops. Okay, so that's a move counter. You head toward what looks like the goal. You arrive. Nothing happens. Something flashes. You're not done. Then you notice that the orientation of the goal shape doesn't match the minimap. So maybe you need to hit that plus sign first to rotate something. You reset, navigate to the plus, and suddenly the orientations match. Now you head to the goal and you win.
+
+The whole thing takes about a minute once you figure it out. Three minutes if you're talking through your reasoning out loud. And here's the thing. Every single step of that process involved a distinctly human kind of thinking. You formed hypotheses about what objects meant. You tested them. You noticed inconsistencies. You adjusted your strategy. You drew on decades of intuitive experience with how games work to make educated guesses about mechanics you'd never seen before.
+
+Now watch GPT 5.4 try the same thing. It takes one step up, just like a human would. And then it just... keeps going to the same spot. Over and over. It never thinks to interact with the plus sign. It never forms the hypothesis that the orientation needs to change. It exhausts its turns doing the same wrong thing. Watching it is genuinely unsettling because the failure is so alien. It's not making a hard mistake. It's failing to even understand what the problem is.
+
+## The Numbers Are Brutal
+
+Every single frontier model scored below 1% on ARC-AGI-3. Gemini 3.1 Pro leads the pack at 0.37%. GPT 5.4 manages 0.26%. Claude Opus 4.6 hits 0.25%. Grok-4.20 registers a flat zero. Humans score 100%.
+
+And the cost per task is wild. GPT 5.4 High needed over $5,000 in compute to achieve its 0.3%. For a benchmark where any human can solve the tasks for free. In minutes.
+
+The scoring system is designed to make brute force worthless. ARC-AGI-3 uses something called RHAE, Relative Human Action Efficiency, which applies a quadratic penalty for inefficiency. If a human completes a level in 10 actions and an AI needs 100, the AI doesn't score 10%. It scores 1%. The penalty squares the ratio. An AI that stumbles through an environment trying random things until something works will score near zero even if it eventually "solves" the level. This is by design. The benchmark doesn't just care whether you get there. It cares whether you get there like a thinking agent would.
+
+## Why LLMs Are Failing This Badly
+
+The sub-1% scores aren't a fluke, and they aren't just about the scoring being harsh. They reveal a fundamental limitation in how current AI systems work.
+
+Chollet put it bluntly: current models are reliant on memorization and retrieval. When the game is something they've never seen before, they're lost. But a human is never lost. A human figures it out on the fly because they have fluid intelligence. That's the difference the benchmark is measuring.
+
+ARC-AGI-3 tests four capabilities that current LLMs essentially lack. Exploration: actively gathering information by interacting with the world. Modeling: building a mental model of how the world works from observation. Goal-setting: figuring out what you're supposed to do when nobody tells you. And planning: mapping out an efficient path to that goal while adjusting as you go.
+
+The goal-setting part is the killer. In ARC-AGI-1 and ARC-AGI-2, the task was always clear. Transform this grid into the correct output. In ARC-AGI-3, the AI has to figure out what it's even supposed to do. That has no analog in LLM training. These models were trained on billions of examples where the objective was always defined. Remove the objective and they're paralyzed.
+
+Perhaps the most damning data point comes from a Duke University experiment. Researchers built a custom strategy, a hand-crafted "harness," for one specific ARC-AGI-3 environment. They ran Claude Opus 4.6 through it and scored 97.1%. Then they tested the exact same harness on environments the model hadn't seen. Zero percent. The model didn't fail because it couldn't perceive the environment. It failed because it couldn't generalize. A human-designed strategy for one game was completely useless in another.
+
+And here's the kicker. During a 30-day developer preview, the top three performing systems were all non-LLM approaches. The winner, StochasticGoose from Tufa Labs, used a CNN with reinforcement learning and scored 12.58%. The runner-up used rule-based state graph exploration. Third place used training-free frame graph search. All three outperformed every frontier language model by more than 12 percentage points. The best-performing approaches to this benchmark aren't language models at all.
+
+## The Controversies
+
+ARC-AGI-3 has drawn fire from several directions, and some of the criticisms are worth taking seriously.
+
+The biggest one is the scoring methodology. Critics argue that the quadratic efficiency penalty is engineered to produce headline-grabbing low numbers. One analysis calculated that the median human, scored under the same RHAE formula against the second-best human baseline, might only achieve around 26.7%. A bottom-10th-percentile human might score 3%. So when Chollet reports that AI scores 0.37%, the comparison against "100% human" is somewhat misleading. The human baseline is set at the second-best performer out of 10 testers, not the average person.
+
+Then there's the input format debate. Humans see the game rendered visually on a screen. AI agents receive a JSON representation of the grid state. Critics argue this creates an unfair asymmetry. Humans get to leverage their visual cortex, spatial reasoning, all the perceptual machinery that evolution spent millions of years optimizing. AI models have to parse abstract data structures. Chollet's response to this is characteristically sharp: if an AI system can't figure out to render JSON to a visual representation, does it really qualify as AGI?
+
+And the "moving goalposts" accusation is always lurking. ARC-AGI-1 went from 0% to 98%. ARC-AGI-2 went from near-zero to 84.6% in under a year. ARC-AGI-3 resets everything. As one commenter put it: "Every new benchmark cycle. First it looks impossible, then two model releases later it turns into just another eval line item." Chollet's counter is that this cycle is exactly the point. Each version identifies when a genuine capability leap occurs. The benchmark isn't supposed to be a permanent unsolved challenge. It's an early warning system.
+
+Melanie Mitchell at the Santa Fe Institute raised a deeper concern rooted in Goodhart's Law. Once a measure becomes a target, it stops being a good measure. ARC is now a multi-million-dollar target with every AI lab gunning for it. She's also argued that solving ARC doesn't necessarily equal achieving AGI.
+
+## What This Means for the AGI Debate
+
+The launch created a perfect snapshot of the industry's cognitive dissonance. The same week ARC-AGI-3 showed every frontier model scoring below 1%, Jensen Huang was telling Lex Fridman that he thinks we've achieved AGI. Both of these things happened in the same timeline.
+
+The disagreement comes down to definitions. Chollet defines AGI as a system that can match the learning efficiency of humans. Under that framework, a 99.63% gap between humans and the best AI on novel interactive reasoning tasks means AGI is nowhere close. OpenAI's preferred definition, a system that can automate the majority of economically valuable work, leads to very different conclusions. You can argue we're already there, depending on what "economically valuable work" means to you.
+
+Chollet estimates AGI will arrive in the early 2030s, around the time ARC-AGI-6 or ARC-AGI-7 would launch. He frames it as a binary: either you believe AGI is possible, in which case a true AGI system will eventually solve ARC-AGI-3 because normal humans can, or you believe AI is merely an automation tool that will always need human intervention for every new task.
+
+I think the truth is more nuanced than either extreme, but I'll say this. The fact that non-LLM approaches crushed frontier language models in the preview competition is the data point I keep coming back to. It suggests that the path to solving ARC-AGI-3, and maybe the path to something resembling general intelligence, doesn't run through making transformers bigger. It might require fundamentally rethinking how AI systems learn, explore, and adapt. Reinforcement learning, program synthesis, neurosymbolic approaches. The stuff that fell out of fashion when everyone went all-in on scaling language models.
+
+## The Prize and What Comes Next
+
+The ARC Prize 2026 competition puts over $2 million on the table across three tracks. The ARC-AGI-3 track alone offers $850,000, with a $700,000 grand prize for the first agent that matches human-level efficiency across all private environments on first encounter. If nobody claims it, the money rolls forward. Every winning solution must be open-sourced under permissive licenses. No black-box solutions. No secret sauce.
+
+The competition runs on Kaggle with no internet access during evaluation. There are 135 handcrafted environments, only 25 of which are public. The remaining 110 are semi-private or fully private, covering different mechanics with minimal overlap to prevent targeted optimization. Automated validation ensures that non-tutorial levels resist random play. They tested agents with up to 1,000,000 random steps, and the environments are designed so that random actions almost never result in a win.
+
+History says the sub-1% scores won't last forever. But ARC-AGI-3 might prove qualitatively harder to crack than its predecessors. The interactive format demands capabilities that no amount of training data seems to provide: autonomous goal discovery, real-time world modeling, and efficient adaptation to genuinely novel situations. The preview competition's best results came from reinforcement learning and graph search, paradigms from an earlier era of AI that the industry largely left behind during the scaling rush.
+
+I keep thinking about that moment in the gameplay video. A human player looks at the screen, spots a plus sign, thinks "maybe I need to interact with that," and within seconds has formed a theory about orientation matching that turns out to be correct. GPT 5.4 looks at the same environment and just walks into the same wall over and over. That gap isn't about compute or data or parameters. It's about something else entirely. And until we figure out what that something is, ARC-AGI-3 will keep sitting there at 0.37%, waiting.
