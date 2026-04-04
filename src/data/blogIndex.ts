@@ -1,5 +1,13 @@
 export const BLOG_POSTS = [
   {
+    slug: "three-strategic-shifts-single-day-ai",
+    title: "Three Strategic Shifts on a Single Day in AI",
+    excerpt:
+      "Google went full Apache 2.0 with Gemma 4, Alibaba closed its flagship model behind an API, a startup got GPU futures on Bloomberg Terminal, and OpenAI bought a media company. All on the same Wednesday.",
+    tags: ["AI", "Google", "Alibaba", "OpenAI", "Compute", "Infrastructure"],
+    date: "2026-04-04",
+  },
+  {
     slug: "arc-agi-3-benchmark-broke-every-frontier-model",
     title:
       "ARC-AGI-3 Just Broke Every Frontier AI Model. Here's Why That Matters.",
