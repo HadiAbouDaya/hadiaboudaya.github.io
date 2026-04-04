@@ -32,14 +32,14 @@ Hadi Abou Daya is an AI/ML Consultant and Software Engineer with experience span
 - Traveln.ai: RAG system and voice-to-JSON agent for travel booking
 - Technologies: LLMs, Azure AI, RAG, Vector Search
 
-### ML Specialist at Mobile Arts (Jun 2022 - Aug 2023)
+### Machine Learning Specialist at Mobile Arts (Jun 2022 - Aug 2023)
 - Built AWS content moderation service
 - Developed AI anomaly detection on AWS Lambda
 - Created predictive engine on SageMaker for ad traffic optimization
 - Trained and deployed YOLOv8 logo detection model
 - Technologies: AWS (Lambda, SageMaker, EC2, DynamoDB), Angular, .NET Core, YOLOv8
 
-### CV Developer at Decentra Tech (May 2021 - May 2022)
+### Computer Vision Developer at Decentra Tech (May 2021 - May 2022)
 - Trained and deployed computer vision models for automotive safety on edge devices
 - Built inference pipelines on NVIDIA Jetson Nano and Jetson Orin
 - Technologies: NVIDIA TAO, DeepStream SDK, TensorRT, Jetson
