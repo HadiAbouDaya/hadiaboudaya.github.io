@@ -141,7 +141,7 @@ export const experiences: Experience[] = [
   {
     id: "mobile-arts",
     company: "Mobile Arts",
-    role: "ML Specialist",
+    role: "Machine Learning Specialist",
     type: "work",
     period: "Jun 2022 - Aug 2023",
     startDate: "2022-06-01",
@@ -166,7 +166,7 @@ export const experiences: Experience[] = [
   {
     id: "decentra-tech",
     company: "Decentra Tech",
-    role: "CV Developer",
+    role: "Computer Vision Developer",
     type: "work",
     period: "May 2021 - May 2022",
     startDate: "2021-05-01",
