@@ -26,7 +26,7 @@ export const KEY_FACTS: KeyFact[] = [
   {
     icon: "Globe",
     label: "International Experience",
-    value: "Multicultural",
+    value: "EMEA \u00b7 NA",
     detail:
       "Lebanon, France, Canada, Spain, Saudi Arabia, USA, and more",
   },
