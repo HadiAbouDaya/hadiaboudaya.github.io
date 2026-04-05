@@ -16,7 +16,13 @@ You read it. You open your exchange. You calculate position size. You set your s
 
 I watched this happen enough times, to myself and to others, that I decided to build the thing that should have existed all along.
 
-## The Problem Nobody Solves
+> **Key Takeaways**
+>
+> - CopyAlpha is a full-stack crypto copy-trading platform with a 10-step validation chain between signal intake and trade execution, enforcing risk rules at every stage.
+> - The platform supports both centralized exchanges (Binance, Bybit, OKX) and decentralized execution (Ethereum, Polygon, Arbitrum) through a unified signal processing pipeline.
+> - Every trade passes through duplicate detection, position sizing, stop-loss enforcement, and portfolio exposure checks before execution, solving the transparency gap in existing copy-trading tools.
+
+## What is wrong with existing copy-trading tools?
 
 The crypto copy-trading space is full of tools that look good in a demo and blow up your account in production.
 
@@ -38,7 +44,7 @@ It connects to multiple exchanges: Binance, Bybit, OKX, XT, and others. Spot and
 
 But the execution is the easy part. Anyone can place a market order. The hard part is everything that happens before the order fires.
 
-## 10 Steps Between a Signal and Your Money
+## What happens between a trading signal and execution?
 
 Most copy-trading tools treat risk management as an afterthought. A max leverage slider, maybe a position size cap. That's it. CopyAlpha runs every signal through a **10-step validation chain** before a single dollar moves.
 
@@ -75,7 +81,7 @@ Drawdown tracking shows current and max drawdown alongside peak balance. These a
 
 Every signal that came in is logged: whether it was executed or rejected, and the exact reason why. Full transparency into every decision the system made on your behalf.
 
-## Why I Built It Solo
+## Why build a copy-trading platform from scratch?
 
 CopyAlpha started as a script that read Telegram messages and placed market orders. It's now a platform with authentication, a 10-step risk engine, multi-exchange execution, DEX routing, analytics, and subscription billing.
 

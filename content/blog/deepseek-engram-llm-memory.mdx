@@ -8,11 +8,18 @@ coverImage: "/Media/blog/covers/deepseek-engram-llm-memory.png"
 
 # DeepSeek's Engram Gives LLMs a Dedicated Memory Lane
 
-**Large language models waste enormous computational depth reconstructing facts they already "know." DeepSeek's Engram module fixes this by adding a fast-lookup memory system alongside neural computation, yielding surprising gains not just in knowledge retrieval but in reasoning, coding, and math.** The paper "Conditional Memory via Scalable Lookup: A New Axis of Sparsity for Large Language Models," published January 12, 2026 by researchers at DeepSeek-AI and Peking University, introduces a fundamentally new architectural primitive called Engram. The module modernizes classic N-gram embeddings into a constant-time O(1) lookup system that complements the now-standard Mixture-of-Experts (MoE) approach. When scaled to 27 billion parameters under strictly matched compute budgets, Engram outperforms pure MoE baselines across nearly every benchmark tested, with the largest improvements appearing in general reasoning (**BBH +5.0**, **ARC-Challenge +3.7**) rather than the knowledge-retrieval tasks where a memory module would intuitively help most.
+**Large language models waste enormous computational depth reconstructing facts they already "know." DeepSeek's Engram module fixes this by adding a fast-lookup memory system alongside neural computation, yielding surprising gains not just in knowledge retrieval but in reasoning, coding, and math.** [The paper](https://arxiv.org/abs/2601.07372) "Conditional Memory via Scalable Lookup: A New Axis of Sparsity for Large Language Models," published January 12, 2026 by researchers at DeepSeek-AI and Peking University, introduces a fundamentally new architectural primitive called Engram. The module modernizes classic N-gram embeddings into a constant-time O(1) lookup system that complements the now-standard Mixture-of-Experts (MoE) approach. When scaled to 27 billion parameters under strictly matched compute budgets, Engram outperforms pure MoE baselines across nearly every benchmark tested, with the largest improvements appearing in general reasoning (**BBH +5.0**, **ARC-Challenge +3.7**) rather than the knowledge-retrieval tasks where a memory module would intuitively help most.
+
+> **Key Takeaways**
+>
+> - DeepSeek's Engram adds a fast-lookup memory table alongside transformer computation, treating knowledge retrieval and reasoning as separate sparsity axes.
+> - Optimal performance follows a U-shaped scaling law at roughly 75-80% compute and 20-25% memory allocation per parameter budget.
+> - Engram-27B outperforms the equivalent MoE-27B baseline by +5.0 on BBH, +3.7 on ARC-Challenge, +3.0 on HumanEval, and +2.4 on MATH, despite sharing the same activated parameters per token.
+> - Memory improvements unexpectedly propagate to reasoning, coding, and math tasks because freeing neural depth from factual lookup gives the model more effective layers for complex computation.
 
 ## The paper at a glance
 
-The full title is **"Conditional Memory via Scalable Lookup: A New Axis of Sparsity for Large Language Models."** The 14 authors are Xin Cheng, Wangding Zeng, Damai Dai, Qinyu Chen, Bingxuan Wang, Zhenda Xie, Kezhao Huang, Xingkai Yu, Zhewen Hao, Yukun Li, Han Zhang, Huishuai Zhang, Dongyan Zhao, and Wenfeng Liang, spanning Peking University and DeepSeek-AI. DeepSeek's founder Liang Wenfeng is a co-author, signaling the company views this as a core architectural direction. The code is open-sourced at GitHub under Apache 2.0 license, and the paper has been widely discussed as a likely foundational component of the anticipated DeepSeek-V4 model.
+The full title is **"Conditional Memory via Scalable Lookup: A New Axis of Sparsity for Large Language Models."** The 14 authors are Xin Cheng, Wangding Zeng, Damai Dai, Qinyu Chen, Bingxuan Wang, Zhenda Xie, Kezhao Huang, Xingkai Yu, Zhewen Hao, Yukun Li, Han Zhang, Huishuai Zhang, Dongyan Zhao, and Wenfeng Liang, spanning Peking University and DeepSeek-AI. DeepSeek's founder Liang Wenfeng is a co-author, signaling the company views this as a core architectural direction. The code is [open-sourced](https://github.com/deepseek-ai/Engram) at GitHub under Apache 2.0 license, and the paper has been widely discussed as a likely foundational component of the anticipated DeepSeek-V4 model.
 
 ## Why current LLMs are wasting compute on trivial lookups
 
@@ -22,7 +29,7 @@ The paper illustrates this waste with a striking example from prior interpretabi
 
 The researchers argue this is architecturally avoidable. Classical N-gram models, a technique dating back to Claude Shannon in the 1950s, captured exactly these local, static patterns with cheap table lookups. The question is whether this primitive can be meaningfully integrated into modern transformer architectures.
 
-## How Engram works: a modernized N-gram memory system
+## How does DeepSeek's Engram memory system work?
 
 Engram operates in two phases: **retrieval** and **fusion**. During retrieval, the module extracts suffix N-grams (sequences of 2-3 consecutive tokens) from the input, compresses them through a vocabulary normalization step, and uses deterministic hash functions to look up corresponding embedding vectors from a massive table. During fusion, these static embeddings are dynamically modulated by the current hidden state through a context-aware gating mechanism before being injected into the transformer's residual stream.
 
@@ -34,7 +41,7 @@ Engram operates in two phases: **retrieval** and **fusion**. During retrieval, t
 
 Crucially, Engram is **not applied to every layer**. The paper finds that inserting it at layers 2 and 15 (in a 30-layer model) achieves optimal results, early enough to relieve the backbone from static pattern reconstruction, but after one round of attention provides enough context for the gating mechanism to work.
 
-## The U-shaped scaling law that reveals an optimal balance
+## What is the optimal balance between memory and computation?
 
 The paper's most theoretically elegant contribution is the **Sparsity Allocation** framework. Given a fixed total parameter budget, how should spare capacity be divided between MoE experts (conditional computation) and Engram embeddings (conditional memory)? The researchers define an allocation ratio ρ, where ρ=1 means all spare parameters go to MoE experts and ρ=0 means all go to Engram memory.
 
@@ -44,7 +51,7 @@ The interpretation is intuitive once stated. When the model is MoE-dominated (ρ
 
 In a separate "infinite memory regime" experiment, the researchers fix the MoE backbone and progressively scale the Engram table from 258K to 10M slots. The result follows a strict **log-linear power law**: larger memory consistently improves performance without requiring additional compute, establishing Engram as a predictable, independent scaling knob.
 
-## Benchmark results that defy expectations
+## How does Engram perform on benchmarks?
 
 The paper trains four models for comparison: Dense-4B (baseline), MoE-27B (26.7B parameters, standard MoE), Engram-27B (26.7B parameters, same total size but with 5.7B reallocated from MoE experts to Engram), and Engram-40B (39.5B parameters, with an 18.5B Engram table). All share identical activated parameters (**3.8B per token**) and training data (**262B tokens**).
 

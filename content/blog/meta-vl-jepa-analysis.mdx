@@ -10,7 +10,13 @@ coverImage: "/Media/blog/covers/vl-jepa-analysis.jpg"
 
 The AI world is obsessed with generative models. GPT, Claude, Gemini, Stable Diffusion  - they all share one core principle: generate outputs token by token (or pixel by pixel). But what if the next leap in AI doesn't come from generating better tokens?
 
-Meta's **VL-JEPA** (Vision-Language Joint Embedding Predictive Architecture) proposes something fundamentally different  - and it aligns with a vision Yann LeCun has been championing for years.
+Meta's **VL-JEPA** (Vision-Language Joint Embedding Predictive Architecture) proposes something fundamentally different, and it aligns with a vision Yann LeCun has been championing for years.
+
+> **Key Takeaways**
+>
+> - VL-JEPA predicts continuous semantic embeddings instead of generating tokens, representing a fundamentally different approach to AI understanding.
+> - By operating in embedding space rather than pixel or token space, VL-JEPA achieves stronger efficiency per parameter and avoids the hallucination risks inherent in generative models.
+> - This aligns with Yann LeCun's broader thesis that true intelligence requires world models and planning, not autoregressive token prediction.
 
 ## What Is VL-JEPA?
 
@@ -18,7 +24,7 @@ VL-JEPA is a **non-generative model**. Instead of predicting the next token or r
 
 Think of it this way: when you see a dog running across a park, you don't mentally reconstruct every pixel of the next frame. You understand, at an abstract level, what will happen next. VL-JEPA aims to do the same.
 
-## How It Differs from Generative Models
+## How does VL-JEPA differ from generative models?
 
 The key architectural differences:
 
@@ -44,7 +50,7 @@ LeCun's broader vision is building **world models**  - systems that can simulate
 
 VL-JEPA bridges vision and language through shared embedding spaces rather than through text generation. This means the model can understand multimodal relationships without needing to translate everything into words  - a more natural form of grounding.
 
-## The Bigger Picture: LeCun's Bet Against Autoregression
+## Why is Yann LeCun betting against autoregressive models?
 
 Yann LeCun has been vocal about what he sees as the limitations of current LLMs:
 

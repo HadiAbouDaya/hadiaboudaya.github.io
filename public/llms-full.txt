@@ -71,6 +71,9 @@ Hadi Abou Daya is an AI/ML Consultant and Software Engineer with experience span
 
 ## Blog
 
+- [Three Strategic Shifts on a Single Day in AI](https://hadi.aboudaya.com/blog/three-strategic-shifts-single-day-ai/) - Google went full Apache 2.0 with Gemma 4, Alibaba closed its flagship model behind an API, a startup got GPU futures on Bloomberg Terminal, and OpenAI bought a media company
+- [ARC-AGI-3 Just Broke Every Frontier AI Model](https://hadi.aboudaya.com/blog/arc-agi-3-benchmark-broke-every-frontier-model/) - Every frontier AI model scored below 1% on ARC-AGI-3 while humans scored 100%, exposing a fundamental gap between memorization and genuine intelligence
+- [DeepSeek's Engram Gives LLMs a Dedicated Memory Lane](https://hadi.aboudaya.com/blog/deepseek-engram-llm-memory/) - DeepSeek's Engram module adds a fast-lookup memory system alongside neural computation, yielding gains in knowledge retrieval, reasoning, coding, and math
 - [I Built a Crypto Copy-Trading Platform From Scratch](https://hadi.aboudaya.com/blog/copyalpha-crypto-copy-trading-platform/) - Full-stack platform that processes signals, enforces risk rules, and executes across CEX and DEX
 - [The Company That Almost Burned Down Now Holds AI Hostage](https://hadi.aboudaya.com/blog/sk-hynix-hbm-ai-memory-crisis/) - How SK Hynix went from near-bankruptcy to controlling the AI supply chain through HBM
 - [Don't Let LLMs Think for You](https://hadi.aboudaya.com/blog/critical-thinking-and-llms/) - Critical thinking in the age of LLMs

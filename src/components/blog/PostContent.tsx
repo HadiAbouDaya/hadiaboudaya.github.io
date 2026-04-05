@@ -2,6 +2,7 @@ import type { BlogPost } from "@/types";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { Badge } from "@/components/ui/Badge";
 import { BlogReadTracker } from "@/components/blog/BlogReadTracker";
+import { AuthorCard } from "@/components/blog/AuthorCard";
 import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
@@ -77,6 +78,8 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
               {children}
             </div>
           </BlogReadTracker>
+
+          <AuthorCard />
 
           {/* Prev / Next navigation */}
           {(prevPost || nextPost) && (

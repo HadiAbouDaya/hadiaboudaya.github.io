@@ -76,10 +76,16 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-slate-800 text-center">
+        <div className="mt-8 pt-8 border-t border-slate-800 text-center flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
           <p className="text-slate-500 text-sm">
             &copy; {new Date().getFullYear()} Hadi Abou Daya. All rights reserved.
           </p>
+          <Link
+            href="/privacy/"
+            className="text-slate-500 text-sm hover:text-white transition-colors"
+          >
+            Privacy Policy
+          </Link>
         </div>
       </div>
     </footer>

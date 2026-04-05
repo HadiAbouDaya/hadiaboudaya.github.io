@@ -1,6 +1,7 @@
 import { HeroContent } from "@/components/hero/HeroContent";
 import { GlobeWrapper } from "@/components/hero/GlobeWrapper";
 import { HomeHighlights } from "@/components/home/HomeHighlights";
+import { HomeExpertise } from "@/components/home/HomeExpertise";
 import { personJsonLd, websiteJsonLd } from "@/lib/jsonld";
 import { experiences } from "@/data/experience";
 import { events } from "@/data/events";
@@ -54,6 +55,8 @@ export default function HomePage() {
         certCount={certifications.length}
         latestPost={latestPost ? { slug: latestPost.slug, title: latestPost.title, excerpt: latestPost.excerpt } : null}
       />
+
+      <HomeExpertise />
     </>
   );
 }

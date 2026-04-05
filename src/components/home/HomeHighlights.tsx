@@ -20,7 +20,7 @@ export function HomeHighlights({ latestRole, featuredEvent, certCount, latestPos
       label: "Latest Role",
       title: `${latestRole.role} at ${latestRole.company}`,
       detail: latestRole.period,
-      href: "/experience",
+      href: "/experience/",
       linkText: "View timeline",
     },
     {
@@ -28,7 +28,7 @@ export function HomeHighlights({ latestRole, featuredEvent, certCount, latestPos
       label: "Featured Event",
       title: featuredEvent.title,
       detail: new Date(featuredEvent.date).toLocaleDateString("en-US", { month: "long", year: "numeric" }),
-      href: "/events",
+      href: "/events/",
       linkText: "See all events",
     },
     {
@@ -36,7 +36,7 @@ export function HomeHighlights({ latestRole, featuredEvent, certCount, latestPos
       label: "Certifications",
       title: `${certCount}+ professional credentials`,
       detail: "AWS, Azure, PMP, AI/ML & more",
-      href: "/certifications",
+      href: "/certifications/",
       linkText: "Browse all",
     },
     ...(latestPost
@@ -46,7 +46,7 @@ export function HomeHighlights({ latestRole, featuredEvent, certCount, latestPos
             label: "Latest Post",
             title: latestPost.title,
             detail: latestPost.excerpt.slice(0, 80) + (latestPost.excerpt.length > 80 ? "..." : ""),
-            href: `/blog/${latestPost.slug}`,
+            href: `/blog/${latestPost.slug}/`,
             linkText: "Read more",
           },
         ]

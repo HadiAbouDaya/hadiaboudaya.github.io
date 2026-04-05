@@ -10,7 +10,14 @@ coverImage: "/Media/blog/covers/arc-agi-3-benchmark-broke-every-frontier-model.j
 
 Every frontier AI model just scored below 1% on a new benchmark. Humans scored 100%. And the best AI needed over $5,000 in compute to achieve its 0.37%. That's not a typo. The most powerful AI systems ever built, the ones writing code, passing bar exams, and generating entire applications, got absolutely humiliated by a set of interactive puzzles that any person can solve in under three minutes.
 
-ARC-AGI-3 launched on March 25, 2026, and it might be the most important benchmark in AI right now. Not because of the dramatic scores, but because of what those scores reveal about the gap between what AI can do and what intelligence actually is.
+[ARC-AGI-3](https://arcprize.org/blog/arc-agi-3-launch) launched on March 25, 2026, and it might be the most important benchmark in AI right now. Not because of the dramatic scores, but because of what those scores reveal about the gap between what AI can do and what intelligence actually is.
+
+> **Key Takeaways**
+>
+> - Every frontier AI model scored below 1% on ARC-AGI-3, while humans scored 100%, exposing a fundamental gap between pattern matching and genuine intelligence.
+> - ARC-AGI-3 replaces static grid puzzles with interactive video game environments that require real-time exploration, cause-and-effect modeling, and goal inference.
+> - The top-performing systems in the developer preview were non-LLM approaches using CNNs with reinforcement learning, suggesting the path forward may not run through scaling transformers.
+> - The ARC Prize 2026 offers $2 million across three tracks, with the main ARC-AGI-3 track carrying a $700,000 grand prize.
 
 ## A Quick History of ARC-AGI
 
@@ -26,7 +33,7 @@ ARC-AGI-2 came out in March 2025. Same format, but significantly harder. Multi-s
 
 So Chollet and his team did something nobody expected. They threw the entire format out.
 
-## ARC-AGI-3 Is a Video Game
+## How does ARC-AGI-3 work?
 
 This is where things get genuinely interesting. ARC-AGI-3 is not a grid puzzle. It's not a pattern-matching exercise. It's a video game. A video game with zero instructions.
 
@@ -40,15 +47,15 @@ The whole thing takes about a minute once you figure it out. Three minutes if yo
 
 Now watch GPT 5.4 try the same thing. It takes one step up, just like a human would. And then it just... keeps going to the same spot. Over and over. It never thinks to interact with the plus sign. It never forms the hypothesis that the orientation needs to change. It exhausts its turns doing the same wrong thing. Watching it is genuinely unsettling because the failure is so alien. It's not making a hard mistake. It's failing to even understand what the problem is.
 
-## The Numbers Are Brutal
+## How did frontier AI models score on ARC-AGI-3?
 
-Every single frontier model scored below 1% on ARC-AGI-3. Gemini 3.1 Pro leads the pack at 0.37%. GPT 5.4 manages 0.26%. Claude Opus 4.6 hits 0.25%. Grok-4.20 registers a flat zero. Humans score 100%.
+Every single frontier model scored below 1% on the [leaderboard](https://arcprize.org/leaderboard). Gemini 3.1 Pro leads the pack at 0.37%. GPT 5.4 manages 0.26%. Claude Opus 4.6 hits 0.25%. Grok-4.20 registers a flat zero. Humans score 100%.
 
 And the cost per task is wild. GPT 5.4 High needed over $5,000 in compute to achieve its 0.3%. For a benchmark where any human can solve the tasks for free. In minutes.
 
 The scoring system is designed to make brute force worthless. ARC-AGI-3 uses something called RHAE, Relative Human Action Efficiency, which applies a quadratic penalty for inefficiency. If a human completes a level in 10 actions and an AI needs 100, the AI doesn't score 10%. It scores 1%. The penalty squares the ratio. An AI that stumbles through an environment trying random things until something works will score near zero even if it eventually "solves" the level. This is by design. The benchmark doesn't just care whether you get there. It cares whether you get there like a thinking agent would.
 
-## Why LLMs Are Failing This Badly
+## Why are LLMs failing ARC-AGI-3?
 
 The sub-1% scores aren't a fluke, and they aren't just about the scoring being harsh. They reveal a fundamental limitation in how current AI systems work.
 
@@ -74,7 +81,7 @@ And the "moving goalposts" accusation is always lurking. ARC-AGI-1 went from 0% 
 
 Melanie Mitchell at the Santa Fe Institute raised a deeper concern rooted in Goodhart's Law. Once a measure becomes a target, it stops being a good measure. ARC is now a multi-million-dollar target with every AI lab gunning for it. She's also argued that solving ARC doesn't necessarily equal achieving AGI.
 
-## What This Means for the AGI Debate
+## What does this mean for the path to AGI?
 
 The launch created a perfect snapshot of the industry's cognitive dissonance. The same week ARC-AGI-3 showed every frontier model scoring below 1%, Jensen Huang was telling Lex Fridman that he thinks we've achieved AGI. Both of these things happened in the same timeline.
 
@@ -86,7 +93,7 @@ I think the truth is more nuanced than either extreme, but I'll say this. The fa
 
 ## The Prize and What Comes Next
 
-The ARC Prize 2026 competition puts over $2 million on the table across three tracks. The ARC-AGI-3 track alone offers $850,000, with a $700,000 grand prize for the first agent that matches human-level efficiency across all private environments on first encounter. If nobody claims it, the money rolls forward. Every winning solution must be open-sourced under permissive licenses. No black-box solutions. No secret sauce.
+The [ARC Prize](https://arcprize.org) 2026 competition puts over $2 million on the table across three tracks. The ARC-AGI-3 track alone offers $850,000, with a $700,000 grand prize for the first agent that matches human-level efficiency across all private environments on first encounter. If nobody claims it, the money rolls forward. Every winning solution must be open-sourced under permissive licenses. No black-box solutions. No secret sauce.
 
 The competition runs on Kaggle with no internet access during evaluation. There are 135 handcrafted environments, only 25 of which are public. The remaining 110 are semi-private or fully private, covering different mechanics with minimal overlap to prevent targeted optimization. Automated validation ensures that non-tutorial levels resist random play. They tested agents with up to 1,000,000 random steps, and the environments are designed so that random actions almost never result in a win.
 

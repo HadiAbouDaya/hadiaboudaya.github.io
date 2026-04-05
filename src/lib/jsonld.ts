@@ -2,6 +2,40 @@ import type { Event, EventCategory, Certification, BlogPost } from "@/types";
 
 const SITE_URL = "https://hadi.aboudaya.com";
 
+const MONTH_MAP: Record<string, string> = {
+  Jan: "01", Feb: "02", Mar: "03", Apr: "04", May: "05", Jun: "06",
+  Jul: "07", Aug: "08", Sep: "09", Oct: "10", Nov: "11", Dec: "12",
+};
+
+function toIsoMonth(dateStr: string): string {
+  const parts = dateStr.split(" ");
+  if (parts.length === 2 && MONTH_MAP[parts[0]]) {
+    return `${parts[1]}-${MONTH_MAP[parts[0]]}`;
+  }
+  return dateStr;
+}
+
+function parseEventLocation(location: string) {
+  if (location === "Remote" || location === "Online") {
+    return { "@type": "VirtualLocation" as const, url: SITE_URL };
+  }
+  const lastComma = location.lastIndexOf(",");
+  if (lastComma === -1) {
+    return { "@type": "Place" as const, name: location };
+  }
+  const city = location.slice(0, lastComma).trim();
+  const country = location.slice(lastComma + 1).trim();
+  return {
+    "@type": "Place" as const,
+    name: location,
+    address: {
+      "@type": "PostalAddress" as const,
+      addressLocality: city,
+      addressCountry: country,
+    },
+  };
+}
+
 export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -12,11 +46,6 @@ export function websiteJsonLd() {
     description:
       "AI/ML Consultant & Software Engineer based in Paris. Building intelligent systems from edge to cloud.",
     publisher: { "@id": `${SITE_URL}/#person` },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${SITE_URL}/?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
   };
 }
 
@@ -94,7 +123,7 @@ export function articleJsonLd(post: {
 }) {
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt,
     datePublished: post.date,
@@ -137,11 +166,9 @@ export function eventJsonLd(event: Event) {
     "@type": EVENT_TYPE_MAP[event.category] || "Event",
     name: event.title,
     startDate: event.date,
+    endDate: event.date,
     description: event.summary,
-    location: {
-      "@type": "Place",
-      name: event.location,
-    },
+    location: parseEventLocation(event.location),
     ...(event.organizations?.length
       ? {
           organizer: event.organizations.map((org) => ({
@@ -200,8 +227,8 @@ export function credentialListJsonLd(certs: Certification[]) {
             "@type": "Organization",
             name: cert.issuer,
           },
-          dateCreated: cert.issuedDate,
-          ...(cert.expiryDate ? { expires: cert.expiryDate } : {}),
+          dateCreated: toIsoMonth(cert.issuedDate),
+          ...(cert.expiryDate ? { expires: toIsoMonth(cert.expiryDate) } : {}),
           url: cert.credentialUrl,
         },
       })),
