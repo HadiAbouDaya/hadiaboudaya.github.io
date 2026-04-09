@@ -1,5 +1,14 @@
 export const BLOG_POSTS = [
   {
+    slug: "anthropic-claude-mythos-system-card-analysis",
+    title:
+      "I Read Anthropic's 244-Page Mythos Report. It Reads Like a Creation Myth.",
+    excerpt:
+      "Anthropic just built the most powerful AI model in the world. Then they decided you can't use it. Notes on the Claude Mythos system card, Project Glasswing, and what it means when offense structurally outpaces defense.",
+    tags: ["AI", "Anthropic", "Claude", "Cybersecurity", "Alignment", "System Card"],
+    date: "2026-04-09",
+  },
+  {
     slug: "three-strategic-shifts-single-day-ai",
     title: "Three Strategic Shifts on a Single Day in AI",
     excerpt:

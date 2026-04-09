@@ -29,6 +29,7 @@ Hadi Abou Daya is an AI/ML Consultant and Software Engineer based in Paris, Fran
 
 ## Blog
 
+- [I Read Anthropic's 244-Page Mythos Report. It Reads Like a Creation Myth.](https://hadi.aboudaya.com/blog/anthropic-claude-mythos-system-card-analysis/)
 - [Three Strategic Shifts on a Single Day in AI](https://hadi.aboudaya.com/blog/three-strategic-shifts-single-day-ai/)
 - [ARC-AGI-3 Just Broke Every Frontier AI Model](https://hadi.aboudaya.com/blog/arc-agi-3-benchmark-broke-every-frontier-model/)
 - [DeepSeek's Engram Gives LLMs a Dedicated Memory Lane](https://hadi.aboudaya.com/blog/deepseek-engram-llm-memory/)

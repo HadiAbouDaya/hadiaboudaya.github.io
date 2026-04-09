@@ -71,6 +71,7 @@ Hadi Abou Daya is an AI/ML Consultant and Software Engineer with experience span
 
 ## Blog
 
+- [I Read Anthropic's 244-Page Mythos Report. It Reads Like a Creation Myth.](https://hadi.aboudaya.com/blog/anthropic-claude-mythos-system-card-analysis/) - Anthropic built the most powerful AI model in the world and locked it behind Project Glasswing. Analysis of the Claude Mythos system card on cyber capability, alignment paradoxes, and the structural offense-defense gap
 - [Three Strategic Shifts on a Single Day in AI](https://hadi.aboudaya.com/blog/three-strategic-shifts-single-day-ai/) - Google went full Apache 2.0 with Gemma 4, Alibaba closed its flagship model behind an API, a startup got GPU futures on Bloomberg Terminal, and OpenAI bought a media company
 - [ARC-AGI-3 Just Broke Every Frontier AI Model](https://hadi.aboudaya.com/blog/arc-agi-3-benchmark-broke-every-frontier-model/) - Every frontier AI model scored below 1% on ARC-AGI-3 while humans scored 100%, exposing a fundamental gap between memorization and genuine intelligence
 - [DeepSeek's Engram Gives LLMs a Dedicated Memory Lane](https://hadi.aboudaya.com/blog/deepseek-engram-llm-memory/) - DeepSeek's Engram module adds a fast-lookup memory system alongside neural computation, yielding gains in knowledge retrieval, reasoning, coding, and math
