@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     template: "%s | Hadi Abou Daya",
   },
   description:
-    "Hadi Abou Daya, AI/ML Consultant & Software Engineer in Paris. Specializing in LLM agents, agentic apps, cloud architecture, Web3, and computer vision. AWS certified.",
+    "Hadi Abou Daya, AI/ML Engineer & Consultant in Paris. LLM agents, cloud architecture & orchestration, computer vision. Azure & AWS certified. Let's talk.",
   metadataBase: new URL("https://hadi.aboudaya.com"),
   robots: {
     index: true,
