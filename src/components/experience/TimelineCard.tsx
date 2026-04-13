@@ -99,17 +99,16 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
         </div>
       )}
 
-      {/* Horizontal connector to the center line */}
+      {/* Horizontal connector from center line to card edge */}
       {showDot && (
         <div
           className={cn(
             "hidden md:block absolute top-[2.125rem] border-t-[3px] border-dashed border-slate-300 dark:border-slate-600 -z-10",
-            !isDualLane && "w-[calc(50%-2rem)]",
-            !isDualLane && position === "left" && "right-1/2",
-            !isDualLane && position === "right" && "left-1/2",
-            isDualLane && "w-8",
+            "w-8",
             isDualLane && position === "left" && "-right-8",
-            isDualLane && position === "right" && "-left-8"
+            isDualLane && position === "right" && "-left-8",
+            !isDualLane && position === "left" && "left-[calc(50%-2rem)]",
+            !isDualLane && position === "right" && "left-1/2"
           )}
         />
       )}
