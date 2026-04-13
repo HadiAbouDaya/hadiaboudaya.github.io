@@ -40,7 +40,7 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
     >
       <div
         className={cn(
-          "bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700/40 overflow-hidden flex flex-col h-full group transition-all duration-400 relative shadow-sm backdrop-blur-sm",
+          "bg-white dark:bg-slate-800/80 rounded-2xl border border-slate-200 dark:border-slate-700/40 overflow-hidden flex flex-col h-full group transition-[transform,border-color,box-shadow] duration-300 relative shadow-sm",
           !isExpanded && "hover-glow dark:hover:border-primary-400/15 hover:-translate-y-1 cursor-pointer"
         )}
       >

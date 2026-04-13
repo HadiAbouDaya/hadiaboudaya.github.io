@@ -124,9 +124,9 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
       >
         <div
           className={cn(
-            "bg-white dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/50 border-t-[4px] p-6 backdrop-blur-sm",
+            "bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 border-t-[4px] p-6",
             config.borderColor,
-            "shadow-md hover-glow transition-all duration-400",
+            "shadow-md hover-glow transition-[box-shadow] duration-300",
             "group"
           )}
         >

@@ -62,7 +62,7 @@ export function HomeHighlights({ latestRole, featuredEvent, certCount, latestPos
             <ScrollReveal key={card.href} delay={i * 0.1}>
               <Link
                 href={card.href}
-                className="group block p-5 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.07] hover:border-primary-400/20 transition-all duration-400 h-full hover-glow"
+                className="group block p-5 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.07] hover:border-primary-400/20 transition-[background-color,border-color,box-shadow] duration-300 h-full hover-glow"
               >
                 <div className="flex items-center gap-2 mb-3">
                   <card.icon className="w-4 h-4 text-primary-400 group-hover:text-primary-300 transition-colors" />
