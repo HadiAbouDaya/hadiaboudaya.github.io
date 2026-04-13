@@ -4,8 +4,8 @@ import { ArrowRight } from "lucide-react";
 
 export function AuthorCard() {
   return (
-    <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
-      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
+    <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700/50">
+      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">
         Written by
       </p>
       <div className="flex items-center gap-4">
@@ -19,7 +19,7 @@ export function AuthorCard() {
           fallbackClassName="w-12 h-12 rounded-full text-sm"
         />
         <div className="min-w-0">
-          <p className="font-semibold text-slate-900 dark:text-white text-sm">
+          <p className="font-display font-semibold text-slate-900 dark:text-white text-sm">
             Hadi Abou Daya
           </p>
           <p className="text-xs text-slate-500 dark:text-slate-400">

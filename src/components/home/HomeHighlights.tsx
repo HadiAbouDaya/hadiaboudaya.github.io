@@ -54,26 +54,27 @@ export function HomeHighlights({ latestRole, featuredEvent, certCount, latestPos
   ];
 
   return (
-    <section className="py-12 sm:py-16 bg-slate-900 dark:bg-slate-950">
-      <div className="container-main px-4 sm:px-6 lg:px-8">
+    <section className="relative py-12 sm:py-16 bg-slate-900 dark:bg-[#0a0f1a]">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary-950/10 to-transparent pointer-events-none" />
+      <div className="container-main px-4 sm:px-6 lg:px-8 relative">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {cards.map((card, i) => (
             <ScrollReveal key={card.href} delay={i * 0.1}>
               <Link
                 href={card.href}
-                className="group block p-5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 h-full"
+                className="group block p-5 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.07] hover:border-primary-400/20 transition-all duration-400 h-full hover-glow"
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <card.icon className="w-4 h-4 text-primary-400" />
-                  <span className="text-xs font-medium text-primary-400">{card.label}</span>
+                  <card.icon className="w-4 h-4 text-primary-400 group-hover:text-primary-300 transition-colors" />
+                  <span className="text-xs font-medium text-primary-400/80 tracking-wide uppercase">{card.label}</span>
                 </div>
-                <h3 className="text-sm font-semibold text-white line-clamp-2 mb-1">
+                <h3 className="text-sm font-semibold text-white line-clamp-2 mb-1 font-display">
                   {card.title}
                 </h3>
-                <p className="text-xs text-slate-400 line-clamp-2 mb-3">
+                <p className="text-xs text-slate-500 line-clamp-2 mb-3">
                   {card.detail}
                 </p>
-                <span className="inline-flex items-center gap-1 text-xs font-medium text-primary-400 group-hover:gap-2 transition-all">
+                <span className="inline-flex items-center gap-1 text-xs font-medium text-primary-400/70 group-hover:text-primary-400 group-hover:gap-2 transition-all">
                   {card.linkText}
                   <ArrowRight className="w-3 h-3" />
                 </span>

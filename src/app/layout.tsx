@@ -65,7 +65,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="font-sans bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200 antialiased min-h-screen flex flex-col">
+      <body className="font-sans bg-white dark:bg-[#0a0f1a] text-slate-900 dark:text-slate-200 antialiased min-h-screen flex flex-col">
         <ThemeProvider>
           <SkipToContent />
           <Navbar />

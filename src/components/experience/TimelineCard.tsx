@@ -124,9 +124,9 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
       >
         <div
           className={cn(
-            "bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 border-t-[4px] p-6",
+            "bg-white dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/50 border-t-[4px] p-6 backdrop-blur-sm",
             config.borderColor,
-            "shadow-md hover:shadow-xl transition-all duration-300",
+            "shadow-md hover-glow transition-all duration-400",
             "group"
           )}
         >
@@ -168,7 +168,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
               </div>
 
               {/* Role */}
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-tight group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
+              <h3 className="text-lg font-display font-bold text-slate-900 dark:text-white leading-tight group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
                 {item.role}
               </h3>
 

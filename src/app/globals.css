@@ -20,14 +20,20 @@
   --color-accent-500: #06b6d4;
   --color-accent-600: #0891b2;
 
+  --color-warm-400: #fbbf24;
+  --color-warm-500: #f59e0b;
+
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
+  --font-display: var(--font-geist-sans), system-ui, sans-serif;
 
   --animate-fade-in: fadeIn 0.6s ease-out;
   --animate-slide-up: slideUp 0.6s ease-out;
   --animate-float: float 6s ease-in-out infinite;
   --animate-blink: blink 1s step-end infinite;
   --animate-lazy-fade-in: lazyFadeIn 0.3s ease-out both;
+  --animate-glow-pulse: glowPulse 3s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.5s linear infinite;
 
   @keyframes lazyFadeIn {
     from { opacity: 0; transform: translateY(8px); }
@@ -49,15 +55,28 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
   }
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
 }
 
+/* ===== BASE ===== */
 html {
   scroll-behavior: smooth;
   overscroll-behavior-y: none;
 }
 
 html.dark {
-  background-color: #0f172a;
+  background-color: #0a0f1a;
   color-scheme: dark;
 }
 
@@ -65,13 +84,41 @@ body {
   min-height: 100vh;
 }
 
+/* ===== DARK MODE BODY ===== */
+.dark body {
+  background-color: #0a0f1a;
+  color: #e2e8f0;
+}
+
+/* Subtle noise texture overlay */
+.dark body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ===== GLASSMORPHISM ===== */
 .glass {
   background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border-bottom: 1px solid rgba(226, 232, 240, 0.5);
 }
 
+.dark .glass {
+  background: rgba(10, 15, 26, 0.75);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+}
+
+/* ===== LAYOUT ===== */
 .section-padding {
   padding: 4rem 1rem;
 }
@@ -94,18 +141,74 @@ body {
   margin-right: auto;
 }
 
-/* Dark mode overrides */
-.dark body {
-  background-color: #0f172a;
-  color: #e2e8f0;
+/* ===== GRADIENT BORDER UTILITY ===== */
+.gradient-border {
+  position: relative;
+  border: 1px solid transparent;
+  background-clip: padding-box;
 }
 
-.dark .glass {
-  background: rgba(15, 23, 42, 0.8);
-  border-bottom-color: rgba(51, 65, 85, 0.5);
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.3),
+    rgba(6, 182, 212, 0.15),
+    rgba(59, 130, 246, 0.05)
+  );
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
-/* Reduced motion */
+.group:hover .gradient-border::before,
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* ===== GLOW EFFECT UTILITY ===== */
+.hover-glow {
+  transition: box-shadow 0.4s ease;
+}
+
+.hover-glow:hover {
+  box-shadow:
+    0 0 20px rgba(59, 130, 246, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.dark .hover-glow:hover {
+  box-shadow:
+    0 0 30px rgba(59, 130, 246, 0.1),
+    0 0 60px rgba(59, 130, 246, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== ACCENT LINE UTILITY ===== */
+.accent-line {
+  position: relative;
+}
+
+.accent-line::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary-500), var(--color-accent-500));
+  border-radius: 1px;
+}
+
+.accent-line-center::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ===== REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -117,49 +220,44 @@ body {
   }
 }
 
-/* Focus indicators */
+/* ===== FOCUS ===== */
 :focus-visible {
   outline: 2px solid var(--color-primary-500);
   outline-offset: 2px;
 }
 
-/* Custom Scrollbar Styling */
-/* Firefox */
+/* ===== SCROLLBAR ===== */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--color-primary-500) transparent;
 }
 
-/* Chrome, Edge, and Safari */
 ::-webkit-scrollbar {
-  width: 8px; /* Vertical scrollbar width */
-  height: 8px; /* Horizontal scrollbar height */
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent; /* Transparent track for a floating effect */
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--color-primary-500);
   border-radius: 10px;
-  /* Add a glassmorphic/gradient feel in dark mode generally doesn't work well directly on thumb bg,
-     but we can use a solid color that matches our primary accent */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-primary-600); /* Darker on hover */
-}
-
-/* Dark mode specific scrollbar overriding */
-.dark ::-webkit-scrollbar-thumb {
   background-color: var(--color-primary-600);
 }
 
+.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(59, 130, 246, 0.4);
+}
+
 .dark ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-primary-500);
+  background-color: rgba(59, 130, 246, 0.6);
 }
 
 .dark * {
-  scrollbar-color: var(--color-primary-600) transparent;
+  scrollbar-color: rgba(59, 130, 246, 0.4) transparent;
 }

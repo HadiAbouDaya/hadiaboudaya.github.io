@@ -2,20 +2,20 @@
 
 import dynamic from "next/dynamic";
 
-const GlobeScene = dynamic(
-  () => import("@/components/hero/GlobeScene").then((mod) => mod.GlobeScene),
+const CanvasGlobe = dynamic(
+  () => import("@/components/hero/CanvasGlobe").then((mod) => mod.CanvasGlobe),
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-full bg-gradient-to-b from-slate-950 to-slate-900" />
+      <div className="w-full h-full" style={{ background: "linear-gradient(to bottom, #0a0f1a, #111827)" }} />
     ),
   }
 );
 
 export function GlobeWrapper() {
   return (
-    <div aria-hidden="true" className="w-full h-full">
-      <GlobeScene />
+    <div aria-hidden="true" className="w-full h-full" style={{ background: "linear-gradient(to bottom, #0a0f1a, #111827)" }}>
+      <CanvasGlobe />
     </div>
   );
 }

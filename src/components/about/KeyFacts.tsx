@@ -37,7 +37,7 @@ export function KeyFacts() {
                 <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
                   {fact.label}
                 </p>
-                <p className="text-2xl font-bold text-slate-900 dark:text-white mt-1">
+                <p className="text-2xl font-display font-bold text-slate-900 dark:text-white mt-1">
                   {(() => {
                     const parsed = parseCountable(fact.value);
                     if (parsed) return <CountingNumber value={parsed.number} suffix={parsed.suffix} />;

@@ -40,8 +40,8 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
     >
       <div
         className={cn(
-          "bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700/60 overflow-hidden flex flex-col h-full group transition-all duration-300 relative shadow-sm",
-          !isExpanded && "hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:border-slate-600 hover:-translate-y-1 cursor-pointer"
+          "bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700/40 overflow-hidden flex flex-col h-full group transition-all duration-400 relative shadow-sm backdrop-blur-sm",
+          !isExpanded && "hover-glow dark:hover:border-primary-400/15 hover:-translate-y-1 cursor-pointer"
         )}
       >
         <div
@@ -115,7 +115,7 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
               </span>
             </div>
 
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
+            <h3 className="text-xl font-display font-bold text-slate-900 dark:text-white leading-tight mb-3 group-hover:text-primary-500 dark:group-hover:text-primary-400 transition-colors duration-300 line-clamp-2">
               {event.title}
             </h3>
 

@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { CanvasGlobe } from "./CanvasGlobe";
 
 const LOCATIONS = [
   { lat: 48.8566, lon: 2.3522 },    // Paris
@@ -121,17 +122,36 @@ function Globe() {
   );
 }
 
+function hasWebGL(): boolean {
+  try {
+    const canvas = document.createElement("canvas");
+    return !!(canvas.getContext("webgl2") || canvas.getContext("webgl"));
+  } catch {
+    return false;
+  }
+}
+
 export function GlobeScene() {
+  const [webglOk, setWebglOk] = useState(true);
+
+  useEffect(() => {
+    setWebglOk(hasWebGL());
+  }, []);
+
   return (
-    <div className="w-full h-full" style={{ background: "linear-gradient(to bottom, #0F172A, #1E293B)" }}>
-      <Canvas
-        camera={{ position: [0, 0, 5], fov: 50 }}
-        dpr={[1, 1.5]}
-        gl={{ antialias: false, alpha: true }}
-      >
-        <ambientLight intensity={0.5} />
-        <Globe />
-      </Canvas>
+    <div className="w-full h-full" style={{ background: "linear-gradient(to bottom, #0a0f1a, #111827)" }}>
+      {webglOk ? (
+        <Canvas
+          camera={{ position: [0, 0, 5], fov: 50 }}
+          dpr={[1, 1.5]}
+          gl={{ antialias: false, alpha: true }}
+        >
+          <ambientLight intensity={0.5} />
+          <Globe />
+        </Canvas>
+      ) : (
+        <CanvasGlobe />
+      )}
     </div>
   );
 }

@@ -40,7 +40,7 @@ export function PostCard({ post }: PostCardProps) {
             ))}
           </div>
 
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary-600 transition-colors">
+          <h2 className="text-xl font-display font-bold text-slate-900 dark:text-white group-hover:text-primary-500 transition-colors duration-300">
             {post.title}
           </h2>
 

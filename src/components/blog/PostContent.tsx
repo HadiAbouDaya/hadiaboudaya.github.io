@@ -22,7 +22,7 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
   return (
     <div className="pt-16">
       {/* Cover banner */}
-      <div className="relative h-64 sm:h-80 lg:h-96 bg-slate-100 dark:bg-slate-800">
+      <div className="relative h-64 sm:h-80 lg:h-96 bg-slate-100 dark:bg-slate-800 overflow-hidden">
         <ImageWithFallback
           src={post.coverImage}
           alt={post.title}
@@ -32,7 +32,7 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
           className="w-full h-full object-cover"
           fallbackClassName="w-full h-full text-2xl"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
       </div>
 
       <div className="section-padding">
@@ -74,7 +74,7 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
 
           {/* MDX Content */}
           <BlogReadTracker slug={post.slug} title={post.title} readingTime={post.readingTime}>
-            <div className="mt-8 prose prose-slate dark:prose-invert lg:prose-lg prose-headings:text-slate-900 dark:prose-headings:text-white prose-a:text-primary-600 prose-code:text-primary-700 dark:prose-code:text-primary-300 prose-pre:bg-slate-900">
+            <div className="mt-8 prose prose-slate dark:prose-invert lg:prose-lg prose-headings:font-display prose-headings:text-slate-900 dark:prose-headings:text-white prose-a:text-primary-500 prose-a:decoration-primary-500/30 hover:prose-a:decoration-primary-500 prose-code:text-primary-700 dark:prose-code:text-primary-300 prose-pre:bg-slate-900 prose-blockquote:border-l-primary-500/50">
               {children}
             </div>
           </BlogReadTracker>

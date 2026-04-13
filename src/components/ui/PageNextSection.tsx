@@ -36,8 +36,8 @@ interface PageNextSectionProps {
 export function PageNextSection({ suggestions }: PageNextSectionProps) {
   return (
     <ScrollReveal>
-      <div className="mt-16 pt-12 border-t border-slate-200 dark:border-slate-700">
-        <p className="text-sm font-medium text-slate-400 dark:text-slate-500 mb-6">
+      <div className="mt-16 pt-12 border-t border-slate-200 dark:border-slate-700/50">
+        <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mb-6 tracking-widest uppercase">
           Continue exploring
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -48,13 +48,13 @@ export function PageNextSection({ suggestions }: PageNextSectionProps) {
                 key={s.href}
                 href={s.href}
                 onClick={() => trackEvent(EVENTS.PAGE_SUGGESTION_CLICKED, { target: s.href, label: s.label })}
-                className="group flex items-start gap-3 p-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                className="group flex items-start gap-3 p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-white/[0.03] border border-transparent hover:border-slate-200 dark:hover:border-white/[0.06] transition-all duration-300"
               >
-                <Icon className="w-5 h-5 mt-0.5 text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors shrink-0" />
+                <Icon className="w-5 h-5 mt-0.5 text-slate-400 group-hover:text-primary-500 dark:group-hover:text-primary-400 transition-colors duration-300 shrink-0" />
                 <div className="min-w-0">
-                  <span className="text-sm font-medium text-slate-900 dark:text-white flex items-center gap-1">
+                  <span className="text-sm font-display font-medium text-slate-900 dark:text-white flex items-center gap-1">
                     {s.label}
-                    <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                   </span>
                   <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
                     {s.description}

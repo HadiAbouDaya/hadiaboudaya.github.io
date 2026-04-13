@@ -65,7 +65,7 @@ export function ContactForm() {
           id="name"
           name="name"
           required
-          className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
+          className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700/60 bg-white dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/30 transition-all duration-300"
           placeholder="Your name"
         />
       </div>
@@ -82,7 +82,7 @@ export function ContactForm() {
           id="email"
           name="email"
           required
-          className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
+          className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700/60 bg-white dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/30 transition-all duration-300"
           placeholder="you@example.com"
         />
       </div>
@@ -99,7 +99,7 @@ export function ContactForm() {
           name="message"
           required
           rows={5}
-          className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow resize-none"
+          className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700/60 bg-white dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/30 transition-all duration-300 resize-none"
           placeholder="Tell me about your project..."
         />
       </div>
