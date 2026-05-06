@@ -4,6 +4,27 @@ export const events: Event[] = [
   // ─── 2026 ───────────────────────────────────────────────────────────────────
 
   {
+    slug: "anthropic-education-courses",
+    title: "Anthropic Education Courses on Skilljar",
+    date: "2026-05-03",
+    location: "Remote",
+    category: "certification",
+    role: "Earned",
+    organizations: ["Anthropic"],
+    summary:
+      "Completed four Anthropic Education courses on Skilljar covering the Claude API, Claude Code, MCP, and Agent Skills.",
+    description:
+      "Completed four Anthropic Education courses on Skilljar between April and May 2026: Introduction to Agent Skills (Apr 26), Introduction to Model Context Protocol (May 3), Building with the Claude API (May 3), and Claude Code in Action (May 3). Even with prior hands-on experience across most of the material, each course added useful detail on the Claude API, MCP, and Claude Code workflows. The content is well structured and worth the time. Recommended for engineers building on the Anthropic stack.",
+    credlyUrls: [
+      "https://verify.skilljar.com/c/3ustottzmddf",
+      "https://verify.skilljar.com/c/ywb9ynt3ujmq",
+      "https://verify.skilljar.com/c/n97p9u9bxs6p",
+      "https://verify.skilljar.com/c/wcc4oismu2ij",
+    ],
+    tags: ["Anthropic", "Claude", "Claude Code", "MCP", "Certification", "AI/ML"],
+    tier: "standard",
+  },
+  {
     slug: "copyalpha-launch",
     title: "CopyAlpha - Crypto Copy-Trading Platform Launch",
     date: "2026-03-23",
