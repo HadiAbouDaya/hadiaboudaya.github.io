@@ -9,7 +9,7 @@ export const certifications: Certification[] = [
     category: "AI/ML",
     issuedDate: "May 2026",
     credentialUrl: "https://verify.skilljar.com/c/n97p9u9bxs6p",
-    badgePath: "/Media/certifications/badges/anthropic-claude-api.webp",
+    badgePath: "/Media/certifications/badges/anthropic.webp",
   },
   {
     id: 48,
@@ -19,7 +19,7 @@ export const certifications: Certification[] = [
     category: "AI/ML",
     issuedDate: "May 2026",
     credentialUrl: "https://verify.skilljar.com/c/wcc4oismu2ij",
-    badgePath: "/Media/certifications/badges/anthropic-claude-code.webp",
+    badgePath: "/Media/certifications/badges/anthropic.webp",
   },
   {
     id: 49,
@@ -29,7 +29,7 @@ export const certifications: Certification[] = [
     category: "AI/ML",
     issuedDate: "May 2026",
     credentialUrl: "https://verify.skilljar.com/c/ywb9ynt3ujmq",
-    badgePath: "/Media/certifications/badges/anthropic-mcp.webp",
+    badgePath: "/Media/certifications/badges/anthropic.webp",
   },
   {
     id: 50,
@@ -39,7 +39,7 @@ export const certifications: Certification[] = [
     category: "AI/ML",
     issuedDate: "Apr 2026",
     credentialUrl: "https://verify.skilljar.com/c/3ustottzmddf",
-    badgePath: "/Media/certifications/badges/anthropic-agent-skills.webp",
+    badgePath: "/Media/certifications/badges/anthropic.webp",
   },
   {
     id: 1,
