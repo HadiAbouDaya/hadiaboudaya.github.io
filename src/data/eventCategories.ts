@@ -9,6 +9,7 @@ import {
   Trophy,
   Share2,
   Layers,
+  Presentation,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -90,6 +91,13 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     borderColor: "border-l-amber-500",
     icon: Award,
     filterGroup: "events",
+  },
+  training: {
+    label: "Corporate Training",
+    color: "bg-indigo-50 text-indigo-700",
+    borderColor: "border-l-indigo-500",
+    icon: Presentation,
+    filterGroup: "speaking",
   },
 };
 

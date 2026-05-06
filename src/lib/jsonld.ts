@@ -158,6 +158,7 @@ const EVENT_TYPE_MAP: Record<EventCategory, string> = {
   career: "Event",
   education: "EducationEvent",
   achievement: "Event",
+  training: "EducationEvent",
 };
 
 export function eventJsonLd(event: Event) {

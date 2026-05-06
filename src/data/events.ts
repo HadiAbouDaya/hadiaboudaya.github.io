@@ -4,6 +4,38 @@ export const events: Event[] = [
   // ─── 2026 ───────────────────────────────────────────────────────────────────
 
   {
+    slug: "zaka-ftl-marketing-ai-training",
+    title: "AI for Marketing Communications - Fair Trade Lebanon",
+    date: "2026-04-29",
+    location: "Beirut, Lebanon",
+    category: "training",
+    role: "ZAKA AI Trainer",
+    organizations: ["ZAKA AI", "Fair Trade Lebanon"],
+    summary:
+      "Three-session corporate training for the Fair Trade Lebanon MarCom team on applying AI across marketing communications and content creation.",
+    description:
+      "Delivered a three-session in-person corporate training for the Fair Trade Lebanon marketing and communications team (April 15, 22, and 29, 2026). The track combined the ZAKA \"AI for Marketing Communications\" workshop with a rebuilt 90-slide \"AI for Content Creation and Digital Presence\" deck refreshed with April 2026 frontier-model comparisons. Capabilities covered: audience segmentation, personalized content production, campaign optimization, social listening, and reporting; prompting frameworks (zero-shot, few-shot, chain-of-thought, plus 5Ws, RACE, APE, CARE); hands-on exercises in AI-driven design, advertisement production, image and video generation, voice cloning, and avatar creation; and structured prompt orchestration for the latest image and video generation models.",
+    tags: ["ZAKA AI", "Corporate Training", "Marketing", "Generative AI", "Content Creation"],
+    images: ["/Media/events/zaka-ftl-marketing-ai-training/1.webp"],
+    tier: "featured",
+  },
+  {
+    slug: "zaka-usek-ai-training",
+    title: "AI for Research & Productivity - USEK",
+    date: "2026-04-28",
+    location: "Kaslik, Lebanon",
+    category: "training",
+    role: "ZAKA AI Trainer",
+    organizations: ["ZAKA AI", "USEK"],
+    summary:
+      "One-day corporate training at USEK Kaslik for staff: AM module on AI for deep research, reporting, dashboards, and presentations; PM module as an introduction to AI.",
+    description:
+      "Delivered a full-day in-person corporate training for USEK Kaslik staff on April 28, 2026, for an audience of 20+ attendees per session. The morning module focused on using AI for deep research, structured reporting, dashboard generation, and presentation production. The afternoon module was an introduction to AI, covering core concepts and a showcase of AI tools that staff can integrate into day-to-day work.",
+    tags: ["ZAKA AI", "Corporate Training", "Research", "Reporting", "Productivity", "Higher Education"],
+    images: ["/Media/events/zaka-usek-ai-training/1.webp"],
+    tier: "standard",
+  },
+  {
     slug: "anthropic-education-courses",
     title: "Anthropic Education Courses on Skilljar",
     date: "2026-05-03",

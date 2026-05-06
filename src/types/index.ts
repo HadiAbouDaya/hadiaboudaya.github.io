@@ -43,7 +43,8 @@ export type EventCategory =
   | "project"
   | "career"
   | "education"
-  | "achievement";
+  | "achievement"
+  | "training";
 
 export type FilterGroupKey =
   | "speaking"
