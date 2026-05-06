@@ -57,6 +57,23 @@ export const events: Event[] = [
     tier: "standard",
   },
   {
+    slug: "bobine-ai-video-generator",
+    title: "Bobine - AI Short-Form Video Generator (CLI)",
+    date: "2026-04-11",
+    location: "Remote",
+    category: "project",
+    role: "Creator",
+    organizations: [],
+    summary:
+      "Built Bobine, a CLI that turns any URL into a 9:16 short-form video (TikTok / Reels / Shorts) for ~$0.01 per render. Claude writes the script, edge-tts voices it, FFmpeg composites it over a looped gameplay background.",
+    description:
+      "Bobine is a Python CLI that takes a URL and a background gameplay clip, and produces a vertical 30-second video with AI-written script, AI voiceover, and word-synced burned-in captions. Pipeline: scrape the page with httpx + trafilatura, call Claude Sonnet 4.5 via structured tool use to write a script, generate voiceover with edge-tts (Microsoft Edge's TTS endpoint), use edge-tts word boundaries directly for per-word caption timings (no Whisper, no forced alignment), then compose everything with a single FFmpeg pass: loop the background, center-crop to 9:16, burn the ASS subtitles, mux the audio. Three modes: fully automated (URL → video), pre-written script (zero API calls, $0.00 per render), and text-file mode for paywalled or login-walled pages. Total cost in fully automated mode: ~$0.01 per video, just the Claude script call. The CLI is the foundation underneath a larger Bobine product roadmap covering branded characters, cloned voices, real AI video generation, and content calendars.",
+    tags: ["AI", "Claude API", "Python", "FFmpeg", "edge-tts", "Short-Form Video", "CLI"],
+    images: ["/Media/events/bobine-ai-video-generator/1.webp"],
+    videoUrl: "/Media/events/bobine-ai-video-generator/muse-spark.mp4",
+    tier: "featured",
+  },
+  {
     slug: "copyalpha-launch",
     title: "CopyAlpha - Crypto Copy-Trading Platform Launch",
     date: "2026-03-23",

@@ -66,6 +66,18 @@ export function EventDetail({ event }: EventDetailProps) {
           {event.summary}
         </p>
 
+        {event.videoUrl && (
+          <div className="mb-8 flex justify-center">
+            <video
+              src={event.videoUrl}
+              controls
+              playsInline
+              preload="metadata"
+              className="rounded-xl shadow-lg max-h-[80vh] w-auto bg-slate-900"
+            />
+          </div>
+        )}
+
         {event.images && event.images.length > 0 && (
           <ImageLightbox images={event.images} alt={event.title}>
             {(openAt) =>

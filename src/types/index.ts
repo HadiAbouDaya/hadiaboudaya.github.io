@@ -70,6 +70,7 @@ export interface Event {
   websiteUrl?: string;
   credlyUrls?: string[];
   images?: string[];
+  videoUrl?: string;
   tags: string[];
   tier: "featured" | "standard";
 }
