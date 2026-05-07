@@ -53,6 +53,7 @@ export const events: Event[] = [
       "https://verify.skilljar.com/c/n97p9u9bxs6p",
       "https://verify.skilljar.com/c/wcc4oismu2ij",
     ],
+    images: ["/Media/events/anthropic-education-courses/1.webp"],
     tags: ["Anthropic", "Claude", "Claude Code", "MCP", "Certification", "AI/ML"],
     tier: "standard",
   },
