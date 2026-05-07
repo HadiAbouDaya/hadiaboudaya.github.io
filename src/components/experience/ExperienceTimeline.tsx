@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { experiences } from "@/data/experience";
-import { TimelineCard, typeConfig } from "./TimelineCard";
+import { TimelineCard } from "./TimelineCard";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { cn } from "@/lib/utils";
 import { Briefcase, GraduationCap, Layers } from "lucide-react";
@@ -111,8 +111,8 @@ export function ExperienceTimeline() {
 
   const educationGroups = useMemo(() => {
     const sorted = [...education].sort((a, b) => {
-      const aEnd = a.endDate ? new Date(a.endDate).getTime() : Date.now();
-      const bEnd = b.endDate ? new Date(b.endDate).getTime() : Date.now();
+      const aEnd = a.endDate ? new Date(a.endDate).getTime() : Number.MAX_SAFE_INTEGER;
+      const bEnd = b.endDate ? new Date(b.endDate).getTime() : Number.MAX_SAFE_INTEGER;
       return bEnd - aEnd;
     });
     const groups: {

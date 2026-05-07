@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect } from "react";
 
 const LOCATIONS = [
   { lat: 48.8566, lon: 2.3522 },    // Paris
@@ -128,7 +128,8 @@ export function CanvasGlobe() {
   const tiltRef = useRef({ x: 0.3, z: 0 });
   const frameRef = useRef(0);
 
-  const draw = useCallback(() => {
+  useEffect(() => {
+    function draw() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -249,12 +250,11 @@ export function CanvasGlobe() {
     }
 
     frameRef.current = requestAnimationFrame(draw);
-  }, []);
+    }
 
-  useEffect(() => {
     frameRef.current = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(frameRef.current);
-  }, [draw]);
+  }, []);
 
   return (
     <canvas

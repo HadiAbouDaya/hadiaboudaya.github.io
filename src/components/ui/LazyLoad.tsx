@@ -20,6 +20,7 @@ export function LazyLoad({
 
   useEffect(() => {
     if (prefersReducedMotion) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- bypass IntersectionObserver when motion is reduced
       setIsVisible(true);
       return;
     }

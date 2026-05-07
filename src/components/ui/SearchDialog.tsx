@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback, Fragment, useMemo } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo, Fragment } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -21,10 +21,12 @@ import {
   type SearchResult,
 } from "@/lib/search";
 import { trackEvent, EVENTS } from "@/lib/analytics";
+import type { BlogSearchPost } from "@/types";
 
 interface SearchDialogProps {
   open: boolean;
   onClose: () => void;
+  blogPosts: BlogSearchPost[];
 }
 
 const categoryIcons: Record<
@@ -174,39 +176,37 @@ function ResultMeta({ item, tokens }: { item: SearchItem; tokens: string[] }) {
 
 // ── Main Component ───────────────────────────────────────────────────────────
 
-export function SearchDialog({ open, onClose }: SearchDialogProps) {
+export function SearchDialog({ open, onClose, blogPosts }: SearchDialogProps) {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<SearchResult[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [prevQuery, setPrevQuery] = useState(query);
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const tokens = getSearchTokens(query);
+  const results = useMemo(() => search(query, blogPosts), [query, blogPosts]);
+
+  // Reset selection when query changes (adjust-state-during-render pattern)
+  if (prevQuery !== query) {
+    setPrevQuery(query);
+    setSelectedIndex(-1);
+  }
 
   useEffect(() => {
     if (open) {
-      setQuery("");
-      setResults([]);
-      setSelectedIndex(-1);
       setTimeout(() => inputRef.current?.focus(), 50);
     }
   }, [open]);
-
-  useEffect(() => {
-    setResults(search(query));
-    setSelectedIndex(-1);
-  }, [query]);
 
   // Debounced search tracking (1s after user stops typing)
   useEffect(() => {
     if (!query || query.length < 2) return;
     const timer = setTimeout(() => {
-      const resultCount = search(query).length;
-      trackEvent(EVENTS.SEARCH_PERFORMED, { query, result_count: resultCount });
+      trackEvent(EVENTS.SEARCH_PERFORMED, { query, result_count: results.length });
     }, 1000);
     return () => clearTimeout(timer);
-  }, [query]);
+  }, [query, results.length]);
 
   // Auto-scroll selected item into view
   useEffect(() => {
@@ -243,7 +243,7 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
         }
       }
     },
-    [onClose, router]
+    [onClose, router, query]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -316,7 +316,6 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
             selectedIndex={selectedIndex}
             setSelectedIndex={setSelectedIndex}
             navigate={navigate}
-            flatIndexRef={{ current: 0 }}
           />
           <DesktopFooter resultCount={query ? results.length : 0} hasQuery={!!query} />
         </motion.div>
@@ -350,7 +349,6 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
               selectedIndex={selectedIndex}
               setSelectedIndex={setSelectedIndex}
               navigate={navigate}
-              flatIndexRef={{ current: 0 }}
               mobile
             />
           </div>
@@ -424,7 +422,6 @@ function SearchResults({
   selectedIndex,
   setSelectedIndex,
   navigate,
-  flatIndexRef,
   mobile,
 }: {
   scrollRef: React.RefObject<HTMLDivElement | null>;
@@ -436,11 +433,9 @@ function SearchResults({
   selectedIndex: number;
   setSelectedIndex: (i: number) => void;
   navigate: (href: string, trackProps?: { title: string; category: string; position: number }) => void;
-  flatIndexRef: { current: number };
   mobile?: boolean;
 }) {
-  // Reset flatIndex for each render
-  flatIndexRef.current = 0;
+  let flatIndex = 0;
 
   return (
     <div
@@ -468,7 +463,7 @@ function SearchResults({
               {categoryLabels[category as SearchItem["category"]]}
             </p>
             {categoryResults.map((result) => {
-              const idx = flatIndexRef.current++;
+              const idx = flatIndex++;
               return (
                 <button
                   key={result.item.id}

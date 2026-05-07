@@ -32,6 +32,7 @@ export function TypingEffect({
     }
 
     if (isDeleting && charIndex === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- animation state machine transition
       setIsDeleting(false);
       setTextIndex((i) => (i + 1) % texts.length);
       return;

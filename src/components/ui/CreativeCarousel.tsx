@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 
 interface CreativeCarouselProps {
@@ -17,13 +17,9 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [hoveredDotIndex, setHoveredDotIndex] = useState<number | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const activeIndexRef = useRef(0);
   const isNavigating = useRef(false);
-
-  const x = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 300, damping: 30 });
 
   const updateScrollState = useCallback(() => {
     const el = scrollRef.current;
@@ -104,10 +100,8 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
       {/* Main scrollable container */}
       <div
         ref={scrollRef}
-        onMouseDown={() => { setIsDragging(true); isNavigating.current = false; }}
-        onMouseUp={() => setIsDragging(false)}
-        onMouseLeave={() => setIsDragging(false)}
         onTouchStart={() => { isNavigating.current = false; }}
+        onMouseDown={() => { isNavigating.current = false; }}
         className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 px-2 cursor-grab active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
         style={{ scrollbarWidth: "none" }}
       >
@@ -135,7 +129,6 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
                 fill
                 className="object-cover"
                 sizes="(max-width: 640px) 280px, 360px"
-                priority={i < 2}
               />
 
               {/* Gradient overlay */}

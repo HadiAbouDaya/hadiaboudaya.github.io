@@ -62,7 +62,7 @@ function Globe() {
     return lines;
   }, []);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (globeRef.current) {
       globeRef.current.rotation.y += 0.002;
       const targetX = mouseRef.current.y * 0.3;
@@ -135,6 +135,7 @@ export function GlobeScene() {
   const [webglOk, setWebglOk] = useState(true);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- WebGL detection requires DOM, runs once on mount
     setWebglOk(hasWebGL());
   }, []);
 

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import type { BlogPost } from "@/types";
+import type { BlogPost, BlogSearchPost } from "@/types";
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
@@ -24,7 +24,7 @@ export function getAllPosts(): BlogPost[] {
       date: data.date || "",
       tags: data.tags || [],
       excerpt: data.excerpt || content.slice(0, 160) + "...",
-      coverImage: data.coverImage || "/Media/blog/covers/default.jpg",
+      coverImage: data.coverImage || "/Media/branding/og-default.jpg",
       readingTime,
       content,
     } as BlogPost;
@@ -41,4 +41,14 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
 
 export function getAllSlugs(): string[] {
   return getAllPosts().map((p) => p.slug);
+}
+
+export function getAllPostSearchItems(): BlogSearchPost[] {
+  return getAllPosts().map(({ slug, title, date, tags, excerpt }) => ({
+    slug,
+    title,
+    date,
+    tags,
+    excerpt,
+  }));
 }

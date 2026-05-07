@@ -86,6 +86,11 @@ export interface BlogPost {
   content: string;
 }
 
+export type BlogSearchPost = Pick<
+  BlogPost,
+  "slug" | "title" | "date" | "tags" | "excerpt"
+>;
+
 export interface KeyFact {
   icon: string;
   label: string;

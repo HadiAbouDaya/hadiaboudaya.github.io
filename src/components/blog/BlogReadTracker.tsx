@@ -14,7 +14,7 @@ const DEPTH_MILESTONES = [25, 50, 75, 100] as const;
 
 export function BlogReadTracker({ slug, title, readingTime, children }: BlogReadTrackerProps) {
   const contentRef = useRef<HTMLDivElement>(null);
-  const startTimeRef = useRef(Date.now());
+  const startTimeRef = useRef(0);
   const firedDepths = useRef(new Set<number>());
   const completionFired = useRef(false);
 

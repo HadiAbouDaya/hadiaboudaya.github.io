@@ -180,7 +180,6 @@ export function ImageLightbox({ images, alt, children }: ImageLightboxProps) {
                 height={800}
                 className="object-contain max-h-[85vh] w-auto h-auto rounded-lg select-none"
                 sizes="90vw"
-                priority
                 draggable={false}
               />
             </div>

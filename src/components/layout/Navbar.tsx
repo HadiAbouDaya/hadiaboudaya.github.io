@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -9,10 +10,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { NAV_LINKS } from "@/data/navigation";
 import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import { SearchDialog } from "@/components/ui/SearchDialog";
 import { trackEvent, EVENTS } from "@/lib/analytics";
+import type { BlogSearchPost } from "@/types";
 
-export function Navbar() {
+const SearchDialog = dynamic(
+  () => import("@/components/ui/SearchDialog").then((mod) => mod.SearchDialog),
+  { ssr: false }
+);
+
+interface NavbarProps {
+  blogPosts: BlogSearchPost[];
+}
+
+export function Navbar({ blogPosts }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -116,7 +126,13 @@ export function Navbar() {
         </nav>
       </header>
 
-      <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} />
+      {searchOpen && (
+        <SearchDialog
+          open={searchOpen}
+          onClose={() => setSearchOpen(false)}
+          blogPosts={blogPosts}
+        />
+      )}
 
       <AnimatePresence>
         {isMobileOpen && (

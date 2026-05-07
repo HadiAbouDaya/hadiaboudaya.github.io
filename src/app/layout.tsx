@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { SkipToContent } from "@/components/ui/SkipToContent";
+import { getAllPostSearchItems } from "@/lib/mdx";
 
 import "./globals.css";
 import type { Metadata } from "next";
@@ -56,6 +57,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const blogPosts = getAllPostSearchItems();
+
   return (
     <html
       lang="en"
@@ -68,7 +71,7 @@ export default function RootLayout({
       <body className="font-sans bg-white dark:bg-[#0a0f1a] text-slate-900 dark:text-slate-200 antialiased min-h-screen flex flex-col">
         <ThemeProvider>
           <SkipToContent />
-          <Navbar />
+          <Navbar blogPosts={blogPosts} />
           <main id="main-content" tabIndex={-1} className="flex-1">
             {children}
           </main>

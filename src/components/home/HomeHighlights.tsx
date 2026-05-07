@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Briefcase, Calendar, Award, BookOpen, ArrowRight } from "lucide-react";
-import { Badge } from "@/components/ui/Badge";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import type { Experience, Event, BlogPost } from "@/types";
 

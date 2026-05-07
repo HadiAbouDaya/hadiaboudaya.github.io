@@ -1,8 +1,8 @@
 import { experiences } from "@/data/experience";
 import { events } from "@/data/events";
 import { certifications } from "@/data/certifications";
-import { BLOG_POSTS } from "@/data/blogIndex";
 import { NAV_LINKS } from "@/data/navigation";
+import type { BlogSearchPost } from "@/types";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -72,7 +72,7 @@ for (const [abbr, expansions] of SYNONYM_PAIRS) {
 
 // ── Index Builder ────────────────────────────────────────────────────────────
 
-function buildIndex(): IndexedItem[] {
+function buildIndex(blogPosts: BlogSearchPost[]): IndexedItem[] {
   const items: IndexedItem[] = [];
 
   // Pages
@@ -189,7 +189,7 @@ function buildIndex(): IndexedItem[] {
   });
 
   // Blog
-  BLOG_POSTS.forEach((post) => {
+  blogPosts.forEach((post) => {
     const tagsStr = post.tags.join(", ");
 
     items.push({
@@ -213,15 +213,6 @@ function buildIndex(): IndexedItem[] {
   });
 
   return items;
-}
-
-// ── Cache ────────────────────────────────────────────────────────────────────
-
-let cachedIndex: IndexedItem[] | null = null;
-
-function getIndex(): IndexedItem[] {
-  if (!cachedIndex) cachedIndex = buildIndex();
-  return cachedIndex;
 }
 
 // ── Query Tokenizer + Synonym Expansion ──────────────────────────────────────
@@ -267,13 +258,16 @@ function expandToken(token: string): string[] {
 
 // ── Search ───────────────────────────────────────────────────────────────────
 
-export function search(query: string): SearchResult[] {
+export function search(
+  query: string,
+  blogPosts: BlogSearchPost[] = []
+): SearchResult[] {
   if (!query.trim()) return [];
 
   const tokens = getSearchTokens(query);
   if (tokens.length === 0) return [];
 
-  const index = getIndex();
+  const index = buildIndex(blogPosts);
   const results: SearchResult[] = [];
 
   for (const indexed of index) {
