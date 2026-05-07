@@ -26,7 +26,7 @@ export function JourneySection() {
 
                 <ImageWithFallback
                   src="/Media/profile/journey.webp"
-                  alt="Hadi Abou Daya"
+                  alt="Portrait of Hadi Abou Daya"
                   width={400}
                   height={500}
                   fallbackText="HA"

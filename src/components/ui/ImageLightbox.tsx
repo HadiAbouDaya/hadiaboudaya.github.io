@@ -175,7 +175,7 @@ export function ImageLightbox({ images, alt, children }: ImageLightboxProps) {
             >
               <Image
                 src={images[openIndex]}
-                alt={`${alt} ${openIndex + 1}`}
+                alt={`${alt} - image ${openIndex + 1} of ${images.length}`}
                 width={1200}
                 height={800}
                 className="object-contain max-h-[85vh] w-auto h-auto rounded-lg select-none"

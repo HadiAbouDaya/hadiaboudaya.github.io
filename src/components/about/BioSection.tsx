@@ -19,7 +19,7 @@ export function BioSection() {
           <div className="relative w-56 h-72 lg:w-64 lg:h-80 rounded-2xl overflow-hidden shadow-xl">
             <ImageWithFallback
               src="/Media/profile/headshot.webp"
-              alt="Hadi Abou Daya"
+              alt="Headshot of Hadi Abou Daya"
               width={320}
               height={400}
               priority

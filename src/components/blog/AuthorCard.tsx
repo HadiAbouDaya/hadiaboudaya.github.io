@@ -11,7 +11,7 @@ export function AuthorCard() {
       <div className="flex items-center gap-4">
         <ImageWithFallback
           src="/Media/profile/headshot.webp"
-          alt="Hadi Abou Daya"
+          alt="Headshot of Hadi Abou Daya, author"
           width={48}
           height={48}
           fallbackText="HA"

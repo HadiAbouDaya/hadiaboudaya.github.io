@@ -44,7 +44,7 @@ function ImageCarousel({ images, title, onImageClick }: { images: string[]; titl
           >
             <Image
               src={img}
-              alt={`${title} ${i + 1}`}
+              alt={`${title} - photo ${i + 1} of ${images.length}`}
               fill
               className="object-cover hover:scale-105 transition-transform duration-300"
               sizes="(max-width: 640px) 160px, 192px"

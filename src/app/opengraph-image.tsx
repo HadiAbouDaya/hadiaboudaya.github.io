@@ -190,6 +190,7 @@ export default async function Image() {
           >
             <img
               src={photoSrc}
+              alt=""
               width={610}
               height={538}
               style={{ borderRadius: 0, marginTop: -25 }}

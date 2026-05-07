@@ -125,7 +125,7 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
               {/* Image */}
               <Image
                 src={img}
-                alt={`${alt} ${i + 1}`}
+                alt={`${alt} - image ${i + 1} of ${images.length}`}
                 fill
                 className="object-cover"
                 sizes="(max-width: 640px) 280px, 360px"

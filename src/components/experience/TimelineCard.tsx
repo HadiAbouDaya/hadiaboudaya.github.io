@@ -134,7 +134,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
             <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-200 border border-slate-100 dark:border-slate-300">
               <ImageWithFallback
                 src={item.logoPath}
-                alt={item.company}
+                alt={`${item.company} logo`}
                 width={48}
                 height={48}
                 fallbackText={item.company.slice(0, 2).toUpperCase()}

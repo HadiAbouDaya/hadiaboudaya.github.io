@@ -60,7 +60,7 @@ export function Navbar({ blogPosts }: NavbarProps) {
           >
             <Image
               src="/Media/branding/logo.webp"
-              alt="Hadi Abou Daya"
+              alt="Hadi Abou Daya logo"
               width={40}
               height={40}
               className="rounded-full"
