@@ -1,0 +1,156 @@
+---
+title: "What I'd Hand a Marketing Team in 2026 (Plus the Seedance Trick for Longer Video)"
+date: "2026-05-08"
+tags: ["AI", "Marketing", "Claude Skills", "Seedance", "Kling", "Workflows"]
+excerpt: "Most non-technical AI marketing workflows fail not because the tools are weak, but because they skip the operating model. Here's the stack I'd actually hand a marketing team in 2026, plus the last-frame stitching trick that turns Seedance 2.0 from a 15-second toy into something usable for real campaigns."
+coverImage: "/Media/blog/covers/ai-marketing-stack-2026-seedance-stitching.jpg"
+---
+
+# What I'd Hand a Marketing Team in 2026 (Plus the Seedance Trick for Longer Video)
+
+The most common failure mode in AI marketing right now isn't a bad prompt. It's the absence of an operating model.
+
+I keep seeing teams chase the same loop. They watch a polished demo. They buy seats for ChatGPT, Claude, or Midjourney. They tell their marketing person to "use AI more." And three months later they've shipped exactly nothing useful. The tools didn't fail them. The workflow did.
+
+So this post is about the workflow. What I'd actually hand a non-technical marketing or communications team today. What each tool is genuinely good at. And the one trick I keep going back to with Seedance 2.0 that lets it produce something longer than a 15-second concept reel.
+
+> **Key Takeaways**
+>
+> - The right unit of design is the operating model, not the prompt. Use an assistant layer for planning, image models for static creative, and video models for short-form motion. Then put humans in charge of accuracy, brand fit, and approval.
+> - **Claude Skills** and **custom GPTs** are the campaign brain. They standardize briefs, voice, audience framing, and channel variants. They are not where you generate the asset, they are where you generate the **decisions** that lead to the asset.
+> - **GPT Image 2** is the friction-free choice for ad and poster concepting. **Nano Banana 2** is stronger for infographics, localization, and subject consistency.
+> - **Seedance 2.0** wins on multimodal directorial control. **Kling 3.0** wins on operational reliability and pricing clarity. Don't build a new pipeline around Sora because OpenAI is shutting it down.
+> - The **last-frame-as-first-frame** stitching trick is the practical answer to Seedance's 15-second cap. Extract the final frame, feed it back as `@Image1 as the first frame`, and chain.
+
+## The actual workflow, end to end
+
+Most teams want a single tool that does everything. That tool doesn't exist and probably shouldn't. What works instead is a small production system where each layer has one job.
+
+An assistant turns the messy raw material (a meeting transcript, a brand book, a half-baked offer) into a structured brief. A visual model turns that brief into ad concepts, social creatives, and infographic drafts. A video model turns the best concept into a short motion asset. Then a human team reviews, polishes, localizes, approves, ships, and learns.
+
+The pipeline, expressed as a sequence:
+
+1. **Campaign brief** comes in (raw transcript, offer, calendar slot).
+2. **Claude or GPT** turns it into a structured brief with audience framing, anchored in brand docs, product facts, offer details, and compliance notes.
+3. The brief produces two parallel artefacts: a **creative routes list** and an **asset list** with formats and aspect ratios.
+4. **GPT Image 2** or **Nano Banana 2** drafts the static creative. **Seedance 2.0** or **Kling 3.0** drafts the motion creative.
+5. **Human review** tightens copy, fixes typography, validates claims, locks the brand system.
+6. Approved assets land in **Canva, Figma, Adobe, the CMS, and ad platforms**.
+7. **Launch**, then a **performance readout** flows back into the assistant layer to inform the next brief.
+
+The thing nobody really tells you is that the magic isn't in the prompt. The magic is in the brand context. None of these models know your brand the way your team does. The only question is whether you've stored that knowledge somewhere reusable. That is why a thin layer of Claude Skills, custom GPTs, or workspace-level instructions matters more than any one-shot prompting trick.
+
+## Claude Skills and custom GPTs as the campaign brain
+
+**Claude Skills** are reusable workflow packages. Folders of instructions, scripts, and reference material that Claude loads dynamically when a relevant task comes in. They are available across the Claude Free, Pro, Max, Team, and Enterprise plans, with code execution enabled. Anthropic also ships built-in Skills for Excel, Word, PowerPoint, and PDF, plus org-wide provisioning for Team and Enterprise customers.
+
+**Custom GPTs** are OpenAI's equivalent. Purpose-built versions of ChatGPT that combine instructions, knowledge files, capabilities, and optional actions. You can share them privately, by link, across a workspace, or publicly through the GPT Store.
+
+Both products solve the same problem: stop re-explaining your brand voice, audience, proof points, and channel rules in every conversation.
+
+The mistake teams make here is building one giant "marketing brain" Skill or GPT that tries to do everything. That always degrades fast. The thing that actually works is one Skill or GPT per repeatable workflow. **Campaign Brief Builder.** **Brand Rewrite Assistant.** **Paid Social Variant Generator.** **Performance Summary Assistant.** Small, focused, testable.
+
+A practical Claude Skills example I keep pointing people to is [`dexhunter/seedance2-skill`](https://github.com/dexhunter/seedance2-skill). It is a Skill that codifies Jimeng Seedance 2.0 prompt syntax: the @-reference system, camera language, time-segmented prompts, capability-specific patterns. You install it, ask Claude to draft a Seedance prompt, and instead of guessing at syntax it produces something the model actually understands. That is the right shape for a marketing-team Skill. One workflow. One model. Clear inputs, structured outputs.
+
+One real warning here. Anthropic's enterprise documentation is unusually blunt about third-party Skills: treat them like software. The official risk checklist flags bundled code, instruction manipulation, network calls, MCP references, hardcoded credentials, and data-exfiltration patterns. Never deploy untrusted Skills without a full audit. Community-shared "growth" or "automation" skills can look harmless while having access to your files, your tools, or external services. So if a Skill is doing more than rewriting text, read the source first.
+
+## Image generation: when to reach for which one
+
+The two image models that actually matter for marketing in 2026 are **GPT Image 2** (the API model behind ChatGPT Images 2.0) and **Nano Banana 2** (Google's marketing name for **Gemini 3.1 Flash Image Preview**).
+
+GPT Image 2 is the friction-free choice for ad and poster concepting inside ChatGPT. OpenAI has been explicitly demonstrating it on design-like outputs: hospitality ads, event posters, product grids, multilingual typography, infographic layouts. If your team already lives in ChatGPT, this is where you start. The right workflow is to write a real brief first, not a raw prompt. Objective, audience, channel, aspect ratio, tone, brand colors, mandatory copy, reference asset. Then ask for several directions, pick one, and iterate by editing specific areas. Once a concept is approved, move it into Canva, Figma, PowerPoint, or Adobe for final type setting and compliance copy.
+
+Nano Banana 2 is the better choice for three specific things: **infographics**, **localized variants**, and **subject consistency** across a campaign. Google has been positioning it less as an art tool and more as a fast visual reasoning tool. Turning notes into diagrams. Generating data visualizations. Translating in-image text without rebuilding the asset. Keeping the same product or character consistent across social, email, and landing pages. The developer surface still labels the model as preview, so behavior and limits may shift, but the pricing is transparent and the rollout into the Gemini app for Workspace and personal Google accounts means it slots cleanly into Google Slides and Vids workflows.
+
+The biggest trap with both tools is publishing the draft. AI-generated visuals are concepts. They speed up the part of design that used to involve a designer staring at a blank Figma canvas at 9pm. They do not replace the part where someone with taste tightens the typography, fixes the kerning, locks the grid, and applies the brand system. Use the draft to brief the designer faster, not to skip the designer.
+
+A useful infographic workflow is to describe the information structure first, then ask the model to visualize it. Something like this:
+
+- **Headline claim** at the top.
+- **Hero statistic** as the anchor visual.
+- **Three supporting insights** in a horizontal row.
+- A **simple chart or comparison** beside the hero stat.
+- A short **product proof or audience takeaway** beside the supporting insights.
+- A **CTA, URL, QR code, and brand footer** at the bottom.
+
+That kind of pre-structuring is where image models actually shine. They are not great at inventing your information architecture. They are great at visualizing one you have already worked out.
+
+## Video generation: Seedance vs Kling
+
+**Seedance 2.0** is ByteDance's multimodal audio-video model. It is not just text-to-video. It accepts up to nine images, three video clips, and three audio clips alongside a natural-language instruction. The @-reference system lets you say things like `@Image1 as the first frame`, `@Video1 for camera movement`, `@Audio1 as the BGM reference`. The current open platform supports 4-to-15-second outputs at native 480p and 720p. ByteDance is unusually candid in their own materials about where the model still falls short: detail stability, hyper-realism, dynamic vitality, audio distortion, multi-subject consistency, text rendering, some editing effects. That candor is useful.
+
+**Kling 3.0**, including the Omni variant, is the more operationally mature platform. The 3.0 series supports up to 15-second output, native audio, multi-shot narratives, multilingual generation, and stronger element consistency. Omni adds voice-driven characters, multi-image and video element references, and voice binding. Pricing is published openly. For Kling 3.0, the official prepaid-package view lists roughly **$0.084/sec** for standard without native audio, **$0.112/sec** for standard with native audio, **$0.112/sec** for professional without native audio, **$0.168/sec** for professional with native audio, and **$0.42/sec** for 4K mode.
+
+Artificial Analysis currently puts Dreamina Seedance 2.0 ahead of Kling 3.0 in blind-vote leaderboards for text-to-video and image-to-video with audio. But the operational gap goes the other way. Kling has clearer onboarding, more explicit pricing, more predictable export options, and a better track record for marketing teams that need a video to actually ship next Tuesday.
+
+My rule of thumb: **Kling for production, Seedance for direction**. Kling is the safer everyday platform when you need to bang out a paid social variant, a short reel, or a multilingual promo this week. Seedance is what you reach for when the creative ambition is high enough that you actually want a directing tool, not a generator.
+
+## The last-frame-as-first-frame trick
+
+The biggest practical limitation of both Seedance and Kling, for marketing use, is the 15-second cap. A 15-second clip is a teaser, not a story. Real social ads want 20 to 30 seconds. Real explainers want 60 to 90. Real product films want longer than that.
+
+There is a technique to push past this without waiting for the next model release. It is a workflow that has been kicking around among AI video creators but rarely gets explained to non-technical teams.
+
+The idea is simple. Generate Clip 1 with whatever first-frame and last-frame references you want. Extract the actual final frame of Clip 1 as a still image. Feed that still image into Clip 2 as `@Image1 as the first frame`. The two clips now share an exact pixel-level handoff at the seam. Stitch them together in any video editor. Repeat for Clip 3, Clip 4, and so on.
+
+Seedance has the syntax for this built into its prompt language. The skill repo I mentioned earlier ([`dexhunter/seedance2-skill`](https://github.com/dexhunter/seedance2-skill)) documents the exact patterns. The relevant ones are `@Image1 as the first frame`, `@Image2 as the last frame`, and the **video extension** construct, which extends an existing video forward in time by N seconds with its own segmented prompt. The extension feature is the cleanest path when you have access to it. The manual chain is the fallback that always works.
+
+A few things to know before you try it.
+
+**Color drift accumulates.** Each generation slightly recolors the scene. By Clip 3 you have drifted noticeably from Clip 1. The fix is to anchor every clip not just to the last-frame handoff, but to the same scene reference image and the same character reference image. Treating those as global anchors instead of per-clip references is what stops the chain from sliding into a different visual universe.
+
+**Identity drift is worse than color drift.** If you have a character on screen, do not rely on the last-frame handoff alone. Pin the character reference explicitly in every clip's prompt with `@ImageX's character as the subject`. Otherwise the model will redraw the face slightly differently each time and by the third clip your spokesperson looks like their own cousin.
+
+**The seam is a static frame.** The last frame of Clip 1 is, by definition, motionless. The first frame of Clip 2 starts from that same motionless state. If you do not plan for it, the join reads as a tiny freeze. The fix is to design motion arcs with natural rest points every 5 to 10 seconds. End each clip on a moment where stillness makes narrative sense: a held look, an arrived gesture, a settled product shot. Then the next clip can build motion outward from rest without the join feeling like a stutter.
+
+**Don't trust per-clip audio.** Each clip generates its own audio bed, and stitching them produces audible seams every 10 to 15 seconds. The cleaner approach is to render audio separately. Generate the visuals silent, then add music, voice, and sound design as a single layer in your editor. For voiceover specifically, generate the script in one pass with a TTS tool you trust and lay it over the stitched visuals. You will get a far better result than relying on the model's per-clip audio.
+
+**Plan a final color grade pass.** Even with anchors and rest points, expect to do a unifying grade across the whole stitched video. A simple LUT in DaVinci or Premiere applied across the timeline will cover most of the small drift you couldn't prevent. Budget the time for it. It is the part nobody talks about and the part that makes the difference between a chained video that looks chained and one that looks shot.
+
+This is the workflow that makes Seedance practical for real campaign content. It turns a 15-second concept tool into something that can carry a 60-second product film. It does not turn it into a magic camera. The directing still has to be good, the references still have to be tight, and the brand review still has to happen. But the ceiling on length stops being a hard wall.
+
+## What Sora's shutdown actually means
+
+OpenAI's Sora web and app experiences were discontinued on **April 26, 2026**, and the **Sora API is scheduled to shut down on September 24, 2026**. The discontinuation notice on the help center is short and offers no detailed public reason. WIRED has framed the move as part of OpenAI's product-focusing push ahead of a possible IPO. AP has separately reported moderation and deepfake pressure around the short-form social app. Disney publicly said it respected OpenAI's decision to exit video generation. All of those things can be true at once.
+
+The real lesson for marketers is not about Sora. It is about how to evaluate AI vendors. Output quality is one criterion. Workflow stability, exportability, pricing transparency, governance maturity, and product durability are the others. A model that is stunning today and gone in twelve months is not a foundation for your campaign operations. Pick tools where the company is going to ship the next version, not deprecate the current one.
+
+## The stack I'd actually recommend
+
+| Tool | What it does best | Marcom use cases | Heads-up |
+|------|------|------|------|
+| **Claude Skills** | Reusable, brand-aware workflows | Briefs, research synthesis, message rewrites, decks | Audit third-party Skills like software |
+| **Custom GPTs** | Repeatable assistants with knowledge and sharing | Campaign planners, rewrite assistants, performance summarizers | Public publishing has policy gates |
+| **GPT Image 2** | Ad and poster concepting | Social ads, event promos, mockups, localized creative | Final layout still needs human polish |
+| **Nano Banana 2** | Visual reasoning and editing | Infographics, data visuals, localization, consistency | Still preview, behavior may change |
+| **Seedance 2.0** | Multimodal directorial control | Premium concept spots, animatics, brand-film proofs | Global pricing clarity is uneven |
+| **Kling 3.0** | Production-ready short video | Reels, social variants, multilingual promos | Better operationally than creatively in some categories |
+| **Sora** | Historically capable, now deprecated | None | Don't standardize on it |
+
+The shape I would recommend is this. Claude Skills or custom GPTs as the operating layer. GPT Image 2 inside ChatGPT for fast concepting. Nano Banana 2 inside Gemini for infographics, localization, and subject consistency. Kling 3.0 as the default video tool. Seedance 2.0 when the creative ambition justifies a director's tool. And the last-frame stitching trick when you need length.
+
+## The four-gate review process
+
+The lean review I would actually run on every AI-generated asset has four gates.
+
+**Strategy review.** Does the asset reflect the approved audience, offer, and KPI? If you can't answer that in one sentence, the brief was too thin upstream.
+
+**Brand review.** Does the language, visual style, and CTA match your standards? AI tends to drift toward generic. Force the brand check.
+
+**Risk review.** Are the claims accurate, the rights clear, and the likenesses or references lawful? This is where the real failure modes live. ByteDance's launch post for Seedance is explicit that real human portraits as subject references require identity verification or prior legal authorization. AP has reported criticism from Hollywood groups over likeness and copyright concerns. Don't use Seedance for celebrity mimicry, ever.
+
+**Channel review.** Is the asset correctly sized, legible, localized, accessible, and platform-ready? The number of campaigns that ship with broken aspect ratios because nobody re-checked the spec is genuinely embarrassing.
+
+That isn't bureaucracy. It is how you avoid publishing aesthetically strong but strategically or legally weak work.
+
+## What this is really about
+
+The thing I keep coming back to is that AI tooling for marketing doesn't reward prompt engineering. It rewards workflow ownership.
+
+Workflow ownership is a different skill. It's the ability to define a brief, pick the right tool, constrain the inputs, review the outputs, and learn from performance. It's the ability to build a small Skill or GPT once and use it for six months. It's the ability to know that your stitched Seedance video will drift in color and to budget the grade pass before you start.
+
+Prompt engineering is a moving target. Every model release changes which incantations work. Workflow discipline is portable. The model under the hood changes, the workflow holds.
+
+That is the skill non-technical teams should actually be building right now. Not "how do I write better prompts." How do I run a real production process with AI tools as components.
+
+The tools will keep getting better. The teams that win will be the ones who already know what they want to make.
