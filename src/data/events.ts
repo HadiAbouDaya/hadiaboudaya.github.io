@@ -4,6 +4,22 @@ export const events: Event[] = [
   // ─── 2026 ───────────────────────────────────────────────────────────────────
 
   {
+    slug: "turinglabs-client-portal",
+    title: "Turing Labs Client Portal",
+    date: "2026-06-05",
+    location: "Remote",
+    category: "project",
+    role: "Creator",
+    organizations: ["Turing Labs"],
+    summary:
+      "Turing Labs' internal client portal: a multi-tenant app where client leadership self-serve their engagement through a Claude-powered meeting-intelligence chat and a Linear-synced project and milestone view.",
+    description:
+      "The Client Portal is the internal tool Turing Labs uses for day-to-day client interactions, and the highest-impact system in the engagement. It is a multi-tenant Next.js and Supabase app where client leadership log in to self-serve their engagement status. It has two features. Meeting Intelligence is a Claude-powered chat over meeting transcripts and summaries that answers questions with source citations (meeting title and date) and lists action items by owner. Projects and Milestones translates Linear project data into business-language status cards with progress bars. n8n pipelines pull meeting data and Linear projects, normalize them, and upsert into Supabase on a schedule. Per-client row-level security enforces tenant isolation at the database level: each client sees only their own data, admins see all of it. Built with Next.js (App Router), React, Supabase (Postgres, Auth, RLS), the Claude API, and n8n.",
+    images: ["/Media/events/turinglabs-client-portal/1.webp"],
+    tags: ["AI", "Claude API", "Next.js", "Supabase", "n8n", "Multi-Tenant SaaS"],
+    tier: "featured",
+  },
+  {
     slug: "agentforce-world-tour-paris",
     title: "Agentforce World Tour Paris",
     date: "2026-05-21",
