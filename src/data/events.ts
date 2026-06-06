@@ -4,6 +4,25 @@ export const events: Event[] = [
   // ─── 2026 ───────────────────────────────────────────────────────────────────
 
   {
+    slug: "agentforce-world-tour-paris",
+    title: "Agentforce World Tour Paris",
+    date: "2026-05-21",
+    location: "Paris, France",
+    category: "conference",
+    role: "Attendee",
+    organizations: ["Salesforce"],
+    summary:
+      "Attended Salesforce's Agentforce World Tour Paris at Paris Expo Porte de Versailles, focused on Agentforce and the enterprise rollout of AI agents across the Salesforce ecosystem.",
+    description:
+      "Attended the Salesforce Agentforce World Tour Paris on May 21, 2026 at Paris Expo Porte de Versailles (Hall 6) as part of the Supportful team. The day centered on Agentforce, Salesforce's platform for building and deploying AI agents across its product suite, with keynotes, partner booths, and live product demos. The demo that stood out was the Slack integration, where agents operated directly inside the messaging workflow. The features were well executed but deliberately scoped: permission-aware, governed, and conservative about what the agents were allowed to do on their own. That scope is the interesting part. A company the size of Salesforce carries large compliance, security, and reputational constraints, so its agent rollout optimizes for safety and predictability over raw capability. Smaller teams that can absorb more risk often ship deeper agentic features faster, because the cost of a mistake is lower and the approval chain is shorter. Neither approach is strictly better. The right level of agent autonomy is a function of the cost of an error and the organization's tolerance for it, and a large enterprise and an early-stage company are solving that same equation with very different inputs. Seeing the contrast firsthand was directly relevant to the agentic systems I build at Supportful, where the tradeoff between capability, cost, and risk is a constant design decision.",
+    images: [
+      "/Media/events/agentforce-world-tour-paris/1.webp",
+      "/Media/events/agentforce-world-tour-paris/2.webp",
+    ],
+    tags: ["Salesforce", "Agentforce", "AI Agents", "Slack", "Conference"],
+    tier: "standard",
+  },
+  {
     slug: "zaka-ftl-marketing-ai-training",
     title: "AI for Marketing Communications - Fair Trade Lebanon",
     date: "2026-04-29",
