@@ -11,12 +11,12 @@ export const experiences: Experience[] = [
     endDate: "2026-06-30",
     location: "Remote",
     description:
-      "Building AI-powered products as a freelance consultant, delivering multi-agent systems, RAG applications, and natural language interfaces for SaaS platforms and an AI-native consultancy.",
+      "Building AI-powered products as a freelance consultant, delivering multi-agent systems and natural language interfaces for SaaS platforms and an AI-native consultancy.",
     bullets: [
       "(B2B Sales Intelligence Platform) Architected a multi-agent sales copilot using LangGraph to automate lead qualification and human-in-the-loop Slack drafts with Salesforce, Gmail, and other integrations; deployed as multi-tenant SaaS on AWS with isolated DBs and vector stores for enterprise-compliant agentic workflows",
       "(Sports Facility Management SaaS) Delivered a LangGraph + Gemini platform enabling natural language court booking, scheduling, and payments via stateful conversational flows, plus a Natural Language BI layer that translates manager queries into auto-generated React charts for revenue and staff analytics",
-      "(Turing Labs, Internal Client Portal) Built the firm's flagship client portal, a multi-tenant Next.js + Supabase app where client leadership self-serve their engagement: a Claude-powered meeting-intelligence chat with cited answers and action items, and a Linear-synced project and milestone view, with per-client row-level isolation and n8n data pipelines into Supabase",
-      "(Turing Labs, Client AI Systems) Delivered three production AI systems for the firm's clients: an earnings-call platform that predicts likely analyst questions for a global bank's investor-relations team; a vision-based validator for German-language commercial contracts at a climate investment fund; and a RAG technical-advice agent giving cited product answers for an industrial manufacturer",
+      "(Turing Labs, Internal Client Portal) Built the firm's flagship client portal, the highest-impact deliverable in the engagement: client leadership self-serve their engagement status, asking questions about past meetings with cited answers, tracking action items and owners, and viewing project progress in plain business language, with each client seeing only their own data",
+      "(Turing Labs, Client AI Systems) Delivered three production AI systems for the firm's clients: predicting likely analyst questions ahead of earnings calls for a global bank's investor-relations team; automating review of German-language commercial contracts for a climate investment fund; and answering technical product questions with cited sources for an industrial manufacturer",
     ],
     technologies: [
       "LangGraph",
@@ -25,10 +25,6 @@ export const experiences: Experience[] = [
       "Salesforce",
       "React",
       "PostgreSQL",
-      "Supabase",
-      "n8n",
-      "RAG",
-      "Pinecone",
     ],
     logoPath: "/Media/experience/freelance/supportful-logo.webp",
     companyUrl: "https://supportful.world",

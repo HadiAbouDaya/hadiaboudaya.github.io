@@ -12,11 +12,11 @@ export const events: Event[] = [
     role: "Creator",
     organizations: ["Turing Labs"],
     summary:
-      "Turing Labs' internal client portal: a multi-tenant app where client leadership self-serve their engagement through a Claude-powered meeting-intelligence chat and a Linear-synced project and milestone view.",
+      "Turing Labs' internal client portal, the highest-impact deliverable in the engagement: client leadership self-serve their engagement status instead of waiting on the team.",
     description:
-      "The Client Portal is the internal tool Turing Labs uses for day-to-day client interactions, and the highest-impact system in the engagement. It is a multi-tenant Next.js and Supabase app where client leadership log in to self-serve their engagement status. It has two features. Meeting Intelligence is a Claude-powered chat over meeting transcripts and summaries that answers questions with source citations (meeting title and date) and lists action items by owner. Projects and Milestones translates Linear project data into business-language status cards with progress bars. n8n pipelines pull meeting data and Linear projects, normalize them, and upsert into Supabase on a schedule. Per-client row-level security enforces tenant isolation at the database level: each client sees only their own data, admins see all of it. Built with Next.js (App Router), React, Supabase (Postgres, Auth, RLS), the Claude API, and n8n.",
+      "The Client Portal is the internal tool Turing Labs uses for day-to-day client interactions, and the highest-impact deliverable in the engagement. It gives client leadership a single place to self-serve their engagement status instead of waiting on the team. They can ask questions about past meetings and get answers backed by the exact meeting and date, see outstanding action items and who owns them, and track project progress and milestones in plain business language, with each client seeing only their own data. The result is faster, self-service visibility for clients and less time spent answering routine status questions.",
     images: ["/Media/events/turinglabs-client-portal/1.webp"],
-    tags: ["AI", "Claude API", "Next.js", "Supabase", "n8n", "Multi-Tenant SaaS"],
+    tags: ["AI", "Internal Tools", "Client Portal", "Meeting Intelligence", "Client Experience"],
     tier: "standard",
   },
   {
