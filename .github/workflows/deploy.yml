@@ -35,19 +35,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Copy Media to public (if exists)
-        run: |
-          if [ -d "Media" ]; then
-            cp -r Media public/Media
-          else
-            mkdir -p public/Media
-          fi
-
       - name: Build
         run: pnpm next build
         env:
           NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
           NEXT_PUBLIC_POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
+
+      - name: Generate responsive image variants
+        run: node scripts/generate-image-variants.mjs out/Media
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

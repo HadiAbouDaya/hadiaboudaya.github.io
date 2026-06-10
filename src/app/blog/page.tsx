@@ -14,6 +14,9 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   const posts = getAllPosts();
+  // Strip MDX `content` before passing to the client so it isn't serialized
+  // into the RSC payload of the blog-list HTML.
+  const listing = posts.map(({ content, ...rest }) => rest);
 
   return (
     <div className="section-padding pt-24">
@@ -23,16 +26,16 @@ export default function BlogPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd(posts)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd(listing)) }}
       />
       <div className="container-main max-w-4xl">
         <SectionHeading
           title="Blog"
           subtitle="Thoughts on AI, engineering, and building products"
         />
-        {posts.length > 0 ? (
+        {listing.length > 0 ? (
           <div className="space-y-8">
-            {posts.map((post) => (
+            {listing.map((post) => (
               <PostCard key={post.slug} post={post} />
             ))}
           </div>

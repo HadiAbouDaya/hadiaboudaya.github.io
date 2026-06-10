@@ -1311,7 +1311,7 @@ export const events: Event[] = [
     description:
       "Advanced the technical acumen within Beirut AI, leading in-depth workshops on Hugging Face BERT transformers and YOLO object detection. Directed collaborative events with AWS and universities (AUB, LAU, USJ, USAL). Championed AI literacy through formats ranging from introductory principles to model deployment strategies. Mentored a growing AI community focused on technical mastery.",
     images: [
-      "/Media/events/beirut-ai-technical-ambassador/1.gif",
+      "/Media/events/beirut-ai-technical-ambassador/1.webp",
     ],
     tags: ["Beirut AI", "Ambassador", "Workshops", "AWS", "BERT", "YOLO"],
     tier: "featured",

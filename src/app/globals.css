@@ -4,6 +4,31 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ============================================================================
+   HIERARCHY OF INTENSITY
+   Richness reads as intentional only when it is tiered. Every visual treatment
+   in this codebase belongs to exactly one tier; do not borrow effects upward.
+   ----------------------------------------------------------------------------
+   Display     | Hero only. Parallax globe, staggered text reveal, brand
+               | gradient text (text-gradient-brand), magnetic CTAs. The globe
+               | and typing cursor are the ONLY sanctioned permanent ambient
+               | animations.
+   Featured    | tier==="featured" events + latest blog card. Animated conic
+               | gradient ring on hover (featured-ring), cursor spotlight
+               | (card-spotlight), colored glow on hover (shadow-glow).
+   Interactive | Standard cards, highlights, certs. Cursor spotlight +
+               | shadow-glow-sm + 1px lift + 1.03 media zoom.
+   Micro       | Links, pills, icons, nav. Color / opacity / background only,
+               | never transforms.
+   ----------------------------------------------------------------------------
+   Token systems (contracts): surface elevation ramp (bg-surface*, text-fg*,
+   border-line*), radius scale (rounded-control|card|card-lg|pill), layered
+   shadow scale (shadow-card*, shadow-glow*, shadow-overlay), fluid type scale
+   (text-display|headline|title|eyebrow), gradient family (text-gradient*,
+   bg-gradient-brand, hairline-gradient + --gradient-* vars), refined glass
+   (.glass-2), signature effects (.card-spotlight, .featured-ring, .skeleton).
+   ============================================================================ */
+
 @theme {
   --color-primary-50: #eff6ff;
   --color-primary-100: #dbeafe;
@@ -25,48 +50,129 @@
 
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
-  --font-display: var(--font-geist-sans), system-ui, sans-serif;
 
-  --animate-fade-in: fadeIn 0.6s ease-out;
-  --animate-slide-up: slideUp 0.6s ease-out;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-blink: blink 1s step-end infinite;
   --animate-lazy-fade-in: lazyFadeIn 0.3s ease-out both;
-  --animate-glow-pulse: glowPulse 3s ease-in-out infinite;
   --animate-shimmer: shimmer 2.5s linear infinite;
 
   @keyframes lazyFadeIn {
     from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-  @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-  @keyframes slideUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-  @keyframes glowPulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 0.8; }
-  }
   @keyframes shimmer {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
   }
-  @keyframes gradientShift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
+
+  /* ===== RADIUS SCALE ===== */
+  --radius-control: 0.625rem;
+  --radius-card: 1rem;
+  --radius-card-lg: 1.5rem;
+  --radius-pill: 9999px;
+
+  /* ===== LAYERED SHADOWS + COLORED GLOWS (ambient tint + real depth) ===== */
+  --shadow-card: 0 1px 2px rgb(2 6 23 / 0.04), 0 4px 12px rgb(2 6 23 / 0.05);
+  --shadow-card-hover: 0 2px 4px rgb(2 6 23 / 0.05), 0 12px 32px -8px rgb(2 6 23 / 0.12);
+  --shadow-glow-sm: 0 0 0 1px rgb(59 130 246 / 0.08), 0 4px 16px -4px rgb(59 130 246 / 0.12), 0 4px 12px rgb(2 6 23 / 0.08);
+  --shadow-glow: 0 0 0 1px rgb(59 130 246 / 0.12), 0 8px 40px -8px rgb(59 130 246 / 0.25), 0 8px 24px -12px rgb(2 6 23 / 0.4);
+  --shadow-overlay: 0 0 0 1px rgb(255 255 255 / 0.06), 0 24px 64px -16px rgb(2 6 23 / 0.6);
+
+  /* ===== FLUID TYPE SCALE (weight hierarchy: hero 700, headings 650, titles 600, eyebrows 600) ===== */
+  --text-display: clamp(2.75rem, 4.5vw + 1.5rem, 4.75rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.035em;
+  --text-display--font-weight: 700;
+  --text-headline: clamp(2rem, 2.5vw + 1.25rem, 3rem);
+  --text-headline--line-height: 1.1;
+  --text-headline--letter-spacing: -0.025em;
+  --text-headline--font-weight: 650;
+  --text-title: clamp(1.25rem, 0.6vw + 1.05rem, 1.5rem);
+  --text-title--line-height: 1.25;
+  --text-title--letter-spacing: -0.015em;
+  --text-title--font-weight: 600;
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--letter-spacing: 0.12em;
+  --text-eyebrow--font-weight: 600;
+}
+
+/* ============================================================================
+   SEMANTIC SURFACE ELEVATION RAMP
+   Root vars flipped under .dark, then exposed through @theme inline so
+   components write bg-surface / bg-surface-raised / border-line / text-fg with
+   NO dark: prefix. The #0a0f1a vs #060a12 split becomes a deliberate
+   sunken -> base -> raised -> overlay ramp (the Linear/Vercel pattern).
+   ============================================================================ */
+:root {
+  --surface-sunken: #f4f6fb;
+  --surface-base: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-overlay: rgba(255 255 255 / 0.82);
+  --border-subtle: rgb(226 232 240 / 0.8);
+  --border-strong: rgb(203 213 225);
+  --text-hi: #0f172a;
+  --text-mid: #475569;
+  --text-lo: #94a3b8;
+}
+
+.dark {
+  --surface-sunken: #060a12;   /* footer, hero shell */
+  --surface-base: #0a0f1a;     /* page canvas */
+  --surface-raised: #111827e6; /* cards, one step lighter */
+  --surface-overlay: rgb(13 19 33 / 0.78); /* glass nav, dialogs */
+  --border-subtle: rgb(51 65 85 / 0.45);
+  --border-strong: rgb(71 85 105 / 0.7);
+  --text-hi: #f1f5f9;
+  --text-mid: #94a3b8;
+  --text-lo: #64748b;
+}
+
+@theme inline {
+  --color-surface-sunken: var(--surface-sunken);
+  --color-surface: var(--surface-base);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-overlay: var(--surface-overlay);
+  --color-line: var(--border-subtle);
+  --color-line-strong: var(--border-strong);
+  --color-fg: var(--text-hi);
+  --color-fg-mid: var(--text-mid);
+  --color-fg-lo: var(--text-lo);
+}
+
+/* ============================================================================
+   SYSTEMATIC GRADIENT FAMILY
+   All ad-hoc gradients migrate onto these six tokens (strictly blue <-> cyan +
+   category accents; no purple/violet/indigo). Brand gradient reuses the
+   primary/accent theme vars so palette edits stay single-source.
+   ============================================================================ */
+:root {
+  --gradient-brand: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500));
+  --gradient-brand-soft: linear-gradient(135deg, rgb(59 130 246 / 0.14), rgb(6 182 212 / 0.06));
+  --gradient-text: linear-gradient(110deg, var(--text-hi) 30%, var(--text-mid));
+  --gradient-text-brand: linear-gradient(100deg, #93c5fd, #e0f2fe 45%, #67e8f9); /* hero only */
+  --gradient-line: linear-gradient(90deg, transparent, rgb(59 130 246 / 0.4), transparent);
+  --gradient-rail: linear-gradient(180deg, var(--color-primary-500), rgb(59 130 246 / 0.25), transparent);
+  --gradient-surface: radial-gradient(80% 60% at 50% 0%, rgb(59 130 246 / 0.06), transparent);
+}
+
+@utility text-gradient {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-gradient-brand {
+  background: var(--gradient-text-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-brand {
+  background-image: var(--gradient-brand);
+}
+
+@utility hairline-gradient {
+  background-image: var(--gradient-line);
 }
 
 /* ===== BASE ===== */
@@ -104,6 +210,30 @@ body {
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+}
+
+/* ===== REFINED GLASS (.glass-2) =====
+   Surface-overlay tint + stronger saturated blur + 1px subtle border + inset
+   top highlight (the Raycast trick), plus an ::after fractal-noise film that
+   kills the "flat plastic blur" look. Adapts light/dark via the surface ramp. */
+.glass-2 {
+  background: var(--surface-overlay);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--border-subtle);
+  box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.06);
+  position: relative;
+}
+
+.glass-2::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.025;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ===== LAYOUT ===== */
@@ -169,6 +299,111 @@ body {
     0 0 30px rgba(59, 130, 246, 0.1),
     0 0 60px rgba(59, 130, 246, 0.04),
     0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== SIGNATURE EFFECTS (Interactive tier) ===== */
+
+/* Cursor-tracking spotlight. A delegated pointermove handler writes
+   --spot-x / --spot-y on the card; the ::before fades in a soft radial wash
+   that follows the cursor. Compositor-only (opacity), no layout work. */
+.card-spotlight {
+  position: relative;
+}
+
+.card-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    340px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgb(96 165 250 / 0.09),
+    transparent 65%
+  );
+}
+
+.card-spotlight:hover::before {
+  opacity: 1;
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .card-spotlight::before {
+    display: none;
+  }
+}
+
+/* ===== SIGNATURE EFFECTS (Featured tier) ===== */
+
+/* Animated conic gradient ring. A masked pseudo-element draws a 1px ring;
+   resting state is static, the angle animates only on hover/focus-within.
+   Under reduced motion the ring stays static (no spin). */
+@property --ring-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes ring-spin {
+  to {
+    --ring-angle: 360deg;
+  }
+}
+
+.featured-ring {
+  position: relative;
+}
+
+.featured-ring::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--ring-angle),
+    transparent 0%,
+    var(--color-primary-500) 12%,
+    var(--color-accent-400) 22%,
+    transparent 34%
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+}
+
+.featured-ring:hover::before,
+.featured-ring:focus-within::before {
+  animation: ring-spin 3.5s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featured-ring:hover::before,
+  .featured-ring:focus-within::before {
+    animation: none;
+  }
+}
+
+/* ===== LOADING SKELETON =====
+   Recommissions the shimmer keyframe. Components apply .skeleton only while
+   content is loading; a low-contrast band sweeps across the placeholder. */
+.skeleton {
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgb(148 163 184 / 0.12) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
 }
 
 /* ===== ACCENT LINE UTILITY ===== */

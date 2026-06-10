@@ -129,6 +129,10 @@ export function CanvasGlobe() {
   const frameRef = useRef(0);
 
   useEffect(() => {
+    const reduceMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     function draw() {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -249,11 +253,81 @@ export function CanvasGlobe() {
       ctx.fill();
     }
 
-    frameRef.current = requestAnimationFrame(draw);
     }
 
-    frameRef.current = requestAnimationFrame(draw);
-    return () => cancelAnimationFrame(frameRef.current);
+    // Continuous render loop (advances rotation each frame).
+    function loop() {
+      draw();
+      frameRef.current = requestAnimationFrame(loop);
+    }
+
+    // The loop runs only once the main thread has gone idle (idleReady) AND the
+    // canvas is on screen (inView). Either condition flipping re-evaluates.
+    let running = false;
+    let idleReady = false;
+    let inView = true;
+    function sync() {
+      const shouldRun = idleReady && inView;
+      if (shouldRun && !running) {
+        running = true;
+        frameRef.current = requestAnimationFrame(loop);
+      } else if (!shouldRun && running) {
+        running = false;
+        cancelAnimationFrame(frameRef.current);
+      }
+    }
+
+    // Honor reduced-motion: render a single static frame and never animate.
+    if (reduceMotion) {
+      draw();
+      return;
+    }
+
+    // Pause the loop when the canvas is scrolled out of view, resume when visible.
+    const canvas = canvasRef.current;
+    let observer: IntersectionObserver | null = null;
+    if (canvas && typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        (entries) => {
+          inView = entries[0]?.isIntersecting ?? true;
+          sync();
+        },
+        { threshold: 0 }
+      );
+      observer.observe(canvas);
+    }
+
+    // Defer kicking off the loop until the main thread is idle
+    // (requestIdleCallback, falling back to setTimeout).
+    let idleId = 0;
+    let timeoutId = 0;
+    const ric = (
+      window as typeof window & {
+        requestIdleCallback?: (cb: () => void) => number;
+      }
+    ).requestIdleCallback;
+    const cic = (
+      window as typeof window & {
+        cancelIdleCallback?: (id: number) => void;
+      }
+    ).cancelIdleCallback;
+    const kickoff = () => {
+      idleReady = true;
+      sync();
+    };
+    if (typeof ric === "function") {
+      idleId = ric(kickoff);
+    } else {
+      timeoutId = window.setTimeout(kickoff, 1);
+    }
+
+    return () => {
+      idleReady = false;
+      sync();
+      observer?.disconnect();
+      if (idleId && typeof cic === "function") cic(idleId);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, []);
 
   return (

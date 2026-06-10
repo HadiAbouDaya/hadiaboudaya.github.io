@@ -1,4 +1,9 @@
-import posthog from "posthog-js";
+declare global {
+  interface Window {
+    __ph?: { capture: (event: string, properties?: Record<string, unknown>) => void };
+    __phq?: [string, Record<string, unknown>?][];
+  }
+}
 
 export const EVENTS = {
   // Conversions
@@ -27,7 +32,11 @@ export function trackEvent(
   event: (typeof EVENTS)[keyof typeof EVENTS],
   properties?: Record<string, unknown>
 ) {
-  if (typeof window !== "undefined" && posthog) {
-    posthog.capture(event, properties);
+  if (typeof window === "undefined") return;
+  const ph = window.__ph;
+  if (ph) {
+    ph.capture(event, properties);
+  } else {
+    (window.__phq ??= []).push([event, properties]);
   }
 }

@@ -10,7 +10,7 @@ import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { trackEvent, EVENTS } from "@/lib/analytics";
 
 interface PostCardProps {
-  post: BlogPost;
+  post: Omit<BlogPost, "content">;
 }
 
 export function PostCard({ post }: PostCardProps) {
