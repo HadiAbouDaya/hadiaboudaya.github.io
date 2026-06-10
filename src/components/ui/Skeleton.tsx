@@ -4,7 +4,7 @@ function Skeleton({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "animate-pulse rounded-lg bg-slate-200 dark:bg-slate-700",
+        "animate-pulse rounded-control bg-slate-200 dark:bg-slate-700",
         className
       )}
     />
@@ -24,7 +24,7 @@ export function TimelineSkeleton() {
       {/* Timeline */}
       <div className="relative">
         {/* Center line */}
-        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-700 hidden lg:block" />
+        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-line hidden lg:block" />
         <div className="space-y-8">
           {/* Year marker */}
           <div className="flex justify-center">
@@ -32,11 +32,11 @@ export function TimelineSkeleton() {
           </div>
           {/* Card left */}
           <div className="flex justify-start lg:justify-end lg:pr-[52%]">
-            <Skeleton className="h-40 w-full max-w-md rounded-xl" />
+            <Skeleton className="h-40 w-full max-w-md rounded-card" />
           </div>
           {/* Card right */}
           <div className="flex justify-start lg:justify-start lg:pl-[52%]">
-            <Skeleton className="h-36 w-full max-w-md rounded-xl" />
+            <Skeleton className="h-36 w-full max-w-md rounded-card" />
           </div>
           {/* Year marker */}
           <div className="flex justify-center">
@@ -44,11 +44,11 @@ export function TimelineSkeleton() {
           </div>
           {/* Card left */}
           <div className="flex justify-start lg:justify-end lg:pr-[52%]">
-            <Skeleton className="h-44 w-full max-w-md rounded-xl" />
+            <Skeleton className="h-44 w-full max-w-md rounded-card" />
           </div>
           {/* Card right */}
           <div className="flex justify-start lg:justify-start lg:pl-[52%]">
-            <Skeleton className="h-36 w-full max-w-md rounded-xl" />
+            <Skeleton className="h-36 w-full max-w-md rounded-card" />
           </div>
         </div>
       </div>
@@ -75,9 +75,9 @@ export function CardGridSkeleton({ cols = 3, rows = 2 }: { cols?: number; rows?:
         )}
       >
         {Array.from({ length: cols * rows }).map((_, i) => (
-          <div key={i} className="p-4 rounded-xl border border-slate-200 dark:border-slate-700 space-y-3">
+          <div key={i} className="p-4 rounded-card border border-line space-y-3">
             <div className="flex items-center gap-2">
-              <Skeleton className="h-10 w-10 rounded-lg" />
+              <Skeleton className="h-10 w-10 rounded-control" />
               <div className="flex-1 space-y-1.5">
                 <Skeleton className="h-4 w-3/4" />
                 <Skeleton className="h-3 w-1/2" />
@@ -100,25 +100,25 @@ export function FormSkeleton() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
           <Skeleton className="h-4 w-12" />
-          <Skeleton className="h-11 w-full rounded-lg" />
+          <Skeleton className="h-11 w-full rounded-control" />
         </div>
         <div className="space-y-2">
           <Skeleton className="h-4 w-12" />
-          <Skeleton className="h-11 w-full rounded-lg" />
+          <Skeleton className="h-11 w-full rounded-control" />
         </div>
       </div>
       {/* Subject */}
       <div className="space-y-2">
         <Skeleton className="h-4 w-14" />
-        <Skeleton className="h-11 w-full rounded-lg" />
+        <Skeleton className="h-11 w-full rounded-control" />
       </div>
       {/* Message textarea */}
       <div className="space-y-2">
         <Skeleton className="h-4 w-16" />
-        <Skeleton className="h-32 w-full rounded-lg" />
+        <Skeleton className="h-32 w-full rounded-control" />
       </div>
       {/* Submit button */}
-      <Skeleton className="h-11 w-32 rounded-lg" />
+      <Skeleton className="h-11 w-32 rounded-control" />
     </div>
   );
 }
@@ -126,18 +126,18 @@ export function FormSkeleton() {
 /** Matches HomeHighlights: 4-column card row */
 export function HighlightsSkeleton() {
   return (
-    <section className="py-12 sm:py-16 bg-slate-900 dark:bg-slate-950">
+    <section className="py-12 sm:py-16 bg-surface-sunken">
       <div className="container-main px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="p-5 rounded-xl bg-white/5 border border-white/10 space-y-3">
+            <div key={i} className="p-5 rounded-card bg-surface-raised border border-line space-y-3">
               <div className="flex items-center gap-2">
-                <Skeleton className="h-4 w-4 rounded bg-slate-600" />
-                <Skeleton className="h-3 w-20 bg-slate-600" />
+                <Skeleton className="h-4 w-4 rounded" />
+                <Skeleton className="h-3 w-20" />
               </div>
-              <Skeleton className="h-4 w-3/4 bg-slate-600" />
-              <Skeleton className="h-3 w-1/2 bg-slate-600" />
-              <Skeleton className="h-3 w-16 bg-slate-600" />
+              <Skeleton className="h-4 w-3/4" />
+              <Skeleton className="h-3 w-1/2" />
+              <Skeleton className="h-3 w-16" />
             </div>
           ))}
         </div>
@@ -154,7 +154,7 @@ export function TextBlockSkeleton() {
         {/* Left column: heading + image */}
         <div className="w-full lg:w-5/12 space-y-8">
           <Skeleton className="h-10 w-48" />
-          <Skeleton className="aspect-[4/5] w-full max-w-md mx-auto rounded-[2rem]" />
+          <Skeleton className="aspect-[4/5] w-full max-w-md mx-auto rounded-card-lg" />
         </div>
         {/* Right column: paragraphs */}
         <div className="w-full lg:w-7/12 space-y-8">
@@ -179,7 +179,7 @@ export function LanguagesSkeleton() {
         <Skeleton className="h-4 w-24 mx-auto" />
       </div>
       <div className="flex justify-center">
-        <div className="flex flex-col sm:flex-row bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl sm:rounded-full overflow-hidden w-full sm:w-auto max-w-3xl mx-auto">
+        <div className="flex flex-col sm:flex-row bg-surface-raised border border-line rounded-card sm:rounded-full overflow-hidden w-full sm:w-auto max-w-3xl mx-auto">
           {Array.from({ length: 3 }).map((_, i) => (
             <div key={i} className="flex justify-between sm:justify-center items-center gap-4 sm:gap-3 px-6 sm:px-8 py-4 sm:py-3.5 flex-1">
               <Skeleton className="h-5 w-16" />
@@ -199,8 +199,8 @@ export function ContactInfoSkeleton() {
       <Skeleton className="h-6 w-32" />
       <div className="space-y-4">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="flex items-start gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
-            <Skeleton className="w-10 h-10 rounded-lg flex-shrink-0" />
+          <div key={i} className="flex items-start gap-4 p-4 rounded-card border border-line">
+            <Skeleton className="w-10 h-10 rounded-control flex-shrink-0" />
             <div className="flex-1 space-y-1.5">
               <Skeleton className="h-3 w-12" />
               <Skeleton className="h-4 w-32" />
@@ -208,7 +208,7 @@ export function ContactInfoSkeleton() {
           </div>
         ))}
       </div>
-      <Skeleton className="h-11 w-full rounded-lg" />
+      <Skeleton className="h-11 w-full rounded-control" />
     </div>
   );
 }
@@ -216,11 +216,11 @@ export function ContactInfoSkeleton() {
 /** Matches PageNextSection: 3-column link row */
 export function PageNextSkeleton() {
   return (
-    <div className="mt-16 pt-12 border-t border-slate-200 dark:border-slate-700">
+    <div className="mt-16 pt-12 border-t border-line">
       <Skeleton className="h-4 w-32 mb-6" />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="flex items-start gap-3 p-4 rounded-lg">
+          <div key={i} className="flex items-start gap-3 p-4 rounded-control">
             <Skeleton className="w-5 h-5 mt-0.5 rounded flex-shrink-0" />
             <div className="flex-1 space-y-1.5">
               <Skeleton className="h-4 w-20" />

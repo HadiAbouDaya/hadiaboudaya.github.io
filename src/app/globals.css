@@ -45,9 +45,6 @@
   --color-accent-500: #06b6d4;
   --color-accent-600: #0891b2;
 
-  --color-warm-400: #fbbf24;
-  --color-warm-500: #f59e0b;
-
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
 
@@ -197,21 +194,6 @@ body {
 }
 
 
-/* ===== GLASSMORPHISM ===== */
-.glass {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
-}
-
-.dark .glass {
-  background: rgba(10, 15, 26, 0.75);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid rgba(51, 65, 85, 0.3);
-}
-
 /* ===== REFINED GLASS (.glass-2) =====
    Surface-overlay tint + stronger saturated blur + 1px subtle border + inset
    top highlight (the Raycast trick), plus an ::after fractal-noise film that
@@ -259,47 +241,6 @@ body {
   margin-right: auto;
 }
 
-/* ===== GRADIENT BORDER UTILITY ===== */
-.gradient-border {
-  position: relative;
-  border: 1px solid transparent;
-  background-clip: padding-box;
-}
-
-.gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: linear-gradient(
-    135deg,
-    rgba(59, 130, 246, 0.3),
-    rgba(6, 182, 212, 0.15),
-    rgba(59, 130, 246, 0.05)
-  );
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.group:hover .gradient-border::before,
-.gradient-border:hover::before {
-  opacity: 1;
-}
-
-/* ===== GLOW EFFECT UTILITY ===== */
-.hover-glow:hover {
-  box-shadow:
-    0 0 20px rgba(59, 130, 246, 0.08),
-    0 8px 32px rgba(0, 0, 0, 0.12);
-}
-
-.dark .hover-glow:hover {
-  box-shadow:
-    0 0 30px rgba(59, 130, 246, 0.1),
-    0 0 60px rgba(59, 130, 246, 0.04),
-    0 8px 32px rgba(0, 0, 0, 0.3);
-}
 
 /* ===== SIGNATURE EFFECTS (Interactive tier) ===== */
 
@@ -404,27 +345,6 @@ body {
   );
   background-size: 200% 100%;
   animation: shimmer 1.6s linear infinite;
-}
-
-/* ===== ACCENT LINE UTILITY ===== */
-.accent-line {
-  position: relative;
-}
-
-.accent-line::after {
-  content: "";
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 48px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--color-primary-500), var(--color-accent-500));
-  border-radius: 1px;
-}
-
-.accent-line-center::after {
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 /* ===== REDUCED MOTION ===== */

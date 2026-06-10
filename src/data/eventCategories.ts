@@ -16,8 +16,6 @@ import type { LucideIcon } from "lucide-react";
 
 export interface CategoryConfig {
   label: string;
-  color: string;
-  borderColor: string;
   accent: Accent;
   icon: LucideIcon;
   filterGroup: FilterGroupKey;
@@ -26,88 +24,66 @@ export interface CategoryConfig {
 export const categoryConfig: Record<EventCategory, CategoryConfig> = {
   workshop: {
     label: "Workshop",
-    color: "bg-orange-50 text-orange-700",
-    borderColor: "border-l-orange-500",
     accent: "orange",
     icon: Mic2,
     filterGroup: "speaking",
   },
   conference: {
     label: "Conference",
-    color: "bg-sky-50 text-sky-700",
-    borderColor: "border-l-sky-500",
     accent: "teal",
     icon: Users,
     filterGroup: "events",
   },
   hackathon: {
     label: "Hackathon",
-    color: "bg-rose-50 text-rose-700",
-    borderColor: "border-l-rose-500",
     accent: "teal",
     icon: Trophy,
     filterGroup: "events",
   },
   certification: {
     label: "Certification",
-    color: "bg-amber-50 text-amber-700",
-    borderColor: "border-l-amber-500",
     accent: "amber",
     icon: Award,
     filterGroup: "certs",
   },
   community: {
     label: "Community",
-    color: "bg-teal-50 text-teal-700",
-    borderColor: "border-l-teal-500",
     accent: "teal",
     icon: Users,
     filterGroup: "events",
   },
   "knowledge-sharing": {
     label: "Knowledge Sharing",
-    color: "bg-orange-50 text-orange-700",
-    borderColor: "border-l-orange-500",
     accent: "orange",
     icon: Share2,
     filterGroup: "speaking",
   },
   project: {
     label: "Project",
-    color: "bg-violet-50 text-violet-700",
-    borderColor: "border-l-violet-500",
     accent: "emerald",
     icon: Code2,
     filterGroup: "projects",
   },
   career: {
     label: "Career",
-    color: "bg-primary-50 text-primary-700",
-    borderColor: "border-l-primary-500",
     accent: "blue",
     icon: Briefcase,
     filterGroup: "career",
   },
   education: {
     label: "Education",
-    color: "bg-emerald-50 text-emerald-700",
-    borderColor: "border-l-emerald-500",
     accent: "blue",
     icon: GraduationCap,
     filterGroup: "career",
   },
   achievement: {
     label: "Achievement",
-    color: "bg-amber-50 text-amber-700",
-    borderColor: "border-l-amber-500",
     accent: "teal",
     icon: Award,
     filterGroup: "events",
   },
   training: {
     label: "Corporate Training",
-    color: "bg-indigo-50 text-indigo-700",
-    borderColor: "border-l-indigo-500",
     accent: "orange",
     icon: Presentation,
     filterGroup: "speaking",
