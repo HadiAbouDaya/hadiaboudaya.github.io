@@ -17,9 +17,12 @@ export function ImageWithFallback({
   width,
   height,
   className,
+  sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
+  onLoad,
   ...rest
 }: ImageWithFallbackProps) {
   const [hasError, setHasError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   if (hasError) {
     return (
@@ -35,14 +38,42 @@ export function ImageWithFallback({
     );
   }
 
+  // Carry only the box/shape classes (rounding, padding) onto the shimmer
+  // overlay; object-fit / transform / group-hover utilities are image-only and
+  // would be meaningless or wrong on a plain placeholder div.
+  const skeletonClassName = className
+    ?.split(" ")
+    .filter(
+      (c) =>
+        c.startsWith("rounded") ||
+        c === "w-full" ||
+        c === "h-full" ||
+        /^p[xytrbl]?-/.test(c)
+    )
+    .join(" ");
+
   return (
-    <Image
-      alt={alt}
-      width={width}
-      height={height}
-      className={className}
-      onError={() => setHasError(true)}
-      {...rest}
-    />
+    <>
+      {!isLoaded && (
+        <span
+          aria-hidden
+          className={cn("skeleton absolute inset-0", skeletonClassName)}
+          style={{ width: width as number, height: height as number }}
+        />
+      )}
+      <Image
+        alt={alt}
+        width={width}
+        height={height}
+        sizes={sizes}
+        className={className}
+        onError={() => setHasError(true)}
+        onLoad={(e) => {
+          setIsLoaded(true);
+          onLoad?.(e);
+        }}
+        {...rest}
+      />
+    </>
   );
 }

@@ -22,17 +22,19 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
   return (
     <div className="pt-16">
       {/* Cover banner */}
-      <div className="relative h-64 sm:h-80 lg:h-96 bg-slate-100 dark:bg-slate-800 overflow-hidden">
+      <div className="relative h-64 sm:h-80 lg:h-96 bg-surface-sunken overflow-hidden">
         <ImageWithFallback
           src={post.coverImage}
           alt={post.title}
           width={1200}
           height={600}
+          priority
+          sizes="100vw"
           fallbackText={post.title.slice(0, 2)}
           className="w-full h-full object-cover"
           fallbackClassName="w-full h-full text-2xl"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
       </div>
 
       <div className="section-padding">
@@ -54,9 +56,9 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
             ))}
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-fg-lo">
             <Link href="/about" className="flex items-center gap-2 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-              <span className="font-medium text-slate-700 dark:text-slate-300">Hadi Abou Daya</span>
+              <span className="font-medium text-fg-mid">Hadi Abou Daya</span>
             </Link>
             <span className="flex items-center gap-1">
               <Calendar className="w-4 h-4" />
@@ -74,7 +76,7 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
 
           {/* MDX Content */}
           <BlogReadTracker slug={post.slug} title={post.title} readingTime={post.readingTime}>
-            <div className="mt-8 prose prose-slate dark:prose-invert lg:prose-lg prose-headings:font-display prose-headings:text-slate-900 dark:prose-headings:text-white prose-a:text-primary-500 prose-a:decoration-primary-500/30 hover:prose-a:decoration-primary-500 prose-code:text-primary-700 dark:prose-code:text-primary-300 prose-pre:bg-slate-900 prose-blockquote:border-l-primary-500/50">
+            <div className="mt-8 prose prose-slate dark:prose-invert lg:prose-lg prose-headings:text-fg prose-a:text-primary-500 prose-a:decoration-primary-500/30 hover:prose-a:decoration-primary-500 prose-code:text-primary-700 dark:prose-code:text-primary-300 prose-pre:bg-slate-900 prose-blockquote:border-l-primary-500/50">
               {children}
             </div>
           </BlogReadTracker>
@@ -83,11 +85,11 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
 
           {/* Prev / Next navigation */}
           {(prevPost || nextPost) && (
-            <nav className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700 flex items-start justify-between gap-4">
+            <nav className="mt-12 pt-8 border-t border-line flex items-start justify-between gap-4">
               {prevPost ? (
                 <Link
                   href={`/blog/${prevPost.slug}`}
-                  className="group flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600 dark:text-slate-400 dark:hover:text-primary-400 transition-colors min-w-0"
+                  className="group flex items-center gap-2 text-sm text-fg-lo hover:text-primary-600 dark:hover:text-primary-400 transition-colors min-w-0"
                 >
                   <ArrowLeft className="w-4 h-4 shrink-0 group-hover:-translate-x-0.5 transition-transform" />
                   <span className="truncate">{prevPost.title}</span>
@@ -98,7 +100,7 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
               {nextPost ? (
                 <Link
                   href={`/blog/${nextPost.slug}`}
-                  className="group flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600 dark:text-slate-400 dark:hover:text-primary-400 transition-colors min-w-0 text-right ml-auto"
+                  className="group flex items-center gap-2 text-sm text-fg-lo hover:text-primary-600 dark:hover:text-primary-400 transition-colors min-w-0 text-right ml-auto"
                 >
                   <span className="truncate">{nextPost.title}</span>
                   <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-0.5 transition-transform" />

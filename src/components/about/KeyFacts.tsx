@@ -32,12 +32,12 @@ export function KeyFacts() {
             <StaggerItem key={fact.label}>
               <Card className="text-center group h-full">
                 {Icon && (
-                  <Icon className="w-8 h-8 text-primary-600 mx-auto mb-3 group-hover:scale-110 transition-transform" />
+                  <Icon className="w-8 h-8 text-primary-600 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" />
                 )}
-                <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+                <p className="text-sm text-fg-mid font-medium">
                   {fact.label}
                 </p>
-                <p className="text-2xl font-display font-bold text-slate-900 dark:text-white mt-1">
+                <p className="text-title text-fg mt-1">
                   {(() => {
                     const parsed = parseCountable(fact.value);
                     if (parsed) return <CountingNumber value={parsed.number} suffix={parsed.suffix} />;
@@ -45,7 +45,7 @@ export function KeyFacts() {
                   })()}
                 </p>
                 {fact.detail && (
-                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">{fact.detail}</p>
+                  <p className="text-xs text-fg-lo mt-2">{fact.detail}</p>
                 )}
               </Card>
             </StaggerItem>

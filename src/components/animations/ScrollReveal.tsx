@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ReactNode } from "react";
+import { SPRING, VIEWPORT } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
 interface ScrollRevealProps {
@@ -11,11 +12,11 @@ interface ScrollRevealProps {
   className?: string;
 }
 
-const directionMap = {
-  up: { y: 40, x: 0 },
-  down: { y: -40, x: 0 },
-  left: { y: 0, x: 40 },
-  right: { y: 0, x: -40 },
+const directionOffset = {
+  up: { y: 24, x: 0 },
+  down: { y: -24, x: 0 },
+  left: { y: 0, x: 24 },
+  right: { y: 0, x: -24 },
 };
 
 export function ScrollReveal({
@@ -30,15 +31,18 @@ export function ScrollReveal({
     return <div className={className}>{children}</div>;
   }
 
+  // 24px directional travel + SPRING.smooth settle ("up" matches the canonical fadeUp).
+  const initial = { opacity: 0, ...directionOffset[direction] };
+
   return (
-    <motion.div
-      initial={{ opacity: 0, ...directionMap[direction] }}
+    <m.div
+      initial={initial}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, delay, ease: "easeOut" }}
+      viewport={VIEWPORT}
+      transition={{ ...SPRING.smooth, delay }}
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

@@ -37,8 +37,8 @@ export function ContactForm() {
     return (
       <div className="flex flex-col items-center justify-center py-12 text-center">
         <CheckCircle className="w-12 h-12 text-emerald-500 mb-4" />
-        <h3 className="text-xl font-bold text-slate-900 dark:text-white">Message Sent!</h3>
-        <p className="text-slate-600 dark:text-slate-400 mt-2">
+        <h3 className="text-title text-fg">Message Sent!</h3>
+        <p className="text-fg-mid mt-2">
           Thanks for reaching out. I&apos;ll get back to you soon.
         </p>
         <button
@@ -56,7 +56,7 @@ export function ContactForm() {
       <div>
         <label
           htmlFor="name"
-          className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5"
+          className="block text-sm font-medium text-fg-mid mb-1.5"
         >
           Name
         </label>
@@ -65,7 +65,7 @@ export function ContactForm() {
           id="name"
           name="name"
           required
-          className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700/60 bg-white dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/30 transition-all duration-300"
+          className="w-full px-4 py-3 rounded-control border border-line bg-surface-raised text-fg placeholder-fg-lo focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/30 transition-colors duration-300"
           placeholder="Your name"
         />
       </div>
@@ -73,7 +73,7 @@ export function ContactForm() {
       <div>
         <label
           htmlFor="email"
-          className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5"
+          className="block text-sm font-medium text-fg-mid mb-1.5"
         >
           Email
         </label>
@@ -82,7 +82,7 @@ export function ContactForm() {
           id="email"
           name="email"
           required
-          className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700/60 bg-white dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/30 transition-all duration-300"
+          className="w-full px-4 py-3 rounded-control border border-line bg-surface-raised text-fg placeholder-fg-lo focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/30 transition-colors duration-300"
           placeholder="you@example.com"
         />
       </div>
@@ -90,7 +90,7 @@ export function ContactForm() {
       <div>
         <label
           htmlFor="message"
-          className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5"
+          className="block text-sm font-medium text-fg-mid mb-1.5"
         >
           Message
         </label>
@@ -99,7 +99,7 @@ export function ContactForm() {
           name="message"
           required
           rows={5}
-          className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700/60 bg-white dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/30 transition-all duration-300 resize-none"
+          className="w-full px-4 py-3 rounded-control border border-line bg-surface-raised text-fg placeholder-fg-lo focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/30 transition-colors duration-300 resize-none"
           placeholder="Tell me about your project..."
         />
       </div>

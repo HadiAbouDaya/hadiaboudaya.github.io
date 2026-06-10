@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import type { Event } from "@/types";
+import type { Event, EventCategory } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { categoryConfig } from "@/data/eventCategories";
+import { type Accent } from "@/lib/accents";
 import { ImageLightbox } from "@/components/ui/ImageLightbox";
 import { CreativeCarousel } from "@/components/ui/CreativeCarousel";
 import {
@@ -16,6 +17,21 @@ import {
   Github,
   Globe,
 } from "lucide-react";
+
+// Category -> accent (5-accent system; no purple/violet/indigo).
+const categoryAccent: Record<EventCategory, Accent> = {
+  career: "blue",
+  education: "blue",
+  conference: "teal",
+  hackathon: "teal",
+  community: "teal",
+  achievement: "teal",
+  project: "emerald",
+  certification: "amber",
+  workshop: "orange",
+  "knowledge-sharing": "orange",
+  training: "orange",
+};
 
 interface EventDetailProps {
   event: Event;
@@ -36,33 +52,33 @@ export function EventDetail({ event }: EventDetailProps) {
       <ScrollReveal>
         <Link
           href="/events"
-          className="inline-flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary-600 transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-sm text-fg-mid hover:text-primary-600 transition-colors duration-150 mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Events
         </Link>
 
         <div className="flex flex-wrap items-center gap-3 mb-4">
-          <Badge className={config.color}>
+          <Badge accent={categoryAccent[event.category]}>
             <CategoryIcon className="w-3 h-3 mr-1" />
             {config.label}
           </Badge>
           {event.role && <Badge variant="primary">{event.role}</Badge>}
-          <span className="flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400">
+          <span className="flex items-center gap-1 text-sm text-fg-mid">
             <Calendar className="w-4 h-4" />
             {formattedDate}
           </span>
-          <span className="flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400">
+          <span className="flex items-center gap-1 text-sm text-fg-mid">
             <MapPin className="w-4 h-4" />
             {event.location}
           </span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+        <h1 className="text-headline text-fg mb-6">
           {event.title}
         </h1>
 
-        <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
+        <p className="text-lg text-fg-mid leading-relaxed mb-8">
           {event.summary}
         </p>
 
@@ -73,7 +89,7 @@ export function EventDetail({ event }: EventDetailProps) {
               controls
               playsInline
               preload="metadata"
-              className="rounded-xl shadow-lg max-h-[80vh] w-auto bg-slate-900"
+              className="rounded-card-lg shadow-card max-h-[80vh] w-auto bg-surface-sunken"
             />
           </div>
         )}
@@ -93,13 +109,14 @@ export function EventDetail({ event }: EventDetailProps) {
                     <button
                       key={i}
                       onClick={() => openAt(i)}
-                      className="relative aspect-[4/3] rounded-xl overflow-hidden cursor-zoom-in"
+                      className="group/photo relative aspect-[4/3] rounded-card-lg overflow-hidden cursor-zoom-in"
                     >
                       <Image
                         src={img}
                         alt={`${event.title} - photo ${i + 1} of ${event.images!.length}`}
                         fill
-                        className="object-cover hover:scale-105 transition-transform duration-300"
+                        priority={i === 0}
+                        className="object-cover transition-transform duration-500 ease-out group-hover/photo:scale-[1.03]"
                         sizes="(max-width: 640px) 50vw, 33vw"
                       />
                     </button>
@@ -111,19 +128,19 @@ export function EventDetail({ event }: EventDetailProps) {
         )}
 
         <div className="prose prose-slate dark:prose-invert max-w-none">
-          <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{event.description}</p>
+          <p className="text-fg-mid leading-relaxed">{event.description}</p>
         </div>
 
         {event.organizations && event.organizations.length > 0 && (
-          <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
-            <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+          <div className="mt-8 pt-6 border-t border-line">
+            <h3 className="text-eyebrow uppercase text-fg-mid mb-3">
               Organizations
             </h3>
             <div className="flex flex-wrap gap-2">
               {event.organizations.map((org) => (
                 <span
                   key={org}
-                  className="text-sm px-3 py-1 bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full border border-slate-200 dark:border-slate-700"
+                  className="text-sm px-3 py-1 bg-surface-sunken text-fg-mid rounded-pill border border-line"
                 >
                   {org}
                 </span>
@@ -133,8 +150,8 @@ export function EventDetail({ event }: EventDetailProps) {
         )}
 
         {event.tags.length > 0 && (
-          <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
-            <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Tags</h3>
+          <div className="mt-6 pt-6 border-t border-line">
+            <h3 className="text-eyebrow uppercase text-fg-mid mb-3">Tags</h3>
             <div className="flex flex-wrap gap-2">
               {event.tags.map((tag) => (
                 <Badge key={tag} variant="primary">
@@ -146,13 +163,13 @@ export function EventDetail({ event }: EventDetailProps) {
         )}
 
         {(event.linkedinUrl || event.githubUrl || event.websiteUrl) && (
-          <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700 flex flex-wrap gap-3">
+          <div className="mt-6 pt-6 border-t border-line flex flex-wrap gap-3">
             {event.linkedinUrl && (
               <a
                 href={event.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-control text-sm font-medium hover:bg-primary-500 transition-colors duration-150"
               >
                 <ExternalLink className="w-4 h-4" />
                 View on LinkedIn
@@ -163,7 +180,7 @@ export function EventDetail({ event }: EventDetailProps) {
                 href={event.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 text-white rounded-lg text-sm font-medium hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-surface-raised text-fg rounded-control text-sm font-medium border border-line hover:border-line-strong transition-colors duration-150"
               >
                 <Github className="w-4 h-4" />
                 View on GitHub
@@ -174,7 +191,7 @@ export function EventDetail({ event }: EventDetailProps) {
                 href={event.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium hover:bg-emerald-700 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-control text-sm font-medium hover:bg-emerald-500 transition-colors duration-150"
               >
                 <Globe className="w-4 h-4" />
                 View Case Study
@@ -184,8 +201,8 @@ export function EventDetail({ event }: EventDetailProps) {
         )}
 
         {event.credlyUrls && event.credlyUrls.length > 0 && (
-          <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
-            <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+          <div className="mt-6 pt-6 border-t border-line">
+            <h3 className="text-eyebrow uppercase text-fg-mid mb-3">
               Certification {event.credlyUrls.length > 1 ? "Badges" : "Badge"}
             </h3>
             <div className="flex flex-wrap gap-3">
@@ -208,7 +225,7 @@ export function EventDetail({ event }: EventDetailProps) {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors border border-slate-200 dark:border-slate-600"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-surface-raised text-fg rounded-control text-sm font-medium hover:border-line-strong transition-colors duration-150 border border-line"
                   >
                     <ExternalLink className="w-4 h-4" />
                     {badgeLabel}

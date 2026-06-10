@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { Briefcase, Calendar, Award, BookOpen, ArrowRight } from "lucide-react";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import { useSpotlight } from "@/lib/hooks/useSpotlight";
+import { ACCENTS, type Accent } from "@/lib/accents";
 import type { Experience, Event, BlogPost } from "@/types";
 
 interface HomeHighlightsProps {
@@ -13,7 +15,17 @@ interface HomeHighlightsProps {
 }
 
 export function HomeHighlights({ latestRole, featuredEvent, certCount, latestPost }: HomeHighlightsProps) {
-  const cards = [
+  const gridRef = useSpotlight<HTMLDivElement>();
+
+  const cards: {
+    icon: typeof Briefcase;
+    label: string;
+    title: string;
+    detail: string;
+    href: string;
+    linkText: string;
+    accent: Accent;
+  }[] = [
     {
       icon: Briefcase,
       label: "Latest Role",
@@ -21,6 +33,7 @@ export function HomeHighlights({ latestRole, featuredEvent, certCount, latestPos
       detail: latestRole.period,
       href: "/experience/",
       linkText: "View timeline",
+      accent: "blue",
     },
     {
       icon: Calendar,
@@ -29,6 +42,7 @@ export function HomeHighlights({ latestRole, featuredEvent, certCount, latestPos
       detail: new Date(featuredEvent.date).toLocaleDateString("en-US", { month: "long", year: "numeric" }),
       href: "/events/",
       linkText: "See all events",
+      accent: "teal",
     },
     {
       icon: Award,
@@ -37,6 +51,7 @@ export function HomeHighlights({ latestRole, featuredEvent, certCount, latestPos
       detail: "AWS, Azure, PMP, AI/ML & more",
       href: "/certifications/",
       linkText: "Browse all",
+      accent: "amber",
     },
     ...(latestPost
       ? [
@@ -47,39 +62,43 @@ export function HomeHighlights({ latestRole, featuredEvent, certCount, latestPos
             detail: latestPost.excerpt.slice(0, 80) + (latestPost.excerpt.length > 80 ? "..." : ""),
             href: `/blog/${latestPost.slug}/`,
             linkText: "Read more",
+            accent: "orange" as const,
           },
         ]
       : []),
   ];
 
   return (
-    <section className="relative py-12 sm:py-16 bg-slate-900 dark:bg-[#0a0f1a]">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary-950/10 to-transparent pointer-events-none" />
+    <section className="relative py-12 sm:py-16 bg-surface-sunken">
+      <div className="absolute inset-0 bg-[image:var(--gradient-surface)] pointer-events-none" />
       <div className="container-main px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {cards.map((card, i) => (
-            <ScrollReveal key={card.href} delay={i * 0.1}>
-              <Link
-                href={card.href}
-                className="group block p-5 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.07] hover:border-primary-400/20 transition-[background-color,border-color,box-shadow] duration-300 h-full hover-glow"
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <card.icon className="w-4 h-4 text-primary-400 group-hover:text-primary-300 transition-colors" />
-                  <span className="text-xs font-medium text-primary-400/80 tracking-wide uppercase">{card.label}</span>
-                </div>
-                <h3 className="text-sm font-semibold text-white line-clamp-2 mb-1 font-display">
-                  {card.title}
-                </h3>
-                <p className="text-xs text-slate-500 line-clamp-2 mb-3">
-                  {card.detail}
-                </p>
-                <span className="inline-flex items-center gap-1 text-xs font-medium text-primary-400/70 group-hover:text-primary-400 group-hover:gap-2 transition-all">
-                  {card.linkText}
-                  <ArrowRight className="w-3 h-3" />
-                </span>
-              </Link>
-            </ScrollReveal>
-          ))}
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {cards.map((card, i) => {
+            const accent = ACCENTS[card.accent];
+            return (
+              <ScrollReveal key={card.href} delay={i * 0.1}>
+                <Link
+                  href={card.href}
+                  className="card-spotlight group block h-full p-5 rounded-card bg-surface-raised border border-line shadow-card transition-[background-color,border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-glow-sm hover:border-primary-500/25"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <card.icon className={`w-4 h-4 ${accent.text} transition-colors`} />
+                    <span className={`text-eyebrow ${accent.text}`}>{card.label}</span>
+                  </div>
+                  <h3 className="text-title text-base text-fg line-clamp-2 mb-1">
+                    {card.title}
+                  </h3>
+                  <p className="text-xs text-fg-lo line-clamp-2 mb-3">
+                    {card.detail}
+                  </p>
+                  <span className="inline-flex items-center gap-1 text-xs font-medium text-fg-mid group-hover:text-fg group-hover:gap-2 transition-all">
+                    {card.linkText}
+                    <ArrowRight className="w-3 h-3" />
+                  </span>
+                </Link>
+              </ScrollReveal>
+            );
+          })}
         </div>
       </div>
     </section>

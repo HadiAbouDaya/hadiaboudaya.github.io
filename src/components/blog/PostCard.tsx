@@ -17,16 +17,17 @@ export function PostCard({ post }: PostCardProps) {
   return (
     <ScrollReveal>
       <Link href={`/blog/${post.slug}`} onClick={() => trackEvent(EVENTS.BLOG_POST_CLICKED, { slug: post.slug, title: post.title })}>
-        <Card className="overflow-hidden group">
+        <Card variant="interactive" className="overflow-hidden group">
           {/* Cover image */}
-          <div className="relative h-48 -mx-6 -mt-6 mb-4 overflow-hidden bg-slate-100 dark:bg-slate-700">
+          <div className="relative h-48 -mx-6 -mt-6 mb-4 overflow-hidden bg-surface-sunken">
             <ImageWithFallback
               src={post.coverImage}
               alt={post.title}
               width={800}
               height={400}
+              sizes="(max-width:896px) 100vw, 400px"
               fallbackText={post.title.slice(0, 2)}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
               fallbackClassName="w-full h-full text-lg"
             />
           </div>
@@ -40,11 +41,11 @@ export function PostCard({ post }: PostCardProps) {
             ))}
           </div>
 
-          <h2 className="text-xl font-display font-bold text-slate-900 dark:text-white group-hover:text-primary-500 transition-colors duration-300">
+          <h2 className="text-title text-fg group-hover:text-primary-500 transition-colors duration-300">
             {post.title}
           </h2>
 
-          <div className="flex items-center gap-4 mt-2 text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-4 mt-2 text-xs text-fg-lo">
             <span className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
               {new Date(post.date).toLocaleDateString("en-US", {
@@ -59,7 +60,7 @@ export function PostCard({ post }: PostCardProps) {
             </span>
           </div>
 
-          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p className="mt-3 text-sm text-fg-mid leading-relaxed">
             {post.excerpt}
           </p>
 

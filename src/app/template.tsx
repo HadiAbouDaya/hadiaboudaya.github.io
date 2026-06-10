@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
+import { DUR, EASE_OUT } from "@/lib/motion";
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -11,12 +12,13 @@ export default function Template({ children }: { children: React.ReactNode }) {
   if (prefersReducedMotion) return <>{children}</>;
 
   return (
-    <motion.div
+    <m.div
       key={pathname}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      transition={{ duration: DUR.base, ease: EASE_OUT }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

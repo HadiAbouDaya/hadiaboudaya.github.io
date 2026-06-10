@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { X } from "lucide-react";
 import { NAV_LINKS } from "@/data/navigation";
+import { SPRING } from "@/lib/motion";
 
 interface MobileMenuProps {
   pathname: string;
@@ -13,22 +14,22 @@ interface MobileMenuProps {
 
 export function MobileMenu({ pathname, onClose }: MobileMenuProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-[60] bg-black/40 dark:bg-black/60 backdrop-blur-sm md:hidden"
       onClick={onClose}
     >
-      <motion.div
+      <m.div
         initial={{ x: "100%" }}
         animate={{ x: 0 }}
         exit={{ x: "100%" }}
-        transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="absolute right-0 top-0 bottom-0 w-72 bg-white dark:bg-slate-900 shadow-xl"
+        transition={SPRING.snappy}
+        className="absolute right-0 top-0 bottom-0 w-72 bg-surface shadow-overlay"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-800">
+        <div className="flex items-center justify-between p-4 border-b border-line">
           <Image
               src="/Media/branding/logo.webp"
               alt="Hadi Abou Daya logo"
@@ -38,7 +39,7 @@ export function MobileMenu({ pathname, onClose }: MobileMenuProps) {
             />
           <button
             onClick={onClose}
-            className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+            className="p-2 rounded-control text-fg-mid hover:text-fg transition-colors"
             aria-label="Close menu"
           >
             <X className="w-5 h-5" />
@@ -51,10 +52,10 @@ export function MobileMenu({ pathname, onClose }: MobileMenuProps) {
               key={link.href}
               href={link.href}
               onClick={onClose}
-              className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-4 py-3 rounded-control text-sm font-medium transition-colors ${
                 pathname === link.href || pathname.startsWith(link.href + "/")
-                  ? "text-primary-600 bg-primary-50 dark:text-primary-400 dark:bg-primary-900/30"
-                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800"
+                  ? "text-primary-600 bg-primary-500/10 dark:text-primary-400"
+                  : "text-fg-mid hover:text-fg hover:bg-surface-raised"
               }`}
             >
               {link.label}
@@ -62,7 +63,7 @@ export function MobileMenu({ pathname, onClose }: MobileMenuProps) {
           ))}
 
         </nav>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }

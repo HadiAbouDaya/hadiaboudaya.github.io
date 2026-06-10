@@ -1,30 +1,43 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { Certification } from "@/types";
-import { Card } from "@/components/ui/Card";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
-import { Badge } from "@/components/ui/Badge";
 import { ExternalLink, Calendar } from "lucide-react";
+import { fadeUp } from "@/lib/motion";
+import { ACCENTS, type Accent } from "@/lib/accents";
+import { cn } from "@/lib/utils";
 
 interface CertCardProps {
   cert: Certification;
 }
 
+const CATEGORY_ACCENT: Record<Certification["category"], Accent> = {
+  AWS: "amber",
+  Azure: "blue",
+  "AI/ML": "teal",
+  "Data Science": "emerald",
+  "Software Engineering": "blue",
+  Security: "orange",
+  Business: "emerald",
+};
+
 export function CertCard({ cert }: CertCardProps) {
+  const accent = ACCENTS[CATEGORY_ACCENT[cert.category]];
+
   return (
-    <motion.div
+    <m.div
       id={`cert-${cert.id}`}
       className="scroll-mt-24"
       layout
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.3 }}
+      variants={fadeUp}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
     >
-      <Card className="h-full flex flex-col">
+      <div className="card-spotlight h-full flex flex-col bg-surface-raised rounded-card border border-line p-6 shadow-card transition-[box-shadow,border-color,transform] duration-300 hover:shadow-glow-sm hover:border-primary-500/25 hover:-translate-y-0.5">
         <div className="flex items-start gap-4">
-          <div className="flex-shrink-0 w-14 h-14 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-200">
+          <div className="flex-shrink-0 w-14 h-14 rounded-control overflow-hidden bg-slate-50 dark:bg-slate-200">
             <ImageWithFallback
               src={cert.badgePath}
               alt={`${cert.name} certification badge from ${cert.issuer}`}
@@ -37,38 +50,45 @@ export function CertCard({ cert }: CertCardProps) {
           </div>
 
           <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-display font-bold text-slate-900 dark:text-white leading-tight">
+            <h3 className="text-title text-base text-fg leading-tight">
               {cert.name}
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{cert.issuer}</p>
+            <p className={cn("text-xs mt-0.5 font-medium", accent.text)}>
+              {cert.issuer}
+            </p>
           </div>
         </div>
 
-        <div className="mt-3 flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+        <div className="mt-3 flex items-center gap-3 text-xs text-fg-lo">
           <span className="flex items-center gap-1">
             <Calendar className="w-3 h-3" />
             {cert.issuedDate}
           </span>
           {cert.expiryDate && (
-            <span className="text-slate-400 dark:text-slate-500">
-              Expires {cert.expiryDate}
-            </span>
+            <span className="text-fg-lo">Expires {cert.expiryDate}</span>
           )}
         </div>
 
         <div className="mt-auto pt-4 flex items-center justify-between">
-          <Badge>{cert.category}</Badge>
+          <span
+            className={cn(
+              "inline-flex items-center px-2.5 py-0.5 rounded-pill text-xs font-medium",
+              accent.chip
+            )}
+          >
+            {cert.category}
+          </span>
           <a
             href={cert.credentialUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-xs text-primary-600 hover:text-primary-700 font-medium transition-colors"
+            className="inline-flex items-center gap-1 text-xs text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium transition-colors"
           >
             View Credential
             <ExternalLink className="w-3 h-3" />
           </a>
         </div>
-      </Card>
-    </motion.div>
+      </div>
+    </m.div>
   );
 }

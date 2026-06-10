@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, Search } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { NAV_LINKS } from "@/data/navigation";
 import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -26,12 +26,18 @@ export function Navbar({ blogPosts }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [isMac, setIsMac] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const platform = navigator.platform || navigator.userAgent;
+    setIsMac(/mac|iphone|ipad|ipod/i.test(platform));
   }, []);
 
   useEffect(() => {
@@ -50,7 +56,7 @@ export function Navbar({ blogPosts }: NavbarProps) {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 border-b border-transparent transition-all duration-500 ${
-          isScrolled ? "glass shadow-sm shadow-black/5 dark:shadow-black/20" : "bg-transparent"
+          isScrolled ? "glass-2" : "bg-transparent"
         }`}
       >
         <nav className="container-main flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
@@ -73,10 +79,10 @@ export function Navbar({ blogPosts }: NavbarProps) {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`px-3 py-2 rounded-control text-sm font-medium transition-colors ${
                   pathname === link.href || pathname.startsWith(link.href + "/")
-                    ? "text-primary-600 bg-primary-50 dark:text-primary-400 dark:bg-primary-900/30"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800"
+                    ? "text-primary-600 bg-primary-500/10 dark:text-primary-400"
+                    : "text-fg-mid hover:text-fg hover:bg-surface-raised"
                 }`}
               >
                 {link.label}
@@ -84,17 +90,14 @@ export function Navbar({ blogPosts }: NavbarProps) {
             ))}
             <button
               onClick={() => setSearchOpen(true)}
-              className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 transition-colors"
+              className="ml-2 flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-control border border-line bg-surface-raised/50 text-sm text-fg-mid hover:text-fg hover:border-primary-500/30 transition-colors"
               aria-label="Search"
             >
-              <motion.div
-                key={pathname}
-                initial={{ scale: 1 }}
-                animate={{ scale: [1, 1.3, 1, 1.3, 1] }}
-                transition={{ duration: 1.6, delay: 1, ease: "easeInOut" }}
-              >
-                <Search className="w-5 h-5" />
-              </motion.div>
+              <Search className="w-4 h-4" />
+              <span>Search</span>
+              <kbd className="inline-flex items-center justify-center px-1.5 py-0.5 rounded font-mono text-[10px] text-fg-lo border border-line bg-surface">
+                {isMac ? "⌘K" : "Ctrl K"}
+              </kbd>
             </button>
             <ThemeToggle />
           </div>
@@ -102,22 +105,15 @@ export function Navbar({ blogPosts }: NavbarProps) {
           <div className="flex items-center gap-1 md:hidden">
             <button
               onClick={() => setSearchOpen(true)}
-              className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+              className="p-2 rounded-control text-fg-mid hover:text-fg transition-colors"
               aria-label="Search"
             >
-              <motion.div
-                key={pathname}
-                initial={{ scale: 1 }}
-                animate={{ scale: [1, 1.3, 1, 1.3, 1] }}
-                transition={{ duration: 1.6, delay: 1, ease: "easeInOut" }}
-              >
-                <Search className="w-5 h-5" />
-              </motion.div>
+              <Search className="w-5 h-5" />
             </button>
             <ThemeToggle />
             <button
               onClick={() => { setIsMobileOpen(true); trackEvent(EVENTS.MOBILE_MENU_TOGGLED, { opened: true }); }}
-              className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+              className="p-2 rounded-control text-fg-mid hover:text-fg transition-colors"
               aria-label="Open menu"
             >
               <Menu className="w-6 h-6" />

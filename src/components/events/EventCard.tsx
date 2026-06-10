@@ -1,10 +1,12 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import type { Event } from "@/types";
+import type { Event, EventCategory } from "@/types";
 import { categoryConfig } from "@/data/eventCategories";
+import { ACCENTS, type Accent } from "@/lib/accents";
+import { SPRING } from "@/lib/motion";
 import { Calendar, MapPin, ChevronDown, ArrowUpRight } from "lucide-react";
 import { EventExpandedContent } from "./EventExpandedContent";
 import { cn } from "@/lib/utils";
@@ -16,9 +18,26 @@ interface EventCardProps {
   onToggle: () => void;
 }
 
+// Category -> accent mapping (blue/teal/emerald/amber/orange only).
+const CATEGORY_ACCENT: Record<EventCategory, Accent> = {
+  career: "blue",
+  education: "blue",
+  conference: "teal",
+  hackathon: "teal",
+  community: "teal",
+  achievement: "teal",
+  project: "emerald",
+  certification: "amber",
+  workshop: "orange",
+  "knowledge-sharing": "orange",
+  training: "orange",
+};
+
 export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
   const config = categoryConfig[event.category];
   const CategoryIcon = config.icon;
+  const accent = ACCENTS[CATEGORY_ACCENT[event.category]];
+  const isFeatured = event.tier === "featured";
 
   const formattedDate = new Date(event.date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -27,21 +46,25 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
   });
 
   return (
-    <motion.div
+    <m.div
       layout
-      initial={{ opacity: 0, scale: 0.95, y: 20 }}
+      initial={{ opacity: 0, scale: 0.96, y: 24 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95, y: -10 }}
-      transition={{ duration: 0.3 }}
+      exit={{ opacity: 0, scale: 0.96, y: -10 }}
+      transition={SPRING.smooth}
       className={cn(
-        "col-span-1 flex flex-col h-full",
-        event.tier === "featured" ? "sm:col-span-2 lg:col-span-2" : ""
+        "col-span-1 flex flex-col h-full rounded-card",
+        isFeatured ? "sm:col-span-2 lg:col-span-2 featured-ring" : ""
       )}
     >
       <div
         className={cn(
-          "bg-white dark:bg-slate-800/80 rounded-2xl border border-slate-200 dark:border-slate-700/40 overflow-hidden flex flex-col h-full group transition-[transform,border-color,box-shadow] duration-300 relative shadow-sm",
-          !isExpanded && "hover-glow dark:hover:border-primary-400/15 hover:-translate-y-1 cursor-pointer"
+          "card-spotlight bg-surface-raised rounded-card border border-line overflow-hidden flex flex-col h-full group relative shadow-card transition-[transform,border-color,box-shadow] duration-300",
+          !isExpanded &&
+            cn(
+              "cursor-pointer hover:-translate-y-0.5 hover:border-primary-500/30",
+              isFeatured ? "hover:shadow-glow" : "hover:shadow-glow-sm"
+            )
         )}
       >
         <div
@@ -55,21 +78,21 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
               onToggle();
             }
           }}
-          className="flex flex-col flex-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded-2xl"
+          className="flex flex-col flex-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded-card"
         >
           {/* Edge-to-Edge Image Cover */}
-          <div className="relative w-full aspect-video sm:aspect-[16/7] overflow-hidden bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800/80 shrink-0">
+          <div className="relative w-full aspect-video sm:aspect-[16/7] overflow-hidden bg-surface-sunken border-b border-line shrink-0">
             {event.images?.[0] ? (
               <Image
                 src={event.images[0]}
                 alt={`${event.title} - event photo`}
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
             ) : (
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-slate-200 dark:from-slate-800 dark:to-slate-900 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-90">
-                <div className={cn("w-20 h-20 rounded-full flex items-center justify-center shadow-inner", config.color)}>
+              <div className="absolute inset-0 bg-[image:var(--gradient-brand-soft)] flex items-center justify-center transition-opacity duration-300 group-hover:opacity-90">
+                <div className={cn("w-20 h-20 rounded-full flex items-center justify-center shadow-inner", accent.chip)}>
                   <CategoryIcon className="w-10 h-10 opacity-70" />
                 </div>
               </div>
@@ -81,7 +104,7 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
             {/* Hover floating Link icon */}
             <Link
               href={`/events/${event.slug}`}
-              className="absolute top-4 right-4 p-2.5 rounded-full bg-white/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-300 shadow-lg backdrop-blur-md hover:bg-primary-600 hover:text-white dark:hover:bg-primary-500 transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 z-10"
+              className="glass-2 absolute top-4 right-4 p-2.5 rounded-pill text-fg shadow-card hover:bg-primary-600 hover:text-white transition-all opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 z-10"
               onClick={(e) => e.stopPropagation()}
               aria-label={`Open ${event.title}`}
             >
@@ -90,12 +113,12 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
 
             {/* Badges */}
             <div className="absolute top-4 left-4 flex flex-wrap gap-2 pr-16">
-              <div className={cn("shadow-sm text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1.5", config.color)}>
+              <div className={cn("shadow-card text-xs font-semibold px-2.5 py-1 rounded-pill flex items-center gap-1.5", accent.chip)}>
                 <CategoryIcon className="w-3.5 h-3.5" />
                 <span>{config.label}</span>
               </div>
               {event.role && (
-                <div className="backdrop-blur-md bg-slate-900/80 text-white/90 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border border-slate-700/50">
+                <div className="glass-2 text-fg text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-pill">
                   {event.role}
                 </div>
               )}
@@ -104,7 +127,7 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
 
           {/* Card Body */}
           <div className="flex flex-col flex-1 p-5 sm:p-6">
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-medium text-slate-500 dark:text-slate-400 mb-3">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-medium text-fg-mid mb-3">
               <span className="flex items-center gap-1.5 uppercase tracking-wider">
                 <Calendar className="w-3.5 h-3.5" />
                 {formattedDate}
@@ -115,27 +138,27 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
               </span>
             </div>
 
-            <h3 className="text-xl font-display font-bold text-slate-900 dark:text-white leading-tight mb-3 group-hover:text-primary-500 dark:group-hover:text-primary-400 transition-colors duration-300 line-clamp-2">
+            <h3 className="text-title text-fg mb-3 group-hover:text-primary-500 dark:group-hover:text-primary-400 transition-colors duration-300 line-clamp-2">
               {event.title}
             </h3>
 
-            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3 sm:line-clamp-2 mb-4">
+            <p className="text-sm text-fg-mid leading-relaxed line-clamp-3 sm:line-clamp-2 mb-4">
               {event.summary}
             </p>
 
-            <div className="mt-auto pt-4 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between gap-3">
+            <div className="mt-auto pt-4 border-t border-line flex items-center justify-between gap-3">
               {event.organizations && event.organizations.length > 0 ? (
                 <div className="flex flex-wrap gap-1.5 items-center">
                   {event.organizations.slice(0, 2).map((org) => (
                     <span
                       key={org}
-                      className="text-[10px] sm:text-xs font-medium px-2 py-1 bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300 rounded-md truncate max-w-[120px]"
+                      className="text-[10px] sm:text-xs font-medium px-2 py-1 bg-surface-sunken text-fg-mid rounded-control truncate max-w-[120px]"
                     >
                       {org}
                     </span>
                   ))}
                   {event.organizations.length > 2 && (
-                    <span className="text-[10px] sm:text-xs font-medium px-2 py-1 bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300 rounded-md">
+                    <span className="text-[10px] sm:text-xs font-medium px-2 py-1 bg-surface-sunken text-fg-mid rounded-control">
                       +{event.organizations.length - 2}
                     </span>
                   )}
@@ -144,13 +167,13 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
                 <div />
               )}
 
-              <motion.div
+              <m.div
                 animate={{ rotate: isExpanded ? 180 : 0 }}
-                transition={{ duration: 0.2 }}
-                className="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 dark:bg-slate-800 group-hover:bg-slate-100 dark:group-hover:bg-slate-700 transition-colors shrink-0 outline outline-1 outline-slate-200 dark:outline-slate-700"
+                transition={SPRING.snappy}
+                className="w-8 h-8 rounded-pill flex items-center justify-center bg-surface-sunken group-hover:bg-surface-overlay transition-colors shrink-0 border border-line"
               >
-                <ChevronDown className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors" />
-              </motion.div>
+                <ChevronDown className="w-4 h-4 text-fg-lo group-hover:text-fg-mid transition-colors" />
+              </m.div>
             </div>
           </div>
         </div>
@@ -163,6 +186,6 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
           )}
         </AnimatePresence>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

@@ -3,6 +3,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import { PostContent } from "@/components/blog/PostContent";
+import { ReadingProgress } from "@/components/blog/ReadingProgress";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { articleJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
@@ -61,6 +62,7 @@ export default async function BlogPostPage({
 
   return (
     <>
+      <ReadingProgress />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd(post)) }}

@@ -13,6 +13,7 @@ import {
   Clock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ACCENTS, type Accent } from "@/lib/accents";
 
 interface TimelineCardProps {
   item: Experience;
@@ -21,34 +22,13 @@ interface TimelineCardProps {
   isDualLane?: boolean;
 }
 
-export const typeConfig = {
-  work: {
-    icon: Briefcase,
-    dotColor: "bg-primary-600",
-    ringColor: "ring-primary-200",
-    borderColor: "border-t-primary-500",
-    accentColor: "text-primary-600",
-    bulletColor: "bg-primary-400",
-    label: "Professional",
-  },
-  education: {
-    icon: GraduationCap,
-    dotColor: "bg-emerald-600",
-    ringColor: "ring-emerald-200",
-    borderColor: "border-t-emerald-500",
-    accentColor: "text-emerald-600",
-    bulletColor: "bg-emerald-400",
-    label: "Education",
-  },
-  freelance: {
-    icon: User,
-    dotColor: "bg-violet-600",
-    ringColor: "ring-violet-200",
-    borderColor: "border-t-violet-500",
-    accentColor: "text-violet-600",
-    bulletColor: "bg-violet-400",
-    label: "Freelance",
-  },
+export const typeConfig: Record<
+  Experience["type"],
+  { icon: typeof Briefcase; accent: Accent; label: string }
+> = {
+  work: { icon: Briefcase, accent: "blue", label: "Professional" },
+  education: { icon: GraduationCap, accent: "teal", label: "Education" },
+  freelance: { icon: User, accent: "emerald", label: "Freelance" },
 };
 
 function getDuration(startDate: string, endDate: string): string {
@@ -69,6 +49,7 @@ function getDuration(startDate: string, endDate: string): string {
 export function TimelineCard({ item, position, showDot = true, isDualLane = false }: TimelineCardProps) {
   const config = typeConfig[item.type];
   const Icon = config.icon;
+  const accent = ACCENTS[config.accent];
 
   return (
     <div
@@ -81,7 +62,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
       {/* Mobile dot */}
       {showDot && (
         <div className="md:hidden absolute left-4 -translate-x-1/2 mt-6 z-10">
-          <div className={cn("w-4 h-4 rounded-full shadow-sm ring-4", config.dotColor, config.ringColor)} />
+          <div className={cn("w-4 h-4 rounded-full ring-4 ring-surface", accent.dot)} />
         </div>
       )}
 
@@ -95,7 +76,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
             isDualLane && position === "right" && "-left-8 -translate-x-[50%]"
           )}
         >
-          <div className={cn("w-4 h-4 rounded-full shadow-sm ring-4", config.dotColor, config.ringColor)} />
+          <div className={cn("w-4 h-4 rounded-full ring-4 ring-surface", accent.dot)} />
         </div>
       )}
 
@@ -103,7 +84,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
       {showDot && (
         <div
           className={cn(
-            "hidden md:block absolute top-[2.125rem] border-t-[3px] border-dashed border-slate-300 dark:border-slate-600 -z-10",
+            "hidden md:block absolute top-[2.125rem] border-t-[3px] border-dashed border-line-strong -z-10",
             "w-8",
             isDualLane && position === "left" && "-right-8",
             isDualLane && position === "right" && "-left-8",
@@ -123,15 +104,16 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
       >
         <div
           className={cn(
-            "bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 border-t-[4px] p-6",
-            config.borderColor,
-            "shadow-md hover-glow transition-[box-shadow] duration-300",
+            "bg-surface-raised rounded-card border border-line border-t-[4px] p-6",
+            accent.border,
+            "card-spotlight shadow-card transition-[box-shadow,border-color,transform] duration-300",
+            "hover:shadow-glow-sm hover:-translate-y-0.5",
             "group"
           )}
         >
           <div className="flex items-start gap-4">
             {/* Company logo */}
-            <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-200 border border-slate-100 dark:border-slate-300">
+            <div className="flex-shrink-0 w-12 h-12 rounded-control overflow-hidden bg-slate-50 dark:bg-slate-200 border border-slate-100 dark:border-slate-300">
               <ImageWithFallback
                 src={item.logoPath}
                 alt={`${item.company} logo`}
@@ -149,31 +131,31 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
                 <Icon
                   className={cn(
                     "w-4 h-4 flex-shrink-0",
-                    config.accentColor
+                    accent.text
                   )}
                 />
                 <span
                   className={cn(
-                    "text-xs font-semibold uppercase tracking-wider",
-                    config.accentColor
+                    "text-eyebrow uppercase",
+                    accent.text
                   )}
                 >
                   {config.label}
                 </span>
-                <span className="text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1 ml-auto">
+                <span className="text-xs text-fg-lo flex items-center gap-1 ml-auto">
                   <Clock className="w-3 h-3" />
                   {getDuration(item.startDate, item.endDate)}
                 </span>
               </div>
 
               {/* Role */}
-              <h3 className="text-lg font-display font-bold text-slate-900 dark:text-white leading-tight group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
+              <h3 className="text-title text-fg leading-tight group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
                 {item.role}
               </h3>
 
               {/* Company + external link */}
               <div className="flex items-center gap-1.5">
-                <p className={cn("font-medium text-sm", config.accentColor)}>
+                <p className={cn("font-medium text-sm", accent.text)}>
                   {item.company}
                 </p>
                 {item.companyUrl && (
@@ -181,7 +163,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
                     href={item.companyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-slate-400 hover:text-primary-500 transition-colors"
+                    className="text-fg-lo hover:text-primary-500 transition-colors"
                     aria-label={`Visit ${item.company} website`}
                   >
                     <ExternalLink className="w-3 h-3" />
@@ -190,7 +172,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
               </div>
 
               {/* Period + location */}
-              <div className="flex flex-wrap gap-3 mt-2 text-xs text-slate-500 dark:text-slate-400">
+              <div className="flex flex-wrap gap-3 mt-2 text-xs text-fg-mid">
                 <span className="flex items-center gap-1">
                   <Calendar className="w-3.5 h-3.5" />
                   {item.period}
@@ -202,7 +184,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
               </div>
 
               {/* Description */}
-              <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="mt-3 text-sm text-fg-mid leading-relaxed">
                 {item.description}
               </p>
 
@@ -212,12 +194,12 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
                   {item.bullets.map((bullet, i) => (
                     <li
                       key={i}
-                      className="text-sm text-slate-600 dark:text-slate-400 flex items-start gap-2"
+                      className="text-sm text-fg-mid flex items-start gap-2"
                     >
                       <span
                         className={cn(
                           "mt-2 flex-shrink-0 w-1.5 h-1.5 rounded-full",
-                          config.bulletColor
+                          accent.dot
                         )}
                       />
                       {bullet}

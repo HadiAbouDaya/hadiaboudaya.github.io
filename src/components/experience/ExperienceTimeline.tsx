@@ -1,10 +1,14 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { experiences } from "@/data/experience";
 import { TimelineCard } from "./TimelineCard";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import MotionMaxProvider from "@/components/animations/MotionMaxProvider";
+import { FilterPills } from "@/components/ui/FilterPills";
+import { fade } from "@/lib/motion";
+import { ACCENTS } from "@/lib/accents";
 import { cn } from "@/lib/utils";
 import { Briefcase, GraduationCap, Layers } from "lucide-react";
 import type { Experience } from "@/types";
@@ -139,41 +143,35 @@ export function ExperienceTimeline() {
   return (
     <div>
       {/* Filter tabs */}
-      <div className="flex flex-wrap justify-center gap-2 mb-12">
-        {FILTERS.map((f) => {
-          const Icon = f.icon;
-          return (
-            <button
-              key={f.key}
-              onClick={() => setFilter(f.key)}
-              className={cn(
-                "inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300",
-                filter === f.key
-                  ? "bg-primary-600 text-white shadow-lg scale-105"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:shadow-sm dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
-              )}
-            >
-              <Icon className="w-4 h-4" />
-              {f.label}
-            </button>
-          );
-        })}
-      </div>
+      <MotionMaxProvider>
+        <FilterPills
+          options={FILTERS.map((f) => ({
+            key: f.key,
+            label: f.label,
+            icon: f.icon,
+          }))}
+          active={filter}
+          onChange={setFilter}
+          ariaLabel="Filter experience by type"
+          groupId="experience"
+          className="mb-12"
+        />
+      </MotionMaxProvider>
 
       {/* Lane legend (dual mode, desktop only) */}
       {isDualLane && (
         <div className="hidden md:flex justify-center gap-6 mb-10 text-sm">
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-primary-600 ring-2 ring-primary-200" />
-            <span className="text-slate-500 dark:text-slate-400">Professional</span>
+            <span className={cn("w-3 h-3 rounded-full", ACCENTS.blue.dot)} />
+            <span className="text-fg-mid">Professional</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-violet-600 ring-2 ring-violet-200" />
-            <span className="text-slate-500 dark:text-slate-400">Freelance</span>
+            <span className={cn("w-3 h-3 rounded-full", ACCENTS.emerald.dot)} />
+            <span className="text-fg-mid">Freelance</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-emerald-600 ring-2 ring-emerald-200" />
-            <span className="text-slate-500 dark:text-slate-400">Education</span>
+            <span className={cn("w-3 h-3 rounded-full", ACCENTS.teal.dot)} />
+            <span className="text-fg-mid">Education</span>
           </div>
         </div>
       )}
@@ -181,12 +179,12 @@ export function ExperienceTimeline() {
       {/* Timeline */}
       <div className="relative">
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             key={filter}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.35 }}
+            variants={fade}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
           >
             {/* ========== DESKTOP DUAL LANE (CSS Grid) ========== */}
             {isDualLane && (
@@ -200,7 +198,7 @@ export function ExperienceTimeline() {
                 }}
               >
                 {/* Center line */}
-                <div className="absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-300 via-slate-200 to-slate-100 dark:from-primary-700 dark:via-slate-700 dark:to-slate-800 left-1/2 -translate-x-1/2 z-0" />
+                <div className="absolute top-0 bottom-0 w-0.5 bg-[image:var(--gradient-rail)] left-1/2 -translate-x-1/2 z-0" />
 
                 {/* Year markers  - span both columns */}
                 {allYears.map((year, i) => {
@@ -291,7 +289,7 @@ export function ExperienceTimeline() {
               )}
             >
               {/* Center line */}
-              <div className="absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-300 via-slate-200 to-slate-100 dark:from-primary-700 dark:via-slate-700 dark:to-slate-800 left-4 md:left-1/2 md:-translate-x-1/2 z-0" />
+              <div className="absolute top-0 bottom-0 w-0.5 bg-[image:var(--gradient-rail)] left-4 md:left-1/2 md:-translate-x-1/2 z-0" />
 
               {singleLaneEntries.map((entry) => {
                 if (entry.kind === "year") {
@@ -325,7 +323,7 @@ export function ExperienceTimeline() {
                 );
               })}
             </div>
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
     </div>

@@ -37,7 +37,7 @@ export function ContactInfo() {
   return (
     <div className="space-y-6">
       <ScrollReveal direction="right">
-        <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
+        <h2 className="text-title text-fg mb-6">
           Direct Contact
         </h2>
       </ScrollReveal>
@@ -46,15 +46,15 @@ export function ContactInfo() {
         {contactMethods.map((method, i) => {
           const Icon = method.icon;
           const content = (
-            <div className="flex items-start gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-sm transition-all">
-              <div className="w-10 h-10 rounded-lg bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center flex-shrink-0">
+            <div className="flex items-start gap-4 p-4 rounded-card border border-line bg-surface-raised shadow-card hover:shadow-card-hover hover:-translate-y-0.5 hover:border-primary-500/30 transition-[box-shadow,border-color,transform] duration-300">
+              <div className="w-10 h-10 rounded-control bg-primary-500/10 flex items-center justify-center flex-shrink-0">
                 <Icon className="w-5 h-5 text-primary-600 dark:text-primary-400" />
               </div>
               <div>
-                <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                <p className="text-eyebrow text-fg-mid uppercase">
                   {method.label}
                 </p>
-                <p className="text-sm font-medium text-slate-900 dark:text-white mt-0.5">
+                <p className="text-sm font-medium text-fg mt-0.5">
                   {method.value}
                 </p>
               </div>

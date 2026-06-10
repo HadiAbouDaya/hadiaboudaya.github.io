@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo, Fragment } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import {
   Search,
   X,
@@ -20,6 +20,7 @@ import {
   type SearchItem,
   type SearchResult,
 } from "@/lib/search";
+import { dialogPanel, dialogPanelMobile } from "@/lib/motion";
 import { trackEvent, EVENTS } from "@/lib/analytics";
 import type { BlogSearchPost } from "@/types";
 
@@ -46,46 +47,6 @@ const categoryLabels: Record<SearchItem["category"], string> = {
   event: "Events",
   certification: "Certifications",
   blog: "Blog",
-};
-
-const dialogVariants = {
-  hidden: { opacity: 0, scale: 0.96, y: -10 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: {
-      type: "spring" as const,
-      damping: 30,
-      stiffness: 400,
-      mass: 0.8,
-    },
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.96,
-    y: -10,
-    transition: { duration: 0.15, ease: "easeIn" as const },
-  },
-};
-
-const mobileDialogVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring" as const,
-      damping: 30,
-      stiffness: 400,
-      mass: 0.8,
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: 20,
-    transition: { duration: 0.15, ease: "easeIn" as const },
-  },
 };
 
 // ── Highlight matching text ──────────────────────────────────────────────────
@@ -163,7 +124,7 @@ function ResultMeta({ item, tokens }: { item: SearchItem; tokens: string[] }) {
         return (
           <span
             key={i}
-            className="inline-flex items-center gap-0.5 text-[10px] px-1.5 py-0.5 rounded bg-slate-100/80 dark:bg-slate-700/40 text-slate-400 dark:text-slate-500"
+            className="inline-flex items-center gap-0.5 text-[10px] px-1.5 py-0.5 rounded bg-surface-sunken text-fg-lo"
           >
             {ChipIcon && <ChipIcon className="w-2.5 h-2.5" />}
             <HighlightText text={chip.label} tokens={tokens} />
@@ -279,7 +240,7 @@ export function SearchDialog({ open, onClose, blogPosts }: SearchDialogProps) {
 
   return (
     <AnimatePresence>
-      <motion.div
+      <m.div
         key="search-overlay"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -289,13 +250,13 @@ export function SearchDialog({ open, onClose, blogPosts }: SearchDialogProps) {
         onClick={onClose}
       >
         {/* Desktop dialog */}
-        <motion.div
+        <m.div
           key="search-dialog"
-          variants={dialogVariants}
+          variants={dialogPanel}
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="hidden sm:block mx-auto mt-[12vh] w-full max-w-2xl rounded-2xl shadow-2xl shadow-black/20 dark:shadow-black/50 overflow-hidden border border-white/20 dark:border-slate-600/30 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl"
+          className="hidden sm:block mx-auto mt-[12vh] w-full max-w-2xl rounded-card-lg shadow-overlay overflow-hidden glass-2"
           onClick={(e) => e.stopPropagation()}
         >
           <SearchInput
@@ -318,16 +279,16 @@ export function SearchDialog({ open, onClose, blogPosts }: SearchDialogProps) {
             navigate={navigate}
           />
           <DesktopFooter resultCount={query ? results.length : 0} hasQuery={!!query} />
-        </motion.div>
+        </m.div>
 
         {/* Mobile dialog  - full screen */}
-        <motion.div
+        <m.div
           key="search-dialog-mobile"
-          variants={mobileDialogVariants}
+          variants={dialogPanelMobile}
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="sm:hidden fixed inset-0 z-[71] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl flex flex-col"
+          className="sm:hidden fixed inset-0 z-[71] glass-2 flex flex-col"
           onClick={(e) => e.stopPropagation()}
         >
           <SearchInput
@@ -353,12 +314,12 @@ export function SearchDialog({ open, onClose, blogPosts }: SearchDialogProps) {
             />
           </div>
           {query && results.length > 0 && (
-            <div className="px-4 py-2 border-t border-slate-200/60 dark:border-slate-700/60 text-center text-[11px] text-slate-400 dark:text-slate-500">
+            <div className="px-4 py-2 border-t border-line text-center text-[11px] text-fg-lo">
               {results.length} result{results.length !== 1 ? "s" : ""}
             </div>
           )}
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </AnimatePresence>
   );
 }
@@ -381,7 +342,7 @@ function SearchInput({
   showKbd: boolean;
 }) {
   return (
-    <div className="flex items-center gap-3 px-4 sm:px-5 border-b border-slate-200/60 dark:border-slate-700/60">
+    <div className="flex items-center gap-3 px-4 sm:px-5 border-b border-line">
       <Search className="w-5 h-5 text-primary-500 dark:text-primary-400 flex-shrink-0" />
       <input
         ref={inputRef}
@@ -391,17 +352,17 @@ function SearchInput({
         onKeyDown={onKeyDown}
         placeholder="Search anything..."
         autoFocus
-        className="flex-1 py-4 bg-transparent text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus-visible:!outline-none text-base font-medium"
+        className="flex-1 py-4 bg-transparent text-fg placeholder-fg-lo outline-none focus-visible:!outline-none text-base font-medium"
       />
       <div className="flex items-center gap-2">
         {showKbd && (
-          <kbd className="inline-flex items-center gap-0.5 px-2 py-1 rounded-md bg-slate-100/80 dark:bg-slate-700/60 text-[11px] font-mono text-slate-400 dark:text-slate-500 border border-slate-200/60 dark:border-slate-600/40">
+          <kbd className="inline-flex items-center gap-0.5 px-2 py-1 rounded-control bg-surface-sunken text-[11px] font-mono text-fg-lo border border-line">
             <Command className="w-3 h-3" />K
           </kbd>
         )}
         <button
           onClick={onClose}
-          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100/60 dark:hover:bg-slate-700/40 transition-colors"
+          className="p-1.5 rounded-control text-fg-lo hover:text-fg-mid hover:bg-surface-sunken transition-colors"
         >
           <X className="w-4 h-4" />
         </button>
@@ -444,11 +405,11 @@ function SearchResults({
     >
       {query && results.length === 0 && (
         <div className="flex flex-col items-center py-12 px-4">
-          <Search className="w-8 h-8 text-slate-300 dark:text-slate-600 mb-3" />
-          <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+          <Search className="w-8 h-8 text-fg-lo mb-3" />
+          <p className="text-sm font-medium text-fg-mid">
             No results for &ldquo;{query}&rdquo;
           </p>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+          <p className="text-xs text-fg-lo mt-1">
             Try a different search term
           </p>
         </div>
@@ -459,7 +420,7 @@ function SearchResults({
           categoryIcons[category as SearchItem["category"]];
         return (
           <div key={category} className="mb-2">
-            <p className="px-4 py-1.5 text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+            <p className="px-4 py-1.5 text-eyebrow uppercase text-fg-lo">
               {categoryLabels[category as SearchItem["category"]]}
             </p>
             {categoryResults.map((result) => {
@@ -473,26 +434,26 @@ function SearchResults({
                   className={`w-full flex items-start gap-3 px-4 ${mobile ? "py-4" : "py-3"} text-left transition-all duration-150 ${
                     idx === selectedIndex
                       ? "bg-primary-500/10 dark:bg-primary-400/10"
-                      : "hover:bg-slate-50/60 dark:hover:bg-slate-700/30"
+                      : "hover:bg-surface-raised"
                   }`}
                 >
                   <div
-                    className={`flex items-center justify-center w-8 h-8 rounded-lg shrink-0 mt-0.5 transition-colors duration-150 ${
+                    className={`flex items-center justify-center w-8 h-8 rounded-control shrink-0 mt-0.5 transition-colors duration-150 ${
                       idx === selectedIndex
                         ? "bg-primary-500/15 text-primary-600 dark:bg-primary-400/15 dark:text-primary-400"
-                        : "bg-slate-100/80 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400"
+                        : "bg-surface-sunken text-fg-mid"
                     }`}
                   >
                     <Icon className="w-4 h-4" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">
+                    <p className="text-sm font-medium text-fg truncate">
                       <HighlightText
                         text={result.item.title}
                         tokens={tokens}
                       />
                     </p>
-                    <p className="text-xs text-slate-400 dark:text-slate-500 truncate mt-0.5">
+                    <p className="text-xs text-fg-lo truncate mt-0.5">
                       <HighlightText
                         text={result.item.description}
                         tokens={tokens}
@@ -506,10 +467,10 @@ function SearchResults({
                     )}
                   </div>
                   <span
-                    className={`shrink-0 text-[10px] font-medium px-2 py-0.5 rounded-full mt-1 transition-colors duration-150 ${
+                    className={`shrink-0 text-[10px] font-medium px-2 py-0.5 rounded-pill mt-1 transition-colors duration-150 ${
                       idx === selectedIndex
                         ? "bg-primary-500/15 text-primary-600 dark:bg-primary-400/20 dark:text-primary-400"
-                        : "bg-slate-100 dark:bg-slate-700/60 text-slate-400 dark:text-slate-500"
+                        : "bg-surface-sunken text-fg-lo"
                     }`}
                   >
                     {categoryLabels[result.item.category]}
@@ -523,7 +484,7 @@ function SearchResults({
 
       {!query && (
         <div className="flex flex-col items-center py-8 px-4 gap-3">
-          <p className="text-sm text-slate-400 dark:text-slate-500">
+          <p className="text-sm text-fg-lo">
             Try searching for
           </p>
           <div className="flex flex-wrap justify-center gap-2">
@@ -531,7 +492,7 @@ function SearchResults({
               <button
                 key={term}
                 onClick={() => setQuery(term)}
-                className="px-3 py-1.5 text-xs font-medium rounded-full bg-slate-100/80 dark:bg-slate-700/40 text-slate-500 dark:text-slate-400 hover:bg-primary-500/10 hover:text-primary-600 dark:hover:bg-primary-400/10 dark:hover:text-primary-400 transition-colors cursor-pointer"
+                className="px-3 py-1.5 text-xs font-medium rounded-pill bg-surface-sunken text-fg-mid hover:bg-primary-500/10 hover:text-primary-600 dark:hover:bg-primary-400/10 dark:hover:text-primary-400 transition-colors cursor-pointer"
               >
                 {term}
               </button>
@@ -545,21 +506,21 @@ function SearchResults({
 
 function DesktopFooter({ resultCount, hasQuery }: { resultCount: number; hasQuery: boolean }) {
   return (
-    <div className="flex items-center gap-3 px-5 py-2.5 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] text-slate-400 dark:text-slate-500">
+    <div className="flex items-center gap-3 px-5 py-2.5 border-t border-line text-[11px] text-fg-lo">
       <span className="flex items-center gap-1.5">
-        <kbd className="inline-flex items-center justify-center min-w-[1.5rem] px-1.5 py-0.5 rounded-md bg-slate-100/80 dark:bg-slate-700/60 font-mono text-[10px] border border-slate-200/60 dark:border-slate-600/40 shadow-sm">
+        <kbd className="inline-flex items-center justify-center min-w-[1.5rem] px-1.5 py-0.5 rounded-control bg-surface-sunken font-mono text-[10px] border border-line shadow-sm">
           ↑↓
         </kbd>
         <span>navigate</span>
       </span>
       <span className="flex items-center gap-1.5">
-        <kbd className="inline-flex items-center justify-center min-w-[1.5rem] px-1.5 py-0.5 rounded-md bg-slate-100/80 dark:bg-slate-700/60 font-mono text-[10px] border border-slate-200/60 dark:border-slate-600/40 shadow-sm">
+        <kbd className="inline-flex items-center justify-center min-w-[1.5rem] px-1.5 py-0.5 rounded-control bg-surface-sunken font-mono text-[10px] border border-line shadow-sm">
           ↵
         </kbd>
         <span>select</span>
       </span>
       <span className="flex items-center gap-1.5">
-        <kbd className="inline-flex items-center justify-center min-w-[1.5rem] px-1.5 py-0.5 rounded-md bg-slate-100/80 dark:bg-slate-700/60 font-mono text-[10px] border border-slate-200/60 dark:border-slate-600/40 shadow-sm">
+        <kbd className="inline-flex items-center justify-center min-w-[1.5rem] px-1.5 py-0.5 rounded-control bg-surface-sunken font-mono text-[10px] border border-line shadow-sm">
           esc
         </kbd>
         <span>close</span>

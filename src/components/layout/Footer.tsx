@@ -12,13 +12,13 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative bg-slate-900 dark:bg-[#060a12] text-white overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/40 to-transparent" />
+    <footer className="relative bg-surface-sunken text-fg overflow-hidden">
+      <div className="hairline-gradient absolute top-0 left-0 right-0 h-px" />
       <div className="container-main px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           <div className="text-center md:text-left">
             <h3 className="text-lg font-bold">Hadi Abou Daya</h3>
-            <p className="text-slate-400 text-sm mt-1">
+            <p className="text-fg-mid text-sm mt-1">
               AI/ML Engineer - Paris, France
             </p>
           </div>
@@ -29,7 +29,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-slate-400 hover:text-white transition-colors"
+                    className="text-sm text-fg-mid hover:text-fg transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -43,7 +43,7 @@ export function Footer() {
               href={SOCIAL_LINKS.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-slate-400 hover:text-white transition-colors"
+              className="p-2 text-fg-mid hover:text-fg transition-colors"
               aria-label="LinkedIn"
               onClick={() => trackEvent(EVENTS.EXTERNAL_LINK_CLICKED, { url: SOCIAL_LINKS.linkedin, context: "footer" })}
             >
@@ -53,7 +53,7 @@ export function Footer() {
               href={SOCIAL_LINKS.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-slate-400 hover:text-white transition-colors"
+              className="p-2 text-fg-mid hover:text-fg transition-colors"
               aria-label="GitHub"
               onClick={() => trackEvent(EVENTS.EXTERNAL_LINK_CLICKED, { url: SOCIAL_LINKS.github, context: "footer" })}
             >
@@ -61,7 +61,7 @@ export function Footer() {
             </a>
             <a
               href={`mailto:${SOCIAL_LINKS.email}`}
-              className="p-2 text-slate-400 hover:text-white transition-colors"
+              className="p-2 text-fg-mid hover:text-fg transition-colors"
               aria-label="Email"
               onClick={() => trackEvent(EVENTS.EXTERNAL_LINK_CLICKED, { url: `mailto:${SOCIAL_LINKS.email}`, context: "footer" })}
             >
@@ -69,7 +69,7 @@ export function Footer() {
             </a>
             <button
               onClick={scrollToTop}
-              className="p-2 rounded-full border border-slate-700 text-slate-400 hover:text-white hover:border-slate-500 transition-colors"
+              className="p-2 rounded-pill border border-line text-fg-mid hover:text-fg hover:border-line-strong transition-colors"
               aria-label="Back to top"
             >
               <ArrowUp className="w-5 h-5" />
@@ -77,13 +77,13 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-slate-800 text-center flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-          <p className="text-slate-500 text-sm">
+        <div className="mt-8 pt-8 border-t border-line text-center flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+          <p className="text-fg-lo text-sm">
             &copy; {new Date().getFullYear()} Hadi Abou Daya. All rights reserved.
           </p>
           <Link
             href="/privacy/"
-            className="text-slate-500 text-sm hover:text-white transition-colors"
+            className="text-fg-lo text-sm hover:text-fg transition-colors"
           >
             Privacy Policy
           </Link>

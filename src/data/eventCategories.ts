@@ -1,4 +1,5 @@
 import type { EventCategory, FilterGroupKey } from "@/types";
+import type { Accent } from "@/lib/accents";
 import {
   Mic2,
   Award,
@@ -17,6 +18,7 @@ export interface CategoryConfig {
   label: string;
   color: string;
   borderColor: string;
+  accent: Accent;
   icon: LucideIcon;
   filterGroup: FilterGroupKey;
 }
@@ -26,6 +28,7 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     label: "Workshop",
     color: "bg-orange-50 text-orange-700",
     borderColor: "border-l-orange-500",
+    accent: "orange",
     icon: Mic2,
     filterGroup: "speaking",
   },
@@ -33,6 +36,7 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     label: "Conference",
     color: "bg-sky-50 text-sky-700",
     borderColor: "border-l-sky-500",
+    accent: "teal",
     icon: Users,
     filterGroup: "events",
   },
@@ -40,6 +44,7 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     label: "Hackathon",
     color: "bg-rose-50 text-rose-700",
     borderColor: "border-l-rose-500",
+    accent: "teal",
     icon: Trophy,
     filterGroup: "events",
   },
@@ -47,6 +52,7 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     label: "Certification",
     color: "bg-amber-50 text-amber-700",
     borderColor: "border-l-amber-500",
+    accent: "amber",
     icon: Award,
     filterGroup: "certs",
   },
@@ -54,6 +60,7 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     label: "Community",
     color: "bg-teal-50 text-teal-700",
     borderColor: "border-l-teal-500",
+    accent: "teal",
     icon: Users,
     filterGroup: "events",
   },
@@ -61,6 +68,7 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     label: "Knowledge Sharing",
     color: "bg-orange-50 text-orange-700",
     borderColor: "border-l-orange-500",
+    accent: "orange",
     icon: Share2,
     filterGroup: "speaking",
   },
@@ -68,6 +76,7 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     label: "Project",
     color: "bg-violet-50 text-violet-700",
     borderColor: "border-l-violet-500",
+    accent: "emerald",
     icon: Code2,
     filterGroup: "projects",
   },
@@ -75,6 +84,7 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     label: "Career",
     color: "bg-primary-50 text-primary-700",
     borderColor: "border-l-primary-500",
+    accent: "blue",
     icon: Briefcase,
     filterGroup: "career",
   },
@@ -82,6 +92,7 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     label: "Education",
     color: "bg-emerald-50 text-emerald-700",
     borderColor: "border-l-emerald-500",
+    accent: "blue",
     icon: GraduationCap,
     filterGroup: "career",
   },
@@ -89,6 +100,7 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     label: "Achievement",
     color: "bg-amber-50 text-amber-700",
     borderColor: "border-l-amber-500",
+    accent: "teal",
     icon: Award,
     filterGroup: "events",
   },
@@ -96,6 +108,7 @@ export const categoryConfig: Record<EventCategory, CategoryConfig> = {
     label: "Corporate Training",
     color: "bg-indigo-50 text-indigo-700",
     borderColor: "border-l-indigo-500",
+    accent: "orange",
     icon: Presentation,
     filterGroup: "speaking",
   },

@@ -1,13 +1,14 @@
 "use client";
 
 import { useRef, useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import type { Event } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { ImageLightbox } from "@/components/ui/ImageLightbox";
 import { CreativeCarousel } from "@/components/ui/CreativeCarousel";
+import { DUR, EASE_OUT } from "@/lib/motion";
 import { ExternalLink, ArrowRight, ChevronLeft, ChevronRight, Github, Globe } from "lucide-react";
 
 function ImageCarousel({ images, title, onImageClick }: { images: string[]; title: string; onImageClick?: (index: number) => void }) {
@@ -40,13 +41,13 @@ function ImageCarousel({ images, title, onImageClick }: { images: string[]; titl
           <button
             key={i}
             onClick={() => onImageClick?.(i)}
-            className="relative w-40 h-28 sm:w-48 sm:h-32 rounded-lg overflow-hidden shrink-0 snap-start cursor-zoom-in"
+            className="group/thumb relative w-40 h-28 sm:w-48 sm:h-32 rounded-card overflow-hidden shrink-0 snap-start cursor-zoom-in"
           >
             <Image
               src={img}
               alt={`${title} - photo ${i + 1} of ${images.length}`}
               fill
-              className="object-cover hover:scale-105 transition-transform duration-300"
+              className="object-cover transition-transform duration-500 ease-out group-hover/thumb:scale-[1.03]"
               sizes="(max-width: 640px) 160px, 192px"
             />
           </button>
@@ -56,7 +57,7 @@ function ImageCarousel({ images, title, onImageClick }: { images: string[]; titl
       {canScrollLeft && (
         <button
           onClick={() => scroll("left")}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-8 h-8 rounded-full bg-white/90 dark:bg-slate-800/90 shadow-md flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-colors opacity-0 group-hover:opacity-100"
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-8 h-8 rounded-full bg-surface-overlay glass-2 shadow-card flex items-center justify-center text-fg-mid hover:text-fg transition-colors opacity-0 group-hover:opacity-100"
           aria-label="Scroll left"
         >
           <ChevronLeft className="w-4 h-4" />
@@ -66,7 +67,7 @@ function ImageCarousel({ images, title, onImageClick }: { images: string[]; titl
       {canScrollRight && (
         <button
           onClick={() => scroll("right")}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 w-8 h-8 rounded-full bg-white/90 dark:bg-slate-800/90 shadow-md flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-colors opacity-0 group-hover:opacity-100"
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 w-8 h-8 rounded-full bg-surface-overlay glass-2 shadow-card flex items-center justify-center text-fg-mid hover:text-fg transition-colors opacity-0 group-hover:opacity-100"
           aria-label="Scroll right"
         >
           <ChevronRight className="w-4 h-4" />
@@ -82,28 +83,28 @@ interface EventExpandedContentProps {
 
 export function EventExpandedContent({ event }: EventExpandedContentProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ height: 0, opacity: 0 }}
       animate={{ height: "auto", opacity: 1 }}
       exit={{ height: 0, opacity: 0 }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
+      transition={{ duration: DUR.base, ease: EASE_OUT }}
       className="overflow-hidden"
     >
-      <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-700">
-        <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+      <div className="pt-4 mt-4 border-t border-line">
+        <p className="text-sm text-fg-mid leading-relaxed mb-4">
           {event.description}
         </p>
 
         {event.organizations && event.organizations.length > 0 && (
           <div className="mb-4">
-            <h4 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+            <h4 className="text-eyebrow uppercase text-fg-lo mb-2">
               Organizations
             </h4>
             <div className="flex flex-wrap gap-1.5">
               {event.organizations.map((org) => (
                 <span
                   key={org}
-                  className="text-xs px-2.5 py-1 bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full border border-slate-200 dark:border-slate-700"
+                  className="text-xs px-2.5 py-1 bg-surface-sunken text-fg-mid rounded-pill border border-line"
                 >
                   {org}
                 </span>
@@ -143,7 +144,7 @@ export function EventExpandedContent({ event }: EventExpandedContentProps) {
         <div className="flex items-center gap-3">
           <Link
             href={`/events/${event.slug}`}
-            className="inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-control bg-primary-600 text-white hover:bg-primary-500 transition-colors duration-150"
             onClick={(e) => e.stopPropagation()}
           >
             View Details
@@ -154,7 +155,7 @@ export function EventExpandedContent({ event }: EventExpandedContentProps) {
               href={event.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-primary-600 hover:text-primary-700 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-primary-600 hover:text-primary-500 transition-colors duration-150"
               onClick={(e) => e.stopPropagation()}
             >
               <ExternalLink className="w-3 h-3" />
@@ -166,7 +167,7 @@ export function EventExpandedContent({ event }: EventExpandedContentProps) {
               href={event.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-fg-mid hover:text-fg transition-colors duration-150"
               onClick={(e) => e.stopPropagation()}
             >
               <Github className="w-3 h-3" />
@@ -178,7 +179,7 @@ export function EventExpandedContent({ event }: EventExpandedContentProps) {
               href={event.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600 hover:text-emerald-700 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600 hover:text-emerald-500 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors duration-150"
               onClick={(e) => e.stopPropagation()}
             >
               <Globe className="w-3 h-3" />
@@ -187,6 +188,6 @@ export function EventExpandedContent({ event }: EventExpandedContentProps) {
           )}
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

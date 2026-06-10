@@ -4,7 +4,8 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
+import { scaleIn, DUR } from "@/lib/motion";
 
 interface ImageLightboxProps {
   images: string[];
@@ -105,11 +106,11 @@ export function ImageLightbox({ images, alt, children }: ImageLightboxProps) {
   const lightbox = (
     <AnimatePresence>
       {openIndex !== null && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: DUR.fast }}
           className="fixed inset-0 z-[80] flex items-center justify-center bg-black/80 backdrop-blur-sm"
           onClick={close}
         >
@@ -151,12 +152,12 @@ export function ImageLightbox({ images, alt, children }: ImageLightboxProps) {
             </button>
           )}
 
-          <motion.div
+          <m.div
             key={openIndex}
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.95, opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            variants={scaleIn}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
             className="relative max-w-[90vw] max-h-[85vh] w-auto h-auto overflow-hidden"
             onClick={(e) => e.stopPropagation()}
             onWheel={handleWheel}
@@ -176,21 +177,21 @@ export function ImageLightbox({ images, alt, children }: ImageLightboxProps) {
               <Image
                 src={images[openIndex]}
                 alt={`${alt} - image ${openIndex + 1} of ${images.length}`}
-                width={1200}
-                height={800}
-                className="object-contain max-h-[85vh] w-auto h-auto rounded-lg select-none"
-                sizes="90vw"
+                width={1440}
+                height={960}
+                className="object-contain max-h-[85vh] w-auto h-auto rounded-card select-none"
+                sizes="(max-width: 1536px) 90vw, 1440px"
                 draggable={false}
               />
             </div>
-          </motion.div>
+          </m.div>
 
           {images.length > 1 && (
             <div className="absolute bottom-4 text-sm text-white/60">
               {openIndex + 1} / {images.length}
             </div>
           )}
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

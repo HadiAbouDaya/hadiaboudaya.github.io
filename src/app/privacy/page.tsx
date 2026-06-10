@@ -24,8 +24,8 @@ export default function PrivacyPage() {
       <div className="container-main max-w-3xl">
         <SectionHeading title="Privacy Policy" />
 
-        <div className="prose prose-slate dark:prose-invert lg:prose-lg prose-headings:text-slate-900 dark:prose-headings:text-white">
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+        <div className="prose prose-slate dark:prose-invert lg:prose-lg prose-headings:text-fg">
+          <p className="text-sm text-fg-lo">
             Last updated: April 2026
           </p>
 

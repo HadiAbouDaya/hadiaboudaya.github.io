@@ -3,6 +3,7 @@ import { GeistMono } from "geist/font/mono";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import MotionProvider from "@/components/animations/MotionProvider";
 import { SkipToContent } from "@/components/ui/SkipToContent";
 import { getAllPostSearchItems } from "@/lib/mdx";
 
@@ -68,14 +69,16 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="font-sans bg-white dark:bg-[#0a0f1a] text-slate-900 dark:text-slate-200 antialiased min-h-screen flex flex-col">
+      <body className="font-sans bg-surface text-fg antialiased min-h-screen flex flex-col">
         <ThemeProvider>
-          <SkipToContent />
-          <Navbar blogPosts={blogPosts} />
-          <main id="main-content" tabIndex={-1} className="flex-1">
-            {children}
-          </main>
-          <Footer />
+          <MotionProvider>
+            <SkipToContent />
+            <Navbar blogPosts={blogPosts} />
+            <main id="main-content" tabIndex={-1} className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </MotionProvider>
         </ThemeProvider>
       </body>
     </html>
