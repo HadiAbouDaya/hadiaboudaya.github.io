@@ -33,14 +33,6 @@ export function JourneySection() {
                   fallbackClassName="w-full h-full rounded-card-lg text-5xl bg-surface-sunken flex items-center justify-center font-bold text-fg-lo"
                 />
               </div>
-
-              {/* Static caption — visible to everyone */}
-              <div className="mt-4 flex items-center justify-center gap-2.5 text-fg-mid">
-                <svg className="w-4 h-4 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                <span className="text-sm font-medium tracking-wide">Always learning</span>
-              </div>
             </div>
           </ScrollReveal>
         </div>
