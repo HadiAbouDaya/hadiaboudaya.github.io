@@ -61,9 +61,8 @@ export function EventDetail({ event }: EventDetailProps) {
         <div className="flex flex-wrap items-center gap-3 mb-4">
           <Badge accent={categoryAccent[event.category]}>
             <CategoryIcon className="w-3 h-3 mr-1" />
-            {config.label}
+            {event.role ?? config.label}
           </Badge>
-          {event.role && <Badge variant="primary">{event.role}</Badge>}
           <span className="flex items-center gap-1 text-sm text-fg-mid">
             <Calendar className="w-4 h-4" />
             {formattedDate}

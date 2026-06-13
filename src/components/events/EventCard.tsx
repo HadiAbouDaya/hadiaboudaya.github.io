@@ -115,20 +115,15 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
               <ArrowUpRight className="w-4 h-4" />
             </Link>
 
-            {/* Badges — over the cover image, so use the frosted glass-2
-                background (readable on any photo/light cert scan) and carry the
-                category accent on the icon + label rather than a translucent
-                chip fill. */}
+            {/* Single type chip over the cover image: the category icon + accent
+                colour carry the event type, the label shows the role (e.g.
+                "Workshop Host", "Speaker") or falls back to the category name.
+                Frosted glass-2 keeps it readable on any photo / light cert scan. */}
             <div className="absolute top-4 left-4 flex flex-wrap gap-2 pr-16">
               <div className={cn("glass-2 shadow-card text-xs font-semibold px-2.5 py-1 rounded-pill flex items-center gap-1.5", accent.onImage)}>
                 <CategoryIcon className="w-3.5 h-3.5" />
-                <span>{config.label}</span>
+                <span>{event.role ?? config.label}</span>
               </div>
-              {event.role && (
-                <div className="glass-2 text-fg text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-pill">
-                  {event.role}
-                </div>
-              )}
             </div>
           </div>
 

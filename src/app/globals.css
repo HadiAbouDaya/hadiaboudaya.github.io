@@ -204,7 +204,16 @@ body {
   -webkit-backdrop-filter: blur(20px) saturate(160%);
   border: 1px solid var(--border-subtle);
   box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.06);
-  position: relative;
+}
+
+/* Position lives in the components layer so Tailwind's `absolute`/`fixed`
+   utilities (e.g. corner badges over images) override it; the frosted visuals
+   above stay authoritative. The ::after noise still anchors because the element
+   is positioned either way (relative here, or absolute via the utility). */
+@layer components {
+  .glass-2 {
+    position: relative;
+  }
 }
 
 .glass-2::after {

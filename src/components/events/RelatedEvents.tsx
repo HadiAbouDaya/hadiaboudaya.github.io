@@ -57,7 +57,7 @@ export function RelatedEvents({ currentSlug, currentCategory, currentTags }: Rel
             >
               <Badge accent={categoryAccent[event.category]}>
                 <Icon className="w-3 h-3 mr-1" />
-                {config.label}
+                {event.role ?? config.label}
               </Badge>
               <span className="text-sm font-medium text-fg-mid group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-150 truncate">
                 {event.title}
