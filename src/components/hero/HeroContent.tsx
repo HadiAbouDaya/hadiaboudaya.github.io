@@ -66,7 +66,7 @@ export function HeroContent({ latestPostSlug, latestPostTitle }: HeroContentProp
         <TypingEffect texts={["AI/ML Consultant", "Cloud Architect", "Web3 Builder", "Software Engineer"]} />
       </p>
 
-      <p className="mt-4 text-lg text-slate-300/80 max-w-xl mx-auto tracking-wide">
+      <p className="mt-4 text-lg text-white/70 max-w-xl mx-auto tracking-wide">
         Building intelligent systems from edge to cloud
       </p>
 
