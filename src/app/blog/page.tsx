@@ -35,8 +35,8 @@ export default function BlogPage() {
         />
         {listing.length > 0 ? (
           <div className="space-y-8">
-            {listing.map((post) => (
-              <PostCard key={post.slug} post={post} />
+            {listing.map((post, i) => (
+              <PostCard key={post.slug} post={post} featured={i === 0} />
             ))}
           </div>
         ) : (

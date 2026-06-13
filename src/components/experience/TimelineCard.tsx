@@ -113,7 +113,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
         >
           <div className="flex items-start gap-4">
             {/* Company logo */}
-            <div className="flex-shrink-0 w-12 h-12 rounded-control overflow-hidden bg-slate-50 dark:bg-slate-200 border border-slate-100 dark:border-slate-300">
+            <div className="relative flex-shrink-0 w-12 h-12 rounded-control overflow-hidden bg-slate-50 dark:bg-slate-200 border border-slate-100 dark:border-slate-300">
               <ImageWithFallback
                 src={item.logoPath}
                 alt={`${item.company} logo`}

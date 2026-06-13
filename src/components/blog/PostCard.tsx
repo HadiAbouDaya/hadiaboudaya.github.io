@@ -11,13 +11,18 @@ import { trackEvent, EVENTS } from "@/lib/analytics";
 
 interface PostCardProps {
   post: Omit<BlogPost, "content">;
+  /** Highlights the latest post with the Featured tier (conic ring + glow). */
+  featured?: boolean;
 }
 
-export function PostCard({ post }: PostCardProps) {
+export function PostCard({ post, featured = false }: PostCardProps) {
   return (
     <ScrollReveal>
       <Link href={`/blog/${post.slug}`} onClick={() => trackEvent(EVENTS.BLOG_POST_CLICKED, { slug: post.slug, title: post.title })}>
-        <Card variant="interactive" className="overflow-hidden group">
+        <Card
+          variant={featured ? "featured" : "interactive"}
+          className={`overflow-hidden group${featured ? " hover:shadow-glow" : ""}`}
+        >
           {/* Cover image */}
           <div className="relative h-48 -mx-6 -mt-6 mb-4 overflow-hidden bg-surface-sunken">
             <ImageWithFallback

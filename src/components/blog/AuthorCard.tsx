@@ -9,15 +9,17 @@ export function AuthorCard() {
         Written by
       </p>
       <div className="flex items-center gap-4">
-        <ImageWithFallback
-          src="/Media/profile/headshot.webp"
-          alt="Headshot of Hadi Abou Daya, author"
-          width={48}
-          height={48}
-          fallbackText="HA"
-          className="w-12 h-12 rounded-full object-cover"
-          fallbackClassName="w-12 h-12 rounded-full text-sm"
-        />
+        <div className="relative flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
+          <ImageWithFallback
+            src="/Media/profile/headshot.webp"
+            alt="Headshot of Hadi Abou Daya, author"
+            width={48}
+            height={48}
+            fallbackText="HA"
+            className="w-12 h-12 rounded-full object-cover"
+            fallbackClassName="w-12 h-12 rounded-full text-sm"
+          />
+        </div>
         <div className="min-w-0">
           <p className="font-semibold text-fg text-sm">
             Hadi Abou Daya

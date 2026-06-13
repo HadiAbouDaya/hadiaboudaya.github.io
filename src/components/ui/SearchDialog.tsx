@@ -124,7 +124,7 @@ function ResultMeta({ item, tokens }: { item: SearchItem; tokens: string[] }) {
         return (
           <span
             key={i}
-            className="inline-flex items-center gap-0.5 text-[10px] px-1.5 py-0.5 rounded bg-surface-sunken text-fg-lo"
+            className="inline-flex items-center gap-0.5 text-[10px] px-1.5 py-0.5 rounded bg-surface-sunken text-fg-mid"
           >
             {ChipIcon && <ChipIcon className="w-2.5 h-2.5" />}
             <HighlightText text={chip.label} tokens={tokens} />
@@ -470,7 +470,7 @@ function SearchResults({
                     className={`shrink-0 text-[10px] font-medium px-2 py-0.5 rounded-pill mt-1 transition-colors duration-150 ${
                       idx === selectedIndex
                         ? "bg-primary-500/15 text-primary-600 dark:bg-primary-400/20 dark:text-primary-400"
-                        : "bg-surface-sunken text-fg-lo"
+                        : "bg-surface-sunken text-fg-mid"
                     }`}
                   >
                     {categoryLabels[result.item.category]}

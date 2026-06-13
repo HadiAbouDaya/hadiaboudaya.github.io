@@ -83,7 +83,7 @@ export function HomeHighlights({ latestRole, featuredEvent, certCount, latestPos
                 >
                   <div className="flex items-center gap-2 mb-3">
                     <card.icon className={`w-4 h-4 ${accent.text} transition-colors`} />
-                    <span className={`text-eyebrow ${accent.text}`}>{card.label}</span>
+                    <span className={`text-eyebrow uppercase ${accent.text}`}>{card.label}</span>
                   </div>
                   <h3 className="text-title text-base text-fg line-clamp-2 mb-1">
                     {card.title}

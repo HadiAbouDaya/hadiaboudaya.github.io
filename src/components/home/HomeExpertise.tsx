@@ -10,7 +10,7 @@ export function HomeExpertise() {
         <details className="group">
           <summary className="flex items-center gap-4 cursor-pointer list-none justify-center select-none">
             <span className="h-px flex-1 bg-gradient-to-r from-transparent to-line-strong" />
-            <span className="text-eyebrow text-fg-lo group-hover:text-fg-mid transition-colors duration-300 flex items-center gap-2">
+            <span className="text-eyebrow uppercase text-fg-lo group-hover:text-fg-mid transition-colors duration-300 flex items-center gap-2">
               Explore my expertise
               <ChevronDown className="w-3.5 h-3.5 transition-transform duration-300 group-open:rotate-180" />
             </span>

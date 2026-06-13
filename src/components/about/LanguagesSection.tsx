@@ -12,7 +12,7 @@ export function LanguagesSection() {
   return (
     <section className="mt-16 lg:mt-24 mb-12 px-4">
       <div className="text-center mb-10">
-        <h2 className="text-eyebrow text-fg-lo">
+        <h2 className="text-eyebrow uppercase text-fg-lo">
           Languages
         </h2>
       </div>

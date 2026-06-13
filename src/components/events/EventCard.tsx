@@ -88,7 +88,11 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
                 alt={`${event.title} - event photo`}
                 fill
                 className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                sizes={
+                  isFeatured
+                    ? "(max-width: 1024px) 100vw, 66vw"
+                    : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                }
               />
             ) : (
               <div className="absolute inset-0 bg-[image:var(--gradient-brand-soft)] flex items-center justify-center transition-opacity duration-300 group-hover:opacity-90">
@@ -111,9 +115,12 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
               <ArrowUpRight className="w-4 h-4" />
             </Link>
 
-            {/* Badges */}
+            {/* Badges — over the cover image, so use the frosted glass-2
+                background (readable on any photo/light cert scan) and carry the
+                category accent on the icon + label rather than a translucent
+                chip fill. */}
             <div className="absolute top-4 left-4 flex flex-wrap gap-2 pr-16">
-              <div className={cn("shadow-card text-xs font-semibold px-2.5 py-1 rounded-pill flex items-center gap-1.5", accent.chip)}>
+              <div className={cn("glass-2 shadow-card text-xs font-semibold px-2.5 py-1 rounded-pill flex items-center gap-1.5", accent.text)}>
                 <CategoryIcon className="w-3.5 h-3.5" />
                 <span>{config.label}</span>
               </div>
