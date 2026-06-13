@@ -23,9 +23,9 @@ export function HomeExpertise() {
               return (
                 <div
                   key={section.heading}
-                  className="flex gap-4 p-5 rounded-card bg-surface-raised border border-line hover:border-primary-500/20 transition-[background-color,border-color] duration-300"
+                  className="flex gap-4 p-5 rounded-card bg-surface-raised border border-line hover:border-primary-500/30 transition-[background-color,border-color] duration-300"
                 >
-                  <Icon className="w-5 h-5 text-primary-500 dark:text-primary-400 mt-0.5 shrink-0" />
+                  <Icon className="w-5 h-5 text-primary-600 dark:text-primary-400 mt-0.5 shrink-0" />
                   <div>
                     <h3 className="text-title text-base text-fg mb-1.5">
                       {section.heading}

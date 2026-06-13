@@ -142,7 +142,7 @@ export function TimelineCard({ item, position, showDot = true, isDualLane = fals
                 >
                   {config.label}
                 </span>
-                <span className="text-xs text-fg-lo flex items-center gap-1 ml-auto">
+                <span className="text-xs text-fg-mid flex items-center gap-1 ml-auto">
                   <Clock className="w-3 h-3" />
                   {getDuration(item.startDate, item.endDate)}
                 </span>

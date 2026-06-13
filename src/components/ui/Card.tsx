@@ -27,8 +27,9 @@ export function Card({ children, className, variant, hover = true }: CardProps) 
       className={cn(
         "bg-surface-raised rounded-card border border-line p-6 shadow-card",
         (tier === "interactive" || tier === "featured") &&
-          "card-spotlight transition-[box-shadow,border-color,transform] duration-300 hover:shadow-glow-sm hover:border-primary-500/30 hover:-translate-y-0.5",
-        tier === "featured" && "featured-ring",
+          "card-spotlight transition-[box-shadow,border-color,transform] duration-300 hover:border-primary-500/30 hover:-translate-y-0.5",
+        tier === "interactive" && "hover:shadow-glow-sm",
+        tier === "featured" && "featured-ring hover:shadow-glow",
         className
       )}
     >

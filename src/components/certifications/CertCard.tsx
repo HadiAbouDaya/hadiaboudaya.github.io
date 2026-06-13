@@ -35,7 +35,7 @@ export function CertCard({ cert }: CertCardProps) {
       animate="visible"
       exit="hidden"
     >
-      <div className="card-spotlight h-full flex flex-col bg-surface-raised rounded-card border border-line p-6 shadow-card transition-[box-shadow,border-color,transform] duration-300 hover:shadow-glow-sm hover:border-primary-500/25 hover:-translate-y-0.5">
+      <div className="card-spotlight h-full flex flex-col bg-surface-raised rounded-card border border-line p-6 shadow-card transition-[box-shadow,border-color,transform] duration-300 hover:shadow-glow-sm hover:border-primary-500/30 hover:-translate-y-0.5">
         <div className="flex items-start gap-4">
           <div className="relative flex-shrink-0 w-14 h-14 rounded-control overflow-hidden bg-slate-50 dark:bg-slate-200">
             <ImageWithFallback

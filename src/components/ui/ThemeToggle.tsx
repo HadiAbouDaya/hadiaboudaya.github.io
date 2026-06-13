@@ -19,7 +19,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => { trackEvent(EVENTS.THEME_TOGGLED, { theme: theme === "dark" ? "light" : "dark" }); toggleTheme(); }}
-      className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 transition-colors"
+      className="p-2 rounded-control text-fg-mid hover:text-fg transition-colors"
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
     >
       {theme === "dark" ? (

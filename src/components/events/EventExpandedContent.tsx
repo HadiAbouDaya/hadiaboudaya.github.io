@@ -183,7 +183,7 @@ export function EventExpandedContent({ event }: EventExpandedContentProps) {
               onClick={(e) => e.stopPropagation()}
             >
               <Globe className="w-3 h-3" />
-              Case Study
+              Visit Website
             </a>
           )}
         </div>

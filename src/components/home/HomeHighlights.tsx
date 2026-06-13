@@ -79,7 +79,7 @@ export function HomeHighlights({ latestRole, featuredEvent, certCount, latestPos
               <ScrollReveal key={card.href} delay={i * 0.1}>
                 <Link
                   href={card.href}
-                  className="card-spotlight group block h-full p-5 rounded-card bg-surface-raised border border-line shadow-card transition-[background-color,border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-glow-sm hover:border-primary-500/25"
+                  className="card-spotlight group block h-full p-5 rounded-card bg-surface-raised border border-line shadow-card transition-[background-color,border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-glow-sm hover:border-primary-500/30"
                 >
                   <div className="flex items-center gap-2 mb-3">
                     <card.icon className={`w-4 h-4 ${accent.text} transition-colors`} />

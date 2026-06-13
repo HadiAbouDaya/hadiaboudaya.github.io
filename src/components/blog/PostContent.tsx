@@ -56,7 +56,7 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
             ))}
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 text-sm text-fg-lo">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-fg-mid">
             <Link href="/about" className="flex items-center gap-2 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
               <span className="font-medium text-fg-mid">Hadi Abou Daya</span>
             </Link>
@@ -89,7 +89,7 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
               {prevPost ? (
                 <Link
                   href={`/blog/${prevPost.slug}`}
-                  className="group flex items-center gap-2 text-sm text-fg-lo hover:text-primary-600 dark:hover:text-primary-400 transition-colors min-w-0"
+                  className="group flex items-center gap-2 text-sm text-fg-mid hover:text-primary-600 dark:hover:text-primary-400 transition-colors min-w-0"
                 >
                   <ArrowLeft className="w-4 h-4 shrink-0 group-hover:-translate-x-0.5 transition-transform" />
                   <span className="truncate">{prevPost.title}</span>
@@ -100,7 +100,7 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
               {nextPost ? (
                 <Link
                   href={`/blog/${nextPost.slug}`}
-                  className="group flex items-center gap-2 text-sm text-fg-lo hover:text-primary-600 dark:hover:text-primary-400 transition-colors min-w-0 text-right ml-auto"
+                  className="group flex items-center gap-2 text-sm text-fg-mid hover:text-primary-600 dark:hover:text-primary-400 transition-colors min-w-0 text-right ml-auto"
                 >
                   <span className="truncate">{nextPost.title}</span>
                   <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-0.5 transition-transform" />

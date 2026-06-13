@@ -44,7 +44,7 @@ export function JourneySection() {
               <ScrollReveal key={i} delay={i * 0.1} direction="up">
                 <div className="relative pl-6 lg:pl-10 before:absolute before:left-0 before:top-2 before:bottom-[-2rem] lg:before:bottom-[-3rem] last:before:bottom-0 before:w-px before:bg-[image:var(--gradient-rail)]">
                   {/* Timeline dot */}
-                  <div className="absolute left-[-4px] top-2 w-2 h-2 rounded-full bg-primary-500 ring-4 ring-white dark:ring-slate-900"></div>
+                  <div className="absolute left-[-4px] top-2 w-2 h-2 rounded-full bg-primary-500 ring-4 ring-surface"></div>
 
                   <p className="text-base lg:text-lg leading-relaxed tracking-wide text-fg-mid">
                     {paragraph}

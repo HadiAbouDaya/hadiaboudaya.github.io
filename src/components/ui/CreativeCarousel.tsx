@@ -144,13 +144,13 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
                   scale: hoveredIndex === i ? 1 : 0.8
                 }}
                 transition={SPRING.snappy}
-                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm flex items-center justify-center shadow-card"
+                className="absolute top-4 right-4 w-10 h-10 rounded-full glass-2 flex items-center justify-center shadow-card"
               >
-                <Maximize2 className="w-5 h-5 text-slate-700 dark:text-slate-200" />
+                <Maximize2 className="w-5 h-5 text-fg" />
               </m.div>
 
               {/* Image counter badge */}
-              <div className="absolute bottom-4 left-4 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm text-xs font-semibold text-slate-700 dark:text-slate-200 shadow-card">
+              <div className="absolute bottom-4 left-4 px-3 py-1.5 rounded-full glass-2 text-xs font-semibold text-fg shadow-card">
                 {i + 1} / {images.length}
               </div>
             </m.button>
@@ -170,7 +170,7 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
             exit={{ opacity: 0, x: 10 }}
             transition={SPRING.snappy}
             onClick={() => scroll("left")}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-surface-raised shadow-card-hover flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-primary-600 hover:text-white dark:hover:bg-primary-600 transition-colors duration-150 opacity-0 group-hover:opacity-100"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-surface-raised shadow-card-hover flex items-center justify-center text-fg hover:bg-primary-600 hover:text-white dark:hover:bg-primary-600 transition-colors duration-150 opacity-0 group-hover:opacity-100"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Scroll left"
@@ -188,7 +188,7 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
             exit={{ opacity: 0, x: -10 }}
             transition={SPRING.snappy}
             onClick={() => scroll("right")}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-surface-raised shadow-card-hover flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-primary-600 hover:text-white dark:hover:bg-primary-600 transition-colors duration-150 opacity-0 group-hover:opacity-100"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-surface-raised shadow-card-hover flex items-center justify-center text-fg hover:bg-primary-600 hover:text-white dark:hover:bg-primary-600 transition-colors duration-150 opacity-0 group-hover:opacity-100"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Scroll right"
@@ -201,7 +201,7 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
       {/* Progress indicator with track and dots */}
       <div className="relative flex items-center justify-center mt-6">
         {/* Track line behind dots */}
-        <div className="absolute h-[2px] bg-slate-200 dark:bg-slate-700/60 rounded-full" style={{ width: `${(images.length - 1) * 44}px` }} />
+        <div className="absolute h-[2px] bg-line rounded-full" style={{ width: `${(images.length - 1) * 44}px` }} />
         {/* Animated progress fill */}
         <m.div
           className="absolute left-1/2 h-[2px] rounded-full bg-primary-500/40 dark:bg-primary-400/30 origin-left"

@@ -40,8 +40,8 @@ export default function BlogPage() {
             ))}
           </div>
         ) : (
-          <p className="text-center text-slate-500 py-12">
-            Blog posts coming soon. Stay tuned!
+          <p className="text-center text-fg-mid py-12">
+            No posts published yet. Check back soon.
           </p>
         )}
       </div>

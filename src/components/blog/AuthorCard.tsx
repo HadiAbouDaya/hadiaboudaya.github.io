@@ -24,7 +24,7 @@ export function AuthorCard() {
           <p className="font-semibold text-fg text-sm">
             Hadi Abou Daya
           </p>
-          <p className="text-xs text-fg-lo">
+          <p className="text-xs text-fg-mid">
             AI/ML Consultant &amp; Software Engineer
           </p>
           <Link

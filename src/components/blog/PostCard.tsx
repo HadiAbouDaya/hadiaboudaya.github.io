@@ -21,7 +21,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
       <Link href={`/blog/${post.slug}`} onClick={() => trackEvent(EVENTS.BLOG_POST_CLICKED, { slug: post.slug, title: post.title })}>
         <Card
           variant={featured ? "featured" : "interactive"}
-          className={`overflow-hidden group${featured ? " hover:shadow-glow" : ""}`}
+          className="overflow-hidden group"
         >
           {/* Cover image */}
           <div className="relative h-48 -mx-6 -mt-6 mb-4 overflow-hidden bg-surface-sunken">
@@ -50,7 +50,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
             {post.title}
           </h2>
 
-          <div className="flex items-center gap-4 mt-2 text-xs text-fg-lo">
+          <div className="flex items-center gap-4 mt-2 text-xs text-fg-mid">
             <span className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
               {new Date(post.date).toLocaleDateString("en-US", {

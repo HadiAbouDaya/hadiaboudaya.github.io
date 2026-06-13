@@ -194,7 +194,7 @@ export function EventDetail({ event }: EventDetailProps) {
                 className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-control text-sm font-medium hover:bg-emerald-500 transition-colors duration-150"
               >
                 <Globe className="w-4 h-4" />
-                View Case Study
+                Visit Website
               </a>
             )}
           </div>

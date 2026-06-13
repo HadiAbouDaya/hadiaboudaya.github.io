@@ -77,8 +77,8 @@ export function HeroContent({ latestPostSlug, latestPostTitle }: HeroContentProp
             className="bg-white/5 border border-white/20 text-white hover:bg-white/10 hover:border-white/40 backdrop-blur-sm"
             onClick={() => trackEvent(EVENTS.CTA_CLICKED, { label: "About Me", href: "/about" })}
           >
-            <ArrowRight className="w-4 h-4" />
             About Me
+            <ArrowRight className="w-4 h-4" />
           </Button>
         </Magnetic>
         <Magnetic>

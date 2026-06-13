@@ -120,7 +120,7 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
                 category accent on the icon + label rather than a translucent
                 chip fill. */}
             <div className="absolute top-4 left-4 flex flex-wrap gap-2 pr-16">
-              <div className={cn("glass-2 shadow-card text-xs font-semibold px-2.5 py-1 rounded-pill flex items-center gap-1.5", accent.text)}>
+              <div className={cn("glass-2 shadow-card text-xs font-semibold px-2.5 py-1 rounded-pill flex items-center gap-1.5", accent.onImage)}>
                 <CategoryIcon className="w-3.5 h-3.5" />
                 <span>{config.label}</span>
               </div>
