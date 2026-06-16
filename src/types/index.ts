@@ -29,7 +29,7 @@ export interface Certification {
     | "Business";
   issuedDate: string;
   expiryDate?: string;
-  credentialUrl: string;
+  credentialUrl?: string;
   badgePath: string;
 }
 
@@ -71,6 +71,15 @@ export interface Event {
   credlyUrls?: string[];
   images?: string[];
   videoUrl?: string;
+  // Optional enrichment fields. Backfill per event with first-hand detail to
+  // raise unique word count + E-E-A-T; each renders only when present.
+  keyPoints?: string[];
+  outcomes?: string[];
+  technologiesUsed?: string[];
+  learnings?: string;
+  impact?: string;
+  duration?: string;
+  participants?: number;
   tags: string[];
   tier: "featured" | "standard";
 }

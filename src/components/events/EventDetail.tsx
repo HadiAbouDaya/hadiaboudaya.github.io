@@ -130,6 +130,79 @@ export function EventDetail({ event }: EventDetailProps) {
           <p className="text-fg-mid leading-relaxed">{event.description}</p>
         </div>
 
+        {event.keyPoints && event.keyPoints.length > 0 && (
+          <div className="mt-8 pt-6 border-t border-line">
+            <h2 className="text-eyebrow uppercase text-fg-mid mb-3">Highlights</h2>
+            <ul className="list-disc list-inside space-y-2 text-fg-mid leading-relaxed">
+              {event.keyPoints.map((point, i) => (
+                <li key={i}>{point}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {event.learnings && (
+          <div className="mt-8 pt-6 border-t border-line">
+            <h2 className="text-eyebrow uppercase text-fg-mid mb-3">
+              What I took away
+            </h2>
+            <p className="text-fg-mid leading-relaxed">{event.learnings}</p>
+          </div>
+        )}
+
+        {event.outcomes && event.outcomes.length > 0 && (
+          <div className="mt-8 pt-6 border-t border-line">
+            <h2 className="text-eyebrow uppercase text-fg-mid mb-3">Outcomes</h2>
+            <ul className="list-disc list-inside space-y-2 text-fg-mid leading-relaxed">
+              {event.outcomes.map((outcome, i) => (
+                <li key={i}>{outcome}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {event.impact && (
+          <div className="mt-8 pt-6 border-t border-line">
+            <h2 className="text-eyebrow uppercase text-fg-mid mb-3">Impact</h2>
+            <p className="text-fg-mid leading-relaxed">{event.impact}</p>
+          </div>
+        )}
+
+        {event.technologiesUsed && event.technologiesUsed.length > 0 && (
+          <div className="mt-8 pt-6 border-t border-line">
+            <h2 className="text-eyebrow uppercase text-fg-mid mb-3">
+              Technologies
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {event.technologiesUsed.map((tech) => (
+                <span
+                  key={tech}
+                  className="text-sm px-3 py-1 bg-surface-sunken text-fg-mid rounded-pill border border-line"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {(event.duration || event.participants) && (
+          <div className="mt-8 pt-6 border-t border-line flex flex-wrap gap-x-8 gap-y-2 text-sm text-fg-mid">
+            {event.duration && (
+              <span>
+                <span className="font-semibold text-fg">Duration:</span>{" "}
+                {event.duration}
+              </span>
+            )}
+            {event.participants && (
+              <span>
+                <span className="font-semibold text-fg">Participants:</span>{" "}
+                {event.participants}
+              </span>
+            )}
+          </div>
+        )}
+
         {event.organizations && event.organizations.length > 0 && (
           <div className="mt-8 pt-6 border-t border-line">
             <h3 className="text-eyebrow uppercase text-fg-mid mb-3">

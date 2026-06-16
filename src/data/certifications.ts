@@ -96,7 +96,7 @@ export const certifications: Certification[] = [
     category: "Azure",
     issuedDate: "Jul 2021",
     credentialUrl:
-      "https://hadiaboudaya.github.io/Certificates.github.io/Microsoft_Certified_Professional_Certificate_0.pdf",
+      "https://www.credly.com/badges/c5d08c12-88f3-407a-95bd-13878ee18f32/public_url",
     badgePath: "/Media/certifications/badges/az-900.webp",
   },
   {
@@ -107,7 +107,7 @@ export const certifications: Certification[] = [
     category: "Azure",
     issuedDate: "Jun 2021",
     credentialUrl:
-      "https://hadiaboudaya.github.io/Certificates.github.io/AI-900Certificate.pdf",
+      "https://www.credly.com/badges/ff9e3dcf-ec5d-4c65-af41-f73e4b8405f3/public_url",
     badgePath: "/Media/certifications/badges/ai-900.webp",
   },
   {
@@ -118,7 +118,7 @@ export const certifications: Certification[] = [
     category: "Azure",
     issuedDate: "May 2021",
     credentialUrl:
-      "https://hadiaboudaya.github.io/Certificates.github.io/DP-900Certificate.pdf",
+      "https://www.credly.com/badges/e164a28c-3251-4556-a5a1-5919dbe73f0c/public_url",
     badgePath: "/Media/certifications/badges/dp-900.webp",
   },
   {
@@ -128,8 +128,6 @@ export const certifications: Certification[] = [
     type: "certification",
     category: "Security",
     issuedDate: "Feb 2021",
-    credentialUrl:
-      "https://hadiaboudaya.github.io/Certificates.github.io/CCNAv7.pdf",
     badgePath: "/Media/certifications/badges/ccna.webp",
   },
   {
@@ -139,8 +137,6 @@ export const certifications: Certification[] = [
     type: "certification",
     category: "Security",
     issuedDate: "Sep 2020",
-    credentialUrl:
-      "https://hadiaboudaya.github.io/Certificates.github.io/Cybersecurity.pdf",
     badgePath: "/Media/certifications/badges/cybersecurity.webp",
   },
   {
@@ -513,8 +509,6 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Business",
     issuedDate: "Jul 2020",
-    credentialUrl:
-      "https://hadiaboudaya.github.io/Certificates.github.io/createyourownbusiness.pdf",
     badgePath: "/Media/certifications/badges/berytech.webp",
   },
   {
@@ -524,8 +518,6 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Business",
     issuedDate: "Sep 2020",
-    credentialUrl:
-      "https://hadiaboudaya.github.io/Certificates.github.io/startyourownbusiness.pdf",
     badgePath: "/Media/certifications/badges/amideast.webp",
   },
   {

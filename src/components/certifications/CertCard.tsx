@@ -78,15 +78,17 @@ export function CertCard({ cert }: CertCardProps) {
           >
             {cert.category}
           </span>
-          <a
-            href={cert.credentialUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-xs text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium transition-colors"
-          >
-            View Credential
-            <ExternalLink className="w-3 h-3" />
-          </a>
+          {cert.credentialUrl ? (
+            <a
+              href={cert.credentialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium transition-colors"
+            >
+              View Credential
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          ) : null}
         </div>
       </div>
     </m.div>

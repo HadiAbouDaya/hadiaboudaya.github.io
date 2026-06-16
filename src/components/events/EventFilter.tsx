@@ -6,7 +6,6 @@ import { events } from "@/data/events";
 import { categoryConfig, FILTER_GROUPS } from "@/data/eventCategories";
 import { EventCard } from "./EventCard";
 import { FilterPills, type FilterPillOption } from "@/components/ui/FilterPills";
-import { LazyLoad } from "@/components/ui/LazyLoad";
 import MotionMaxProvider from "@/components/animations/MotionMaxProvider";
 import { fadeUp } from "@/lib/motion";
 import { trackEvent, EVENTS } from "@/lib/analytics";
@@ -84,8 +83,8 @@ export function EventFilter() {
         {/* Year-grouped events */}
         <div className="space-y-12">
           <AnimatePresence mode="popLayout">
-            {yearGroups.map(({ year, events: yearEvents }, groupIndex) => {
-              const group = (
+            {yearGroups.map(({ year, events: yearEvents }) => {
+              return (
                 <m.div
                   key={year}
                   variants={fadeUp}
@@ -115,21 +114,6 @@ export function EventFilter() {
                     ))}
                   </div>
                 </m.div>
-              );
-
-              // P3 DOM-size: lazy-mount year groups after the first to avoid a
-              // large initial DOM, with a fixed-height shimmer fallback (no CLS).
-              if (groupIndex === 0) return group;
-
-              return (
-                <LazyLoad
-                  key={year}
-                  fallback={
-                    <div className="skeleton h-[420px] rounded-card" aria-hidden />
-                  }
-                >
-                  {group}
-                </LazyLoad>
               );
             })}
           </AnimatePresence>
