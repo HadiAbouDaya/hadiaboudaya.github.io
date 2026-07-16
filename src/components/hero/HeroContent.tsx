@@ -83,7 +83,7 @@ export function HeroContent({ latestPostSlug, latestPostTitle }: HeroContentProp
         </Magnetic>
         <Magnetic>
           <Button
-            href="https://calendly.com/hadiad/one-on-one"
+            href="https://calendly.com/hadiai/one-on-one"
             external
             variant="primary"
             className="shadow-lg shadow-primary-500/20"

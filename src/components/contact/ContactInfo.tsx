@@ -82,7 +82,7 @@ export function ContactInfo() {
 
       <ScrollReveal direction="right" delay={contactMethods.length * 0.1}>
         <Button
-          href="https://calendly.com/hadiad/one-on-one"
+          href="https://calendly.com/hadiai/one-on-one"
           external
           variant="primary"
           className="w-full mt-2"
