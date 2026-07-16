@@ -75,7 +75,7 @@ export function personJsonLd() {
     knowsLanguage: ["en", "fr", "ar"],
     nationality: { "@type": "Country", name: "Lebanon" },
     sameAs: [
-      "https://www.linkedin.com/in/hadiad",
+      "https://www.linkedin.com/in/hadiai",
       "https://github.com/HadiAbouDaya",
     ],
     knowsAbout: [

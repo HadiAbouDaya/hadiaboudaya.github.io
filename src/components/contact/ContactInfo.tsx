@@ -16,7 +16,7 @@ const contactMethods = [
   {
     icon: Linkedin,
     label: "LinkedIn",
-    value: "linkedin.com/in/hadiad",
+    value: "linkedin.com/in/hadiai",
     href: SOCIAL_LINKS.linkedin,
     external: true,
   },

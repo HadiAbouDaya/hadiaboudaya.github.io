@@ -43,7 +43,7 @@ Hadi Abou Daya is an AI/ML Consultant and Software Engineer based in Paris, Fran
 
 ## Links
 
-- LinkedIn: https://linkedin.com/in/hadiad
+- LinkedIn: https://linkedin.com/in/hadiai
 - GitHub: https://github.com/HadiAbouDaya
 - Website: https://hadi.aboudaya.com
 - Full context: https://hadi.aboudaya.com/llms-full.txt
