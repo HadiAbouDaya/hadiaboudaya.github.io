@@ -52,6 +52,7 @@ Hadi Abou Daya is an AI/ML Consultant and Software Engineer with experience span
 
 ## Certifications
 
+- AWS Certified Solutions Architect - Associate (Jul 2026)
 - AWS Certified Machine Learning - Specialty (Dec 2025)
 - AWS Certified Cloud Practitioner (Apr 2025)
 - Project Management Professional (PMP) (Aug 2024)

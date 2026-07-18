@@ -25,7 +25,7 @@
 
 ## About Hadi Abou Daya
 
-Hadi Abou Daya is an AI/ML Consultant and Software Engineer based in Paris, France. He specializes in building intelligent systems spanning edge devices to cloud-scale infrastructure. His core expertise includes designing and deploying LLM agent architectures, multi-agent systems, RAG pipelines, computer vision models, and cloud-native AI solutions. He holds AWS ML Specialty and Cloud Practitioner certifications, a PMP credential, and degrees from emlyon business school and McGill University. He actively speaks at conferences, hosts workshops, and contributes to the AWS User Group Lebanon community.
+Hadi Abou Daya is an AI/ML Consultant and Software Engineer based in Paris, France. He specializes in building intelligent systems spanning edge devices to cloud-scale infrastructure. His core expertise includes designing and deploying LLM agent architectures, multi-agent systems, RAG pipelines, computer vision models, and cloud-native AI solutions. He holds AWS Solutions Architect Associate, ML Specialty, and Cloud Practitioner certifications, a PMP credential, and degrees from emlyon business school and McGill University. He actively speaks at conferences, hosts workshops, and contributes to the AWS User Group Lebanon community.
 
 ## Blog
 

@@ -2,6 +2,18 @@ import type { Certification } from "@/types";
 
 export const certifications: Certification[] = [
   {
+    id: 51,
+    name: "AWS Certified Solutions Architect - Associate",
+    issuer: "AWS",
+    type: "certification",
+    category: "AWS",
+    issuedDate: "Jul 2026",
+    expiryDate: "Jul 2029",
+    credentialUrl:
+      "https://cp.certmetrics.com/amazon/en/public/verify/credential/bb164a0abab845228bcd9c123c37c406",
+    badgePath: "/Media/certifications/badges/aws-solutions-architect-associate.webp",
+  },
+  {
     id: 47,
     name: "Building with the Claude API",
     issuer: "Anthropic",
