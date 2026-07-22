@@ -71,6 +71,7 @@ One subfolder per company/role. Add anything that shows your work there.
 
 ### certifications/badges/
 Credly / digital badge images (square PNGs):
+- [x] **aws-ai-practitioner.png** (in place as aws-ai-practitioner.webp)
 - [x] **aws-solutions-architect-associate.png** (in place as aws-solutions-architect-associate.webp)
 - [ ] **aws-ml-specialty.png**
 - [ ] **aws-cloud-practitioner.png**

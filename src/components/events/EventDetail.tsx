@@ -283,7 +283,9 @@ export function EventDetail({ event }: EventDetailProps) {
                 let badgeLabel = "View Certification Badge";
 
                 // Check if this is an AWS certification event
-                if (event.slug === "aws-ml-cloud-certifications") {
+                if (event.slug === "aws-saa-ai-practitioner-certifications") {
+                  badgeLabel = index === 0 ? "AWS Solutions Architect Associate" : "AWS AI Practitioner";
+                } else if (event.slug === "aws-ml-cloud-certifications") {
                   badgeLabel = index === 0 ? "AWS ML Specialty" : "AWS Cloud Practitioner";
                 } else if (event.slug === "azure-certifications-zaka") {
                   badgeLabel = index === 0 ? "Azure Fundamentals (AZ-900)" : "Azure AI Fundamentals (AI-900)";

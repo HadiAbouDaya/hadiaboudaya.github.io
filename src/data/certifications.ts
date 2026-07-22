@@ -2,6 +2,18 @@ import type { Certification } from "@/types";
 
 export const certifications: Certification[] = [
   {
+    id: 52,
+    name: "AWS Certified AI Practitioner",
+    issuer: "AWS",
+    type: "certification",
+    category: "AWS",
+    issuedDate: "Jul 2026",
+    expiryDate: "Jul 2029",
+    credentialUrl:
+      "https://cp.certmetrics.com/amazon/en/public/verify/credential/9693e2afae3240769860dfcaa2ef9a9a",
+    badgePath: "/Media/certifications/badges/aws-ai-practitioner.webp",
+  },
+  {
     id: 51,
     name: "AWS Certified Solutions Architect - Associate",
     issuer: "AWS",

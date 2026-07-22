@@ -14,7 +14,7 @@ export const KEY_FACTS: KeyFact[] = [
     icon: "Award",
     label: "Certifications",
     value: "AI \u00b7 Cloud \u00b7 PM",
-    detail: "AWS Solutions Architect, ML Specialty, PMP, and more",
+    detail: "AWS Solutions Architect, ML Specialty, AI Practitioner, PMP, and more",
   },
   {
     icon: "GraduationCap",

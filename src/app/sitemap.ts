@@ -25,10 +25,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // an identical timestamp, which teaches Google to ignore lastmod site-wide.
   const staticPages: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/`, lastModified: latestContent, changeFrequency: "weekly", priority: 1.0 },
-    { url: `${baseUrl}/about/`, lastModified: "2026-07-19", changeFrequency: "monthly", priority: 0.6 },
+    { url: `${baseUrl}/about/`, lastModified: "2026-07-22", changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}/experience/`, lastModified: "2026-06-07", changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}/events/`, lastModified: latestEventDate, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${baseUrl}/certifications/`, lastModified: "2026-07-19", changeFrequency: "monthly", priority: 0.6 },
+    { url: `${baseUrl}/certifications/`, lastModified: "2026-07-22", changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}/blog/`, lastModified: latestPostDate, changeFrequency: "weekly", priority: 0.8 },
     { url: `${baseUrl}/contact/`, lastModified: "2026-03-24", changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}/privacy/`, lastModified: "2026-06-10", changeFrequency: "yearly", priority: 0.3 },

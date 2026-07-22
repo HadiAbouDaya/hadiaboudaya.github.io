@@ -4,6 +4,28 @@ export const events: Event[] = [
   // ─── 2026 ───────────────────────────────────────────────────────────────────
 
   {
+    slug: "aws-saa-ai-practitioner-certifications",
+    title: "AWS Solutions Architect Associate and AI Practitioner Certifications",
+    date: "2026-07-21",
+    location: "Remote",
+    category: "certification",
+    role: "Earned",
+    organizations: ["Amazon Web Services"],
+    summary:
+      "Earned the AWS Solutions Architect Associate and AWS AI Practitioner certifications three days apart in July 2026, bringing the total to four active AWS certifications.",
+    description:
+      "Earned two AWS certifications three days apart: Solutions Architect Associate on July 18, 2026 and AI Practitioner on July 21, 2026. Together with the ML Specialty and Cloud Practitioner badges from 2025, this brings the total to four active AWS certifications. The Solutions Architect Associate exam validates designing resilient, high-performing, secure, and cost-optimized architectures on AWS. The AI Practitioner exam covers AWS AI and ML services, generative AI fundamentals, prompt engineering, and responsible AI practices. The plan is to keep collecting AWS certifications as a structured way of upskilling across the platform: each exam forces a full pass over services and design patterns that day-to-day project work does not always reach.",
+    credlyUrls: [
+      "https://www.credly.com/badges/fcfeb417-ad73-46ba-9b29-48697f6cee43/public_url",
+      "https://www.credly.com/badges/e8cae191-7189-4471-a4a0-faa7228141f9/public_url",
+    ],
+    images: [
+      "/Media/events/aws-solutions-architect-associate-and-ai-practitioner-certifications/1.webp",
+    ],
+    tags: ["AWS", "Certification", "Cloud", "AI"],
+    tier: "featured",
+  },
+  {
     slug: "turinglabs-client-portal",
     title: "Turing Labs Client Portal",
     date: "2026-06-05",
