@@ -52,6 +52,10 @@ export function Navbar({ blogPosts }: NavbarProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  if (pathname === "/luna" || pathname.startsWith("/luna/")) {
+    return null;
+  }
+
   return (
     <>
       <header

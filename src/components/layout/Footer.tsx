@@ -5,8 +5,15 @@ import { Linkedin, Github, Mail, ArrowUp } from "lucide-react";
 import { SOCIAL_LINKS } from "@/data/social";
 import { NAV_LINKS } from "@/data/navigation";
 import { trackEvent, EVENTS } from "@/lib/analytics";
+import { usePathname } from "next/navigation";
 
 export function Footer() {
+  const pathname = usePathname();
+
+  if (pathname === "/luna" || pathname.startsWith("/luna/")) {
+    return null;
+  }
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
