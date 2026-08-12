@@ -197,10 +197,10 @@ export function LunaExperience() {
     if (!nextMuted) void audio.play().catch(() => setNeedsPlaybackTap(true));
   };
 
-  const loopSelectedSection = () => {
+  const restartFullSong = () => {
     const audio = audioRef.current;
     if (!audio) return;
-    audio.currentTime = SONG_START_SECONDS;
+    audio.currentTime = 0;
     void audio.play().catch(() => setNeedsPlaybackTap(true));
   };
 
@@ -255,7 +255,7 @@ export function LunaExperience() {
             setNeedsPlaybackTap(false);
           }
         }}
-        onEnded={loopSelectedSection}
+        onEnded={restartFullSong}
         onError={() => setNeedsPlaybackTap(true)}
       />
 
