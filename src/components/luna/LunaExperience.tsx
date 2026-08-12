@@ -16,8 +16,8 @@ import {
   VolumeX,
 } from "lucide-react";
 
-const SONG_SRC = "/Media/luna/our-song.mp3";
 const SONG_START_SECONDS = 131;
+const SONG_SRC = `/Media/luna/our-song.mp3#t=${SONG_START_SECONDS}`;
 
 const photos = [
   { src: "/Media/luna/01-kiss.webp", alt: "Hadi kissing Luna beside the lake", shape: "wide" },
@@ -145,23 +145,39 @@ export function LunaExperience() {
       return;
     }
 
+    // Safari may begin a pending play before honoring currentTime. Unlock it
+    // muted inside the tap, wait for the seek to finish, then expose sound.
     audio.volume = 0.72;
-    audio.muted = false;
-    if (audio.readyState >= HTMLMediaElement.HAVE_METADATA) {
-      audio.currentTime = SONG_START_SECONDS;
-    } else {
-      audio.addEventListener(
-        "loadedmetadata",
-        () => {
-          audio.currentTime = SONG_START_SECONDS;
-        },
-        { once: true }
-      );
-    }
-
-    setMuted(false);
+    audio.muted = true;
+    setMuted(true);
     setNeedsPlaybackTap(false);
-    void audio.play().catch(() => setNeedsPlaybackTap(true));
+
+    const resumeAfterSeek = () => {
+      const seekAndResume = () => {
+        const resume = () => {
+          audio.muted = false;
+          setMuted(false);
+          void audio.play().catch(() => setNeedsPlaybackTap(true));
+        };
+
+        if (Math.abs(audio.currentTime - SONG_START_SECONDS) <= 0.25 && !audio.seeking) {
+          resume();
+          return;
+        }
+
+        audio.addEventListener("seeked", resume, { once: true });
+        audio.currentTime = SONG_START_SECONDS;
+      };
+
+      audio.pause();
+      if (audio.readyState >= HTMLMediaElement.HAVE_METADATA) {
+        seekAndResume();
+      } else {
+        audio.addEventListener("loadedmetadata", seekAndResume, { once: true });
+      }
+    };
+
+    void audio.play().then(resumeAfterSeek).catch(() => setNeedsPlaybackTap(true));
   };
 
   const enter = () => {
@@ -234,7 +250,11 @@ export function LunaExperience() {
         onLoadedMetadata={(event) => {
           event.currentTarget.currentTime = SONG_START_SECONDS;
         }}
-        onPlay={() => setNeedsPlaybackTap(false)}
+        onPlaying={(event) => {
+          if (!event.currentTarget.muted && event.currentTarget.currentTime >= SONG_START_SECONDS - 0.5) {
+            setNeedsPlaybackTap(false);
+          }
+        }}
         onEnded={loopSelectedSection}
         onError={() => setNeedsPlaybackTap(true)}
       />
