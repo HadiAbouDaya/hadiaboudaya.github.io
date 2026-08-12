@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 const SONG_START_SECONDS = 131;
-const SONG_SRC = `/Media/luna/our-song.mp3#t=${SONG_START_SECONDS}`;
+const SONG_SRC = "/Media/luna/our-song.mp3";
 
 const photos = [
   { src: "/Media/luna/01-kiss.webp", alt: "Hadi kissing Luna beside the lake", shape: "wide" },
@@ -197,13 +197,6 @@ export function LunaExperience() {
     if (!nextMuted) void audio.play().catch(() => setNeedsPlaybackTap(true));
   };
 
-  const restartFullSong = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    audio.currentTime = 0;
-    void audio.play().catch(() => setNeedsPlaybackTap(true));
-  };
-
   return (
     <div className="luna-page">
       <AnimatePresence>
@@ -247,6 +240,7 @@ export function LunaExperience() {
         src={SONG_SRC}
         preload="auto"
         playsInline
+        loop
         onLoadedMetadata={(event) => {
           event.currentTarget.currentTime = SONG_START_SECONDS;
         }}
@@ -255,7 +249,6 @@ export function LunaExperience() {
             setNeedsPlaybackTap(false);
           }
         }}
-        onEnded={restartFullSong}
         onError={() => setNeedsPlaybackTap(true)}
       />
 
