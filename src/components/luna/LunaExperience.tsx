@@ -6,7 +6,6 @@ import { AnimatePresence, m } from "framer-motion";
 import {
   ArrowDown,
   BookOpen,
-  ExternalLink,
   Heart,
   HeartPulse,
   MapPin,
@@ -17,9 +16,8 @@ import {
   VolumeX,
 } from "lucide-react";
 
-const SONG_URL = "https://youtu.be/fzYxHSRdKa4?si=MzaqMS4HAV4AjvMo&t=131";
-const SONG_EMBED =
-  "https://www.youtube-nocookie.com/embed/fzYxHSRdKa4?autoplay=0&start=131&loop=1&playlist=fzYxHSRdKa4&controls=1&disablekb=1&fs=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1";
+const SONG_SRC = "/Media/luna/our-song.mp3";
+const SONG_START_SECONDS = 131;
 
 const photos = [
   { src: "/Media/luna/01-kiss.webp", alt: "Hadi kissing Luna beside the lake", shape: "wide" },
@@ -118,9 +116,6 @@ function MusicControl({
       <button type="button" onClick={onToggle} aria-label={muted ? "Play the song" : "Mute the song"}>
         {muted ? <VolumeX /> : <Volume2 />}
       </button>
-      <a href={SONG_URL} target="_blank" rel="noreferrer" aria-label="Open For Luna on YouTube">
-        <ExternalLink />
-      </a>
     </div>
   );
 }
@@ -130,10 +125,7 @@ export function LunaExperience() {
   const [muted, setMuted] = useState(false);
   const [needsPlaybackTap, setNeedsPlaybackTap] = useState(false);
   const [candlesOut, setCandlesOut] = useState(false);
-  const playerRef = useRef<HTMLIFrameElement>(null);
-  const playerReadyRef = useRef(false);
-  const playingRef = useRef(false);
-  const playbackCheckRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     document.body.classList.add("luna-experience-active");
@@ -146,61 +138,30 @@ export function LunaExperience() {
     };
   }, []);
 
-  useEffect(() => {
-    const handlePlayerMessage = (event: MessageEvent) => {
-      if (
-        !event.origin.includes("youtube.com") &&
-        !event.origin.includes("youtube-nocookie.com")
-      ) return;
-
-      try {
-        const data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
-        if (data?.event === "onStateChange" && data.info === 1) {
-          playingRef.current = true;
-          setNeedsPlaybackTap(false);
-          if (playbackCheckRef.current) clearTimeout(playbackCheckRef.current);
-        }
-        if (data?.event === "onAutoplayBlocked") {
-          playingRef.current = false;
-          setNeedsPlaybackTap(true);
-        }
-      } catch {
-        // YouTube also sends non-JSON status messages; they are not player events.
-      }
-    };
-
-    window.addEventListener("message", handlePlayerMessage);
-    return () => {
-      window.removeEventListener("message", handlePlayerMessage);
-      if (playbackCheckRef.current) clearTimeout(playbackCheckRef.current);
-    };
-  }, []);
-
-  const sendPlayerCommand = (func: string, args: unknown[] = []) => {
-    playerRef.current?.contentWindow?.postMessage(
-      JSON.stringify({ event: "command", func, args }),
-      "*"
-    );
-  };
-
   const startMusic = () => {
-    if (!playerReadyRef.current) {
+    const audio = audioRef.current;
+    if (!audio) {
       setNeedsPlaybackTap(true);
       return;
     }
 
-    playingRef.current = false;
+    audio.volume = 0.72;
+    audio.muted = false;
+    if (audio.readyState >= HTMLMediaElement.HAVE_METADATA) {
+      audio.currentTime = SONG_START_SECONDS;
+    } else {
+      audio.addEventListener(
+        "loadedmetadata",
+        () => {
+          audio.currentTime = SONG_START_SECONDS;
+        },
+        { once: true }
+      );
+    }
+
     setMuted(false);
     setNeedsPlaybackTap(false);
-    sendPlayerCommand("seekTo", [131, true]);
-    sendPlayerCommand("setVolume", [72]);
-    sendPlayerCommand("unMute");
-    sendPlayerCommand("playVideo");
-
-    if (playbackCheckRef.current) clearTimeout(playbackCheckRef.current);
-    playbackCheckRef.current = setTimeout(() => {
-      if (!playingRef.current) setNeedsPlaybackTap(true);
-    }, 1800);
+    void audio.play().catch(() => setNeedsPlaybackTap(true));
   };
 
   const enter = () => {
@@ -211,10 +172,20 @@ export function LunaExperience() {
   };
 
   const toggleMusic = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
     const nextMuted = !muted;
     setMuted(nextMuted);
-    sendPlayerCommand(nextMuted ? "mute" : "unMute");
-    if (!nextMuted) sendPlayerCommand("playVideo");
+    audio.muted = nextMuted;
+    if (!nextMuted) void audio.play().catch(() => setNeedsPlaybackTap(true));
+  };
+
+  const loopSelectedSection = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.currentTime = SONG_START_SECONDS;
+    void audio.play().catch(() => setNeedsPlaybackTap(true));
   };
 
   return (
@@ -254,34 +225,19 @@ export function LunaExperience() {
         )}
       </AnimatePresence>
 
-      <div
-        className={`luna-youtube ${entered && needsPlaybackTap ? "needs-tap" : ""}`}
-        aria-hidden={entered && needsPlaybackTap ? undefined : true}
-      >
-        <span className="luna-youtube-note">
-          <Music2 />
-          Tap play for our song
-        </span>
-        <iframe
-          ref={playerRef}
-          id="luna-youtube-player"
-          src={SONG_EMBED}
-          title="For Luna"
-          width="200"
-          height="200"
-          loading="eager"
-          allow="autoplay; encrypted-media; picture-in-picture"
-          onLoad={() => {
-            playerReadyRef.current = true;
-            playerRef.current?.contentWindow?.postMessage(
-              JSON.stringify({ event: "listening", id: "luna-youtube-player" }),
-              "*"
-            );
-            sendPlayerCommand("addEventListener", ["onStateChange"]);
-            sendPlayerCommand("addEventListener", ["onAutoplayBlocked"]);
-          }}
-        />
-      </div>
+      <audio
+        ref={audioRef}
+        className="luna-audio"
+        src={SONG_SRC}
+        preload="auto"
+        playsInline
+        onLoadedMetadata={(event) => {
+          event.currentTarget.currentTime = SONG_START_SECONDS;
+        }}
+        onPlay={() => setNeedsPlaybackTap(false)}
+        onEnded={loopSelectedSection}
+        onError={() => setNeedsPlaybackTap(true)}
+      />
 
       {entered && (
         <MusicControl
