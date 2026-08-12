@@ -18,6 +18,13 @@ import {
 
 const SONG_START_SECONDS = 131;
 const SONG_SRC = "/Media/luna/our-song.mp3";
+const AUDIO_ENGINE_VERSION = "web-audio-offset-v1";
+const SONG_VOLUME = 0.72;
+
+type SafariWindow = Window &
+  typeof globalThis & {
+    webkitAudioContext?: typeof AudioContext;
+  };
 
 const photos = [
   { src: "/Media/luna/01-kiss.webp", alt: "Hadi kissing Luna beside the lake", shape: "wide" },
@@ -125,59 +132,117 @@ export function LunaExperience() {
   const [muted, setMuted] = useState(false);
   const [needsPlaybackTap, setNeedsPlaybackTap] = useState(false);
   const [candlesOut, setCandlesOut] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const audioContextRef = useRef<AudioContext>(null);
+  const audioDataPromiseRef = useRef<Promise<ArrayBuffer> | null>(null);
+  const audioBufferPromiseRef = useRef<Promise<AudioBuffer> | null>(null);
+  const audioSourceRef = useRef<AudioBufferSourceNode>(null);
+  const gainNodeRef = useRef<GainNode>(null);
+  const playbackGenerationRef = useRef(0);
+
+  const loadAudioData = () => {
+    if (!audioDataPromiseRef.current) {
+      audioDataPromiseRef.current = fetch(SONG_SRC)
+        .then((response) => {
+          if (!response.ok) throw new Error(`Unable to load song (${response.status})`);
+          return response.arrayBuffer();
+        })
+        .catch((error) => {
+          audioDataPromiseRef.current = null;
+          throw error;
+        });
+    }
+
+    return audioDataPromiseRef.current;
+  };
 
   useEffect(() => {
     document.body.classList.add("luna-experience-active");
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
+    void loadAudioData().catch(() => undefined);
+
     return () => {
+      playbackGenerationRef.current += 1;
+      try {
+        audioSourceRef.current?.stop();
+      } catch {
+        // The source may already have stopped while the page was closing.
+      }
+      audioSourceRef.current?.disconnect();
+      gainNodeRef.current?.disconnect();
+      void audioContextRef.current?.close().catch(() => undefined);
       document.body.classList.remove("luna-experience-active");
       document.body.style.overflow = previousOverflow;
     };
   }, []);
 
   const startMusic = () => {
-    const audio = audioRef.current;
-    if (!audio) {
+    const AudioContextConstructor =
+      window.AudioContext || (window as SafariWindow).webkitAudioContext;
+
+    if (!AudioContextConstructor) {
       setNeedsPlaybackTap(true);
       return;
     }
 
-    // Safari may begin a pending play before honoring currentTime. Unlock it
-    // muted inside the tap, wait for the seek to finish, then expose sound.
-    audio.volume = 0.72;
-    audio.muted = true;
-    setMuted(true);
+    const context = audioContextRef.current ?? new AudioContextConstructor();
+    audioContextRef.current = context;
+    const generation = ++playbackGenerationRef.current;
+
+    // iOS requires both the context resume and a source start inside the user's tap.
+    const unlockSource = context.createBufferSource();
+    unlockSource.buffer = context.createBuffer(1, 1, context.sampleRate);
+    unlockSource.connect(context.destination);
+    unlockSource.start();
+    unlockSource.addEventListener("ended", () => unlockSource.disconnect(), { once: true });
+    const resumePromise = context.resume();
     setNeedsPlaybackTap(false);
+    setMuted(false);
 
-    const resumeAfterSeek = () => {
-      const seekAndResume = () => {
-        const resume = () => {
-          audio.muted = false;
-          setMuted(false);
-          void audio.play().catch(() => setNeedsPlaybackTap(true));
-        };
+    void (async () => {
+      await resumePromise;
 
-        if (Math.abs(audio.currentTime - SONG_START_SECONDS) <= 0.25 && !audio.seeking) {
-          resume();
-          return;
-        }
-
-        audio.addEventListener("seeked", resume, { once: true });
-        audio.currentTime = SONG_START_SECONDS;
-      };
-
-      audio.pause();
-      if (audio.readyState >= HTMLMediaElement.HAVE_METADATA) {
-        seekAndResume();
-      } else {
-        audio.addEventListener("loadedmetadata", seekAndResume, { once: true });
+      if (!audioBufferPromiseRef.current) {
+        audioBufferPromiseRef.current = loadAudioData()
+          .then((data) => context.decodeAudioData(data.slice(0)))
+          .catch((error) => {
+            audioBufferPromiseRef.current = null;
+            throw error;
+          });
       }
-    };
 
-    void audio.play().then(resumeAfterSeek).catch(() => setNeedsPlaybackTap(true));
+      const buffer = await audioBufferPromiseRef.current;
+      if (generation !== playbackGenerationRef.current) return;
+
+      try {
+        audioSourceRef.current?.stop();
+      } catch {
+        // AudioBufferSourceNode is one-shot and may already be stopped.
+      }
+      audioSourceRef.current?.disconnect();
+
+      const gain = gainNodeRef.current ?? context.createGain();
+      if (!gainNodeRef.current) {
+        gain.connect(context.destination);
+        gainNodeRef.current = gain;
+      }
+      gain.gain.setValueAtTime(SONG_VOLUME, context.currentTime);
+
+      const source = context.createBufferSource();
+      source.buffer = buffer;
+      source.loop = true;
+      source.loopStart = 0;
+      source.loopEnd = buffer.duration;
+      source.connect(gain);
+      source.start(0, Math.min(SONG_START_SECONDS, buffer.duration - 0.01));
+      audioSourceRef.current = source;
+    })().catch(() => {
+      if (generation === playbackGenerationRef.current) {
+        setMuted(true);
+        setNeedsPlaybackTap(true);
+      }
+    });
   };
 
   const enter = () => {
@@ -188,17 +253,23 @@ export function LunaExperience() {
   };
 
   const toggleMusic = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
+    const context = audioContextRef.current;
+    const gain = gainNodeRef.current;
+    if (!context || !gain || !audioSourceRef.current) {
+      startMusic();
+      return;
+    }
 
     const nextMuted = !muted;
     setMuted(nextMuted);
-    audio.muted = nextMuted;
-    if (!nextMuted) void audio.play().catch(() => setNeedsPlaybackTap(true));
+    gain.gain.setValueAtTime(nextMuted ? 0 : SONG_VOLUME, context.currentTime);
+    if (!nextMuted) {
+      void context.resume().catch(() => setNeedsPlaybackTap(true));
+    }
   };
 
   return (
-    <div className="luna-page">
+    <div className="luna-page" data-audio-engine={AUDIO_ENGINE_VERSION}>
       <AnimatePresence>
         {!entered && (
           <m.div
@@ -233,24 +304,6 @@ export function LunaExperience() {
           </m.div>
         )}
       </AnimatePresence>
-
-      <audio
-        ref={audioRef}
-        className="luna-audio"
-        src={SONG_SRC}
-        preload="auto"
-        playsInline
-        loop
-        onLoadedMetadata={(event) => {
-          event.currentTarget.currentTime = SONG_START_SECONDS;
-        }}
-        onPlaying={(event) => {
-          if (!event.currentTarget.muted && event.currentTarget.currentTime >= SONG_START_SECONDS - 0.5) {
-            setNeedsPlaybackTap(false);
-          }
-        }}
-        onError={() => setNeedsPlaybackTap(true)}
-      />
 
       {entered && (
         <MusicControl

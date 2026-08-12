@@ -129,15 +129,6 @@ body.luna-experience-active {
   color: var(--luna-pink);
 }
 
-.luna-audio {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
-}
-
 .luna-music-control {
   position: fixed;
   z-index: 80;
