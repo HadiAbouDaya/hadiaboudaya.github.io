@@ -18,7 +18,7 @@ import {
 
 const SONG_START_SECONDS = 131;
 const SONG_SRC = "/Media/luna/our-song.mp3";
-const AUDIO_ENGINE_VERSION = "web-audio-offset-v1";
+const AUDIO_ENGINE_VERSION = "web-audio-offset-v2";
 const SONG_VOLUME = 0.72;
 
 type SafariWindow = Window &

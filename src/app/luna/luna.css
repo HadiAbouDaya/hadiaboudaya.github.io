@@ -939,6 +939,12 @@ body.luna-experience-active {
 }
 
 @media (max-width: 759px) {
+  .luna-music-control {
+    top: auto;
+    right: 0.75rem;
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+
   .luna-hero::after {
     background: rgb(255 250 248 / 0.56);
   }
@@ -950,6 +956,30 @@ body.luna-experience-active {
 
   .luna-hero-photo img {
     object-position: 58% 35%;
+  }
+
+  .luna-story {
+    min-height: 0;
+    align-items: start;
+    gap: 2.75rem;
+  }
+
+  .luna-story-photos {
+    min-height: 0;
+  }
+
+  .luna-photo-main {
+    width: 100%;
+  }
+
+  .luna-photo-small {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    z-index: 2;
+    width: 58%;
+    margin: -2.25rem 0 0 auto;
+    border-width: 5px;
   }
 
   .luna-brussels {
