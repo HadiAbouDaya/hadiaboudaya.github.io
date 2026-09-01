@@ -9,6 +9,7 @@ import { categoryConfig } from "@/data/eventCategories";
 import { type Accent } from "@/lib/accents";
 import { ImageLightbox } from "@/components/ui/ImageLightbox";
 import { CreativeCarousel } from "@/components/ui/CreativeCarousel";
+import { cn } from "@/lib/utils";
 import {
   Calendar,
   MapPin,
@@ -115,7 +116,11 @@ export function EventDetail({ event }: EventDetailProps) {
                         alt={`${event.title} - photo ${i + 1} of ${event.images!.length}`}
                         fill
                         priority={i === 0}
-                        className="object-cover transition-transform duration-500 ease-out group-hover/photo:scale-[1.03]"
+                        className={cn(
+                          "object-cover transition-transform duration-500 ease-out group-hover/photo:scale-[1.03]",
+                          event.imagePosition === "top" && "object-top",
+                          event.imagePosition === "bottom" && "object-bottom"
+                        )}
                         sizes="(max-width: 640px) 50vw, 33vw"
                       />
                     </button>

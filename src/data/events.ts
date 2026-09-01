@@ -4,6 +4,41 @@ export const events: Event[] = [
   // ─── 2026 ───────────────────────────────────────────────────────────────────
 
   {
+    slug: "ai-era-students-guide",
+    title: "AI Era: A Student's Guide",
+    date: "2026-08-26",
+    location: "Online",
+    category: "workshop",
+    role: "Webinar Speaker",
+    organizations: [
+      "IEEE Computer Society PU Student Chapter",
+      "ZAKA Ambassadors",
+      "Google Developer Group on Campus - Phoenicia University",
+    ],
+    summary:
+      "Delivered a 90-minute student webinar on how AI evolved, the physical supply chain behind it, and how early-career engineers can build durable skills for what comes next.",
+    description:
+      "Delivered \"AI Era: A Student's Guide,\" a 90-minute online workshop for engineering students followed by an open Q&A. The session started with why AI feels sudden despite more than 70 years of research, then traced the field from symbolic systems and machine learning through deep learning, transformers, ChatGPT, multimodal models, and tool-using agents. It also unpacked the physical supply chain behind every AI answer: chip design, EUV lithography, advanced fabrication, HBM and packaging, accelerator clusters, data centers, cooling, and grid power. The final section focused on what this shift means for young engineers, including changing task economics, durable technical foundations, AI-native development habits, production reliability, specialization, portfolio design, and a practical 12-month learning roadmap.",
+    keyPoints: [
+      "How AI developed from early symbolic systems to foundation models and agents",
+      "Why data, algorithms, hardware, memory, networking, and energy advance together",
+      "How the global AI supply chain runs from chip design and fabrication to data centers and power",
+      "How students can combine engineering foundations, AI literacy, domain expertise, and judgment",
+    ],
+    duration: "90 minutes",
+    images: ["/Media/events/ai-era-students-guide/1.webp"],
+    imagePosition: "top",
+    tags: [
+      "AI",
+      "Engineering",
+      "AI Supply Chain",
+      "Career Development",
+      "Students",
+      "Webinar",
+    ],
+    tier: "featured",
+  },
+  {
     slug: "aws-saa-ai-practitioner-certifications",
     title: "AWS Solutions Architect Associate and AI Practitioner Certifications",
     date: "2026-07-21",

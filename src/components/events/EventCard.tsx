@@ -87,7 +87,11 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
                 src={event.images[0]}
                 alt={`${event.title} - event photo`}
                 fill
-                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                className={cn(
+                  "object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]",
+                  event.imagePosition === "top" && "object-top",
+                  event.imagePosition === "bottom" && "object-bottom"
+                )}
                 sizes={
                   isFeatured
                     ? "(max-width: 1024px) 100vw, 66vw"

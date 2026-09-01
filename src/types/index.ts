@@ -70,6 +70,7 @@ export interface Event {
   websiteUrl?: string;
   credlyUrls?: string[];
   images?: string[];
+  imagePosition?: "top" | "center" | "bottom";
   videoUrl?: string;
   // Optional enrichment fields. Backfill per event with first-hand detail to
   // raise unique word count + E-E-A-T; each renders only when present.
