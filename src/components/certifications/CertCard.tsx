@@ -40,7 +40,7 @@ export function CertCard({ cert }: CertCardProps) {
           <div className="relative flex-shrink-0 w-14 h-14 rounded-control overflow-hidden bg-slate-50 dark:bg-slate-200">
             <ImageWithFallback
               src={cert.badgePath}
-              alt={`${cert.name} certification badge from ${cert.issuer}`}
+              alt={`${cert.name} badge from ${cert.issuer}`}
               width={56}
               height={56}
               fallbackText={cert.issuer.slice(0, 2).toUpperCase()}
