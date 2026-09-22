@@ -125,7 +125,7 @@ export const certifications: Certification[] = [
     type: "certification",
     category: "AWS",
     issuedDate: "Apr 2025",
-    expiryDate: "Apr 2028",
+    expiryDate: "Jul 2029",
     credentialUrl:
       "https://cp.certmetrics.com/amazon/en/public/verify/credential/6ae809da23ad49d3bdb36cce98c0d788",
     badgePath: "/Media/certifications/badges/aws-cloud-practitioner.webp",
