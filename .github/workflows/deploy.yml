@@ -36,13 +36,10 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: pnpm next build
+        run: pnpm build
         env:
           NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
           NEXT_PUBLIC_POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
-
-      - name: Generate responsive image variants
-        run: node scripts/generate-image-variants.mjs out/Media
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

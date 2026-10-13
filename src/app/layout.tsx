@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import MotionProvider from "@/components/animations/MotionProvider";
 import { SkipToContent } from "@/components/ui/SkipToContent";
 import { getAllPostSearchItems } from "@/lib/mdx";
+import { CONTENT_SECURITY_POLICY } from "@/lib/security";
 
 import "./globals.css";
 import type { Metadata } from "next";
@@ -30,6 +31,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: "/manifest.json",
+  referrer: "strict-origin-when-cross-origin",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -67,6 +69,9 @@ export default function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
       <head>
+        {/* GitHub Pages cannot send HTTP headers; deliver the CSP as a
+            meta tag. Full header set lives in public/_headers. */}
+        <meta httpEquiv="Content-Security-Policy" content={CONTENT_SECURITY_POLICY} />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="font-sans bg-surface text-fg antialiased min-h-screen flex flex-col">

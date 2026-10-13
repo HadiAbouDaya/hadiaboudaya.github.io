@@ -37,6 +37,12 @@ async function walk(dir) {
 
 async function main() {
   const sources = await walk(root);
+  if (sources.length === 0) {
+    throw new Error(
+      `generate-image-variants: no source images found in "${root}". ` +
+        `Run this after \`next build\` so the exported Media directory exists.`,
+    );
+  }
   let written = 0;
 
   for (const file of sources) {
