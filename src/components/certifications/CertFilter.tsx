@@ -107,7 +107,7 @@ export function CertFilter() {
           layout
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence initial={false} mode="popLayout">
             {filtered.map((cert) => (
               <CertCard key={cert.id} cert={cert} />
             ))}

@@ -13,6 +13,8 @@ const LOCATIONS = [
   { lat: 41.9028, lon: 12.4964 },    // Rome
   { lat: 40.1792, lon: 44.4991 },    // Yerevan
   { lat: 30.0444, lon: 31.2357 },    // Cairo
+  { lat: 59.3293, lon: 18.0686 },    // Stockholm
+  { lat: 38.7223, lon: -9.1393 },    // Lisbon
 ];
 
 interface Point3D { x: number; y: number; z: number }

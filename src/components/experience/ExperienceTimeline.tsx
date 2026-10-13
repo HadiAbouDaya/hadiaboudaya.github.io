@@ -178,7 +178,7 @@ export function ExperienceTimeline() {
 
       {/* Timeline */}
       <div className="relative">
-        <AnimatePresence mode="wait">
+        <AnimatePresence initial={false} mode="wait">
           <m.div
             key={filter}
             variants={fade}

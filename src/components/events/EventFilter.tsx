@@ -82,7 +82,7 @@ export function EventFilter() {
 
         {/* Year-grouped events */}
         <div className="space-y-12">
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence initial={false} mode="popLayout">
             {yearGroups.map(({ year, events: yearEvents }) => {
               return (
                 <m.div
