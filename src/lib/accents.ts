@@ -16,7 +16,7 @@ export const ACCENTS: Record<
 > = {
   blue: {
     chip: "bg-primary-50 text-primary-700 dark:bg-primary-400/10 dark:text-primary-300",
-    text: "text-primary-600 dark:text-primary-400",
+    text: "text-primary-700 dark:text-primary-400",
     onImage: "text-primary-700 dark:text-primary-300",
     dot: "bg-primary-500",
     border: "border-primary-500/60",
@@ -25,7 +25,7 @@ export const ACCENTS: Record<
   },
   teal: {
     chip: "bg-teal-50 text-teal-700 dark:bg-teal-400/10 dark:text-teal-300",
-    text: "text-teal-600 dark:text-teal-400",
+    text: "text-teal-700 dark:text-teal-400",
     onImage: "text-teal-700 dark:text-teal-300",
     dot: "bg-teal-500",
     border: "border-teal-500/60",
@@ -34,7 +34,7 @@ export const ACCENTS: Record<
   },
   emerald: {
     chip: "bg-emerald-50 text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-300",
-    text: "text-emerald-600 dark:text-emerald-400",
+    text: "text-emerald-700 dark:text-emerald-400",
     onImage: "text-emerald-700 dark:text-emerald-300",
     dot: "bg-emerald-500",
     border: "border-emerald-500/60",
@@ -43,7 +43,7 @@ export const ACCENTS: Record<
   },
   amber: {
     chip: "bg-amber-50 text-amber-700 dark:bg-amber-400/10 dark:text-amber-300",
-    text: "text-amber-600 dark:text-amber-400",
+    text: "text-amber-700 dark:text-amber-400",
     onImage: "text-amber-700 dark:text-amber-300",
     dot: "bg-amber-500",
     border: "border-amber-500/60",
@@ -52,7 +52,7 @@ export const ACCENTS: Record<
   },
   orange: {
     chip: "bg-orange-50 text-orange-700 dark:bg-orange-400/10 dark:text-orange-300",
-    text: "text-orange-600 dark:text-orange-400",
+    text: "text-orange-700 dark:text-orange-400",
     onImage: "text-orange-700 dark:text-orange-300",
     dot: "bg-orange-500",
     border: "border-orange-500/60",

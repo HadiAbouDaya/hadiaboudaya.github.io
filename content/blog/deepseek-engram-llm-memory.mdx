@@ -1,6 +1,7 @@
 ---
 title: "DeepSeek's Engram Gives LLMs a Dedicated Memory Lane"
 date: "2026-03-24"
+updatedAt: "2026-10-19"
 tags: ["AI", "LLMs", "DeepSeek", "Research", "Architecture"]
 excerpt: "Large language models waste enormous computational depth reconstructing facts they already know. DeepSeek's Engram module fixes this by adding a fast-lookup memory system alongside neural computation, yielding surprising gains not just in knowledge retrieval but in reasoning, coding, and math."
 coverImage: "/Media/blog/covers/deepseek-engram-llm-memory.png"
@@ -13,7 +14,7 @@ coverImage: "/Media/blog/covers/deepseek-engram-llm-memory.png"
 > **Key Takeaways**
 >
 > - DeepSeek's Engram adds a fast-lookup memory table alongside transformer computation, treating knowledge retrieval and reasoning as separate sparsity axes.
-> - Optimal performance follows a U-shaped scaling law at roughly 75-80% compute and 20-25% memory allocation per parameter budget.
+> - Optimal performance follows a U-shaped scaling law at roughly 75-80% of the sparse parameter budget allocated to MoE experts and 20-25% to Engram memory; these are parameter allocations, not compute or RAM percentages.
 > - Engram-27B outperforms the equivalent MoE-27B baseline by +5.0 on BBH, +3.7 on ARC-Challenge, +3.0 on HumanEval, and +2.4 on MATH, despite sharing the same activated parameters per token.
 > - Memory improvements unexpectedly propagate to reasoning, coding, and math tasks because freeing neural depth from factual lookup gives the model more effective layers for complex computation.
 
@@ -41,11 +42,11 @@ Engram operates in two phases: **retrieval** and **fusion**. During retrieval, t
 
 Crucially, Engram is **not applied to every layer**. The paper finds that inserting it at layers 2 and 15 (in a 30-layer model) achieves optimal results, early enough to relieve the backbone from static pattern reconstruction, but after one round of attention provides enough context for the gating mechanism to work.
 
-## What is the optimal balance between memory and computation?
+## How should sparse parameters be split between experts and memory?
 
 The paper's most theoretically elegant contribution is the **Sparsity Allocation** framework. Given a fixed total parameter budget, how should spare capacity be divided between MoE experts (conditional computation) and Engram embeddings (conditional memory)? The researchers define an allocation ratio ρ, where ρ=1 means all spare parameters go to MoE experts and ρ=0 means all go to Engram memory.
 
-Experiments at two compute scales (5.7B and 9.9B total parameters) reveal a consistent **U-shaped curve**: both extremes perform poorly, and the optimum falls at **ρ ≈ 75-80%**, meaning roughly **20-25% of spare parameters should be allocated to memory**. This finding is stable across both compute regimes, suggesting a robust architectural preference.
+Experiments at two compute budgets, with approximately 5.7B and 9.9B total parameters respectively, reveal a consistent **U-shaped curve**: both extremes perform poorly, and the optimum falls at **ρ ≈ 75-80%**, meaning roughly **20-25% of spare parameters should be allocated to memory**. This finding is stable across both compute regimes, suggesting a robust architectural preference.
 
 The interpretation is intuitive once stated. When the model is MoE-dominated (ρ→100%), it lacks dedicated memory for static patterns and wastes computational depth reconstructing them. When it is Engram-dominated (ρ→0%), it loses the dynamic reasoning capacity that MoE provides. Memory cannot replace computation for tasks requiring contextual inference. The sweet spot uses computation for what requires computation and lookup for what requires lookup.
 
@@ -55,7 +56,7 @@ In a separate "infinite memory regime" experiment, the researchers fix the MoE b
 
 The paper trains four models for comparison: Dense-4B (baseline), MoE-27B (26.7B parameters, standard MoE), Engram-27B (26.7B parameters, same total size but with 5.7B reallocated from MoE experts to Engram), and Engram-40B (39.5B parameters, with an 18.5B Engram table). All share identical activated parameters (**3.8B per token**) and training data (**262B tokens**).
 
-The results across 27 benchmarks are striking. Engram-27B consistently beats the iso-parameter, iso-FLOPs MoE-27B baseline. The expected wins appear in knowledge-intensive tasks: **MMLU +3.4**, **CMMLU +4.0**, **TriviaQA +1.9**. But the larger, more surprising gains emerge in domains where a static memory module has no obvious benefit. General reasoning sees **BBH +5.0** and **ARC-Challenge +3.7**. Code and math benchmarks improve by **HumanEval +3.0**, **MATH +2.4**, and **GSM8K +2.2**. Even reading comprehension improves: **DROP +3.3**, **RACE-High +2.8**.
+The results across 27 benchmarks are striking in the [paper's controlled experiments](https://arxiv.org/html/2601.07372v1#S4). Engram-27B consistently beats the iso-parameter, iso-FLOPs MoE-27B baseline. The expected wins appear in knowledge-intensive tasks: **MMLU +3.0** and **MMLU-Redux +3.4**, **CMMLU +4.0**, **TriviaQA +1.9**. But the larger, more surprising gains emerge in domains where a static memory module has no obvious benefit. General reasoning sees **BBH +5.0** and **ARC-Challenge +3.7**. Code and math benchmarks improve by **HumanEval +3.0**, **MATH +2.4**, and **GSM8K +2.2**. Even reading comprehension improves: **DROP +3.3**, **RACE-High +2.8**.
 
 Long-context performance is perhaps most dramatic. After context extension training to 32K tokens, Engram-27B achieves **97.0%** on Multi-Query Needle-in-a-Haystack (vs. 84.2% for MoE-27B) and **89.0%** on Variable Tracking (vs. 77.0%). Even an early-stopped Engram checkpoint using only 82% of the baseline's pre-training compute matches or exceeds the fully trained MoE model on most long-context tasks.
 
@@ -73,7 +74,7 @@ A sensitivity analysis confirms this functional division. When Engram is ablated
 
 The final major contribution is a **system co-design** that makes massive memory tables feasible. Unlike MoE routing, which depends on runtime hidden states and cannot be predicted before computation begins, Engram's hash lookups are entirely determined by the input token sequence. This enables a **prefetch-and-overlap** strategy: while the GPU computes layer N, the system asynchronously retrieves Engram embeddings for layer N+K from host CPU memory over PCIe.
 
-The paper demonstrates this with a **100-billion-parameter** Engram table entirely offloaded to host DRAM, tested on NVIDIA H800 hardware. The throughput penalty is **less than 3%** (e.g., 8,858 vs. 9,031 tokens/second for a 4B backbone). The natural Zipfian distribution of N-grams, where a small fraction of patterns accounts for most accesses, further enables a multi-level cache hierarchy, with hot embeddings in GPU HBM and the long tail in DRAM or even NVMe SSD.
+The paper demonstrates this with a **100-billion-parameter** Engram table entirely offloaded to host DRAM, tested on NVIDIA H800 hardware. In the [reported systems experiment](https://arxiv.org/html/2601.07372v1#S6.SS4), the throughput penalty is **less than 3%** (e.g., 8,858 vs. 9,031 tokens/second for a 4B backbone). The natural Zipfian distribution of N-grams, where a small fraction of patterns accounts for most accesses, further enables a multi-level cache hierarchy, with hot embeddings in GPU HBM and the long tail in DRAM or even NVMe SSD.
 
 This decoupling of storage from compute is strategically significant. It means Engram can scale with **cheap system RAM** rather than expensive GPU memory, potentially bypassing the "memory wall" that constrains most LLM scaling approaches. A server with 1TB of commodity DRAM could host an enormous Engram table at a fraction of the cost of equivalent GPU HBM.
 

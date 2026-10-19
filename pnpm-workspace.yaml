@@ -3,3 +3,7 @@ allowBuilds:
   protobufjs: true
   sharp: true
   unrs-resolver: true
+
+# Upstream constraints otherwise retain versions with published security fixes.
+overrides:
+  '@tailwindcss/typography>postcss-selector-parser': ^7.1.6

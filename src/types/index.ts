@@ -12,13 +12,28 @@ export interface Experience {
   technologies: string[];
   logoPath: string;
   companyUrl?: string;
+  projects?: { heading: string; bullets: string[] }[];
+  engagements?: Experience[];
+  caseStudySlugs?: string[];
+}
+
+export interface CaseStudy {
+  slug: string;
+  title: string;
+  engagementId: string;
+  context?: string;
+  stage: string;
+  summary: string;
+  sections: { heading: string; paragraphs: string[] }[];
+  technologies: string[];
+  updatedAt: string;
 }
 
 export interface Certification {
   id: number;
   name: string;
   issuer: string;
-  type: "certification" | "course";
+  type: "certification" | "programme" | "course" | "badge";
   category:
     | "AWS"
     | "Azure"
@@ -57,6 +72,10 @@ export interface Event {
   slug: string;
   title: string;
   date: string;
+  datePrecision?: "day" | "month";
+  dateMeaning?: "occurrence" | "announcement" | "milestone" | "completion" | "start";
+  updatedAt?: string;
+  caseStudySlug?: string;
   location: string;
   category: EventCategory;
   filterOverride?: FilterGroupKey;
@@ -89,6 +108,7 @@ export interface BlogPost {
   slug: string;
   title: string;
   date: string;
+  updatedAt?: string;
   tags: string[];
   excerpt: string;
   coverImage: string;

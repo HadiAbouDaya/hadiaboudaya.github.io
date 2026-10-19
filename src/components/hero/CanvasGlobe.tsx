@@ -127,31 +127,32 @@ export function CanvasGlobe() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rotationRef = useRef(0);
   const mouseRef = useRef({ x: 0, y: 0 });
-  const tiltRef = useRef({ x: 0.3, z: 0 });
+  const tiltRef = useRef({ x: 0.3 });
   const frameRef = useRef(0);
 
   useEffect(() => {
-    const reduceMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    function draw() {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    const context = canvas.getContext("2d");
+    if (!context) return;
+    const ctx = context;
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let reduced = media.matches;
+    let width = 0;
+    let height = 0;
+    let idleReady = false;
+    let inView = false;
+    let running = false;
+    let disposed = false;
+    let lastTime: number | null = null;
+    // Locations/arcs are invariant; resizing only changes their scale.
+    const locations = LOCATIONS.map(loc => latLonTo3D(loc.lat, loc.lon, 1.01));
+    const arcs = locations.slice(0, -1).map((point, index) => generateArc(point, locations[index + 1], 1.01, 30));
 
-    const dpr = window.devicePixelRatio || 1;
-    const rect = canvas.getBoundingClientRect();
-    const w = rect.width;
-    const h = rect.height;
-
-    if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-
+    function draw() {
+    if (width <= 0 || height <= 0) return;
+    const w = width;
+    const h = height;
     ctx.clearRect(0, 0, w, h);
 
     // Match Three.js: camera at z=5, FOV 50deg, globe radius 2
@@ -161,13 +162,6 @@ export function CanvasGlobe() {
     const cy = h / 2;
     const radius = h * 0.43;
     const fov = radius * 2.66;
-
-    rotationRef.current += 0.002;
-
-    const targetX = mouseRef.current.y * 0.3;
-    const targetZ = mouseRef.current.x * 0.3;
-    tiltRef.current.x += (targetX - tiltRef.current.x) * 0.02;
-    tiltRef.current.z += (targetZ - tiltRef.current.z) * 0.02;
 
     const rot = rotationRef.current;
     const tiltX = tiltRef.current.x;
@@ -216,13 +210,12 @@ export function CanvasGlobe() {
 
     // Connection arcs (Three.js: opacity 0.3)
     ctx.lineWidth = 1;
-    for (let i = 0; i < LOCATIONS.length - 1; i++) {
-      const s = latLonTo3D(LOCATIONS[i].lat, LOCATIONS[i].lon, radius * 1.01);
-      const e = latLonTo3D(LOCATIONS[i + 1].lat, LOCATIONS[i + 1].lon, radius * 1.01);
-      const arcPts = generateArc(s, e, radius * 1.01, 30);
+    for (const arc of arcs) {
+      const arcPts = arc;
       ctx.beginPath();
       for (let j = 0; j < arcPts.length; j++) {
-        const tp = transform(arcPts[j]);
+        const unit = arcPts[j];
+        const tp = transform({ x: unit.x * radius, y: unit.y * radius, z: unit.z * radius });
         const avgDepth = (tp.z + radius) / (2 * radius);
         ctx.strokeStyle = `rgba(6, 182, 212, ${(0.15 + 0.15 * avgDepth).toFixed(3)})`;
         const pp = project(tp, cx, cy, fov);
@@ -234,8 +227,8 @@ export function CanvasGlobe() {
 
     // Location dots (Three.js: sphereGeometry radius 0.04 at globe radius 2 = 2% of radius)
     const dotRadius = radius * 0.014;
-    for (const loc of LOCATIONS) {
-      const p = latLonTo3D(loc.lat, loc.lon, radius * 1.01);
+    for (const loc of locations) {
+      const p = { x: loc.x * radius, y: loc.y * radius, z: loc.z * radius };
       const tp = transform(p);
       const pp = project(tp, cx, cy, fov);
       const depthRatio = (tp.z + radius) / (2 * radius);
@@ -257,78 +250,77 @@ export function CanvasGlobe() {
 
     }
 
-    // Continuous render loop (advances rotation each frame).
-    function loop() {
+    function loop(time: number) {
+      if (!running || disposed) return;
+      // Reset on resume and cap gaps so a suspended tab cannot jump the globe.
+      const dt = lastTime === null ? 0 : Math.min((time - lastTime) / 1000, 0.1);
+      lastTime = time;
+      rotationRef.current += 0.12 * dt;
+      const smoothing = 1 - Math.pow(0.98, dt * 60);
+      tiltRef.current.x += (mouseRef.current.y * 0.3 - tiltRef.current.x) * smoothing;
       draw();
       frameRef.current = requestAnimationFrame(loop);
     }
-
-    // The loop runs only once the main thread has gone idle (idleReady) AND the
-    // canvas is on screen (inView). Either condition flipping re-evaluates.
-    let running = false;
-    let idleReady = false;
-    let inView = true;
     function sync() {
-      const shouldRun = idleReady && inView;
+      const shouldRun = !disposed && idleReady && inView && !document.hidden && !reduced && width > 0 && height > 0;
       if (shouldRun && !running) {
         running = true;
+        lastTime = null;
         frameRef.current = requestAnimationFrame(loop);
       } else if (!shouldRun && running) {
         running = false;
         cancelAnimationFrame(frameRef.current);
+        lastTime = null;
       }
     }
-
-    // Honor reduced-motion: render a single static frame and never animate.
-    if (reduceMotion) {
-      draw();
-      return;
-    }
-
-    // Pause the loop when the canvas is scrolled out of view, resume when visible.
-    const canvas = canvasRef.current;
-    let observer: IntersectionObserver | null = null;
-    if (canvas && typeof IntersectionObserver !== "undefined") {
-      observer = new IntersectionObserver(
-        (entries) => {
-          inView = entries[0]?.isIntersecting ?? true;
-          sync();
-        },
-        { threshold: 0 }
-      );
-      observer.observe(canvas);
-    }
-
-    // Defer kicking off the loop until the main thread is idle
-    // (requestIdleCallback, falling back to setTimeout).
-    let idleId = 0;
-    let timeoutId = 0;
-    const ric = (
-      window as typeof window & {
-        requestIdleCallback?: (cb: () => void) => number;
+    function resize() {
+      const rect = canvas!.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      if (width > 0 && height > 0) {
+        const dpr = window.devicePixelRatio || 1;
+        const pixelWidth = Math.max(1, Math.round(width * dpr));
+        const pixelHeight = Math.max(1, Math.round(height * dpr));
+        if (canvas!.width !== pixelWidth || canvas!.height !== pixelHeight) {
+          canvas!.width = pixelWidth;
+          canvas!.height = pixelHeight;
+        }
+        ctx.setTransform(pixelWidth / width, 0, 0, pixelHeight / height, 0, 0);
+        draw(); // Static redraw does not advance simulation state.
       }
-    ).requestIdleCallback;
-    const cic = (
-      window as typeof window & {
-        cancelIdleCallback?: (id: number) => void;
-      }
-    ).cancelIdleCallback;
-    const kickoff = () => {
-      idleReady = true;
       sync();
-    };
-    if (typeof ric === "function") {
-      idleId = ric(kickoff);
-    } else {
-      timeoutId = window.setTimeout(kickoff, 1);
     }
+    const onPreference = () => { reduced = media.matches; sync(); draw(); };
+    const onVisibility = () => { sync(); };
+    media.addEventListener("change", onPreference);
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("resize", resize);
+    const resizeObserver = typeof ResizeObserver !== "undefined" ? new ResizeObserver(resize) : null;
+    resizeObserver?.observe(canvas);
+    const observer = typeof IntersectionObserver !== "undefined" ? new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      sync();
+    }) : null;
+    observer?.observe(canvas);
+    if (!observer) inView = true;
+    resize();
 
+    let idleId: number | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    const kickoff = () => { if (!disposed) { idleReady = true; sync(); } };
+    if (typeof window.requestIdleCallback === "function") idleId = window.requestIdleCallback(kickoff);
+    else timeoutId = setTimeout(kickoff, 1);
     return () => {
-      idleReady = false;
+      disposed = true;
       sync();
+      cancelAnimationFrame(frameRef.current);
       observer?.disconnect();
-      if (idleId && typeof cic === "function") cic(idleId);
-      if (timeoutId) clearTimeout(timeoutId);
+      resizeObserver?.disconnect();
+      media.removeEventListener("change", onPreference);
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("resize", resize);
+      if (idleId !== undefined) window.cancelIdleCallback(idleId);
+      if (timeoutId !== undefined) clearTimeout(timeoutId);
     };
   }, []);
 

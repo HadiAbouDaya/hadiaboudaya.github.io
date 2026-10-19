@@ -34,7 +34,7 @@ export function LanguagesSection() {
                 <span className="text-base sm:text-lg font-bold text-fg group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300">
                   {lang.name}
                 </span>
-                <span className="text-sm flex-shrink-0 font-medium text-fg-mid bg-surface-sunken sm:bg-transparent px-3 py-1 sm:p-0 rounded-pill transition-colors group-hover:bg-primary-50 dark:group-hover:bg-primary-900/40 sm:group-hover:bg-transparent sm:dark:group-hover:bg-transparent sm:group-hover:text-primary-500 sm:dark:group-hover:text-primary-400">
+                <span className="text-sm flex-shrink-0 font-medium text-fg-mid bg-surface-sunken sm:bg-transparent px-3 py-1 sm:p-0 rounded-pill transition-colors group-hover:bg-primary-50 dark:group-hover:bg-primary-900/40 sm:group-hover:bg-transparent sm:dark:group-hover:bg-transparent sm:group-hover:text-primary-700 sm:dark:group-hover:text-primary-400">
                   {lang.proficiency}
                 </span>
               </m.div>

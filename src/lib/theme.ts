@@ -1,0 +1,2 @@
+/** Run in the root <head> before paint; safe to import from a Server Component. */
+export const THEME_BOOTSTRAP_SCRIPT = `(function(){var t=null;try{var s=localStorage.getItem("theme");if(s==="light"||s==="dark")t=s}catch(e){}if(!t){try{t=window.matchMedia("(prefers-color-scheme:light)").matches?"light":"dark"}catch(e){t="dark"}}document.documentElement.classList.toggle("dark",t==="dark");document.documentElement.dataset.theme=t})()`;

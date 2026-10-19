@@ -1,5 +1,7 @@
 "use client";
 
+import type { Ref } from "react";
+import { certificationTypeLabels } from "./credentialTypes";
 import { m } from "framer-motion";
 import type { Certification } from "@/types";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
@@ -10,6 +12,7 @@ import { cn } from "@/lib/utils";
 
 interface CertCardProps {
   cert: Certification;
+  ref?: Ref<HTMLDivElement>;
 }
 
 const CATEGORY_ACCENT: Record<Certification["category"], Accent> = {
@@ -22,16 +25,19 @@ const CATEGORY_ACCENT: Record<Certification["category"], Accent> = {
   Business: "emerald",
 };
 
-export function CertCard({ cert }: CertCardProps) {
+export function CertCard({ cert, ref }: CertCardProps) {
   const accent = ACCENTS[CATEGORY_ACCENT[cert.category]];
 
   return (
     <m.div
+      ref={ref}
       id={`cert-${cert.id}`}
-      className="scroll-mt-24"
+      tabIndex={-1}
+      aria-labelledby={`cert-title-${cert.id}`}
+      className="scroll-mt-24 rounded-card focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-500"
       layout
       variants={fadeUp}
-      initial="hidden"
+      initial={false}
       animate="visible"
       exit="hidden"
     >
@@ -50,7 +56,7 @@ export function CertCard({ cert }: CertCardProps) {
           </div>
 
           <div className="flex-1 min-w-0">
-            <h3 className="text-title text-base text-fg leading-tight">
+            <h3 id={`cert-title-${cert.id}`} className="text-title text-base text-fg leading-tight">
               {cert.name}
             </h3>
             <p className={cn("text-xs mt-0.5 font-medium", accent.text)}>
@@ -59,13 +65,15 @@ export function CertCard({ cert }: CertCardProps) {
           </div>
         </div>
 
-        <div className="mt-3 flex items-center gap-3 text-xs text-fg-lo">
+        <p className="mt-3 text-xs font-medium text-fg-mid">{certificationTypeLabels[cert.type]}</p>
+
+        <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-fg-mid">
           <span className="flex items-center gap-1">
             <Calendar className="w-3 h-3" />
             {cert.issuedDate}
           </span>
           {cert.expiryDate && (
-            <span className="text-fg-lo">Expires {cert.expiryDate}</span>
+            <span className="text-fg-mid">Expires {cert.expiryDate}</span>
           )}
         </div>
 

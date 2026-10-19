@@ -1,6 +1,7 @@
 ---
 title: "AWS Lambda Ate the Durable Execution Market. Here's What Inngest Still Does Better."
 date: "2026-04-12"
+updatedAt: "2026-10-19"
 tags: ["AWS", "Lambda", "Inngest", "Serverless", "Infrastructure", "Durable Execution", "AI Agents"]
 excerpt: "Lambda Durable Functions absorbed the core value proposition of every durable execution platform. But Inngest's flow control primitives and developer experience remain genuinely superior for certain architectures. A systems-level comparison for teams choosing in 2026."
 coverImage: "/Media/blog/covers/aws-lambda-vs-inngest.jpg"
@@ -18,7 +19,7 @@ I spent the past few weeks digging into both architectures at the systems level,
 >
 > - Lambda Durable Functions (re:Invent 2025) brought checkpoint-and-replay directly into the Lambda runtime, eliminating the need for Step Functions or external orchestrators for most workflow patterns, with async invocations spanning up to one year at zero compute cost during waits.
 > - Inngest retains a genuine edge in three areas: declarative per-tenant flow control primitives (concurrency, throttling, rate limiting, debouncing, prioritization), cross-platform deployment portability, and local development experience via its Dev Server with visual execution traces.
-> - At scale, Lambda is almost always cheaper. A 5-step background job running 500K times monthly costs roughly $175/month on Inngest Pro versus under $100 on Lambda with Durable Functions.
+> - Cost depends on actual step operations, retries, compute duration, stored state, hosting and plan terms. A step count alone is not a like-for-like monthly cost comparison.
 > - For multi-agent AI orchestration, the Lambda ecosystem (Durable Functions + Step Functions + Bedrock Agents/AgentCore) covers more production concerns than Inngest's AgentKit, but AgentKit's code-first DX is better for prototyping.
 > - The hybrid approach (Inngest orchestrating on top of Lambda compute) deserves serious consideration for teams that want Inngest's flow control without leaving the AWS ecosystem.
 
@@ -31,24 +32,24 @@ I spent the past few weeks digging into both architectures at the systems level,
 | **Core abstraction** | Serverless compute platform with stateless functions, durable workflows, and managed orchestration | Durable execution engine with event-driven orchestration |
 | **Execution model** | Stateless per-invocation (classic); checkpoint-and-replay with automatic state persistence (Durable Functions) | Step-based memoization; completed steps are persisted and replayed |
 | **Maximum execution time** | 15 min per invocation (classic); 1 year with Durable Functions async; 1 year with Step Functions Standard | Unlimited; functions can sleep for days or months at zero compute cost |
-| **State management** | Automatic via Durable Functions managed backend (1-90 day retention); external stores for classic Lambda; Step Functions limited to 256 KB per state output | Built-in State Store; 4 MB per step, 32 MB total per run, up to 1,000 steps |
+| **State management** | Automatic via Durable Functions managed backend (1-90 day retention); external stores for classic Lambda; Step Functions limited to 256 KB per state output | Persisted step results; payload and step-count limits depend on the SDK and service limits |
 | **Retry mechanism** | Durable Functions: automatic step-level retries with configurable policies; SQS: visibility timeout + DLQ redrive; Step Functions: retry/catch blocks | Per-step automatic retries (default 4, configurable), exponential backoff, bulk Replay from dashboard |
-| **Idempotency** | Durable Functions: built-in step memoization; Classic Lambda: manual (DynamoDB conditional writes, SQS deduplication IDs) | Automatic via step memoization; optional function-level idempotency keys (CEL expressions) |
+| **Idempotency** | Checkpointed step results; execution-name deduplication. External effects still need idempotency | Completed-step memoization and optional function keys; external effects still need idempotency |
 | **Concurrency control** | Account-level limits (default 1,000/region); reserved/provisioned concurrency per function | Per-function declarative limits with concurrency keys; virtual per-tenant queues via CEL |
 | **Rate limiting** | API Gateway throttling; custom DynamoDB-based limiters; SQS-based back-pressure | First-class primitives: throttle, rate limit, debounce, prioritize, singleton |
-| **Orchestration model** | Durable Functions (code-first, native Lambda); Step Functions ASL (JSON state machines); Bedrock Agents | Native language constructs (TypeScript, Python, Go); AgentKit for multi-agent AI workflows |
+| **Orchestration model** | Durable Functions (code-first, native Lambda); Step Functions ASL (JSON state machines); Bedrock Agents | SDK-defined workflow code; AgentKit for multi-agent AI workflows |
 | **Parallel execution** | Step Functions Parallel / Map states; Durable Functions parallel steps; Lambda fan-out via SNS/SQS | Promise.all() with step.run(); step.sendEvent() for fan-out, step.waitForEvent() for fan-in |
 | **AI / LLM integration** | Bedrock Agents + AgentCore, Bedrock Flows, Step Functions Bedrock SDK integrations (28 new in March 2026) | step.ai.infer() (offloaded inference), AgentKit (agents, networks, routers), MCP tool support |
 | **Human-in-the-loop** | Durable Functions: wait primitives with zero compute cost; Step Functions: callback tasks with task tokens | step.waitForEvent() pauses until a matching event arrives (configurable timeout) |
-| **Cold starts** | ~650ms p95 (Node.js ARM64); mitigated by SnapStart (Java/Python/.NET) or provisioned concurrency | N/A; functions are invoked via HTTP/WebSocket on your existing app server |
+| **Cold starts** | Workload-dependent; supported SnapStart configurations or provisioned concurrency can help | N/A; functions are invoked via HTTP/WebSocket on your existing app server |
 | **Local development** | SAM CLI (sam local invoke, requires Docker); SST Live Lambda Dev; AWS remote debugging | Inngest Dev Server (npx inngest-cli dev); browser UI with execution traces, auto-discovery, MCP server |
 | **Observability** | CloudWatch Logs/Metrics, X-Ray tracing, third-party (Datadog, Lumigo); Durable Functions execution history | Built-in dashboard with step-level traces; Datadog/Prometheus export; 24h to 90d trace retention by tier |
 | **Supported languages** | Node.js, Python, Java, .NET, Go, Ruby, Rust (custom runtime), any via container images | TypeScript/JavaScript, Python, Go, Kotlin (experimental) |
 | **Deployment targets** | AWS (Lambda, Lambda@Edge, Lambda on Outposts, Managed Instances) | Any platform: Vercel, AWS Lambda, Cloudflare Workers, containers, bare metal; self-hostable |
 | **Vendor lock-in** | Moderate to high (deep AWS ecosystem coupling, but function code is portable with hexagonal architecture) | Low (standard SDK code, cloud-agnostic; self-hosting via single binary or Docker) |
 | **Self-hosting** | N/A (fully managed AWS service) | Single binary with SQLite, or Postgres + Redis for production; SSPL license (Apache 2.0 delayed) |
-| **Pricing model** | Pay-per-request ($0.20/M) + duration; Durable Functions: $8/M operations + storage; Step Functions: $0.025/1K transitions; SQS: $0.40/M | Execution-based (runs x steps + runs); Free tier 50K; Pro $75/mo + $50/M overage; Enterprise custom |
-| **Free tier** | 1M requests + 400K GB-seconds/month (perpetual) | 50,000 executions/month |
+| **Pricing model** | Requests, compute, durable operations and storage; supporting services billed separately | Execution-based plan and overage charges, plus application hosting; verify current plan terms |
+| **Free tier** | Check account eligibility and current allowances | Check current plan allowances |
 | **Best for** | Production-grade serverless at scale with deep AWS ecosystem integrations | Multi-step workflows on non-AWS or multi-cloud stacks, rapid prototyping, teams prioritizing DX |
 
 ---
@@ -57,17 +58,17 @@ I spent the past few weeks digging into both architectures at the systems level,
 
 Lambda's classic model is conceptually simple. A request arrives, Lambda provisions an execution environment (a Firecracker microVM), runs your handler, and tears it down. State exists nowhere between invocations. Every function call is born fresh. The execution environment may be reused (warm starts), but the platform makes no guarantee. Your code must treat each invocation as independent. The **15-minute hard timeout** cannot be increased. Memory ranges from 128 MB to 10 GB, with CPU allocated proportionally up to 6 vCPUs.
 
-**Lambda Durable Functions fundamentally change this.** You write multi-step workflows as regular Lambda code with steps, waits, and conditional logic. The runtime automatically checkpoints state after each step, persists it to a managed backend, and resumes execution from the last checkpoint on retry or after a wait. Async invocations can span **up to one year**, and there are **no compute charges during wait periods**. This is not a wrapper around Step Functions. It is a native Lambda capability.
+[**Lambda Durable Functions**](https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html) change the programming model. You write multi-step workflows as regular Lambda code with steps, waits, and conditional logic. The runtime automatically checkpoints state after each step, persists it to a managed backend, and resumes execution from the last checkpoint on retry or after a wait. Async invocations can span **up to one year**, and there are **no compute charges during wait periods**. This is not a wrapper around Step Functions. It is a native Lambda capability.
 
-Cold starts remain a reality for classic Lambda. Node.js functions typically see ~650ms p95 latency on ARM64, while Java Spring Boot can hit **6,577ms p50 without SnapStart** (reduced to 415ms with it, a 93.7% improvement). SnapStart expanded to Python and .NET in 2025 but remains unavailable for Node.js. AWS also standardized INIT phase billing in August 2025, so cold start initialization time is now billed across all configurations.
+Cold starts remain a reality for classic Lambda. Their latency depends on the runtime, package, initialisation work, networking and configuration. Without a reproducible workload, a single p95 number is not a useful comparison with an orchestration service. Provisioned concurrency and supported SnapStart configurations address different parts of that problem.
 
-Inngest takes a different architectural path. When an event arrives at Inngest's Event API, it flows through an internal event stream to the Runner, which schedules function runs and manages lifecycle. The Executor then invokes your function via HTTP (in `serve` mode) or WebSocket (in the newer `connect` mode, shipped June 2025). Inngest uses a **step-based memoization model**: each `step.run()` executes once, its return value is persisted in the State Store, and on subsequent invocations the SDK skips completed steps by injecting their stored results. Your function code looks like normal TypeScript or Python. No custom runtime, no modified execution environment, no proprietary DSL.
+Inngest takes a different architectural path. When an event arrives at Inngest's Event API, it flows through an internal event stream to the Runner, which schedules function runs and manages lifecycle. The Executor then invokes your function via HTTP (in `serve` mode) or WebSocket (in the newer `connect` mode, shipped June 2025). Inngest uses a [**step-based memoization model**](https://www.inngest.com/docs/durable-execution/durable-workflows): a completed `step.run()` result is persisted, and on subsequent invocations the SDK skips completed steps by injecting their stored results. Your function code looks like normal TypeScript or Python. No custom runtime, no modified execution environment, no proprietary DSL.
 
 This means an Inngest function can "run" for **months**. A `step.sleep("wait-30-days", "30d")` suspends the function at zero compute cost. A `step.waitForEvent("approval", { event: "user/approved", timeout: "7d" })` pauses until a matching event arrives or the timeout elapses.
 
 Here is the key difference. Lambda Durable Functions achieve similar durability but within the AWS-managed runtime, with automatic infrastructure management, deeper service integrations, and the full weight of AWS's operational maturity behind them. Inngest achieves durability through an application-layer SDK that rides on top of your existing compute, whether that is Lambda, Vercel, Cloudflare Workers, or a container.
 
-In December 2025, Inngest shipped **Checkpointing** in developer preview, reporting a 50% reduction in workflow duration by achieving near-zero inter-step latency. This addresses the primary performance criticism of memoization-based systems: the overhead of replaying completed steps on each invocation. Lambda Durable Functions avoid this overhead entirely since checkpointing is handled at the runtime level.
+In its [December 10, 2025 checkpointing announcement](https://www.inngest.com/changelog/2025-12-10-checkpointing), Inngest reported a 50% reduction in its own workflow-duration measurements. That is a vendor-reported result, not a universal speedup. This addresses the primary performance criticism of memoization-based systems: the overhead of replaying completed steps on each invocation. Lambda Durable Functions also use checkpoint and replay; neither design makes all orchestration or replay overhead disappear.
 
 ---
 
@@ -94,11 +95,11 @@ export default inngest.createFunction(
 );
 ```
 
-Each `step.run()` is independently retried on failure. If "write-db" throws, only that step retries. "parse" and "validate" do not re-execute because their results are memoized. Inngest provides a **Replay** feature for bulk re-running failed function runs after bug fixes, and idempotency is handled through step memoization by default.
+Each `step.run()` is independently retried on failure. If "write-db" throws, only that step retries. "parse" and "validate" do not re-execute because their results are memoized. Inngest provides a **Replay** feature for bulk re-running failed function runs after bug fixes, while external side effects still need idempotency protection. A request can succeed before its result is checkpointed, causing a retry to repeat it.
 
 Where Inngest still differentiates: its **flow control primitives** (concurrency, throttling, rate limiting, debouncing, prioritization, singletons) are declarative and per-function with support for dynamic keys. Lambda Durable Functions do not yet ship equivalent flow control. You would still need API Gateway throttling or custom rate-limiting infrastructure for those patterns.
 
-Where the Lambda ecosystem retains clear advantages: SQS FIFO queues guarantee exactly-once processing and message ordering within groups. Lambda's event source mappings support batch sizes up to 10,000 messages with configurable parallelization factors. The ecosystem of 200+ AWS service integrations means Lambda can react to events from virtually any AWS resource. For teams already invested in AWS, the familiarity, battle-tested reliability at massive scale, and operational maturity are not things to dismiss lightly.
+Where the Lambda ecosystem retains clear advantages: SQS FIFO supports ordered delivery within message groups and producer-side deduplication, but consumers must still handle retries and duplicate processing. [AWS documents that distinction](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/avoding-processing-duplicates-in-multiple-producer-consumer-system.html). Batch sizes, scaling controls and retry behaviour depend on the event source and queue type. The ecosystem of 200+ AWS service integrations means Lambda can react to events from virtually any AWS resource. For teams already invested in AWS, the familiarity, battle-tested reliability at massive scale, and operational maturity are not things to dismiss lightly.
 
 ---
 
@@ -110,11 +111,11 @@ The Lambda ecosystem now offers **three orchestration tiers** for AI workflows:
 
 **Tier 1: Lambda Durable Functions** provide code-first, durable multi-step workflows natively within Lambda. For AI agent pipelines, this means you can write agent routing logic, LLM calls, tool invocations, and human approval waits as regular code with automatic checkpointing. Wait periods for LLM responses, human approvals, or external webhooks incur zero compute cost. This is the simplest path for teams already on AWS who want durable execution without learning a new orchestration platform.
 
-**Tier 2: Step Functions** provides more formal orchestration with Amazon States Language (ASL), a JSON-based DSL defining state machines. Standard Workflows support executions up to one year with exactly-once semantics. Step Functions can invoke Bedrock foundation models directly without Lambda intermediaries, and the March 2026 update added 28 new SDK integrations including Bedrock AgentCore and S3 Vectors. The trade-off is the separation between orchestration logic (JSON state machines) and business logic (Lambda code), which adds cognitive overhead for complex agent interactions.
+**Tier 2: Step Functions** provides more formal orchestration with Amazon States Language (ASL), a JSON-based DSL defining state machines. Standard Workflows support executions up to one year with exactly-once semantics. Step Functions can invoke Bedrock foundation models directly without Lambda intermediaries, and the [March 26, 2026 announcement](https://aws.amazon.com/about-aws/whats-new/2026/03/aws-step-functions-sdk-integrations/) added 28 service integrations, including Bedrock AgentCore and S3 Vectors. The trade-off is the separation between orchestration logic (JSON state machines) and business logic (Lambda code), which adds cognitive overhead for complex agent interactions.
 
 **Tier 3: Bedrock Agents and AgentCore** combine a foundation model with instructions, action groups (Lambda-backed tools), knowledge bases, and guardrails. The AgentCore runtime provides managed microVMs per agent session with async processing up to 8 hours. For teams building on AWS's AI stack, this is the most integrated path to production agent systems.
 
-Inngest's AgentKit keeps orchestration and agent logic in the same codebase using native language constructs:
+Inngest's AgentKit keeps orchestration and agent logic in the same codebase. This is a schematic illustration rather than a tested example for every SDK version:
 
 ```typescript
 const navigator = createAgent({
@@ -172,11 +173,11 @@ That said, the Lambda ecosystem's tooling gap is narrowing. SST's Live Lambda De
 
 Lambda's classic statelessness is both its greatest strength and its most persistent limitation. Each invocation runs in isolation. Maintaining state between invocations requires external stores: DynamoDB, ElastiCache, S3, EFS, or RDS with RDS Proxy.
 
-**Lambda Durable Functions eliminate this for workflow state.** Step results are automatically persisted to a managed backend with configurable retention from 1 to 90 days. You write sequential code, and the runtime handles checkpointing transparently. No DynamoDB table to provision, no serialization library to choose, no consistency model to reason about. This is architecturally similar to Inngest's step memoization, but implemented at the runtime level rather than the application layer.
+**Lambda Durable Functions manage workflow checkpoints.** Step results are persisted to a managed backend, with [configurable execution-history retention](https://docs.aws.amazon.com/lambda/latest/dg/durable-configuration.html) after completion. This removes the need to build the checkpoint store, while replay behaviour, idempotency and payload design remain application concerns. This is architecturally similar to Inngest's step memoization, but implemented at the runtime level rather than the application layer.
 
 Step Functions pass state between steps as JSON with a **256 KB per-state output limit**. Larger payloads must be stored in S3 with references passed through the state machine.
 
-Inngest's state model provides **4 MB per step return value** and **32 MB total function run state**, with a maximum of **1,000 steps per function**. The higher per-step limits are a real advantage for workflows that pass large payloads between steps.
+Inngest also persists step results. Check the applicable SDK and service limits before passing large payloads through a workflow; use external storage and references when appropriate. The original unsourced per-step, total-state and step-count figures do not establish a reliable capacity comparison.
 
 For long-running workflows, both Lambda Durable Functions and Inngest now offer comparable durability. A workflow that needs to wait for payment confirmation, then shipping, then delivery feedback can be expressed as a single function with wait primitives in either platform. The Lambda version benefits from deeper integration with AWS services (DynamoDB Streams, S3 events, EventBridge). The Inngest version benefits from cross-platform portability.
 
@@ -184,9 +185,9 @@ For long-running workflows, both Lambda Durable Functions and Inngest now offer 
 
 ## Concurrency and Flow Control: Inngest's Strongest Card
 
-Lambda's concurrency model operates at the account level. The default is **1,000 concurrent executions per region**, with burst limits of 3,000 instances immediately followed by 500 per minute in most regions. Reserved concurrency carves out capacity for critical functions. Provisioned concurrency pre-initializes environments for zero cold starts. But Lambda provides no built-in mechanism for per-function throttling, per-tenant rate limiting, or priority queuing. Those patterns must be implemented with external services.
+Lambda combines account-level concurrency quotas with per-function controls. The [quota documentation](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html) lists the standard account quota and separate scaling limits; new accounts can have lower starting quotas. Reserved concurrency carves out capacity for critical functions. Provisioned concurrency pre-initializes environments for zero cold starts. But Lambda provides no built-in mechanism for per-function throttling, per-tenant rate limiting, or priority queuing. Those patterns must be implemented with external services.
 
-Inngest ships **six flow control primitives** as first-class configuration: concurrency, throttling, rate limiting, debouncing, prioritization, and singleton enforcement. All are declarative and per-function with support for dynamic keys via CEL expressions that create virtual per-entity queues.
+Inngest documents [**flow control primitives**](https://www.inngest.com/docs/durable-execution/flow-control) as first-class configuration: concurrency, throttling, rate limiting, debouncing, prioritization, and singleton enforcement. All are declarative and per-function with support for dynamic keys via CEL expressions that create virtual per-entity queues.
 
 ```typescript
 inngest.createFunction({
@@ -198,19 +199,19 @@ inngest.createFunction({
 
 This is the strongest differentiator Inngest holds over the Lambda ecosystem. Per-tenant concurrency, throttling, and priority queuing with a few lines of configuration versus custom infrastructure on Lambda. For multi-tenant SaaS applications with strict fairness requirements, Inngest's flow control is genuinely superior.
 
-But Lambda's concurrency model scales to levels that Inngest's managed platform cannot match. Inngest's plan-level limits are 5 concurrent steps (Hobby), 100+ (Pro), and 500 to 50,000 (Enterprise). Lambda's account-level limits can be raised to tens of thousands of concurrent executions with a support request. For high-throughput systems processing millions of events per hour, Lambda's raw scaling capacity is unmatched.
+The relevant capacity depends on approved account quotas, the Inngest plan, tenant fairness requirements and the workload. Compare the concurrency of executing steps separately from the number of waiting workflow runs; they are different units. Load testing the intended workflow is more useful than comparing unrelated headline limits.
 
 ---
 
-## Pricing at Scale: Lambda Wins the Math
+## Pricing: Compare the Whole Workflow
 
-Lambda charges **$0.20 per million requests** plus duration at $0.0000166667 per GB-second (x86) or $0.0000133334 per GB-second (ARM/Graviton2). The perpetual free tier covers 1 million requests and 400,000 GB-seconds monthly. Lambda Durable Functions add **$8 per million durable operations**, $0.25 per GB written, and $0.15 per GB-month retained. Step Functions Standard charges **$0.025 per 1,000 state transitions**. SQS adds $0.40 per million requests.
+Pricing below is a framework for comparing costs, not a current quote or a reconstructed April 2026 invoice. Start with the [AWS Lambda pricing page](https://aws.amazon.com/lambda/pricing/) and [Inngest pricing](https://www.inngest.com/pricing), then use the same region, traffic pattern and retry assumptions for both.
 
-Inngest uses an execution model where total executions equals (runs x steps per run) + runs. A function with 2 steps counts as 3 executions. The Hobby tier provides **50,000 executions free**. Pro starts at **$75/month** with 1 million executions included, then $50 per additional million (volume discounts down to $0.000015 per execution above 50M). Enterprise pricing is custom.
+For Lambda, count requests and resumed invocations, compute duration and memory, billable durable operations, written and retained state, and any supporting services. A workflow step is not automatically equivalent to one billable durable operation. As unit arithmetic, 2.5 million billable operations at an $8-per-million rate would cost $20 for that component alone. It says nothing about total workflow cost.
 
-For simple, stateless API handlers, Lambda's pay-per-invocation model is hard to beat. For multi-step durable workflows, Lambda Durable Functions are often more cost-effective than Inngest at scale. A 5-step background job running 500,000 times monthly costs roughly **$175/month on Inngest Pro** (3 million executions). On Lambda with Durable Functions, the 2.5 million durable operations cost $20, plus Lambda compute (which depends on duration and memory), typically landing **below $100 total**. Lambda's Compute Savings Plans (up to 17% discount) and Managed Instances (EC2-based pricing with 15% management fee) further improve economics at high volume.
+For Inngest, count billable execution units under the applicable plan, plus the hosting cost of the application code, retained traces and any additional features. Runs, steps and durable operations are different billing units. Free-tier eligibility and included allowances also need to be checked rather than assumed.
 
-Inngest's pricing advantage exists primarily at low-to-mid scale for teams that would otherwise need Lambda + Step Functions + SQS + DynamoDB. At high scale, Lambda's granular pricing and volume discounts tend to win.
+The original version's $175-versus-under-$100 comparison omitted enough workload assumptions that it was not reproducible. My architectural preference for an AWS-heavy stack does not establish that Lambda is cheaper for every workload. Benchmark a representative run, include retries and failures, and price its actual usage.
 
 ---
 
@@ -218,7 +219,7 @@ Inngest's pricing advantage exists primarily at low-to-mid scale for teams that 
 
 Lambda's vendor lock-in is real but nuanced. The function code itself is reasonably portable if you follow hexagonal architecture. The coupling comes from the ecosystem: SQS, DynamoDB, EventBridge, API Gateway, Step Functions ASL, IAM policies, and now Durable Functions' proprietary checkpoint mechanism. But this coupling comes with genuine benefits: deep service integrations, unified billing, consistent IAM model, and a single operational plane.
 
-Inngest's cloud-agnostic design is a deliberate architectural choice. The same SDK code runs on Vercel, AWS Lambda, Cloudflare Workers, containers, or bare metal. Self-hosting is available as a **single binary** (`inngest start`) with bundled SQLite, or with Postgres and external Redis for production workloads. The license is SSPL with Delayed Open Source Publication under Apache 2.0. Source-available, but not OSI-approved open source.
+Inngest's cloud-agnostic design is a deliberate architectural choice. The same SDK code runs on Vercel, AWS Lambda, Cloudflare Workers, containers, or bare metal. [Self-hosting is available](https://www.inngest.com/docs/self-hosting) as a **single binary** (`inngest start`) with bundled SQLite, or with Postgres and external Redis for production workloads. The server repository documents SSPL terms with an [Apache 2.0 Future License](https://github.com/inngest/inngest/blob/main/LICENSE.md); check the release and its applicable terms. Source-available, but not OSI-approved open source.
 
 For teams with a multi-cloud strategy or those building products that must deploy into customer environments, Inngest's portability is a genuine advantage. For teams committed to AWS (which, given AWS's market share, is the majority of enterprise engineering organizations), Lambda's ecosystem integration is the stronger value proposition.
 
@@ -241,3 +242,11 @@ The launch of Lambda Durable Functions was a pivotal moment for this space. AWS 
 Inngest retains real advantages in developer experience, flow control primitives, and deployment portability. These matter. For certain teams and architectures, they are decisive. But for the majority of engineering teams building production systems in 2026, AWS Lambda with Durable Functions, Step Functions, and the Bedrock AI stack represents the more complete, more scalable, and more future-proof platform. Every re:Invent closes more gaps, and the trajectory strongly favors AWS closing the remaining developer experience delta.
 
 The question for engineering teams is not which platform is technically superior in isolation. It is where your production workloads live, what your team already knows, and whether the operational benefits of a fully managed, deeply integrated platform outweigh the developer experience advantages of a purpose-built orchestration layer. For most teams, the answer is Lambda.
+
+
+## Source notes
+
+This remains an April 2026 architectural opinion, with October editorial corrections. Capabilities, quotas and prices can change. The linked vendor documentation is authoritative for deployment decisions; a source link does not make the original cost comparison a measured benchmark.
+
+- [Lambda durable execution and idempotency](https://docs.aws.amazon.com/lambda/latest/dg/durable-execution-idempotency.html): replay reuses completed results, but a failed or interrupted step may execute again.
+- [Inngest retries](https://www.inngest.com/docs/durable-execution/guides-and-advanced/error-handling/retries): make side effects idempotent across retry attempts.

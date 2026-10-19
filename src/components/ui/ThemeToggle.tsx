@@ -1,25 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import { trackEvent, EVENTS } from "@/lib/analytics";
 
 export function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const { theme, ready, toggleTheme } = useTheme();
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect -- canonical hydration-safe mount detection
-  useEffect(() => setMounted(true), []);
-
-  if (!mounted) {
-    return <div className="w-9 h-9" />;
+  if (!ready) {
+    return <div className="w-11 h-11" />;
   }
 
   return (
     <button
+      type="button"
       onClick={() => { trackEvent(EVENTS.THEME_TOGGLED, { theme: theme === "dark" ? "light" : "dark" }); toggleTheme(); }}
-      className="p-2 rounded-control text-fg-mid hover:text-fg transition-colors"
+      className="inline-flex min-h-11 min-w-11 items-center justify-center p-2 rounded-control text-fg-mid hover:text-fg transition-colors"
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
     >
       {theme === "dark" ? (

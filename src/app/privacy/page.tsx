@@ -1,13 +1,15 @@
+import { DEFAULT_OPEN_GRAPH, DEFAULT_TWITTER } from "@/lib/metadata";
 import type { Metadata } from "next";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { breadcrumbJsonLd } from "@/lib/jsonld";
+import { breadcrumbJsonLd, serializeJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
     "Privacy policy for hadi.aboudaya.com. How personal data is collected, used, and protected.",
   alternates: { canonical: "/privacy/" },
-  openGraph: { url: "/privacy/" },
+  twitter: DEFAULT_TWITTER,
+  openGraph: { ...DEFAULT_OPEN_GRAPH, url: "/privacy/" },
 };
 
 export default function PrivacyPage() {
@@ -16,7 +18,7 @@ export default function PrivacyPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
+          __html: serializeJsonLd(
             breadcrumbJsonLd([{ name: "Privacy Policy", href: "/privacy" }])
           ),
         }}
@@ -26,7 +28,7 @@ export default function PrivacyPage() {
 
         <div className="prose prose-slate dark:prose-invert lg:prose-lg prose-headings:text-fg">
           <p className="text-sm text-fg-lo">
-            Last updated: April 2026
+            Last updated: October 19, 2026
           </p>
 
           <p>
@@ -50,22 +52,48 @@ export default function PrivacyPage() {
 
           <h3>Analytics</h3>
           <p>
-            This site uses PostHog for anonymous usage analytics. PostHog
-            collects aggregated data about page views, navigation patterns, and
-            device types to help improve the site experience. No personally
-            identifiable information is collected through analytics.
+            When analytics is configured, this site sends selected usage events
+            to PostHog: professional page paths, navigation and filter actions,
+            search result counts, and article reading milestones. Events may
+            include browser and device information and a temporary, in-memory
+            identifier. They are used to understand and improve the site.
+          </p>
+          <p>
+            Automatic interaction capture, session recording, heatmaps, and
+            user profiles are disabled. Contact form values and raw search
+            queries are excluded from analytics. Page URL query strings and
+            fragments are omitted. The personal page is excluded, including
+            when reached through client navigation. The analytics SDK is not
+            initialized on a direct visit to that page.
+          </p>
+          <p>
+            Analytics requests still reach a third-party service, which receives
+            network information needed to handle them. This is not a promise
+            of complete anonymity. The site asks PostHog not to use IP addresses
+            for geolocation and respects the browser&apos;s Do Not Track setting.
+            See{" "}
+            <a href="https://posthog.com/privacy" target="_blank" rel="noopener noreferrer">
+              PostHog&apos;s privacy policy
+            </a>{" "}
+            for its processing practices.
           </p>
 
           <h3>Local Storage</h3>
           <p>
             Your theme preference (light or dark mode) is stored in your
-            browser&apos;s localStorage. This data never leaves your device.
+            browser&apos;s localStorage to remember the appearance you choose.
+            When analytics is configured, a theme-toggle event may also include
+            the selected theme.
           </p>
 
           <h3>Cookies</h3>
           <p>
-            This site does not use tracking cookies. No advertising networks or
-            third-party trackers are present.
+            This site configures analytics with memory-only storage and disables
+            analytics persistence, so the analytics integration does not set
+            tracking cookies or retain its identifier in localStorage or
+            sessionStorage. It does not include advertising networks. External
+            services you choose to visit have their own storage and privacy
+            practices.
           </p>
 
           <h2>Your Rights</h2>
@@ -90,8 +118,10 @@ export default function PrivacyPage() {
           <h2>Data Retention</h2>
           <p>
             Contact form submissions are retained by Formspree according to
-            their data retention policy. Analytics data is aggregated and does
-            not contain personally identifiable information.
+            their data retention policy. Usage events are processed by PostHog
+            under the site&apos;s project settings. A temporary identifier in
+            browser memory does not establish a server-side retention period;
+            contact the address below with a retention or deletion request.
           </p>
 
           <h2>Changes to This Policy</h2>

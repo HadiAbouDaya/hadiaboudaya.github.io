@@ -87,8 +87,8 @@ export function FilterPills<K extends string>({
             onClick={() => onChange(option.key)}
             onKeyDown={(e) => handleKeyDown(e, index)}
             className={cn(
-              "relative rounded-pill text-sm font-medium transition-colors duration-150",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+              "relative min-h-11 rounded-pill text-sm font-medium transition-colors duration-150",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
               size === "sm" ? "px-3 py-1.5" : "px-4 py-2",
               isActive ? "text-white" : "text-fg-mid hover:text-fg"
             )}
@@ -112,7 +112,7 @@ export function FilterPills<K extends string>({
                 <span
                   className={cn(
                     "ml-0.5 text-xs",
-                    isActive ? "text-white/70" : "text-fg-lo"
+                    isActive ? "text-white" : "text-fg-lo"
                   )}
                 >
                   {option.count}

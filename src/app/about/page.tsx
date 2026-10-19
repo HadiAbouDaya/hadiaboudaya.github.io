@@ -1,17 +1,19 @@
+import { DEFAULT_OPEN_GRAPH, DEFAULT_TWITTER } from "@/lib/metadata";
 import type { Metadata } from "next";
 import { BioSection } from "@/components/about/BioSection";
 import { KeyFacts } from "@/components/about/KeyFacts";
 import { LanguagesSection } from "@/components/about/LanguagesSection";
 import { JourneySection } from "@/components/about/JourneySection";
 import { PageNextSection } from "@/components/ui/PageNextSection";
-import { breadcrumbJsonLd, profilePageJsonLd } from "@/lib/jsonld";
+import { breadcrumbJsonLd, profilePageJsonLd, serializeJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
-  title: "About Hadi Abou Daya - AI/ML Engineer & Consultant",
+  title: "About | AI Consultant & Software Engineer",
   description:
-    "About Hadi Abou Daya, AI/ML Engineer building intelligent systems from edge AI to cloud infrastructure. Based in Paris, France.",
+    "AI consultant in Paris combining client discovery, solution design and hands-on AI engineering.",
   alternates: { canonical: "/about/" },
-  openGraph: { url: "/about/" },
+  twitter: DEFAULT_TWITTER,
+  openGraph: { ...DEFAULT_OPEN_GRAPH, url: "/about/" },
 };
 
 export default function AboutPage() {
@@ -19,11 +21,11 @@ export default function AboutPage() {
     <div className="section-padding pt-24">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "About", href: "/about" }])) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd([{ name: "About", href: "/about" }])) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd()) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(profilePageJsonLd()) }}
       />
       <div className="container-main">
         <BioSection />

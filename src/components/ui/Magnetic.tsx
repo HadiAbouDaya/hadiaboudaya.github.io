@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { m, useMotionValue, useSpring } from "framer-motion";
 import type { PointerEvent, ReactNode } from "react";
 import { SPRING } from "@/lib/motion";
@@ -21,11 +22,12 @@ export function Magnetic({ children, className }: MagneticProps) {
   const x = useSpring(useMotionValue(0), SPRING.bouncy);
   const y = useSpring(useMotionValue(0), SPRING.bouncy);
 
-  if (disabled) {
-    return <div className={className}>{children}</div>;
-  }
+  useEffect(() => {
+    if (disabled) { x.jump(0); y.jump(0); }
+  }, [disabled, x, y]);
 
   const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
+    if (disabled) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const offsetX = e.clientX - (rect.left + rect.width / 2);
     const offsetY = e.clientY - (rect.top + rect.height / 2);
@@ -41,7 +43,7 @@ export function Magnetic({ children, className }: MagneticProps) {
   return (
     <m.div
       className={className}
-      style={{ x, y }}
+      style={{ x: disabled ? 0 : x, y: disabled ? 0 : y }}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
     >

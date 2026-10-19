@@ -1,15 +1,9 @@
-"use client";
-
 import Link from "next/link";
-import Image from "next/image";
-import type { Event, EventCategory } from "@/types";
+import type { Event } from "@/types";
 import { Badge } from "@/components/ui/Badge";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
-import { categoryConfig } from "@/data/eventCategories";
-import { type Accent } from "@/lib/accents";
-import { ImageLightbox } from "@/components/ui/ImageLightbox";
-import { CreativeCarousel } from "@/components/ui/CreativeCarousel";
-import { cn } from "@/lib/utils";
+import { categoryConfig, formatEventDate } from "@/data/eventCategories";
+import { categoryIcons } from "./EventIcons";
+import { EventGallery } from "./EventGallery";
 import {
   Calendar,
   MapPin,
@@ -19,40 +13,21 @@ import {
   Globe,
 } from "lucide-react";
 
-// Category -> accent (5-accent system; no purple/violet/indigo).
-const categoryAccent: Record<EventCategory, Accent> = {
-  career: "blue",
-  education: "blue",
-  conference: "teal",
-  hackathon: "teal",
-  community: "teal",
-  achievement: "teal",
-  project: "emerald",
-  certification: "amber",
-  workshop: "orange",
-  "knowledge-sharing": "orange",
-  training: "orange",
-};
-
 interface EventDetailProps {
   event: Event;
 }
 
 export function EventDetail({ event }: EventDetailProps) {
   const config = categoryConfig[event.category];
-  const CategoryIcon = config.icon;
+  const CategoryIcon = categoryIcons[event.category];
 
-  const formattedDate = new Date(event.date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const formattedDate = formatEventDate(event);
 
   return (
     <div className="max-w-3xl mx-auto">
-      <ScrollReveal>
+      <article>
         <Link
-          href="/events"
+          href="/events/"
           className="inline-flex items-center gap-2 text-sm text-fg-mid hover:text-primary-600 transition-colors duration-150 mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -60,7 +35,7 @@ export function EventDetail({ event }: EventDetailProps) {
         </Link>
 
         <div className="flex flex-wrap items-center gap-3 mb-4">
-          <Badge accent={categoryAccent[event.category]}>
+          <Badge accent={config.accent}>
             <CategoryIcon className="w-3 h-3 mr-1" />
             {event.role ?? config.label}
           </Badge>
@@ -95,45 +70,20 @@ export function EventDetail({ event }: EventDetailProps) {
         )}
 
         {event.images && event.images.length > 0 && (
-          <ImageLightbox images={event.images} alt={event.title}>
-            {(openAt) =>
-              event.images!.length > 3 ? (
-                <CreativeCarousel
-                  images={event.images!}
-                  alt={event.title}
-                  onImageClick={openAt}
-                />
-              ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
-                  {event.images!.map((img, i) => (
-                    <button
-                      key={i}
-                      onClick={() => openAt(i)}
-                      className="group/photo relative aspect-[4/3] rounded-card-lg overflow-hidden cursor-zoom-in"
-                    >
-                      <Image
-                        src={img}
-                        alt={`${event.title} - photo ${i + 1} of ${event.images!.length}`}
-                        fill
-                        priority={i === 0}
-                        className={cn(
-                          "object-cover transition-transform duration-500 ease-out group-hover/photo:scale-[1.03]",
-                          event.imagePosition === "top" && "object-top",
-                          event.imagePosition === "bottom" && "object-bottom"
-                        )}
-                        sizes="(max-width: 640px) 50vw, 33vw"
-                      />
-                    </button>
-                  ))}
-                </div>
-              )
-            }
-          </ImageLightbox>
+          <EventGallery images={event.images} title={event.title} imagePosition={event.imagePosition} />
         )}
 
         <div className="prose prose-slate dark:prose-invert max-w-none">
           <p className="text-fg-mid leading-relaxed">{event.description}</p>
         </div>
+
+        {(event.caseStudySlug || event.relatedExperienceId) && (
+          <nav aria-label="Related professional evidence" className="mt-6 flex flex-wrap gap-4 text-sm font-medium text-primary-600 dark:text-primary-400">
+            <Link href={event.caseStudySlug ? `/experience/#project-${event.caseStudySlug}` : `/experience/#exp-${event.relatedExperienceId}`}>
+              {event.caseStudySlug ? "Explore the project in Experience →" : "Explore the related experience →"}
+            </Link>
+          </nav>
+        )}
 
         {event.keyPoints && event.keyPoints.length > 0 && (
           <div className="mt-8 pt-6 border-t border-line">
@@ -280,12 +230,12 @@ export function EventDetail({ event }: EventDetailProps) {
         {event.credlyUrls && event.credlyUrls.length > 0 && (
           <div className="mt-6 pt-6 border-t border-line">
             <h3 className="text-eyebrow uppercase text-fg-mid mb-3">
-              Certification {event.credlyUrls.length > 1 ? "Badges" : "Badge"}
+              Learning evidence
             </h3>
             <div className="flex flex-wrap gap-3">
               {event.credlyUrls.map((url, index) => {
                 // Extract badge name from URL or use generic label
-                let badgeLabel = "View Certification Badge";
+                let badgeLabel = "View learning record";
 
                 // Check if this is an AWS certification event
                 if (event.slug === "aws-saa-ai-practitioner-certifications") {
@@ -293,9 +243,14 @@ export function EventDetail({ event }: EventDetailProps) {
                 } else if (event.slug === "aws-ml-cloud-certifications") {
                   badgeLabel = index === 0 ? "AWS ML Specialty" : "AWS Cloud Practitioner";
                 } else if (event.slug === "azure-certifications-zaka") {
-                  badgeLabel = index === 0 ? "Azure Fundamentals (AZ-900)" : "Azure AI Fundamentals (AI-900)";
+                  // Public issuer page titles checked on 19 October 2026.
+                  badgeLabel = url.includes("c5d08c12-88f3-407a-95bd-13878ee18f32")
+                    ? "Azure Fundamentals (AZ-900)"
+                    : url.includes("ff9e3dcf-ec5d-4c65-af41-f73e4b8405f3")
+                      ? "Azure AI Fundamentals (AI-900)"
+                      : "View Azure credential";
                 } else if (event.credlyUrls!.length > 1) {
-                  badgeLabel = `Certification Badge ${index + 1}`;
+                  badgeLabel = `Learning record ${index + 1}`;
                 }
 
                 return (
@@ -314,7 +269,7 @@ export function EventDetail({ event }: EventDetailProps) {
             </div>
           </div>
         )}
-      </ScrollReveal>
+      </article>
     </div>
   );
 }

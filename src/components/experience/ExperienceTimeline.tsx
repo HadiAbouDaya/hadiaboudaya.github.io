@@ -1,331 +1,247 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { m, AnimatePresence } from "framer-motion";
-import { experiences } from "@/data/experience";
-import { TimelineCard } from "./TimelineCard";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
-import MotionMaxProvider from "@/components/animations/MotionMaxProvider";
-import { FilterPills } from "@/components/ui/FilterPills";
-import { fade } from "@/lib/motion";
-import { ACCENTS } from "@/lib/accents";
+import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { flushSync } from "react-dom";
+import { REVEAL_FRAGMENT_EVENT, fragmentFromEvent } from "@/lib/fragments";
+import {
+  experienceFilterForTarget,
+  experienceFilterUrl,
+  experienceFragmentId,
+  readExperienceFilter,
+  type ExperienceFilter,
+  type ExperienceKind,
+} from "@/lib/experience-navigation";
 import { cn } from "@/lib/utils";
-import { Briefcase, GraduationCap, Layers } from "lucide-react";
-import type { Experience } from "@/types";
+import styles from "./experience.module.css";
 
-const FILTERS = [
-  { key: "all", label: "All", icon: Layers },
-  { key: "professional", label: "Professional", icon: Briefcase },
-  { key: "education", label: "Education", icon: GraduationCap },
-] as const;
-
-type FilterKey = (typeof FILTERS)[number]["key"];
-
-function getYearFromDate(dateStr: string): number {
-  return new Date(dateStr).getFullYear();
+interface ExperienceTimelineProps {
+  professional: ReactNode;
+  education: ReactNode;
+  entries: { id: string; kind: ExperienceKind }[];
 }
 
-function sortByStartDesc(a: Experience, b: Experience): number {
-  const startDiff =
-    new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
-  if (startDiff !== 0) return startDiff;
-  const aEnd = a.endDate ? new Date(a.endDate).getTime() : Date.now();
-  const bEnd = b.endDate ? new Date(b.endDate).getTime() : Date.now();
-  return bEnd - aEnd;
+const filters: { key: ExperienceFilter; label: string; accessibleLabel?: string }[] = [
+  { key: "all", label: "All" },
+  { key: "professional", label: "Roles", accessibleLabel: "Professional roles" },
+  { key: "education", label: "Education" },
+];
+
+function targetKind(target: HTMLElement | null): ExperienceKind | undefined {
+  const kind = target?.closest<HTMLElement>("[data-experience-kind]")?.dataset.experienceKind;
+  return kind === "professional" || kind === "education" ? kind : undefined;
 }
 
-type SingleEntry =
-  | { kind: "year"; year: number }
-  | { kind: "card"; item: Experience; position: "left" | "right" };
+/** Facts and entry markup arrive from the server; only filtering and fragment navigation hydrate. */
+export function ExperienceTimeline({ professional, education, entries }: ExperienceTimelineProps) {
+  const [filter, setFilter] = useState<ExperienceFilter>("all");
+  const filterRef = useRef<ExperienceFilter>("all");
+  const rootRef = useRef<HTMLDivElement>(null);
+  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const cancelRevealRef = useRef<(() => void) | null>(null);
+  const lastLocationRef = useRef("");
 
-export function ExperienceTimeline() {
-  const [filter, setFilter] = useState<FilterKey>("all");
+  useEffect(() => {
+    let frame: number | undefined;
+    const cancelReveal = () => {
+      if (frame !== undefined) cancelAnimationFrame(frame);
+      frame = undefined;
+    };
+    cancelRevealRef.current = cancelReveal;
 
-  const activeExperiences = useMemo(() => {
-    const now = new Date();
-    return experiences.filter((e) => new Date(e.startDate) <= now);
+    const findTarget = (hash: string): HTMLElement | null => {
+      const id = experienceFragmentId(hash);
+      const target = id ? document.getElementById(id) : null;
+      return target instanceof HTMLElement && rootRef.current?.contains(target) ? target : null;
+    };
+
+    const applyFilter = (next: ExperienceFilter) => {
+      filterRef.current = next;
+      setFilter(next);
+    };
+
+    const openTarget = (target: HTMLElement) => {
+      // Project anchors are visible sections, not necessarily disclosures themselves.
+      const project = target.closest<HTMLElement>("[data-project-evidence]");
+      const projectDetails = project?.querySelector<HTMLDetailsElement>(":scope > details[data-project-details]");
+      if (projectDetails) projectDetails.open = true;
+      for (let ancestor: HTMLElement | null = target; ancestor && ancestor !== rootRef.current; ancestor = ancestor.parentElement) {
+        if (ancestor instanceof HTMLDetailsElement) ancestor.open = true;
+      }
+    };
+
+    const focusTarget = (target: HTMLElement, source?: HTMLElement) => {
+      cancelReveal();
+      const previousFocus = document.activeElement;
+      // React must reveal filtered sections before measuring. The second finite
+      // frame lets native disclosures settle; a new intent cancels either stage.
+      frame = requestAnimationFrame(() => {
+        frame = requestAnimationFrame(() => {
+          frame = undefined;
+          if (!target.isConnected || !rootRef.current?.contains(target) || target.closest("[hidden]") || document.querySelector("dialog[open]")) return;
+          const focus = target instanceof HTMLDetailsElement
+            ? target.querySelector<HTMLElement>(":scope > summary") ?? target
+            : target;
+          const active = document.activeElement;
+          // Do not steal focus or scroll after the reader has moved elsewhere.
+          if (active !== previousFocus && active !== source && active !== document.body && active !== focus) return;
+          focus.focus({ preventScroll: true });
+          target.scrollIntoView({ block: "start", behavior: "instant" });
+        });
+      });
+    };
+
+    const syncLocation = (restoreHistory = false) => {
+      cancelReveal();
+      const url = new URL(window.location.href);
+      const target = findTarget(url.hash);
+      const next = experienceFilterForTarget(readExperienceFilter(url), targetKind(target));
+      const canonical = experienceFilterUrl(url, next);
+      if (canonical.href !== url.href) window.history.replaceState(null, "", canonical);
+      lastLocationRef.current = window.location.href;
+
+      if (restoreHistory) {
+        // Reveal before the browser restores its saved scroll position.
+        // Back/Forward owns focus and scrolling; do not re-run a jump to the hash.
+        flushSync(() => applyFilter(next));
+      } else applyFilter(next);
+      if (target) {
+        openTarget(target);
+        if (!restoreHistory) focusTarget(target);
+      }
+    };
+
+    const onPopState = () => syncLocation(true);
+    const onHashChange = () => {
+      // A history traversal can emit both events for a single destination.
+      if (window.location.href !== lastLocationRef.current) syncLocation();
+    };
+    const onClick = (event: MouseEvent) => {
+      cancelReveal();
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const anchor = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[href]") : null;
+      if (!anchor || (anchor.target && anchor.target !== "_self") || anchor.hasAttribute("download")) return;
+      // Search sends its explicit destination after the modal closes. A background
+      // focus attempt here would fight the modal's focus trap.
+      if (anchor.closest("dialog, [role='dialog']")) return;
+      const destination = new URL(anchor.href, window.location.href);
+      if (destination.origin !== window.location.origin || destination.pathname.replace(/\/$/, "") !== window.location.pathname.replace(/\/$/, "")) return;
+      const target = findTarget(destination.hash);
+      if (!target) return;
+
+      // Own valid in-page Experience links so each intent has one history entry
+      // and one focus/scroll operation, rather than competing native/Next jumps.
+      event.preventDefault();
+      const next = experienceFilterForTarget(readExperienceFilter(destination), targetKind(target));
+      const canonical = experienceFilterUrl(destination, next);
+      if (canonical.href !== window.location.href) window.history.pushState(null, "", canonical);
+      lastLocationRef.current = window.location.href;
+      applyFilter(next);
+      openTarget(target);
+      focusTarget(target, anchor);
+    };
+    const onExplicitFragment = (event: Event) => {
+      const hash = fragmentFromEvent(event);
+      const target = hash ? findTarget(hash) : null;
+      if (!target) return;
+      // Global search links use the complete Experience view. Its explicit id is
+      // authoritative even before the router commits the destination hash.
+      applyFilter("all");
+      lastLocationRef.current = window.location.href;
+      openTarget(target);
+      focusTarget(target);
+    };
+
+    // The app router installs its native-History integration in a parent effect.
+    // Wait one frame before initial URL normalization so it can retain its state.
+    frame = requestAnimationFrame(() => { frame = undefined; syncLocation(); });
+    window.addEventListener(REVEAL_FRAGMENT_EVENT, onExplicitFragment);
+    window.addEventListener("hashchange", onHashChange);
+    window.addEventListener("popstate", onPopState);
+    window.addEventListener("pagehide", cancelReveal);
+    document.addEventListener("click", onClick, true);
+    document.addEventListener("pointerdown", cancelReveal, true);
+    document.addEventListener("keydown", cancelReveal, true);
+    return () => {
+      cancelReveal();
+      cancelRevealRef.current = null;
+      window.removeEventListener(REVEAL_FRAGMENT_EVENT, onExplicitFragment);
+      window.removeEventListener("hashchange", onHashChange);
+      window.removeEventListener("popstate", onPopState);
+      window.removeEventListener("pagehide", cancelReveal);
+      document.removeEventListener("click", onClick, true);
+      document.removeEventListener("pointerdown", cancelReveal, true);
+      document.removeEventListener("keydown", cancelReveal, true);
+    };
   }, []);
 
-  const professional = useMemo(
-    () =>
-      [...activeExperiences]
-        .filter((e) => e.type === "work" || e.type === "freelance")
-        .sort(sortByStartDesc),
-    [activeExperiences]
-  );
+  const selectFilter = (next: ExperienceFilter) => {
+    cancelRevealRef.current?.();
+    if (next === filterRef.current) return;
+    const url = new URL(window.location.href);
+    const id = experienceFragmentId(url.hash);
+    const target = id ? document.getElementById(id) : null;
+    const kind = target instanceof HTMLElement && rootRef.current?.contains(target) ? targetKind(target) : undefined;
+    const destination = experienceFilterUrl(url, next, kind);
+    // Next's native-History integration retains its opaque router state and syncs
+    // its canonical URL. Passing that internal state back would bypass the sync.
+    // Filter changes neither focus content nor scroll.
+    window.history.pushState(null, "", destination);
+    lastLocationRef.current = window.location.href;
+    filterRef.current = next;
+    setFilter(next);
+  };
 
-  const education = useMemo(
-    () =>
-      [...activeExperiences]
-        .filter((e) => e.type === "education")
-        .sort(sortByStartDesc),
-    [activeExperiences]
-  );
+  const onFilterKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    let next: number;
+    switch (event.key) {
+      case "ArrowRight": case "ArrowDown": next = (index + 1) % filters.length; break;
+      case "ArrowLeft": case "ArrowUp": next = (index + filters.length - 1) % filters.length; break;
+      case "Home": next = 0; break;
+      case "End": next = filters.length - 1; break;
+      default: return;
+    }
+    event.preventDefault();
+    selectFilter(filters[next].key);
+    buttonRefs.current[next]?.focus({ preventScroll: true });
+  };
 
-  const allSorted = useMemo(
-    () => [...activeExperiences].sort(sortByStartDesc),
-    [activeExperiences]
-  );
-
-  const filtered = useMemo(() => {
-    if (filter === "professional") return professional;
-    if (filter === "education") return education;
-    return allSorted;
-  }, [filter, professional, education, allSorted]);
-
-  const isDualLane = filter === "all";
-
-  // --- Single-lane entries (used for filtered views + mobile "All") ---
-  const singleLaneEntries = useMemo(() => {
-    const entries: SingleEntry[] = [];
-    let lastYear = 0;
-    filtered.forEach((item, index) => {
-      const year = getYearFromDate(item.startDate);
-      if (year !== lastYear) {
-        entries.push({ kind: "year", year });
-        lastYear = year;
-      }
-      entries.push({
-        kind: "card",
-        item,
-        position: index % 2 === 0 ? "left" : "right",
-      });
-    });
-    return entries;
-  }, [filtered]);
-
-  // --- Dual-lane: all years + left column entries ---
-  const allYears = useMemo(() => {
-    const years = activeExperiences.map((e) => getYearFromDate(e.startDate));
-    const min = Math.min(...years);
-    const max = Math.max(...years);
-    return Array.from({ length: max - min + 1 }, (_, i) => max - i);
-  }, [activeExperiences]);
-
-  // --- Dual-lane: left entries by year, education groups for grid spanning ---
-  const leftByYear = useMemo(() => {
-    const map = new Map<number, Experience[]>();
-    professional.forEach((p) => {
-      const y = getYearFromDate(p.startDate);
-      if (!map.has(y)) map.set(y, []);
-      map.get(y)!.push(p);
-    });
-    return map;
-  }, [professional]);
-
-  const educationGroups = useMemo(() => {
-    const sorted = [...education].sort((a, b) => {
-      const aEnd = a.endDate ? new Date(a.endDate).getTime() : Number.MAX_SAFE_INTEGER;
-      const bEnd = b.endDate ? new Date(b.endDate).getTime() : Number.MAX_SAFE_INTEGER;
-      return bEnd - aEnd;
-    });
-    const groups: {
-      items: Experience[];
-      endYear: number;
-      startYear: number;
-    }[] = [];
-    sorted.forEach((item) => {
-      const endY = item.endDate
-        ? getYearFromDate(item.endDate)
-        : new Date().getFullYear();
-      const startY = getYearFromDate(item.startDate);
-      const last = groups[groups.length - 1];
-      if (last && endY >= last.startYear) {
-        last.items.push(item);
-        last.startYear = Math.min(last.startYear, startY);
-      } else {
-        groups.push({ items: [item], endYear: endY, startYear: startY });
-      }
-    });
-    return groups;
-  }, [education]);
+  const status = filter === "all" ? "All experience shown." : filter === "professional" ? "Professional experience shown." : "Education shown.";
 
   return (
-    <div>
-      {/* Filter tabs */}
-      <MotionMaxProvider>
-        <FilterPills
-          options={FILTERS.map((f) => ({
-            key: f.key,
-            label: f.label,
-            icon: f.icon,
-          }))}
-          active={filter}
-          onChange={setFilter}
-          ariaLabel="Filter experience by type"
-          groupId="experience"
-          className="mb-12"
-        />
-      </MotionMaxProvider>
-
-      {/* Lane legend (dual mode, desktop only) */}
-      {isDualLane && (
-        <div className="hidden md:flex justify-center gap-6 mb-10 text-sm">
-          <div className="flex items-center gap-2">
-            <span className={cn("w-3 h-3 rounded-full", ACCENTS.blue.dot)} />
-            <span className="text-fg-mid">Professional</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className={cn("w-3 h-3 rounded-full", ACCENTS.emerald.dot)} />
-            <span className="text-fg-mid">Freelance</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className={cn("w-3 h-3 rounded-full", ACCENTS.teal.dot)} />
-            <span className="text-fg-mid">Education</span>
-          </div>
+    <div ref={rootRef} className={styles.timeline}>
+      <div className={styles.toolbar}>
+        <div role="radiogroup" aria-label="Filter experience by type" aria-describedby="experience-filter-status" className={styles.filters}>
+          {filters.map((item, index) => (
+            <button key={item.key} type="button" role="radio" aria-checked={filter === item.key}
+              aria-label={item.accessibleLabel} aria-controls="professional-experience education-experience"
+              tabIndex={filter === item.key ? 0 : -1}
+              ref={node => { buttonRefs.current[index] = node; }}
+              onClick={() => selectFilter(item.key)} onKeyDown={event => onFilterKeyDown(event, index)}
+              className={styles.filter}>
+              {item.label}
+            </button>
+          ))}
         </div>
-      )}
-
-      {/* Timeline */}
-      <div className="relative">
-        <AnimatePresence initial={false} mode="wait">
-          <m.div
-            key={filter}
-            variants={fade}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-          >
-            {/* ========== DESKTOP DUAL LANE (CSS Grid) ========== */}
-            {isDualLane && (
-              <div
-                className="hidden md:grid relative pt-4 pb-16"
-                style={{
-                  gridTemplateColumns: "1fr 1fr",
-                  gridTemplateRows: allYears
-                    .map(() => "minmax(0, auto)")
-                    .join(" "),
-                }}
-              >
-                {/* Center line */}
-                <div className="absolute top-0 bottom-0 w-0.5 bg-[image:var(--gradient-rail)] left-1/2 -translate-x-1/2 z-0" />
-
-                {/* Year markers  - span both columns */}
-                {allYears.map((year, i) => {
-                  if (!leftByYear.has(year)) return null;
-                  return (
-                    <div
-                      key={`year-${year}`}
-                      style={{
-                        gridRow: i + 1,
-                        gridColumn: "1 / -1",
-                        height: 0,
-                        overflow: "visible",
-                        pointerEvents: "none",
-                      }}
-                      className="flex items-start justify-center z-30"
-                    >
-                      <span className="sticky top-24 inline-block bg-slate-800 text-white rounded-full px-5 py-1.5 text-sm font-bold shadow-lg pointer-events-auto">
-                        {year}
-                      </span>
-                    </div>
-                  );
-                })}
-
-                {/* Left column  - professional cards in their year's content row */}
-                {allYears.map((year, i) => {
-                  const items = leftByYear.get(year);
-                  if (!items?.length) return null;
-                  return (
-                    <div
-                      key={`left-${year}`}
-                      style={{ gridRow: i + 1, gridColumn: 1 }}
-                      className="pr-8 relative z-10"
-                    >
-                      {items.map((item) => (
-                        <div key={item.id} className="relative w-full mb-4">
-                          <ScrollReveal direction="left" delay={0.05}>
-                            <TimelineCard
-                              item={item}
-                              position="left"
-                              isDualLane
-                            />
-                          </ScrollReveal>
-                        </div>
-                      ))}
-                    </div>
-                  );
-                })}
-
-                {/* Right column  - education groups spanning their date range */}
-                {educationGroups.map((group, gi) => {
-                  const startRowIdx = allYears.indexOf(group.endYear);
-                  const endRowIdx = allYears.indexOf(group.startYear);
-                  if (startRowIdx === -1 || endRowIdx === -1) return null;
-                  return (
-                    <div
-                      key={`edu-group-${gi}`}
-                      style={{
-                        gridRow: `${startRowIdx + 1} / ${endRowIdx + 2}`,
-                        gridColumn: 2,
-                      }}
-                      className="pl-8 relative z-20"
-                    >
-                      {group.items.map((item) => (
-                        <div
-                          key={item.id}
-                          className="sticky top-28 z-20 mb-4"
-                        >
-                          <ScrollReveal direction="right" delay={0.15}>
-                            <TimelineCard
-                              item={item}
-                              position="right"
-                              isDualLane
-                            />
-                          </ScrollReveal>
-                        </div>
-                      ))}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {/* ========== SINGLE LANE (desktop filtered) + MOBILE ALL ========== */}
-            <div
-              className={cn(
-                "relative space-y-4 md:space-y-6",
-                isDualLane ? "md:hidden" : "block"
-              )}
-            >
-              {/* Center line */}
-              <div className="absolute top-0 bottom-0 w-0.5 bg-[image:var(--gradient-rail)] left-4 md:left-1/2 md:-translate-x-1/2 z-0" />
-
-              {singleLaneEntries.map((entry) => {
-                if (entry.kind === "year") {
-                  return (
-                    <div
-                      key={`year-${entry.year}`}
-                      className="relative h-0 overflow-visible pointer-events-none -my-2"
-                    >
-                      <div className="absolute z-20 top-0 -translate-x-1/2 -translate-y-1/2 left-4 md:left-1/2 pointer-events-auto">
-                        <span className="inline-block bg-slate-800 text-white rounded-full px-5 py-1.5 text-sm font-bold shadow-md">
-                          {entry.year}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                }
-                return (
-                  <div key={entry.item.id} className="relative z-10 w-full">
-                    <ScrollReveal
-                      direction={
-                        entry.position === "left" ? "left" : "right"
-                      }
-                      delay={0.05}
-                    >
-                      <TimelineCard
-                        item={entry.item}
-                        position={entry.position}
-                      />
-                    </ScrollReveal>
-                  </div>
-                );
-              })}
-            </div>
-          </m.div>
-        </AnimatePresence>
+        <p id="experience-filter-status" className="sr-only" role="status" aria-atomic="true">{status}</p>
       </div>
+      <section id="professional-experience" tabIndex={-1} data-experience-kind="professional" aria-labelledby="professional-heading"
+        hidden={filter === "education"} className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 id="professional-heading">Professional experience</h2>
+          <p>Roles are ordered by end date. Consulting clients are grouped under the independent practice.</p>
+        </div>
+        {professional}
+      </section>
+      <section id="education-experience" tabIndex={-1} data-experience-kind="education" aria-labelledby="education-heading"
+        hidden={filter === "professional"} className={cn(styles.section, filter !== "education" && styles.educationSection)}>
+        <div className={styles.sectionHeader}>
+          <h2 id="education-heading">Education</h2>
+          <p>Degree studies and the McGill exchange semester within the emlyon MSc.</p>
+        </div>
+        {education}
+      </section>
+      <noscript><p className="mt-6 text-sm text-fg-mid">All {entries.length} roles and education entries are shown. Project contribution and outcome details can be opened individually.</p></noscript>
     </div>
   );
 }

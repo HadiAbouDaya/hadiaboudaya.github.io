@@ -1,8 +1,9 @@
 ---
 title: "I Built a Crypto Copy-Trading Platform From Scratch. Here's What It Took."
 date: "2026-03-23"
+updatedAt: "2026-10-19"
 tags: ["Crypto", "SaaS", "Full-Stack", "Trading", "Side Project"]
-excerpt: "Most copy-trading tools are glorified Telegram bots with no risk controls and zero transparency. So I built CopyAlpha, a full-stack platform that processes signals, enforces risk rules, and executes across CEX and DEX."
+excerpt: "CopyAlpha is my personal exploration of automated signal processing, configurable risk checks and execution visibility. So I built CopyAlpha, a full-stack platform that processes signals, enforces risk rules, and executes across CEX and DEX."
 coverImage: "/Media/blog/covers/copyalpha-crypto-copy-trading-platform.jpg"
 ---
 
@@ -20,7 +21,7 @@ I watched this happen enough times, to myself and to others, that I decided to b
 >
 > - CopyAlpha is a full-stack crypto copy-trading platform with a 10-step validation chain between signal intake and trade execution, enforcing risk rules at every stage.
 > - The platform supports both centralized exchanges (Binance, Bybit, OKX) and decentralized execution (Ethereum, Polygon, Arbitrum) through a unified signal processing pipeline.
-> - Every trade passes through duplicate detection, position sizing, stop-loss enforcement, and portfolio exposure checks before execution, solving the transparency gap in existing copy-trading tools.
+> - The ten numbered checks below describe pre-execution risk validation. Position sizing and order management are later stages; the list does not establish a separate duplicate-message detection mechanism.
 
 ## What is wrong with existing copy-trading tools?
 
@@ -59,11 +60,11 @@ Most copy-trading tools treat risk management as an afterthought. A max leverage
 9. **Cooldown.** Has enough time passed since the last trade? A configurable timer prevents rapid-fire entries during volatile sessions.
 10. **Confidence and risk-reward.** Does the signal meet the minimum confidence threshold and risk-reward ratio? Low-quality signals get filtered out before they cost you anything.
 
-Only after all ten checks pass does the system calculate position size, place the order, set the stop loss, and queue the take-profit levels. If any check fails, the signal is logged, the reason is recorded, and the trade is skipped. No exceptions.
+In the intended execution path, the ten risk checks precede position sizing, order placement, stop-loss placement and take-profit management. Rejected signals are logged with a reason. The same-pair exposure check is distinct from detecting a replayed message; I am not claiming a separately verified duplicate-message mechanism here. Exchange errors, retries and partial fills still need explicit handling.
 
-And here's the part that matters most in practice: **automatic stop loss management**. When TP1 hits, the system moves your stop loss to breakeven. When TP2 hits, it moves your stop loss to TP1. You lock in profit progressively without watching charts at 3am. This alone would have saved me more money than I'd like to admit.
+And here's the part that matters most in practice: **automatic stop loss management**. When TP1 hits, the system moves your stop loss to breakeven. When TP2 hits, it moves your stop loss to TP1. This is intended to tighten exposure as a trade moves, without requiring constant chart watching. Stops can slip or fail to execute at their target, so moving them does not guarantee breakeven or a profit.
 
-This is the difference between a Telegram bot and a trading platform. The bot executes blindly. The platform protects you from yourself.
+This is the difference between a Telegram bot and a trading platform. The bot executes blindly. The platform makes the configured checks and execution decisions easier to inspect; it cannot remove trading risk.
 
 ## Seeing What Actually Matters
 
@@ -83,7 +84,7 @@ Every signal that came in is logged: whether it was executed or rejected, and th
 
 ## Why build a copy-trading platform from scratch?
 
-CopyAlpha started as a script that read Telegram messages and placed market orders. It's now a platform with authentication, a 10-step risk engine, multi-exchange execution, DEX routing, analytics, and subscription billing.
+CopyAlpha started as a script that read Telegram messages and placed market orders. It became a personal product with authentication, a 10-step risk engine, multi-exchange execution, DEX routing, analytics and subscription-billing functionality. Implemented billing and subscription tiers are not evidence of paid adoption, revenue or trading returns.
 
 Every feature exists because I personally needed it. The risk engine came first because I lost money without it. The analytics came next because I couldn't tell which channels were worth keeping. The automatic SL management came after I woke up one too many times to a position that had been green, hit TP1, then reversed and stopped me out at a loss because I wasn't awake to move the stop.
 

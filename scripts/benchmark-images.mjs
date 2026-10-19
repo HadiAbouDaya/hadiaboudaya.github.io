@@ -1,0 +1,43 @@
+// Image-only benchmark: writes exclusively to a fresh OS temporary directory.
+import { cp, mkdtemp, readFile, writeFile } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
+import { tmpdir } from "node:os";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import assert from "node:assert/strict";
+import sharp from "sharp";
+const execute = promisify(execFile);
+const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const directory = await mkdtemp(path.join(tmpdir(), "website-image-benchmark-"));
+const source = path.join(repo, "public/Media");
+const roots = Object.fromEntries(["legacy", "cold-one", "cold-two"].map(name => [name, path.join(directory, name, "Media")]));
+for (const root of Object.values(roots)) await cp(source, root, { recursive: true, filter: (file) => !/-\d+w\.webp$/i.test(file) });
+const { stdout: original } = await execute("git", ["show", "fe66dd6:scripts/generate-image-variants.mjs"], { cwd: repo });
+const legacy = path.join(directory, "legacy.mjs");
+await writeFile(legacy, `import {writeFileSync} from "node:fs";const started=performance.now();process.on("exit",()=>writeFileSync(process.env.WEBSITE_IMAGE_BENCH_REPORT,JSON.stringify({milliseconds:Math.round(performance.now()-started),peakRssBytes:process.resourceUsage().maxRSS*1024})));\n` + original.replace('from "sharp"', `from ${JSON.stringify(import.meta.resolve("sharp"))}`));
+const runner = path.join(directory, "runner.mjs");
+await writeFile(runner, `import {writeFileSync} from "node:fs";import {generateImages} from ${JSON.stringify(path.join(repo, "scripts/generate-image-variants.mjs"))};const {manifest,...stats}=await generateImages({root:process.argv[2],cacheDir:process.argv[3],concurrency:Number(process.argv[4]??process.env.IMAGE_CONCURRENCY??2)});writeFileSync(process.env.WEBSITE_IMAGE_BENCH_REPORT,JSON.stringify({...stats,originals:manifest.originals.length,variants:manifest.variants.length}));`);
+let runNumber = 0;
+async function run(file, args) {
+  const report = path.join(directory, `run-${runNumber++}.json`);
+  await execute(process.execPath, [file, ...args], { cwd: repo, env: { ...process.env, WEBSITE_IMAGE_BENCH_REPORT: report }, maxBuffer: 1024 * 1024 });
+  return JSON.parse(await readFile(report, "utf8"));
+}
+const cacheOne = path.join(directory, "cache-one"), cacheTwo = path.join(directory, "cache-two");
+const results = { directory, legacy: await run(legacy, [roots.legacy]) };
+console.log("legacy", JSON.stringify(results.legacy));
+results.coldOne = await run(runner, [roots["cold-one"], cacheOne]); console.log("cold-one", JSON.stringify(results.coldOne));
+results.coldTwo = await run(runner, [roots["cold-two"], cacheTwo]); console.log("cold-two", JSON.stringify(results.coldTwo));
+const manifestOne = await readFile(path.join(directory, "cold-one/image-variants.manifest.json"), "utf8");
+assert.equal(manifestOne, await readFile(path.join(directory, "cold-two/image-variants.manifest.json"), "utf8"));
+results.cleanManifestEquality = true;
+results.warm = await run(runner, [roots["cold-one"], cacheOne]); assert.equal(results.warm.encoded, 0); console.log("warm", JSON.stringify(results.warm));
+const edited = path.join(roots["cold-one"], "profile/headshot.webp");
+const changed = await sharp(await readFile(edited)).modulate({ brightness: 0.8 }).webp().toBuffer();
+await writeFile(edited, changed);
+results.changedSource = await run(runner, [roots["cold-one"], cacheOne]); assert.equal(results.changedSource.encoded, 2);
+results.changedSourceFresh = JSON.parse(await readFile(path.join(directory, "cold-one/image-variants.manifest.json"))).variants.filter(v => v.source === "profile/headshot.webp").every(v => !JSON.parse(manifestOne).variants.some(before => before.path === v.path && before.sha256 === v.sha256));
+assert.ok(results.changedSourceFresh);
+await writeFile(path.join(directory, "benchmark.json"), JSON.stringify(results, null, 2) + "\n");
+console.log(JSON.stringify(results, null, 2));

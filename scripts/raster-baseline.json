@@ -1,0 +1,1341 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "fe66dd6461e7bfaf51c57d153e27c73a6dbf39fe",
+  "files": [
+    {
+      "path": "public/Media/blog/covers/ai-marketing-stack-2026.jpg",
+      "bytes": 69543,
+      "sha256": "ed4dc4e992f1092444ccae782c65251ad5b58783d5bcc9f686e3d9a91bd180d9"
+    },
+    {
+      "path": "public/Media/blog/covers/anthropic-claude-mythos-system-card-analysis.jpg",
+      "bytes": 50480,
+      "sha256": "649d4aee16095944a9b0a466be2b2a356fd5fb392a2964b7a8b1199acb8c8684"
+    },
+    {
+      "path": "public/Media/blog/covers/arc-agi-3-benchmark-broke-every-frontier-model.jpg",
+      "bytes": 113132,
+      "sha256": "aefcb1f312a1776737e6628086ca7377da86fada228b701f6c1a9877ba77b723"
+    },
+    {
+      "path": "public/Media/blog/covers/aws-lambda-vs-inngest.jpg",
+      "bytes": 99089,
+      "sha256": "a380d5416571b96e553707ae29ced9aca56d340fd33df78802bb95a41e4869cf"
+    },
+    {
+      "path": "public/Media/blog/covers/copyalpha-crypto-copy-trading-platform.jpg",
+      "bytes": 44412,
+      "sha256": "3a498e078be2209f92b0c64384c9b339ab8b6597877acfd9a0c70318d70558c5"
+    },
+    {
+      "path": "public/Media/blog/covers/critical-thinking-llms.jpg",
+      "bytes": 86445,
+      "sha256": "f1a0657af53ebffd5aeff08409b9cd9e232a98f22d7c55bb14913df4fda8962a"
+    },
+    {
+      "path": "public/Media/blog/covers/deepseek-engram-llm-memory.png",
+      "bytes": 48739,
+      "sha256": "a910c0fdf0a80d69dca9a9e5249139f430d5fd00db07c46f79ffe95a8e9fbc9d"
+    },
+    {
+      "path": "public/Media/blog/covers/sk-hynix-hbm.jpg",
+      "bytes": 145647,
+      "sha256": "1bcd9f5712d948bab9aeeb94beefd6501fd33c72cf05d813b223a13f9d250edd"
+    },
+    {
+      "path": "public/Media/blog/covers/tesla-ai-day.jpg",
+      "bytes": 32150,
+      "sha256": "f4524014ec950105b8479fe5d33126336a1a8cc61ad3ec5ccc6ec23f68834639"
+    },
+    {
+      "path": "public/Media/blog/covers/three-strategic-shifts-single-day-ai.jpg",
+      "bytes": 160746,
+      "sha256": "021a7963b255d6b0506d638504366bc166c4c5669e434ed3dc4e03d987d654e4"
+    },
+    {
+      "path": "public/Media/blog/covers/vl-jepa-analysis.jpg",
+      "bytes": 181791,
+      "sha256": "cebe967755cd0796c95a2e8dd013d21320f4ff9e0456278a81ea24b06860a837"
+    },
+    {
+      "path": "public/Media/branding/headshot.png",
+      "bytes": 41844,
+      "sha256": "25510c9e8d59cece0c892ff2d7b409708582bc8e51c1c88bb8573065e51de838"
+    },
+    {
+      "path": "public/Media/branding/logo.webp",
+      "bytes": 45524,
+      "sha256": "aac35d77492d10ff8d7ffb5756637b31949c3b7ae1d545aa7da4a29ed705280d"
+    },
+    {
+      "path": "public/Media/branding/og-default.jpg",
+      "bytes": 41180,
+      "sha256": "41fbc706e5c4e6e24ec6e02e28da27d8571a7492ad314957d3f3854bbdd8fcbd"
+    },
+    {
+      "path": "public/Media/certifications/badges/ai-900.webp",
+      "bytes": 4512,
+      "sha256": "d73503ecbba50d211f7453f84476a5857a427c930c72026528e80a27b44c80b8"
+    },
+    {
+      "path": "public/Media/certifications/badges/amideast.webp",
+      "bytes": 3792,
+      "sha256": "9767223e7e8484eb3845410ea829c17c2e2e204d6d25a93a61d2c4297c742fa2"
+    },
+    {
+      "path": "public/Media/certifications/badges/anthropic.webp",
+      "bytes": 1892,
+      "sha256": "75696ade86a051332fda711a29e34976ed4a541b6afcbe05f2608d1b2467ec78"
+    },
+    {
+      "path": "public/Media/certifications/badges/aws-ai-dlc-ambassador.webp",
+      "bytes": 11512,
+      "sha256": "2706cb0cc3dac77fe650bd6984928b058f49310a2e49923f4495dc673e28b2ae"
+    },
+    {
+      "path": "public/Media/certifications/badges/aws-ai-foundational.webp",
+      "bytes": 8808,
+      "sha256": "bb11ab2b434f776c7aa77ec3225f19e45f6986db4ad9cb27cdaa95b651bf1fb5"
+    },
+    {
+      "path": "public/Media/certifications/badges/aws-ai-practitioner.webp",
+      "bytes": 7728,
+      "sha256": "89174d2a408e08d5075f7e6011ba590f3b2f05079c07264269f9dc2b14e0bc7f"
+    },
+    {
+      "path": "public/Media/certifications/badges/aws-cloud-practitioner.webp",
+      "bytes": 7728,
+      "sha256": "89174d2a408e08d5075f7e6011ba590f3b2f05079c07264269f9dc2b14e0bc7f"
+    },
+    {
+      "path": "public/Media/certifications/badges/aws-ml-specialty.webp",
+      "bytes": 7728,
+      "sha256": "89174d2a408e08d5075f7e6011ba590f3b2f05079c07264269f9dc2b14e0bc7f"
+    },
+    {
+      "path": "public/Media/certifications/badges/aws-s3-hosting.webp",
+      "bytes": 7728,
+      "sha256": "89174d2a408e08d5075f7e6011ba590f3b2f05079c07264269f9dc2b14e0bc7f"
+    },
+    {
+      "path": "public/Media/certifications/badges/aws-solutions-architect-associate.webp",
+      "bytes": 7728,
+      "sha256": "89174d2a408e08d5075f7e6011ba590f3b2f05079c07264269f9dc2b14e0bc7f"
+    },
+    {
+      "path": "public/Media/certifications/badges/az-900.webp",
+      "bytes": 4512,
+      "sha256": "d73503ecbba50d211f7453f84476a5857a427c930c72026528e80a27b44c80b8"
+    },
+    {
+      "path": "public/Media/certifications/badges/berytech.webp",
+      "bytes": 3828,
+      "sha256": "a7136cd3124d41d0c3a59245c0a2d220a81daa46046a44813db98ac790546714"
+    },
+    {
+      "path": "public/Media/certifications/badges/ccna.webp",
+      "bytes": 5126,
+      "sha256": "0c151e4bda492c749b80f89fe40d1a4bdc08d30dc02211b305679a59eba7754d"
+    },
+    {
+      "path": "public/Media/certifications/badges/claude-architect.webp",
+      "bytes": 13562,
+      "sha256": "5ef2ea1d7828bcd8b5ce3310a3d19f390575728c889895e0f8ff3895da53fb53"
+    },
+    {
+      "path": "public/Media/certifications/badges/cleaning-data.webp",
+      "bytes": 10714,
+      "sha256": "a3d00c25329cd2cc3cc963cca5e3bae99682127819c043996751533ad2147e66"
+    },
+    {
+      "path": "public/Media/certifications/badges/cnn-tensorflow.webp",
+      "bytes": 5304,
+      "sha256": "fedf594329edf26c71f278e8ae8eb7be4472ab419ab0aaebfa7e8189dbdd0418"
+    },
+    {
+      "path": "public/Media/certifications/badges/cnn.webp",
+      "bytes": 5304,
+      "sha256": "fedf594329edf26c71f278e8ae8eb7be4472ab419ab0aaebfa7e8189dbdd0418"
+    },
+    {
+      "path": "public/Media/certifications/badges/cpp-epfl.webp",
+      "bytes": 5478,
+      "sha256": "003055c659320c54cbe6b650384db59e831ee02098944b857b3cda317d3f0802"
+    },
+    {
+      "path": "public/Media/certifications/badges/cybersecurity.webp",
+      "bytes": 5126,
+      "sha256": "0c151e4bda492c749b80f89fe40d1a4bdc08d30dc02211b305679a59eba7754d"
+    },
+    {
+      "path": "public/Media/certifications/badges/deep-learning-spec.webp",
+      "bytes": 5304,
+      "sha256": "fedf594329edf26c71f278e8ae8eb7be4472ab419ab0aaebfa7e8189dbdd0418"
+    },
+    {
+      "path": "public/Media/certifications/badges/dp-900.webp",
+      "bytes": 4512,
+      "sha256": "d73503ecbba50d211f7453f84476a5857a427c930c72026528e80a27b44c80b8"
+    },
+    {
+      "path": "public/Media/certifications/badges/ds-toolbox.webp",
+      "bytes": 10714,
+      "sha256": "a3d00c25329cd2cc3cc963cca5e3bae99682127819c043996751533ad2147e66"
+    },
+    {
+      "path": "public/Media/certifications/badges/eda.webp",
+      "bytes": 10714,
+      "sha256": "a3d00c25329cd2cc3cc963cca5e3bae99682127819c043996751533ad2147e66"
+    },
+    {
+      "path": "public/Media/certifications/badges/encryption-cpp.webp",
+      "bytes": 2430,
+      "sha256": "6d1717c7e925bc80c77a552f230e8f5531187bd0bf8db896cc4f6005d6accc43"
+    },
+    {
+      "path": "public/Media/certifications/badges/gcp-bigdata.webp",
+      "bytes": 5790,
+      "sha256": "21e3f94225df419f9bdc7ad64312785ac9fb5093f9cdd56cca87edd3e8da1f4c"
+    },
+    {
+      "path": "public/Media/certifications/badges/google-data-analytics.webp",
+      "bytes": 5790,
+      "sha256": "21e3f94225df419f9bdc7ad64312785ac9fb5093f9cdd56cca87edd3e8da1f4c"
+    },
+    {
+      "path": "public/Media/certifications/badges/improving-dnn.webp",
+      "bytes": 5304,
+      "sha256": "fedf594329edf26c71f278e8ae8eb7be4472ab419ab0aaebfa7e8189dbdd0418"
+    },
+    {
+      "path": "public/Media/certifications/badges/intro-tensorflow.webp",
+      "bytes": 5304,
+      "sha256": "fedf594329edf26c71f278e8ae8eb7be4472ab419ab0aaebfa7e8189dbdd0418"
+    },
+    {
+      "path": "public/Media/certifications/badges/javascript.webp",
+      "bytes": 6900,
+      "sha256": "797050465996313874bc17b772fa62144db5a881e9b4d8896724264ed663b970"
+    },
+    {
+      "path": "public/Media/certifications/badges/ml-for-all.webp",
+      "bytes": 9312,
+      "sha256": "9fd047ebb0d463aa547d41f3c1fcb4e3fc175d254f5ab1e424793c779976e13c"
+    },
+    {
+      "path": "public/Media/certifications/badges/network-security.webp",
+      "bytes": 3460,
+      "sha256": "9f8b92989cfeedfb805f051c062b8375ce10795279e6fa3ddb187431c723ee55"
+    },
+    {
+      "path": "public/Media/certifications/badges/neural-networks.webp",
+      "bytes": 5304,
+      "sha256": "fedf594329edf26c71f278e8ae8eb7be4472ab419ab0aaebfa7e8189dbdd0418"
+    },
+    {
+      "path": "public/Media/certifications/badges/nlp-tensorflow.webp",
+      "bytes": 5304,
+      "sha256": "fedf594329edf26c71f278e8ae8eb7be4472ab419ab0aaebfa7e8189dbdd0418"
+    },
+    {
+      "path": "public/Media/certifications/badges/php.webp",
+      "bytes": 6900,
+      "sha256": "797050465996313874bc17b772fa62144db5a881e9b4d8896724264ed663b970"
+    },
+    {
+      "path": "public/Media/certifications/badges/pmp.webp",
+      "bytes": 31128,
+      "sha256": "65837b15603d98cd2dfec5d40db6521b6889f8fb13492f3732ddbaca5ab44038"
+    },
+    {
+      "path": "public/Media/certifications/badges/practical-ml.webp",
+      "bytes": 10714,
+      "sha256": "a3d00c25329cd2cc3cc963cca5e3bae99682127819c043996751533ad2147e66"
+    },
+    {
+      "path": "public/Media/certifications/badges/python-ds.webp",
+      "bytes": 5608,
+      "sha256": "1fb6d6af60a202dfd8541507f2e582d10a0709b94681b294b42fe5c2d4e5091a"
+    },
+    {
+      "path": "public/Media/certifications/badges/python-masterclass.webp",
+      "bytes": 5608,
+      "sha256": "1fb6d6af60a202dfd8541507f2e582d10a0709b94681b294b42fe5c2d4e5091a"
+    },
+    {
+      "path": "public/Media/certifications/badges/r-programming.webp",
+      "bytes": 10714,
+      "sha256": "a3d00c25329cd2cc3cc963cca5e3bae99682127819c043996751533ad2147e66"
+    },
+    {
+      "path": "public/Media/certifications/badges/regression.webp",
+      "bytes": 10714,
+      "sha256": "a3d00c25329cd2cc3cc963cca5e3bae99682127819c043996751533ad2147e66"
+    },
+    {
+      "path": "public/Media/certifications/badges/responsive-design.webp",
+      "bytes": 6900,
+      "sha256": "797050465996313874bc17b772fa62144db5a881e9b4d8896724264ed663b970"
+    },
+    {
+      "path": "public/Media/certifications/badges/self-driving.webp",
+      "bytes": 9794,
+      "sha256": "74d219d1d099a709c1e7c78884a2639e27de439f9ea72f2bdc17d57cdd7ce6af"
+    },
+    {
+      "path": "public/Media/certifications/badges/sequence-models.webp",
+      "bytes": 5304,
+      "sha256": "fedf594329edf26c71f278e8ae8eb7be4472ab419ab0aaebfa7e8189dbdd0418"
+    },
+    {
+      "path": "public/Media/certifications/badges/sql-data-science.webp",
+      "bytes": 7326,
+      "sha256": "d29710da3bbf5a1784b6780c3bc7afbb3b53452af32fb011b05bf58669d8bf91"
+    },
+    {
+      "path": "public/Media/certifications/badges/sql-intro.webp",
+      "bytes": 6900,
+      "sha256": "797050465996313874bc17b772fa62144db5a881e9b4d8896724264ed663b970"
+    },
+    {
+      "path": "public/Media/certifications/badges/stanford-ml.webp",
+      "bytes": 11858,
+      "sha256": "6394d73d0f0e36c98858f69cd428a6a66ec758fc0ddea4e9bcc533f2c58da223"
+    },
+    {
+      "path": "public/Media/certifications/badges/statistical-inference.webp",
+      "bytes": 10714,
+      "sha256": "a3d00c25329cd2cc3cc963cca5e3bae99682127819c043996751533ad2147e66"
+    },
+    {
+      "path": "public/Media/certifications/badges/structuring-ml.webp",
+      "bytes": 5304,
+      "sha256": "fedf594329edf26c71f278e8ae8eb7be4472ab419ab0aaebfa7e8189dbdd0418"
+    },
+    {
+      "path": "public/Media/certifications/badges/tensorflow-developer.webp",
+      "bytes": 5304,
+      "sha256": "fedf594329edf26c71f278e8ae8eb7be4472ab419ab0aaebfa7e8189dbdd0418"
+    },
+    {
+      "path": "public/Media/certifications/badges/tf2-imperial.webp",
+      "bytes": 2208,
+      "sha256": "2341680b51d2824809fbe565b76fdaded3500a447f555473a0afb70ca52f2810"
+    },
+    {
+      "path": "public/Media/certifications/badges/time-series.webp",
+      "bytes": 5304,
+      "sha256": "fedf594329edf26c71f278e8ae8eb7be4472ab419ab0aaebfa7e8189dbdd0418"
+    },
+    {
+      "path": "public/Media/certifications/badges/well-architected.webp",
+      "bytes": 7358,
+      "sha256": "fbb9efd2b3d74d05f3fa67ed94817f3d86ee9389eb84edc1de9803e985429d68"
+    },
+    {
+      "path": "public/Media/certifications/badges/zaka-aic.webp",
+      "bytes": 1768,
+      "sha256": "68c7da7579077b97b2ff660ab9d2bd9d4a9dd4859f8af80e86b531f72f792939"
+    },
+    {
+      "path": "public/Media/education/emlyon/logo.webp",
+      "bytes": 6010,
+      "sha256": "00c681b51481a6bfabc2aa51af589252826c7d3cf365d548c8bab72f5d5d7b61"
+    },
+    {
+      "path": "public/Media/education/mcgill/logo.webp",
+      "bytes": 6436,
+      "sha256": "87be1982124f3a9d9b65dc1fa07a837b8bb272d1d26877e8fd8ebaa907bba0fd"
+    },
+    {
+      "path": "public/Media/education/usj-esib/logo.webp",
+      "bytes": 6382,
+      "sha256": "b5a7e2b67dfc67371701b08b37706c8e0d69934e280a15ed38bbe307541e0583"
+    },
+    {
+      "path": "public/Media/events/agentforce-world-tour-paris/1.webp",
+      "bytes": 46994,
+      "sha256": "55b636eecf6c62c1831884e14bc60058b43508d06d9bfb4426ec621307270a4b"
+    },
+    {
+      "path": "public/Media/events/agentforce-world-tour-paris/2.webp",
+      "bytes": 64420,
+      "sha256": "a016fc3b887ab4722a662b4a4e35652d79bb4d81557d6519ed50b18a90dd6dc8"
+    },
+    {
+      "path": "public/Media/events/agentic-ai-conference-by-data-science-dojo/1.webp",
+      "bytes": 41556,
+      "sha256": "0ac14891a23a040d864f0dcef5b742288c1cc0f0b95ccce9e4c13e341088090f"
+    },
+    {
+      "path": "public/Media/events/ai-era-students-guide/1.webp",
+      "bytes": 98906,
+      "sha256": "8460850bb9808fb72721cdf11f0e4473b80ae1584f6f454778cdfad44a6676a6"
+    },
+    {
+      "path": "public/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/1.webp",
+      "bytes": 52976,
+      "sha256": "e5690990f7802f9b20ca035de438f7b851f980ba6a8ab77c554fba967ac5547e"
+    },
+    {
+      "path": "public/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/2.webp",
+      "bytes": 111210,
+      "sha256": "16d8a5ff8aa4536d3037ff67280bbed95f60c368f830f0f7c89e4acb5d6ae9bf"
+    },
+    {
+      "path": "public/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/3.webp",
+      "bytes": 70652,
+      "sha256": "251dd96861197db2bfd85a678858558601dac4384dcde3a300d443deb342e5fb"
+    },
+    {
+      "path": "public/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/4.webp",
+      "bytes": 95460,
+      "sha256": "10be9c635e351b3c8b92c226b6e7bf46c02f111a3f0ea0565cf4248ca67e314c"
+    },
+    {
+      "path": "public/Media/events/amideast-start-your-own-business-workshop/1.webp",
+      "bytes": 87414,
+      "sha256": "1fbaafd16d938cb286e9293661e2c27e42dccb9c4f72d057bdb51f1cc1328ac6"
+    },
+    {
+      "path": "public/Media/events/anthropic-education-courses/1.webp",
+      "bytes": 81796,
+      "sha256": "039b456a9e86fdc1ddc5cb986db0e3fa831c273bb0d7cad8ed2724c491b1bb81"
+    },
+    {
+      "path": "public/Media/events/aws-ml-specialty-and-cloud-practitioner-certifications/1.webp",
+      "bytes": 30874,
+      "sha256": "16f33107958da17066ab3ba7fcc53b05916cea86ee0ba680a81cd9d466f7a44e"
+    },
+    {
+      "path": "public/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/1.webp",
+      "bytes": 61224,
+      "sha256": "5b379d1ae0e7b3cdff134bb824047d0b8d74c8f7b49bd615e884b61804cc10b0"
+    },
+    {
+      "path": "public/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/2.webp",
+      "bytes": 168340,
+      "sha256": "d6ec6aea876a5ed49d81f2e9dfd95d533e5230ef12c84b0290b75985563bcb89"
+    },
+    {
+      "path": "public/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/3.webp",
+      "bytes": 89612,
+      "sha256": "330a4bb399aa36a17b28e2a0e42f7f957606d183adcfb7f9649c41ca2a262fce"
+    },
+    {
+      "path": "public/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/4.webp",
+      "bytes": 85158,
+      "sha256": "2d53d9f9bacb4e5ef9654405425f84591479d891bf04783c5796587b9afc428b"
+    },
+    {
+      "path": "public/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/5.webp",
+      "bytes": 54316,
+      "sha256": "01aa6ed8b117f1bd7146b2d481aad8cffff0982184080be04420b5fa1b63dce7"
+    },
+    {
+      "path": "public/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/6.webp",
+      "bytes": 46452,
+      "sha256": "936f1cbe2b28d26f90117f9a814ebeb29bd982473d0c0f08e5c1361b7311ede9"
+    },
+    {
+      "path": "public/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/7.webp",
+      "bytes": 45084,
+      "sha256": "d9521d389eeff9e7c8dc6b21c19d2682d6c5edb145fc43a7e170cbef2d1a380b"
+    },
+    {
+      "path": "public/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/8.webp",
+      "bytes": 41832,
+      "sha256": "3a90f780b427f158611a0ed6260dff5800edc532015b6ec783188a5594cf7c4f"
+    },
+    {
+      "path": "public/Media/events/aws-solutions-architect-associate-and-ai-practitioner-certifications/1.webp",
+      "bytes": 31084,
+      "sha256": "c93a102f4cfe3bc0ce653dabde5ee90d58d382cfafa93aa2fadd1fdb67089748"
+    },
+    {
+      "path": "public/Media/events/aws-user-group-lebanon-speaker-spotlight/1.webp",
+      "bytes": 49686,
+      "sha256": "306a4ce8e5706ab918e750c549707f8bc6f224cb8f7bdc6ebbfb089ec37bb2cd"
+    },
+    {
+      "path": "public/Media/events/backend-development-at-eddys-group/1.webp",
+      "bytes": 9354,
+      "sha256": "221f8c9487fa0eae188899b161ae2f75744de8c746838d86ea6055e1e84e4b29"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-bert-transformers-workshop/1.webp",
+      "bytes": 150898,
+      "sha256": "75674d08006fa5b57e953dcd7875f1b3e33d8510b40599a05d80e8d44ea5a7bf"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-bert-transformers-workshop/2.webp",
+      "bytes": 148316,
+      "sha256": "748c1f09a96bc8c65e8b666282c9ea0c6c3cb46599d324e48fc9f691c806f84e"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-bert-transformers-workshop/3.webp",
+      "bytes": 150022,
+      "sha256": "787dc316383c6cad6e3f269cb1d259d75c57940813b2a3a52f56ac7e6251c454"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-bert-transformers-workshop/4.webp",
+      "bytes": 75302,
+      "sha256": "6757fc183c607dad6c909042e23f5859791564aa87b68c0cca8ef3bc86693a3a"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-birthday-celebration/1.webp",
+      "bytes": 42268,
+      "sha256": "ccf3cec74be6e9fa185a37d98e8d4f8e4281f09a1414e7adeaf3d141bb19c649"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-birthday-celebration/2.webp",
+      "bytes": 45576,
+      "sha256": "d4295e12b2784bbd56a8c6d79f9a303187d496b8506057a52c372c36eb594cc3"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-bootcamp-agri-hackathon/1.webp",
+      "bytes": 119810,
+      "sha256": "74a9aeedf79bd5bc4f5ce9ba1085a4f1df573b3a60d78640c7881a37c1dda9ee"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-bootcamp-agri-hackathon/2.webp",
+      "bytes": 46764,
+      "sha256": "fd7a827c2b9c35fa54bc8943315f2c540deb78a411fcbefd8d0232f376863b8c"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-bootcamp-agri-hackathon/3.webp",
+      "bytes": 48490,
+      "sha256": "036d373481fb5deb75497aa28f4695ccf35db7b095fd79b2517a653399d899c0"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-bootcamp-agri-hackathon/4.webp",
+      "bytes": 61728,
+      "sha256": "77f9a2e6fe13206fab85463f907d17396fb549ff789c97cf7528f3642c2f03c4"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-mentorship-batch1/1.webp",
+      "bytes": 10212,
+      "sha256": "4cba64e2f5cdb5d939ef56c7da66d6798c6c1e1c8fd16fb07d9abf0ce05bd9cf"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-mentorship-batch1/2.webp",
+      "bytes": 23730,
+      "sha256": "d5a802ec86195f2464c8cfb3cc4126b2aca38dae5d4db4139377da0bce3524f8"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-technical-ambassador/1.webp",
+      "bytes": 63586,
+      "sha256": "9ba322d8f7b6b59d6c01f1b349cd3e54c7adc86a7007e65affd88dd9959f620d"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-technical-ambassador/2.webp",
+      "bytes": 27038,
+      "sha256": "017f75f50e86f33238d3546eaeea6e8e42a587457fc1a869a4dd3daa04db8d54"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-workshops-in-baalbek/1.webp",
+      "bytes": 59602,
+      "sha256": "ea5d7a379161bf1324a8e686639c87b0957bff9660997912225da4d4254bb956"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-workshops-in-baalbek/10.webp",
+      "bytes": 51396,
+      "sha256": "b21c222e4bbc66adc23f3516650b518cdcc288ef34fc147da4c986cd2adf909a"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-workshops-in-baalbek/2.webp",
+      "bytes": 103390,
+      "sha256": "f1e3f56b2a20840ed46b5a08bcb27aa75def0da1ebe8296be74981bb9fe5acc2"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-workshops-in-baalbek/3.webp",
+      "bytes": 52040,
+      "sha256": "6a1de9dc11f5ad671bc67fc5b996a421e7d3e2d46c64aa2511867ed9b0866c12"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-workshops-in-baalbek/4.webp",
+      "bytes": 59844,
+      "sha256": "311ee7806992c23ad9befed819fb5648bca8ca944a3cdd3f2f736f3a871b09ff"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-workshops-in-baalbek/5.webp",
+      "bytes": 54514,
+      "sha256": "1e28c24ce50d78b683109e1d5db70725c6c259b3ff799a7ac85853f46de3404c"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-workshops-in-baalbek/6.webp",
+      "bytes": 65930,
+      "sha256": "16d5830ee8fadd800ea60595b37e9f9889c80211882ce211daf56243edf765d9"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-workshops-in-baalbek/7.webp",
+      "bytes": 92088,
+      "sha256": "cfe1ac6c61948afad1a0d98dfd3385151e0f3d74aae03793fb42ea3e203ca2b9"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-workshops-in-baalbek/8.webp",
+      "bytes": 71580,
+      "sha256": "f92a0de65455d355424204e673e2831546e7a9f28ca494bc5d257bd3c30ff2de"
+    },
+    {
+      "path": "public/Media/events/beirut-ai-workshops-in-baalbek/9.webp",
+      "bytes": 103390,
+      "sha256": "f1e3f56b2a20840ed46b5a08bcb27aa75def0da1ebe8296be74981bb9fe5acc2"
+    },
+    {
+      "path": "public/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/1.webp",
+      "bytes": 71096,
+      "sha256": "48fad19b798cdcf40fcfe825d66f25364c1761beaf0af080cb3fb06f5c00bc9d"
+    },
+    {
+      "path": "public/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/2.webp",
+      "bytes": 73586,
+      "sha256": "9a5bd3e023a6cea5be15842eb12f107f024f686d7f4b6e198c9360fb73f621e0"
+    },
+    {
+      "path": "public/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/3.webp",
+      "bytes": 47700,
+      "sha256": "b2dc6833ce6e0730b20a03c1a7c7726e66ff2fcd482ae281c5a23d6534335ccc"
+    },
+    {
+      "path": "public/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/4.webp",
+      "bytes": 50544,
+      "sha256": "5a66e429000a213cc29929f749c689b3d03ce4d4ec01418f711b058bef7a72ba"
+    },
+    {
+      "path": "public/Media/events/bobine-ai-video-generator/1.webp",
+      "bytes": 26604,
+      "sha256": "9cb0bb2a80c545cb9d62d4272e0564f19773326e604fa0d4a308e35e295419d3"
+    },
+    {
+      "path": "public/Media/events/building-smarter-with-aws-in-bekaa/1.webp",
+      "bytes": 32382,
+      "sha256": "90270fd962b3b898f7e46556b3936751e6551fb23e5438b3be196518c12eb68e"
+    },
+    {
+      "path": "public/Media/events/building-smarter-with-aws-in-bekaa/2.webp",
+      "bytes": 55190,
+      "sha256": "f22e5ce987a38532dfe8af01bb73edc67de3e078471550b9c5e7d04bfc7d74bd"
+    },
+    {
+      "path": "public/Media/events/building-smarter-with-aws-in-bekaa/3.webp",
+      "bytes": 30612,
+      "sha256": "ed21011285e9ea503c1795149cdeb15cf6603d1034bf828c42fa8fa58dc37134"
+    },
+    {
+      "path": "public/Media/events/building-smarter-with-aws-in-bekaa/4.webp",
+      "bytes": 62318,
+      "sha256": "73f57393b59dc0b17e4d46c3dc0340ae0108603acd78b794d5fb26c113620402"
+    },
+    {
+      "path": "public/Media/events/building-smarter-with-aws-in-bekaa/5.webp",
+      "bytes": 74706,
+      "sha256": "d1d6f707c7a5008f38388103e77294f46ed27ef04ee7a1de76104f5918be86eb"
+    },
+    {
+      "path": "public/Media/events/building-smarter-with-aws-in-bekaa/6.webp",
+      "bytes": 45408,
+      "sha256": "edc8b61803c9279811fc9cd74fcc99f25c6f41d03cde420e8fcb5e763ffa5813"
+    },
+    {
+      "path": "public/Media/events/building-smarter-with-aws-in-bekaa/7.webp",
+      "bytes": 33642,
+      "sha256": "61223fc82bcdbaec31473ed943990161e2c2a42c59fe72201e148f06423331c4"
+    },
+    {
+      "path": "public/Media/events/building-smarter-with-aws-in-bekaa/8.webp",
+      "bytes": 48186,
+      "sha256": "7d7546eda5f2fc0368197ecc932ba5cb65816e113a023e998ad8a2015b7d4fb7"
+    },
+    {
+      "path": "public/Media/events/building-smarter-with-aws-in-bekaa/9.webp",
+      "bytes": 31002,
+      "sha256": "699d0217bf40824386f9f5ba785829989d6319d2bb45b4f272a497698939f6c0"
+    },
+    {
+      "path": "public/Media/events/causal-inference-research-at-savencia/1.webp",
+      "bytes": 122132,
+      "sha256": "0802927145e1c21f89b4c8b1ba5bf2478d3b967009529c06d95e43be86fa6bc5"
+    },
+    {
+      "path": "public/Media/events/causal-inference-research-at-savencia/2.webp",
+      "bytes": 335932,
+      "sha256": "5f16aeb389793fa69f33f9b33d3def6215cc7cf8b6798fa9809424b3038ae725"
+    },
+    {
+      "path": "public/Media/events/causal-inference-research-at-savencia/3.webp",
+      "bytes": 137712,
+      "sha256": "6e05fbf995fd157b3d95f1e33ed78634df0e8baf50ca7b489ad0b1160d6208f7"
+    },
+    {
+      "path": "public/Media/events/causal-inference-research-at-savencia/4.webp",
+      "bytes": 114026,
+      "sha256": "07fdcc42920437a490ef81d5809dd5663709c2e509b863241e9a2084677c13ce"
+    },
+    {
+      "path": "public/Media/events/ccnav7-introduction-to-networks/1.webp",
+      "bytes": 70042,
+      "sha256": "d9371a7c595d4706858f1b82a1793a677a67cd932f6a56c32aab895d4bc2d1bc"
+    },
+    {
+      "path": "public/Media/events/copyalpha-launch/1.webp",
+      "bytes": 27972,
+      "sha256": "0285312da0e732e74995b9494ba67f4f61d4c31b4bd4a5ba5dce485df7730188"
+    },
+    {
+      "path": "public/Media/events/copyalpha-launch/2.webp",
+      "bytes": 35818,
+      "sha256": "015100b02f131da50fbeff6b3450f7236377e1229fff3d87b5c00d0dcd8f4fc6"
+    },
+    {
+      "path": "public/Media/events/copyalpha-launch/3.webp",
+      "bytes": 31290,
+      "sha256": "9d58be4197c902d89f1f794d8dc2e8352f4c37ecf27d679ae92ecb150537da04"
+    },
+    {
+      "path": "public/Media/events/copyalpha-launch/4.webp",
+      "bytes": 40748,
+      "sha256": "fa270cf90cd4705a35bc6f4fbf14b63eb4d2881fb9441e3387fe6be00b09654f"
+    },
+    {
+      "path": "public/Media/events/copyalpha-launch/5.webp",
+      "bytes": 30520,
+      "sha256": "eea9d4a196901b41f992e62f4e8394e1c4778bd5f0c2879a774690166c214066"
+    },
+    {
+      "path": "public/Media/events/dataseccode-event-at-usal/1.webp",
+      "bytes": 83728,
+      "sha256": "41902d6183c8649a6712cefb2fd96b4360d462a4b33f9527b4461ea5a676039a"
+    },
+    {
+      "path": "public/Media/events/dataseccode-event-at-usal/2.webp",
+      "bytes": 44606,
+      "sha256": "1a7d64d1bfd09621c8d7244a3d432e6e253fe324cdba054d2911b73d288ba7ae"
+    },
+    {
+      "path": "public/Media/events/dataseccode-event-at-usal/3.webp",
+      "bytes": 107204,
+      "sha256": "8da08fe38eebfaa2c4c88b210510c6d6070bbf7886e4cf5fa55b73989b7a9406"
+    },
+    {
+      "path": "public/Media/events/dataseccode-event-at-usal/4.webp",
+      "bytes": 62756,
+      "sha256": "5c9ad135ebeb91bc1972e91b0dc3a6514e2b7c88f4279bd8bb9173d8fc7ac295"
+    },
+    {
+      "path": "public/Media/events/dataseccode-event-at-usal/5.webp",
+      "bytes": 91464,
+      "sha256": "174a9dd3ffa3efce36ec75949e633137a08170cdf77ab11bf2d9e1172c39e02a"
+    },
+    {
+      "path": "public/Media/events/deeplearning-ai-deep-learning-specialization/1.webp",
+      "bytes": 57810,
+      "sha256": "e2b0422b08c6b168fba98d317a2f1a13c47ed646bd5b7deb06f7890d55d6ccaa"
+    },
+    {
+      "path": "public/Media/events/digital-health-ijcr-august/1.jpeg",
+      "bytes": 93554,
+      "sha256": "fa7743589066d09c8709a940e45d8763cf3f7bc2e13ef9a59eccaa4665f14473"
+    },
+    {
+      "path": "public/Media/events/digital-health-workshop-ai-applications-in-medicine/1.webp",
+      "bytes": 40848,
+      "sha256": "d55cad28e56c338386eba77dd66fb889cfd676431bcd23615a8837529cb63a0e"
+    },
+    {
+      "path": "public/Media/events/digital-health-workshop-ai-applications-in-medicine/2.jpeg",
+      "bytes": 93554,
+      "sha256": "fa7743589066d09c8709a940e45d8763cf3f7bc2e13ef9a59eccaa4665f14473"
+    },
+    {
+      "path": "public/Media/events/digital-health-workshop-ai-applications-in-medicine/2.webp",
+      "bytes": 50010,
+      "sha256": "8fd5f3daac023470746b4d5266a5cf870b592be6d31af1f6bf9ab36e15c0e61e"
+    },
+    {
+      "path": "public/Media/events/edge-ai-deployment-at-decentra-tech/1.webp",
+      "bytes": 41984,
+      "sha256": "5da43dd189cdb0fedae0b504c236b42811fca9366f364ce3a6b0ddac7716e759"
+    },
+    {
+      "path": "public/Media/events/edge-ai-deployment-at-decentra-tech/2.webp",
+      "bytes": 47708,
+      "sha256": "199bebe0f85d04c3aeecc57afab62239e0a0b34d7bef79cf5c1900c83a399bab"
+    },
+    {
+      "path": "public/Media/events/emlyon-data-science-missions-launch/1.webp",
+      "bytes": 68128,
+      "sha256": "b6b1931094c39c1aa2e65be52f933375f4e414527648974cef730325442799d7"
+    },
+    {
+      "path": "public/Media/events/emlyon-data-science-missions-launch/2.webp",
+      "bytes": 47960,
+      "sha256": "8e58a630994ee100d6a331fa8a6fe447054384de949100ba629870db34341e68"
+    },
+    {
+      "path": "public/Media/events/emlyon-data-science-missions-launch/3.webp",
+      "bytes": 66236,
+      "sha256": "4ef8c811f83dfdcac3a33c129145fd362d72e5dbe0e8898dd1c936e1b042f4f5"
+    },
+    {
+      "path": "public/Media/events/emlyon-data-science-missions-launch/4.webp",
+      "bytes": 39424,
+      "sha256": "f0f350d279a35301cfa143a63b3e4d5d5894714266c82489129327a8f046e4dc"
+    },
+    {
+      "path": "public/Media/events/emlyon-international-seminar-in-lisbon/1.webp",
+      "bytes": 66306,
+      "sha256": "c33cb41da0adaf91f2aadf7540aa2ca5118b7f478ba5d0e19fcc4e61dc41f639"
+    },
+    {
+      "path": "public/Media/events/emlyon-international-seminar-in-lisbon/2.webp",
+      "bytes": 68278,
+      "sha256": "37fc70919c582499a2699a68d41c9265f8d642f76e8f79bf541bab6900853ed5"
+    },
+    {
+      "path": "public/Media/events/emlyon-international-seminar-in-lisbon/3.webp",
+      "bytes": 78790,
+      "sha256": "8c992df590a49826c2b6ba2ed9d53c0f5e2c29486ac4bce0c471670122242dee"
+    },
+    {
+      "path": "public/Media/events/emlyon-international-seminar-in-lisbon/4.webp",
+      "bytes": 33472,
+      "sha256": "44d321aa1402f6c6a472c7c73eeb62a070c65cf1c3d491321b432ea9311f8296"
+    },
+    {
+      "path": "public/Media/events/emlyon-lisbon-seminar-kickoff/1.webp",
+      "bytes": 64980,
+      "sha256": "4af35f6064a95be77933c34c4c2fd9813b7ecce328df21c6519ee17a44ee7d04"
+    },
+    {
+      "path": "public/Media/events/emlyon-lisbon-seminar-kickoff/2.webp",
+      "bytes": 68406,
+      "sha256": "f6b2f65906c9ccec002ad88a39108c2c0a1707a6ac974ab599468f704d51e576"
+    },
+    {
+      "path": "public/Media/events/emlyon-lisbon-seminar-kickoff/3.webp",
+      "bytes": 35970,
+      "sha256": "cd183ef905cd2311cac417cbf6e0383d2071c2c9fa0843e97dd7c5bf3331b2c1"
+    },
+    {
+      "path": "public/Media/events/emlyon-lisbon-seminar-kickoff/4.webp",
+      "bytes": 64456,
+      "sha256": "6e543d86b6e40db8ab9b3f3bc818b3a3ca7c6e779cf7a50a5c03ba7c3291f933"
+    },
+    {
+      "path": "public/Media/events/fomaco-sarl-assistant-technician-summer/1.webp",
+      "bytes": 27278,
+      "sha256": "3bb93a0a30d73b1095dd689a4ef6ec7b16c8e2fc3308c37fe3c5c22e74dcb9d2"
+    },
+    {
+      "path": "public/Media/events/fomaco-sarl-assistant-technician-summer/2.webp",
+      "bytes": 57880,
+      "sha256": "7b360f8e357e5060f0debd961ec6956552f4c6af93565780163c78e32904a760"
+    },
+    {
+      "path": "public/Media/events/generative-ai-session-at-aust-bhamdoun/1.webp",
+      "bytes": 34176,
+      "sha256": "385df28fa218ec03517d33f675beae1eea0de7240d946076be4e864d62a4fbb1"
+    },
+    {
+      "path": "public/Media/events/generative-ai-session-at-aust-bhamdoun/2.webp",
+      "bytes": 44412,
+      "sha256": "226d53bd4c5c836670ae8ac1da42ab887edb5cc88b637442995df812367dc7b2"
+    },
+    {
+      "path": "public/Media/events/generative-ai-session-at-aust-bhamdoun/3.webp",
+      "bytes": 67716,
+      "sha256": "a8ae5809ace19cd35bce7e551e311ff541d4e6f18bbf82b1dee3d2475bcaac14"
+    },
+    {
+      "path": "public/Media/events/generative-ai-session-at-aust-bhamdoun/4.webp",
+      "bytes": 44222,
+      "sha256": "b0213ae01fbc913f854c71aa81e38c174b960cdcc4f91115a23dc0e62abe1476"
+    },
+    {
+      "path": "public/Media/events/google-data-analytics-stanford-ml-course/1.webp",
+      "bytes": 59856,
+      "sha256": "4b5585bf86f30a859eaa618ac6244262c463484d3a21e2904ac4d6c469b1ae1a"
+    },
+    {
+      "path": "public/Media/events/google-data-analytics-stanford-ml-course/2.webp",
+      "bytes": 97732,
+      "sha256": "7a9cb3ec70c3fb1308adada26d90de253a1ed8fdb6f243c4f166740188a54a3c"
+    },
+    {
+      "path": "public/Media/events/intro-to-ai-aust-ieee/1.jpeg",
+      "bytes": 105092,
+      "sha256": "d8b83fdd255f64fcc955efb714624dd08fb0a6e8f6fcf70825d29928871dbaac"
+    },
+    {
+      "path": "public/Media/events/introduction-to-ai-at-lebanese-american-university-lau/1.webp",
+      "bytes": 47024,
+      "sha256": "d4b18e3bd925a8a21273aa13de4e8150c40d2451e85d093221a7b6f662f41a45"
+    },
+    {
+      "path": "public/Media/events/introduction-to-ai-at-lebanese-american-university-lau/2.webp",
+      "bytes": 89128,
+      "sha256": "e8cfd785e8573215c68d8e1fa7ebab2d0523f3b8227c69c55c815c2500ae06ba"
+    },
+    {
+      "path": "public/Media/events/introduction-to-ai-at-lebanese-american-university-lau/3.webp",
+      "bytes": 66082,
+      "sha256": "68760cb47524cbeb981a3aebf1b66fe1b768920a5339a1518ca9a17508e51cc7"
+    },
+    {
+      "path": "public/Media/events/introduction-to-ai-at-lebanese-american-university-lau/4.webp",
+      "bytes": 56990,
+      "sha256": "c49f72b1faea923b14071a0a77384828f65abfe95a72b0e8b940a6302ecee8b8"
+    },
+    {
+      "path": "public/Media/events/kefraya-ai-vine-detection/1.webp",
+      "bytes": 73428,
+      "sha256": "04d36f34d4fb83f0a457e714a8a2ae055ffcb5dfa36df0313b7b6978bba34355"
+    },
+    {
+      "path": "public/Media/events/kefraya-ai-vine-detection/2.webp",
+      "bytes": 30892,
+      "sha256": "04466abe56faeb52b7cd8ddfe40cd00637fb1f621063e09898c11d646a531547"
+    },
+    {
+      "path": "public/Media/events/lau-ai-club-workshop/1.webp",
+      "bytes": 101100,
+      "sha256": "1f4b5f8bba6e41f0fac14b5fe33191c132408b580b54f68f71a5472bad03717e"
+    },
+    {
+      "path": "public/Media/events/launched-freelance-ai-consulting-practice/1.webp",
+      "bytes": 79524,
+      "sha256": "9003a805b06cc460ff68d25db3e843fe7692814fd4e81aecf8aad2369497cb87"
+    },
+    {
+      "path": "public/Media/events/lebanese-revolution-aid-campaign/1.webp",
+      "bytes": 57886,
+      "sha256": "2fd78d5c30f45a3a40a1d52e7e957a8f84dc26f4891805770c8431399a1f276d"
+    },
+    {
+      "path": "public/Media/events/led-multi-llm-orchestration-architecture-at-mopo/1.webp",
+      "bytes": 4584,
+      "sha256": "a837c610621a374c53c301c354251b1d10c08e942dcf10eb3d7d4956ce795072"
+    },
+    {
+      "path": "public/Media/events/mcgill-university-exchange-semester/1.webp",
+      "bytes": 116936,
+      "sha256": "d674a372bb9135706833ceafdf36bde517c6fc9e9a1a8e08a910e819fbeef3a5"
+    },
+    {
+      "path": "public/Media/events/mcgill-university-exchange-semester/2.webp",
+      "bytes": 66552,
+      "sha256": "52e0c0ab8000054b6d2f974a488a25a97e3c4a3ea1f87f433283afc80f8d4011"
+    },
+    {
+      "path": "public/Media/events/mcgill-university-exchange-semester/3.webp",
+      "bytes": 156958,
+      "sha256": "61a411487a22524e91a5082fbd9c25dac40a824001df22c7422b2f92d6c9afa2"
+    },
+    {
+      "path": "public/Media/events/mcgill-university-exchange-semester/4.webp",
+      "bytes": 70388,
+      "sha256": "468c70fc66345edcf86ec4a278f81b2f02760faa9a1c6d968e3ae53f467ca833"
+    },
+    {
+      "path": "public/Media/events/medical-ai-research/1.webp",
+      "bytes": 36854,
+      "sha256": "85d4cb08a9b4c51d7cf7359eee79e3b367107a560b58d9f677406f94f5b769cc"
+    },
+    {
+      "path": "public/Media/events/microsoft-azure-certifications-ai900-az900-via-zaka-ai-ready/1.webp",
+      "bytes": 35022,
+      "sha256": "fbf0a05cba8572886fa850f0ba7c030bac3d316b36fb5a0e6af563093ffa0b2b"
+    },
+    {
+      "path": "public/Media/events/microsoft-azure-certifications-ai900-az900-via-zaka-ai-ready/badges.webp",
+      "bytes": 35428,
+      "sha256": "99880e9a7600d4bfea5367ad0c4df3573a8feb1545e9c6a3bc0ce71adcc6449e"
+    },
+    {
+      "path": "public/Media/events/microsoft-azure-dp900-certification/badge.webp",
+      "bytes": 19510,
+      "sha256": "8d4309acfb42cc18893dc30dba5610263c59b146336b829a71853d1946119d03"
+    },
+    {
+      "path": "public/Media/events/mobile-arts-egypt-trip/1.webp",
+      "bytes": 213728,
+      "sha256": "33f0b6472cf25d39130557c7a1bd6ee72214c3a1ea684c5ad3c8c26bc8910543"
+    },
+    {
+      "path": "public/Media/events/mobile-arts-egypt-trip/2.webp",
+      "bytes": 72660,
+      "sha256": "e56ac87af700650b870c3e4068d96d61df7f0a7144920ab25e329d22b9e880e5"
+    },
+    {
+      "path": "public/Media/events/mobile-arts-egypt-trip/3.webp",
+      "bytes": 162960,
+      "sha256": "9a41eb582a4a17bd19215be87e427392c0e4c660a9cade4cbbde06a9665726ea"
+    },
+    {
+      "path": "public/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/1.webp",
+      "bytes": 131126,
+      "sha256": "7d1a1295c891d4e3b0348a4b55aced437f02171c94c4c03cd07843e525aa1a80"
+    },
+    {
+      "path": "public/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/2.webp",
+      "bytes": 77932,
+      "sha256": "c0845182c2c015e96f687c9b72a6d9b140c1ccf853695400ee2013039fdb93f1"
+    },
+    {
+      "path": "public/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/3.webp",
+      "bytes": 92752,
+      "sha256": "8985c46e64f1247b22d8dd7d65e5b16b7339279ba19bdbd96eb28b88b6648bad"
+    },
+    {
+      "path": "public/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/4.webp",
+      "bytes": 73126,
+      "sha256": "c8bad3d871031fd32b288ddfb8031be3538e534f5837268555d2da4ba61b12e5"
+    },
+    {
+      "path": "public/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/5.webp",
+      "bytes": 182880,
+      "sha256": "b2ea3c8c6f3f0939b95e67d0e9d759f4015a9874efbf83c3f538f2125ff1953b"
+    },
+    {
+      "path": "public/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/6.webp",
+      "bytes": 53072,
+      "sha256": "dc6b1587fa9900145fb8ee2a5c15daaa40ea9fb50a87d6804d64db6ef0c826c0"
+    },
+    {
+      "path": "public/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/7.webp",
+      "bytes": 48294,
+      "sha256": "6967aa6e6e1d94fae9d1495c53165c8c93351111037c64821e6c67b31f774966"
+    },
+    {
+      "path": "public/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/8.webp",
+      "bytes": 124206,
+      "sha256": "5e34c580542b36cb438fa092906517758def1afba4450ab31674c5f4b912bbd2"
+    },
+    {
+      "path": "public/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/9.webp",
+      "bytes": 165698,
+      "sha256": "753c422ce3982af6228aef0f14bf820248e6bb22619a2e762b90dc640959e535"
+    },
+    {
+      "path": "public/Media/events/park-innovation-idealab-4hour-hackathon/1.webp",
+      "bytes": 50486,
+      "sha256": "a227533037240d01341f7d046c9377b5688fc8c99d6c858f528718cd4c9570a6"
+    },
+    {
+      "path": "public/Media/events/philippe-rambach-ai-scale-at-emlyon-business-school/1.webp",
+      "bytes": 66788,
+      "sha256": "3812c2bd8361eebc769f64a3323d720f97ffe9bc808ecb0bed4a78212d1acead"
+    },
+    {
+      "path": "public/Media/events/philippe-rambach-ai-scale-at-emlyon-business-school/2.webp",
+      "bytes": 42584,
+      "sha256": "5cec4677d01cad4191e0ddd0569ce840c40cb9ac8d03cba81c7832f7abe0d46e"
+    },
+    {
+      "path": "public/Media/events/pmp-certification-earned/1.webp",
+      "bytes": 65038,
+      "sha256": "86f6b9a85e973c1667d2eb5db6010376afd79738eef8926992c42ada24b8893d"
+    },
+    {
+      "path": "public/Media/events/skillnest-ai-workshop/1.webp",
+      "bytes": 97846,
+      "sha256": "ba886f7fbddf3e54a410e6e47c982ba56a73f6bf4296491bfde88f73e2bb7189"
+    },
+    {
+      "path": "public/Media/events/skillnest-ai-workshop/2.webp",
+      "bytes": 61452,
+      "sha256": "9ee49ba905b799ba646f6d2e49bc1218403a69c64a42e064476114320ca14c55"
+    },
+    {
+      "path": "public/Media/events/skillnest-ai-workshop/3.webp",
+      "bytes": 44386,
+      "sha256": "17ddf3e28553d9ab9d30c6ba48566e2ecfde39fa75420d264b386d499652b939"
+    },
+    {
+      "path": "public/Media/events/skillnest-ai-workshop/4.webp",
+      "bytes": 72862,
+      "sha256": "f5ea54a32a24a9677a77095d144e1f43b16046822732d65c25727e926a6e9d81"
+    },
+    {
+      "path": "public/Media/events/skillnest-ai-workshop/5.webp",
+      "bytes": 80610,
+      "sha256": "47464dd44c85c93a01827c1ff3f297f931bf16381b8f8682698125b15bfc61ab"
+    },
+    {
+      "path": "public/Media/events/skillnest-ai-workshop/6.webp",
+      "bytes": 60832,
+      "sha256": "ede60105c46f48bf0a67d91f44b5f9334f584fbcc06fdf396d9101e66fd6c0cb"
+    },
+    {
+      "path": "public/Media/events/skillnest-ai-workshop/7.webp",
+      "bytes": 68974,
+      "sha256": "da9f2952061c0c5cbcc7a670082ecafe57fbd26bd4adeff44554cc0e12a78060"
+    },
+    {
+      "path": "public/Media/events/skillnest-ai-workshop/8.webp",
+      "bytes": 49828,
+      "sha256": "06cdc0017a35312f0b0bb10bc03d08e5c67253428fb2359634aec344bb5340f9"
+    },
+    {
+      "path": "public/Media/events/started-freelance-wordpress-development/1.webp",
+      "bytes": 15344,
+      "sha256": "c6355d83a80c37d60ff29bdb9d30d96687ad59bf390876c2c591e7d9977d5b49"
+    },
+    {
+      "path": "public/Media/events/started-msc-at-emlyon-business-school/1.webp",
+      "bytes": 241834,
+      "sha256": "4eab9427fc262e432bcc541f8d674c9fca5da9ad90a151790d5fee77f12cd190"
+    },
+    {
+      "path": "public/Media/events/startup-weekend-support-sws-2024-jury-member/1.webp",
+      "bytes": 19594,
+      "sha256": "278c523d2497d47f50cae89e20251ce044553920b808922a0e4d58c8225fe18f"
+    },
+    {
+      "path": "public/Media/events/startup-weekend-support-sws-2024-jury-member/2.webp",
+      "bytes": 22396,
+      "sha256": "866daee33781e9209a82613b23bfb9ac2214c2c00c9a7310121650d04b35d860"
+    },
+    {
+      "path": "public/Media/events/startup-weekend-support-sws-2024-jury-member/3.webp",
+      "bytes": 35930,
+      "sha256": "99f508d86b895d15ddbffcc6e13f6e7b66b2cfb0532e165c2e828295a4a1363c"
+    },
+    {
+      "path": "public/Media/events/tech-for-accessibility-hackathon-winner/1.webp",
+      "bytes": 51532,
+      "sha256": "8875cab6e26fa55ae8f1773f60017bb780e0a1ff86b1c80e813023acb6a96791"
+    },
+    {
+      "path": "public/Media/events/tech-for-accessibility-hackathon-winner/2.webp",
+      "bytes": 59046,
+      "sha256": "0d4e31c0f162f5fa21b4eeda44e30751f8381b90f7cf6b7619c05376ed534640"
+    },
+    {
+      "path": "public/Media/events/tech-for-accessibility-hackathon-winner/3.webp",
+      "bytes": 42268,
+      "sha256": "ccf3cec74be6e9fa185a37d98e8d4f8e4281f09a1414e7adeaf3d141bb19c649"
+    },
+    {
+      "path": "public/Media/events/tech-for-accessibility-hackathon-winner/4.webp",
+      "bytes": 45576,
+      "sha256": "d4295e12b2784bbd56a8c6d79f9a303187d496b8506057a52c372c36eb594cc3"
+    },
+    {
+      "path": "public/Media/events/turinglabs-client-portal/1.webp",
+      "bytes": 11520,
+      "sha256": "2184eadbeba4156158045e7d73143b4ca6a740738f3ad518f2851061c58b0689"
+    },
+    {
+      "path": "public/Media/events/usj-esib-engineering/1.webp",
+      "bytes": 25108,
+      "sha256": "53462f5616c26e8200233adeb69c3337dcae6b05560c9a9b99fe6f31fa7f3f62"
+    },
+    {
+      "path": "public/Media/events/usj-north-lu-workshop/1.webp",
+      "bytes": 16618,
+      "sha256": "c7391879141bbc0de2bba93d1a6da64e56fa0b630ac1dba94a0d10e76fa539d8"
+    },
+    {
+      "path": "public/Media/events/vee-smart-nlp/1.webp",
+      "bytes": 31870,
+      "sha256": "5e098c11a285eee2492dcd7d498a0e2710ca82bdb975011c4fdc67cda93ced19"
+    },
+    {
+      "path": "public/Media/events/vp-student-representative-at-ceuzb-usj/1.webp",
+      "bytes": 142126,
+      "sha256": "6d46f2c115a35e7124b036e0319c2554e758dbad0f4fd7d3774ae504a0dfdd4e"
+    },
+    {
+      "path": "public/Media/events/vp-student-representative-at-ceuzb-usj/2.webp",
+      "bytes": 9640,
+      "sha256": "c991084703c2a680f7d8fe1a049811a7ccaead62a64df8ed2671c89f2a5e4b90"
+    },
+    {
+      "path": "public/Media/events/vp-student-representative-at-ceuzb-usj/3.webp",
+      "bytes": 6104,
+      "sha256": "3a0ce5bf224740d3fed538d9f1a87fefbc4fb16f0d04d5adcec7af293d0562d0"
+    },
+    {
+      "path": "public/Media/events/wids-paris-emlyon-datathon/1.webp",
+      "bytes": 96910,
+      "sha256": "90ebaf33b28fbc98e21ac7d7232c0da20cc2b095bec163726f7a92d9a554a6fe"
+    },
+    {
+      "path": "public/Media/events/wids-paris-emlyon-datathon/2.webp",
+      "bytes": 68940,
+      "sha256": "161a623e71d1416233963ca6fc8defd945732cfff951733e998c0f5bdce73281"
+    },
+    {
+      "path": "public/Media/events/wids-paris-emlyon-datathon/3.webp",
+      "bytes": 68542,
+      "sha256": "7f1397206955c85621e09370221a7bab64c9c7e7808f3f9fd293891dc330c929"
+    },
+    {
+      "path": "public/Media/events/wids-paris-emlyon-datathon/4.webp",
+      "bytes": 96888,
+      "sha256": "3a9e1dd0c4651e820d4a3ec6f286926f6a4cb55278baf90ec0b661640bc53ed8"
+    },
+    {
+      "path": "public/Media/events/zaka-certified-machine-learning-engineer-program/1.webp",
+      "bytes": 21156,
+      "sha256": "fb50b0e28c9656790fba3698bde18ca4d3b84823a58aa106ff3d2a1579a938c4"
+    },
+    {
+      "path": "public/Media/events/zaka-certified-machine-learning-engineer-program/2.webp",
+      "bytes": 42114,
+      "sha256": "91379bfa28881269a0a01b50299a43db803b029fcb53adfd7aec8a34549fff49"
+    },
+    {
+      "path": "public/Media/events/zaka-ftl-marketing-ai-training/1.webp",
+      "bytes": 28908,
+      "sha256": "7f3fcb3b6ee356e6da091f5068ac9fb6bbb291776cf3b4f8068a19b3149e6c6b"
+    },
+    {
+      "path": "public/Media/events/zaka-ml-specialization-program/1.webp",
+      "bytes": 53526,
+      "sha256": "a8390ad8225df646b5816f6d8ec3744f350d60639b1bd8ac604013c580c2cd3a"
+    },
+    {
+      "path": "public/Media/events/zaka-usek-ai-training/1.webp",
+      "bytes": 33198,
+      "sha256": "a6a660a6a6592f4c5615f9f47b657a62850e2afa6c8c7b6de40a12bd7753ff4b"
+    },
+    {
+      "path": "public/Media/experience/aws/logo.webp",
+      "bytes": 13862,
+      "sha256": "3337e4b38c336e44bb9c398325776e5e1c7c32a2bef5055311dac94580555798"
+    },
+    {
+      "path": "public/Media/experience/decentra-tech/logo.webp",
+      "bytes": 1388,
+      "sha256": "9905ca416bc52ec5cd7d33c7e2590132da05d166a273eaca31e5f2b57bbfedea"
+    },
+    {
+      "path": "public/Media/experience/eddys-group/logo.webp",
+      "bytes": 1276,
+      "sha256": "6b16ed907fc09432001ca500fa1c4d5a8ec3ff684c33f15414b91a03eaa072d9"
+    },
+    {
+      "path": "public/Media/experience/fomaco/logo.webp",
+      "bytes": 6152,
+      "sha256": "2970c0ac9fb6f631eec0d125608037d9a8cd7977f5381f4ed1e36d11d3366007"
+    },
+    {
+      "path": "public/Media/experience/freelance/logo.webp",
+      "bytes": 8224,
+      "sha256": "8b0f072958dc99bc4505008a6fe020943e84336abace64af0cb2ea60de0ed2e5"
+    },
+    {
+      "path": "public/Media/experience/freelance/supportful-logo.webp",
+      "bytes": 2454,
+      "sha256": "b080276b7f100de149466ad44e75b46848c887a317c7f055465d13ab6f698428"
+    },
+    {
+      "path": "public/Media/experience/freelance/wordpress-logo.webp",
+      "bytes": 8224,
+      "sha256": "8b0f072958dc99bc4505008a6fe020943e84336abace64af0cb2ea60de0ed2e5"
+    },
+    {
+      "path": "public/Media/experience/kefraya-ai/logo.webp",
+      "bytes": 8040,
+      "sha256": "6a708781c152566cd6d2bea3f0ac86ddffb165d9f55899d8acc37fd002981c8b"
+    },
+    {
+      "path": "public/Media/experience/mobile-arts/logo.webp",
+      "bytes": 3180,
+      "sha256": "aac7479172f90831fe8f13b272c4b8739649d27e1f90a7c4b36c7bed798389bb"
+    },
+    {
+      "path": "public/Media/experience/mopo/logo.webp",
+      "bytes": 20780,
+      "sha256": "9b54ce52f304b86d0b7ffc588b9c6f7e96ae5f04ab69b3382afce49d00e733ad"
+    },
+    {
+      "path": "public/Media/experience/savencia/logo.webp",
+      "bytes": 37290,
+      "sha256": "7d92b3f1d4f75c2215995d69f866470a996956188d8918cd67828e3df0cd67ec"
+    },
+    {
+      "path": "public/Media/experience/vee-smart/logo.webp",
+      "bytes": 5076,
+      "sha256": "8e9981f97160a9e5afecfa9056904e0a88546d538eacaabb5d9b548c1e71ba71"
+    },
+    {
+      "path": "public/Media/luna/01-kiss.webp",
+      "bytes": 186212,
+      "sha256": "a5f896a4ea35b256c9e150b698e997b1a33555be084133d38e61841e66ad7017"
+    },
+    {
+      "path": "public/Media/luna/02-lakeside.webp",
+      "bytes": 244746,
+      "sha256": "2c07ef2ab9e37baa288cc7de370fafe19bb9a4ea47b2f5787be13719798640b4"
+    },
+    {
+      "path": "public/Media/luna/03-under-the-trees.webp",
+      "bytes": 220206,
+      "sha256": "1d32fea63a97f00536a912f8b7065faa1405b1593e67bb45a5268c09df90aee3"
+    },
+    {
+      "path": "public/Media/luna/04-brussels-rooftop.webp",
+      "bytes": 175256,
+      "sha256": "d39d99801e72acfc14dbfa94e9a27cc9cafce8b6198b74d56151b5f091be6da1"
+    },
+    {
+      "path": "public/Media/luna/05-brussels-sun.webp",
+      "bytes": 210758,
+      "sha256": "a96caebda322992aa62d2313812aa18aee8004653aec80d3c548730c0aeaea18"
+    },
+    {
+      "path": "public/Media/luna/06-mirror.webp",
+      "bytes": 41948,
+      "sha256": "39bc1d163314550c0272498006c3be2a3a5e657e7fb546df88b7601035903f77"
+    },
+    {
+      "path": "public/Media/luna/07-summer-portrait.webp",
+      "bytes": 154858,
+      "sha256": "2dde76eb2665cbc165c8c340a2a921d0140ecbc1c34c88f9f12c85cd1b8220db"
+    },
+    {
+      "path": "public/Media/luna/08-brussels-street.webp",
+      "bytes": 358514,
+      "sha256": "cdeccd004d4b320c34218f8bc87b28edfdcb48fc85a690053bb5a5e89822c786"
+    },
+    {
+      "path": "public/Media/luna/09-seaside-white.webp",
+      "bytes": 94970,
+      "sha256": "177384e843da7e20f7048d80ab27c6aabfda2eb5ffde4f330522f7699bfa5412"
+    },
+    {
+      "path": "public/Media/luna/10-seaside-sunset.webp",
+      "bytes": 65528,
+      "sha256": "be138e4f16f318f3f2c84b153c1c1af52af02e0612013f047c1b0825202e8841"
+    },
+    {
+      "path": "public/Media/luna/11-golden-hour.webp",
+      "bytes": 110298,
+      "sha256": "cf4dbc122cfcad15c30e72e5fc60ab447b09e1048ac9c5b6f24b52be00810f93"
+    },
+    {
+      "path": "public/Media/luna/peony-bouquet.webp",
+      "bytes": 237220,
+      "sha256": "79adb55b5d8eb120aa6f0f1709d757a7a1f86317952599e1e3d11acb62f73b47"
+    },
+    {
+      "path": "public/Media/profile/headshot.jpg",
+      "bytes": 54686,
+      "sha256": "a782f9e2dca6eb6f4fcdfbd60f13f9e5726632dd02a8af0cc1f4f1ae22224bc8"
+    },
+    {
+      "path": "public/Media/profile/headshot.webp",
+      "bytes": 20326,
+      "sha256": "4417f8d385bae2f4a985a43124cc339b3430f8b4cb7504f0bf6bff5849acec4c"
+    },
+    {
+      "path": "public/Media/profile/journey.webp",
+      "bytes": 92160,
+      "sha256": "ba6e18928123cbf4283036502f2b2c1f4c04e9a87f925226a832ebe242b7a3c4"
+    }
+  ]
+}

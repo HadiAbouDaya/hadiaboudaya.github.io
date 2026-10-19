@@ -1,22 +1,15 @@
 "use client";
 
-import { m, useScroll } from "framer-motion";
-import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
+import { useSyncExternalStore } from "react";
+import { getReadingProgress, getServerReadingProgress, subscribeReadingProgress } from "@/lib/reading-progress";
 
 export function ReadingProgress() {
-  const { scrollYProgress } = useScroll();
-  const reduced = useReducedMotion();
-
-  if (reduced) {
-    return (
-      <div className="fixed top-0 left-0 right-0 h-0.5 origin-left z-[60] bg-gradient-brand opacity-40" />
-    );
-  }
-
+  const progress = useSyncExternalStore(subscribeReadingProgress, getReadingProgress, getServerReadingProgress);
   return (
-    <m.div
-      style={{ scaleX: scrollYProgress }}
-      className="fixed top-0 left-0 right-0 h-0.5 origin-left z-[60] bg-gradient-brand"
+    <div
+      aria-hidden="true"
+      style={{ transform: `scaleX(${progress})` }}
+      className="fixed top-0 left-0 right-0 h-0.5 origin-left z-[60] bg-gradient-brand print:hidden"
     />
   );
 }

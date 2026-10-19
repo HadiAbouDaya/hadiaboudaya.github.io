@@ -1,5 +1,3 @@
-"use client";
-
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { JOURNEY_PARAGRAPHS } from "@/data/about";

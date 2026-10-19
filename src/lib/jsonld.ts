@@ -1,6 +1,10 @@
 import type { Event, EventCategory, Certification, BlogPost } from "@/types";
 
-const SITE_URL = "https://hadi.aboudaya.com";
+import { SITE_URL, pageUrl, assetUrl } from "@/lib/urls";
+
+export function serializeJsonLd(value: unknown): string {
+  return JSON.stringify(value).replace(/</g, "\\u003c");
+}
 
 const MONTH_MAP: Record<string, string> = {
   Jan: "01", Feb: "02", Mar: "03", Apr: "04", May: "05", Jun: "06",
@@ -44,7 +48,7 @@ export function websiteJsonLd() {
     name: "Hadi Abou Daya",
     url: SITE_URL,
     description:
-      "AI/ML Consultant & Software Engineer based in Paris. Building intelligent systems from edge to cloud.",
+      "AI Consultant & Software Engineer based in Paris. Client discovery, solution design and hands-on AI delivery.",
     publisher: { "@id": `${SITE_URL}/#person` },
   };
 }
@@ -57,16 +61,11 @@ export function personJsonLd() {
     name: "Hadi Abou Daya",
     url: SITE_URL,
     description:
-      "AI/ML Consultant & Software Engineer based in Paris. Building intelligent systems from edge to cloud.",
-    jobTitle: "AI/ML Consultant & Software Engineer",
-    worksFor: {
-      "@type": "Organization",
-      name: "Supportful",
-      url: "https://supportful.world",
-    },
+      "AI Consultant & Software Engineer based in Paris. Client discovery, solution design and hands-on AI delivery.",
+    jobTitle: "AI Consultant & Software Engineer",
     alumniOf: [
       { "@type": "CollegeOrUniversity", name: "emlyon business school" },
-      { "@type": "CollegeOrUniversity", name: "McGill University" },
+      { "@type": "CollegeOrUniversity", name: "McGill University", description: "Exchange semester within the emlyon MSc, Apr - Jul 2025" },
       {
         "@type": "CollegeOrUniversity",
         name: "Saint Joseph University of Beirut (ESIB)",
@@ -120,6 +119,7 @@ export function articleJsonLd(post: {
   date: string;
   slug: string;
   coverImage?: string;
+  updatedAt?: string;
 }) {
   return {
     "@context": "https://schema.org",
@@ -127,7 +127,7 @@ export function articleJsonLd(post: {
     headline: post.title,
     description: post.excerpt,
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified: post.updatedAt ?? post.date,
     author: {
       "@type": "Person",
       "@id": `${SITE_URL}/#person`,
@@ -141,7 +141,7 @@ export function articleJsonLd(post: {
     },
     image: post.coverImage
       ? `${SITE_URL}${post.coverImage}`
-      : `${SITE_URL}/Media/branding/og-default.jpg`,
+      : `${SITE_URL}/og-default.png`,
     url: `${SITE_URL}/blog/${post.slug}/`,
     mainEntityOfPage: `${SITE_URL}/blog/${post.slug}/`,
   };
@@ -162,28 +162,28 @@ const EVENT_TYPE_MAP: Record<EventCategory, string> = {
 };
 
 export function eventJsonLd(event: Event) {
-  return {
+  const isOccurrence = event.dateMeaning === "occurrence" && event.datePrecision !== "month"
+    && ["workshop", "conference", "hackathon", "community", "knowledge-sharing", "training"].includes(event.category);
+  const common = {
     "@context": "https://schema.org",
-    "@type": EVENT_TYPE_MAP[event.category] || "Event",
     name: event.title,
-    startDate: event.date,
-    endDate: event.date,
     description: event.summary,
+    url: pageUrl(`/events/${event.slug}`),
+    image: event.images?.[0] ? assetUrl(event.images[0]) : undefined,
+  };
+  if (!isOccurrence) return {
+    ...common, "@type": "CreativeWork",
+    ...(event.dateMeaning === "announcement" && event.datePrecision === "day" ? { datePublished: event.date } : {}),
+    ...(event.updatedAt ? { dateModified: event.updatedAt } : {}),
+    ...(event.datePrecision === "month" ? { temporalCoverage: event.date.slice(0, 7) } : {}),
+    author: { "@id": `${SITE_URL}/#person` },
+  };
+  const online = /online|remote|virtual/i.test(event.location);
+  return {
+    ...common, "@type": EVENT_TYPE_MAP[event.category], startDate: event.date,
     location: parseEventLocation(event.location),
-    ...(event.organizations?.length
-      ? {
-          organizer: event.organizations.map((org) => ({
-            "@type": "Organization",
-            name: org,
-          })),
-        }
-      : {}),
-    image: event.images?.[0]
-      ? `${SITE_URL}${event.images[0]}`
-      : undefined,
-    url: `${SITE_URL}/events/${event.slug}/`,
-    eventAttendanceMode:
-      "https://schema.org/OfflineEventAttendanceMode",
+    eventAttendanceMode: `https://schema.org/${online ? "Online" : "Offline"}EventAttendanceMode`,
+    ...(event.organizations?.length ? { organizer: event.organizations.map(name => ({ "@type": "Organization", name })) } : {}),
   };
 }
 
@@ -204,7 +204,7 @@ export function breadcrumbJsonLd(
         "@type": "ListItem",
         position: i + 2,
         name: item.name,
-        item: `${SITE_URL}${item.href.endsWith("/") ? item.href : `${item.href}/`}`,
+        item: pageUrl(item.href),
       })),
     ],
   };

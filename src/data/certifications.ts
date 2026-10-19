@@ -1,5 +1,6 @@
 import type { Certification } from "@/types";
 
+// Exams, programme completions, individual courses and enablement remain distinct.
 export const certifications: Certification[] = [
   {
     id: 53,
@@ -10,37 +11,7 @@ export const certifications: Certification[] = [
     issuedDate: "Sep 2026",
     expiryDate: "Sep 2027",
     credentialUrl: "https://www.credly.com/badges/f98eb429-4be7-49fb-a970-b638bdc3f229",
-    badgePath: "/Media/certifications/badges/claude-architect.webp",
-  },
-  {
-    id: 54,
-    name: "AWS AI-Driven Development Lifecycle (AI-DLC) Ambassador Foundational (L100)",
-    issuer: "AWS Worldwide Field Enablement",
-    type: "course",
-    category: "AWS",
-    issuedDate: "Jul 2026",
-    credentialUrl: "https://www.credly.com/badges/180d237c-a6b5-4bc2-9878-af47baca3cb0",
-    badgePath: "/Media/certifications/badges/aws-ai-dlc-ambassador.webp",
-  },
-  {
-    id: 55,
-    name: "AWS AI Foundational (L100) Accreditation",
-    issuer: "AWS Worldwide Field Enablement",
-    type: "course",
-    category: "AWS",
-    issuedDate: "Jul 2026",
-    credentialUrl: "https://www.credly.com/badges/522c5335-c248-4732-ae97-0bae5f6dba42",
-    badgePath: "/Media/certifications/badges/aws-ai-foundational.webp",
-  },
-  {
-    id: 56,
-    name: "Well-Architected Proficient",
-    issuer: "AWS",
-    type: "course",
-    category: "AWS",
-    issuedDate: "Jul 2026",
-    credentialUrl: "https://www.credly.com/badges/07982bc5-3bf7-4c58-9949-23bd610831dc",
-    badgePath: "/Media/certifications/badges/well-architected.webp",
+    badgePath: "/Media/certifications/badges/claude-architect.webp"
   },
   {
     id: 52,
@@ -50,9 +21,8 @@ export const certifications: Certification[] = [
     category: "AWS",
     issuedDate: "Jul 2026",
     expiryDate: "Jul 2029",
-    credentialUrl:
-      "https://cp.certmetrics.com/amazon/en/public/verify/credential/9693e2afae3240769860dfcaa2ef9a9a",
-    badgePath: "/Media/certifications/badges/aws-ai-practitioner.webp",
+    credentialUrl: "https://cp.certmetrics.com/amazon/en/public/verify/credential/9693e2afae3240769860dfcaa2ef9a9a",
+    badgePath: "/Media/certifications/badges/aws-ai-practitioner.webp"
   },
   {
     id: 51,
@@ -62,49 +32,8 @@ export const certifications: Certification[] = [
     category: "AWS",
     issuedDate: "Jul 2026",
     expiryDate: "Jul 2029",
-    credentialUrl:
-      "https://cp.certmetrics.com/amazon/en/public/verify/credential/bb164a0abab845228bcd9c123c37c406",
-    badgePath: "/Media/certifications/badges/aws-solutions-architect-associate.webp",
-  },
-  {
-    id: 47,
-    name: "Building with the Claude API",
-    issuer: "Anthropic",
-    type: "course",
-    category: "AI/ML",
-    issuedDate: "May 2026",
-    credentialUrl: "https://verify.skilljar.com/c/n97p9u9bxs6p",
-    badgePath: "/Media/certifications/badges/anthropic.webp",
-  },
-  {
-    id: 48,
-    name: "Claude Code in Action",
-    issuer: "Anthropic",
-    type: "course",
-    category: "AI/ML",
-    issuedDate: "May 2026",
-    credentialUrl: "https://verify.skilljar.com/c/wcc4oismu2ij",
-    badgePath: "/Media/certifications/badges/anthropic.webp",
-  },
-  {
-    id: 49,
-    name: "Introduction to Model Context Protocol",
-    issuer: "Anthropic",
-    type: "course",
-    category: "AI/ML",
-    issuedDate: "May 2026",
-    credentialUrl: "https://verify.skilljar.com/c/ywb9ynt3ujmq",
-    badgePath: "/Media/certifications/badges/anthropic.webp",
-  },
-  {
-    id: 50,
-    name: "Introduction to Agent Skills",
-    issuer: "Anthropic",
-    type: "course",
-    category: "AI/ML",
-    issuedDate: "Apr 2026",
-    credentialUrl: "https://verify.skilljar.com/c/3ustottzmddf",
-    badgePath: "/Media/certifications/badges/anthropic.webp",
+    credentialUrl: "https://cp.certmetrics.com/amazon/en/public/verify/credential/bb164a0abab845228bcd9c123c37c406",
+    badgePath: "/Media/certifications/badges/aws-solutions-architect-associate.webp"
   },
   {
     id: 1,
@@ -114,9 +43,8 @@ export const certifications: Certification[] = [
     category: "AWS",
     issuedDate: "Dec 2025",
     expiryDate: "Dec 2028",
-    credentialUrl:
-      "https://www.credly.com/earner/earned/badge/8db8c943-b337-46de-92d6-205b7c53136f",
-    badgePath: "/Media/certifications/badges/aws-ml-specialty.webp",
+    credentialUrl: "https://www.credly.com/badges/8db8c943-b337-46de-92d6-205b7c53136f/public_url",
+    badgePath: "/Media/certifications/badges/aws-ml-specialty.webp"
   },
   {
     id: 2,
@@ -126,32 +54,19 @@ export const certifications: Certification[] = [
     category: "AWS",
     issuedDate: "Apr 2025",
     expiryDate: "Jul 2029",
-    credentialUrl:
-      "https://cp.certmetrics.com/amazon/en/public/verify/credential/6ae809da23ad49d3bdb36cce98c0d788",
-    badgePath: "/Media/certifications/badges/aws-cloud-practitioner.webp",
+    credentialUrl: "https://cp.certmetrics.com/amazon/en/public/verify/credential/6ae809da23ad49d3bdb36cce98c0d788",
+    badgePath: "/Media/certifications/badges/aws-cloud-practitioner.webp"
   },
   {
     id: 3,
-    name: "Project Management Professional (PMP)\u00AE",
+    name: "Project Management Professional (PMP)®",
     issuer: "Project Management Institute",
     type: "certification",
     category: "Business",
     issuedDate: "Aug 2024",
     expiryDate: "Aug 2027",
-    credentialUrl:
-      "https://www.pmi.org/certifications/certification-resources/registry?certificationId=3908873&firstName=Hadi&lastName=Abou%20Daya#search-info",
-    badgePath: "/Media/certifications/badges/pmp.webp",
-  },
-  {
-    id: 46,
-    name: "ZAKA Certified Machine Learning Engineer",
-    issuer: "ZAKA",
-    type: "certification",
-    category: "AI/ML",
-    issuedDate: "Nov 2022",
-    credentialUrl:
-      "https://www.credential.net/d2fb4603-d828-4c8f-8df0-bbf2a85314e8",
-    badgePath: "/Media/certifications/badges/zaka-aic.webp",
+    credentialUrl: "https://www.pmi.org/certifications/certification-resources/registry?certificationId=3908873&firstName=Hadi&lastName=Abou%20Daya#search-info",
+    badgePath: "/Media/certifications/badges/pmp.webp"
   },
   {
     id: 4,
@@ -160,9 +75,8 @@ export const certifications: Certification[] = [
     type: "certification",
     category: "Azure",
     issuedDate: "Jul 2021",
-    credentialUrl:
-      "https://www.credly.com/badges/c5d08c12-88f3-407a-95bd-13878ee18f32/public_url",
-    badgePath: "/Media/certifications/badges/az-900.webp",
+    credentialUrl: "https://www.credly.com/badges/c5d08c12-88f3-407a-95bd-13878ee18f32/public_url",
+    badgePath: "/Media/certifications/badges/az-900.webp"
   },
   {
     id: 5,
@@ -171,9 +85,8 @@ export const certifications: Certification[] = [
     type: "certification",
     category: "Azure",
     issuedDate: "Jun 2021",
-    credentialUrl:
-      "https://www.credly.com/badges/ff9e3dcf-ec5d-4c65-af41-f73e4b8405f3/public_url",
-    badgePath: "/Media/certifications/badges/ai-900.webp",
+    credentialUrl: "https://www.credly.com/badges/ff9e3dcf-ec5d-4c65-af41-f73e4b8405f3/public_url",
+    badgePath: "/Media/certifications/badges/ai-900.webp"
   },
   {
     id: 6,
@@ -182,60 +95,106 @@ export const certifications: Certification[] = [
     type: "certification",
     category: "Azure",
     issuedDate: "May 2021",
-    credentialUrl:
-      "https://www.credly.com/badges/e164a28c-3251-4556-a5a1-5919dbe73f0c/public_url",
-    badgePath: "/Media/certifications/badges/dp-900.webp",
+    credentialUrl: "https://www.credly.com/badges/e164a28c-3251-4556-a5a1-5919dbe73f0c/public_url",
+    badgePath: "/Media/certifications/badges/dp-900.webp"
   },
   {
-    id: 7,
-    name: "CCNAv7: Introduction to Networks",
-    issuer: "Cisco",
-    type: "certification",
-    category: "Security",
-    issuedDate: "Feb 2021",
-    badgePath: "/Media/certifications/badges/ccna.webp",
-  },
-  {
-    id: 8,
-    name: "Introduction to Cybersecurity",
-    issuer: "Cisco",
-    type: "certification",
-    category: "Security",
-    issuedDate: "Sep 2020",
-    badgePath: "/Media/certifications/badges/cybersecurity.webp",
+    id: 46,
+    name: "ZAKA Certified Machine Learning Engineer",
+    issuer: "ZAKA",
+    type: "programme",
+    category: "AI/ML",
+    issuedDate: "Nov 2022",
+    credentialUrl: "https://www.credential.net/d2fb4603-d828-4c8f-8df0-bbf2a85314e8",
+    badgePath: "/Media/certifications/badges/zaka-aic.webp"
   },
   {
     id: 9,
     name: "Google Data Analytics Specialization",
     issuer: "Google",
-    type: "certification",
+    type: "programme",
     category: "Data Science",
     issuedDate: "Sep 2021",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/specialization/certificate/267FPGPLEMK4",
-    badgePath: "/Media/certifications/badges/google-data-analytics.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/specialization/certificate/267FPGPLEMK4",
+    badgePath: "/Media/certifications/badges/google-data-analytics.webp"
   },
   {
     id: 10,
     name: "Deep Learning Specialization",
     issuer: "DeepLearning.AI",
-    type: "certification",
+    type: "programme",
     category: "AI/ML",
     issuedDate: "Nov 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/specialization/certificate/56RYX6BMDXX5",
-    badgePath: "/Media/certifications/badges/deep-learning-spec.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/specialization/certificate/56RYX6BMDXX5",
+    badgePath: "/Media/certifications/badges/deep-learning-spec.webp"
   },
   {
     id: 11,
-    name: "TensorFlow Developer",
+    name: "DeepLearning.AI TensorFlow Developer Professional Certificate",
     issuer: "DeepLearning.AI",
-    type: "certification",
+    type: "programme",
     category: "AI/ML",
     issuedDate: "Dec 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/specialization/certificate/SJNSY3K332X5",
-    badgePath: "/Media/certifications/badges/tensorflow-developer.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/specialization/certificate/SJNSY3K332X5",
+    badgePath: "/Media/certifications/badges/tensorflow-developer.webp"
+  },
+  {
+    id: 47,
+    name: "Building with the Claude API",
+    issuer: "Anthropic",
+    type: "course",
+    category: "AI/ML",
+    issuedDate: "May 2026",
+    credentialUrl: "https://verify.skilljar.com/c/n97p9u9bxs6p",
+    badgePath: "/Media/certifications/badges/anthropic.webp"
+  },
+  {
+    id: 48,
+    name: "Claude Code in Action",
+    issuer: "Anthropic",
+    type: "course",
+    category: "AI/ML",
+    issuedDate: "May 2026",
+    credentialUrl: "https://verify.skilljar.com/c/wcc4oismu2ij",
+    badgePath: "/Media/certifications/badges/anthropic.webp"
+  },
+  {
+    id: 49,
+    name: "Introduction to Model Context Protocol",
+    issuer: "Anthropic",
+    type: "course",
+    category: "AI/ML",
+    issuedDate: "May 2026",
+    credentialUrl: "https://verify.skilljar.com/c/ywb9ynt3ujmq",
+    badgePath: "/Media/certifications/badges/anthropic.webp"
+  },
+  {
+    id: 50,
+    name: "Introduction to Agent Skills",
+    issuer: "Anthropic",
+    type: "course",
+    category: "AI/ML",
+    issuedDate: "Apr 2026",
+    credentialUrl: "https://verify.skilljar.com/c/3ustottzmddf",
+    badgePath: "/Media/certifications/badges/anthropic.webp"
+  },
+  {
+    id: 7,
+    name: "CCNAv7: Introduction to Networks",
+    issuer: "Cisco",
+    type: "course",
+    category: "Security",
+    issuedDate: "Feb 2021",
+    badgePath: "/Media/certifications/badges/ccna.webp"
+  },
+  {
+    id: 8,
+    name: "Introduction to Cybersecurity",
+    issuer: "Cisco",
+    type: "course",
+    category: "Security",
+    issuedDate: "Sep 2020",
+    badgePath: "/Media/certifications/badges/cybersecurity.webp"
   },
   {
     id: 12,
@@ -244,9 +203,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "AI/ML",
     issuedDate: "Sep 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/J73VYAPFNFZF",
-    badgePath: "/Media/certifications/badges/neural-networks.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/J73VYAPFNFZF",
+    badgePath: "/Media/certifications/badges/neural-networks.webp"
   },
   {
     id: 13,
@@ -255,9 +213,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "AI/ML",
     issuedDate: "Oct 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/TJN7YAZ54E7G",
-    badgePath: "/Media/certifications/badges/improving-dnn.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/TJN7YAZ54E7G",
+    badgePath: "/Media/certifications/badges/improving-dnn.webp"
   },
   {
     id: 14,
@@ -266,9 +223,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "AI/ML",
     issuedDate: "Oct 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/NVQ4BKZ9XTZA",
-    badgePath: "/Media/certifications/badges/structuring-ml.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/NVQ4BKZ9XTZA",
+    badgePath: "/Media/certifications/badges/structuring-ml.webp"
   },
   {
     id: 15,
@@ -277,9 +233,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "AI/ML",
     issuedDate: "Oct 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/25Y9UQKMJVPN",
-    badgePath: "/Media/certifications/badges/cnn.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/25Y9UQKMJVPN",
+    badgePath: "/Media/certifications/badges/cnn.webp"
   },
   {
     id: 16,
@@ -288,9 +243,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "AI/ML",
     issuedDate: "Nov 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/B4Q2Q4XPWX2Z",
-    badgePath: "/Media/certifications/badges/sequence-models.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/B4Q2Q4XPWX2Z",
+    badgePath: "/Media/certifications/badges/sequence-models.webp"
   },
   {
     id: 17,
@@ -299,9 +253,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "AI/ML",
     issuedDate: "Dec 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/7CMHE9NGZBHE",
-    badgePath: "/Media/certifications/badges/cnn-tensorflow.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/7CMHE9NGZBHE",
+    badgePath: "/Media/certifications/badges/cnn-tensorflow.webp"
   },
   {
     id: 18,
@@ -310,9 +263,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "AI/ML",
     issuedDate: "Nov 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/LT6KYRLZ5792",
-    badgePath: "/Media/certifications/badges/nlp-tensorflow.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/LT6KYRLZ5792",
+    badgePath: "/Media/certifications/badges/nlp-tensorflow.webp"
   },
   {
     id: 19,
@@ -321,9 +273,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "AI/ML",
     issuedDate: "Nov 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/LXFHJYYBL3DY",
-    badgePath: "/Media/certifications/badges/time-series.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/LXFHJYYBL3DY",
+    badgePath: "/Media/certifications/badges/time-series.webp"
   },
   {
     id: 20,
@@ -332,9 +283,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "AI/ML",
     issuedDate: "Dec 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/GRKNMF47M434",
-    badgePath: "/Media/certifications/badges/intro-tensorflow.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/GRKNMF47M434",
+    badgePath: "/Media/certifications/badges/intro-tensorflow.webp"
   },
   {
     id: 21,
@@ -343,9 +293,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "AI/ML",
     issuedDate: "Dec 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/2T96LBU4GMP9",
-    badgePath: "/Media/certifications/badges/stanford-ml.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/2T96LBU4GMP9",
+    badgePath: "/Media/certifications/badges/stanford-ml.webp"
   },
   {
     id: 22,
@@ -354,9 +303,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "AI/ML",
     issuedDate: "Nov 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/L4ECNKDQBRLY",
-    badgePath: "/Media/certifications/badges/ml-for-all.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/L4ECNKDQBRLY",
+    badgePath: "/Media/certifications/badges/ml-for-all.webp"
   },
   {
     id: 23,
@@ -365,9 +313,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Data Science",
     issuedDate: "Dec 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/4DUA4A9Y5ABR",
-    badgePath: "/Media/certifications/badges/regression.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/4DUA4A9Y5ABR",
+    badgePath: "/Media/certifications/badges/regression.webp"
   },
   {
     id: 24,
@@ -376,9 +323,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Data Science",
     issuedDate: "Dec 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/E5CY3VMX6GBC",
-    badgePath: "/Media/certifications/badges/practical-ml.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/E5CY3VMX6GBC",
+    badgePath: "/Media/certifications/badges/practical-ml.webp"
   },
   {
     id: 25,
@@ -387,9 +333,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Data Science",
     issuedDate: "Dec 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/9K6XH2F9NAQT",
-    badgePath: "/Media/certifications/badges/statistical-inference.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/9K6XH2F9NAQT",
+    badgePath: "/Media/certifications/badges/statistical-inference.webp"
   },
   {
     id: 26,
@@ -398,9 +343,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Data Science",
     issuedDate: "Dec 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/3RGCMT5MXFZG",
-    badgePath: "/Media/certifications/badges/eda.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/3RGCMT5MXFZG",
+    badgePath: "/Media/certifications/badges/eda.webp"
   },
   {
     id: 27,
@@ -409,9 +353,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Data Science",
     issuedDate: "Dec 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/X5BHVEWDXCKQ",
-    badgePath: "/Media/certifications/badges/r-programming.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/X5BHVEWDXCKQ",
+    badgePath: "/Media/certifications/badges/r-programming.webp"
   },
   {
     id: 28,
@@ -420,9 +363,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Data Science",
     issuedDate: "Dec 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/27W8TVL6WHRF",
-    badgePath: "/Media/certifications/badges/cleaning-data.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/27W8TVL6WHRF",
+    badgePath: "/Media/certifications/badges/cleaning-data.webp"
   },
   {
     id: 29,
@@ -431,9 +373,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Data Science",
     issuedDate: "Dec 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/6GDJX2468XZG",
-    badgePath: "/Media/certifications/badges/ds-toolbox.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/6GDJX2468XZG",
+    badgePath: "/Media/certifications/badges/ds-toolbox.webp"
   },
   {
     id: 30,
@@ -442,9 +383,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Data Science",
     issuedDate: "Nov 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/FSWUYHQQESTW",
-    badgePath: "/Media/certifications/badges/gcp-bigdata.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/FSWUYHQQESTW",
+    badgePath: "/Media/certifications/badges/gcp-bigdata.webp"
   },
   {
     id: 31,
@@ -453,9 +393,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "AI/ML",
     issuedDate: "Nov 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/NUR59C2D65CN",
-    badgePath: "/Media/certifications/badges/tf2-imperial.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/NUR59C2D65CN",
+    badgePath: "/Media/certifications/badges/tf2-imperial.webp"
   },
   {
     id: 32,
@@ -464,9 +403,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Data Science",
     issuedDate: "Sep 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/4HYMA5NTFWNM",
-    badgePath: "/Media/certifications/badges/sql-data-science.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/4HYMA5NTFWNM",
+    badgePath: "/Media/certifications/badges/sql-data-science.webp"
   },
   {
     id: 33,
@@ -475,9 +413,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Software Engineering",
     issuedDate: "Nov 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/WUJH76F2WSU5",
-    badgePath: "/Media/certifications/badges/self-driving.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/WUJH76F2WSU5",
+    badgePath: "/Media/certifications/badges/self-driving.webp"
   },
   {
     id: 34,
@@ -486,9 +423,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Software Engineering",
     issuedDate: "Dec 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/LMD49RRKLCRD",
-    badgePath: "/Media/certifications/badges/encryption-cpp.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/LMD49RRKLCRD",
+    badgePath: "/Media/certifications/badges/encryption-cpp.webp"
   },
   {
     id: 35,
@@ -497,9 +433,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Software Engineering",
     issuedDate: "Nov 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/5Z3GQBNMYCVK",
-    badgePath: "/Media/certifications/badges/aws-s3-hosting.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/5Z3GQBNMYCVK",
+    badgePath: "/Media/certifications/badges/aws-s3-hosting.webp"
   },
   {
     id: 36,
@@ -508,9 +443,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Software Engineering",
     issuedDate: "Oct 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/9UJ272Y8QQ2H",
-    badgePath: "/Media/certifications/badges/javascript.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/9UJ272Y8QQ2H",
+    badgePath: "/Media/certifications/badges/javascript.webp"
   },
   {
     id: 37,
@@ -519,9 +453,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Software Engineering",
     issuedDate: "Oct 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/6PK9K3U34HJE",
-    badgePath: "/Media/certifications/badges/responsive-design.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/6PK9K3U34HJE",
+    badgePath: "/Media/certifications/badges/responsive-design.webp"
   },
   {
     id: 38,
@@ -530,9 +463,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Software Engineering",
     issuedDate: "Oct 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/HV4F47RQ94EB",
-    badgePath: "/Media/certifications/badges/php.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/HV4F47RQ94EB",
+    badgePath: "/Media/certifications/badges/php.webp"
   },
   {
     id: 39,
@@ -541,9 +473,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Software Engineering",
     issuedDate: "Oct 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/JX52XK4E5CML",
-    badgePath: "/Media/certifications/badges/sql-intro.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/JX52XK4E5CML",
+    badgePath: "/Media/certifications/badges/sql-intro.webp"
   },
   {
     id: 40,
@@ -552,9 +483,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Software Engineering",
     issuedDate: "Oct 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/4GHXVF6424PA",
-    badgePath: "/Media/certifications/badges/cpp-epfl.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/4GHXVF6424PA",
+    badgePath: "/Media/certifications/badges/cpp-epfl.webp"
   },
   {
     id: 41,
@@ -563,9 +493,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Security",
     issuedDate: "Sep 2020",
-    credentialUrl:
-      "https://www.coursera.org/account/accomplishments/certificate/FHJB5VN4SFVM",
-    badgePath: "/Media/certifications/badges/network-security.webp",
+    credentialUrl: "https://www.coursera.org/account/accomplishments/certificate/FHJB5VN4SFVM",
+    badgePath: "/Media/certifications/badges/network-security.webp"
   },
   {
     id: 42,
@@ -574,7 +503,7 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Business",
     issuedDate: "Jul 2020",
-    badgePath: "/Media/certifications/badges/berytech.webp",
+    badgePath: "/Media/certifications/badges/berytech.webp"
   },
   {
     id: 43,
@@ -583,7 +512,7 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Business",
     issuedDate: "Sep 2020",
-    badgePath: "/Media/certifications/badges/amideast.webp",
+    badgePath: "/Media/certifications/badges/amideast.webp"
   },
   {
     id: 44,
@@ -592,9 +521,8 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Data Science",
     issuedDate: "May 2020",
-    credentialUrl:
-      "https://www.udemy.com/certificate/UC-759b5c8d-8411-4f81-8f73-bd1ac716f7f8/",
-    badgePath: "/Media/certifications/badges/python-ds.webp",
+    credentialUrl: "https://www.udemy.com/certificate/UC-759b5c8d-8411-4f81-8f73-bd1ac716f7f8/",
+    badgePath: "/Media/certifications/badges/python-ds.webp"
   },
   {
     id: 45,
@@ -603,8 +531,42 @@ export const certifications: Certification[] = [
     type: "course",
     category: "Data Science",
     issuedDate: "Mar 2020",
-    credentialUrl:
-      "https://www.udemy.com/certificate/UC-02065209-43b1-4398-b764-e2907eba5838/",
-    badgePath: "/Media/certifications/badges/python-masterclass.webp",
+    credentialUrl: "https://www.udemy.com/certificate/UC-02065209-43b1-4398-b764-e2907eba5838/",
+    badgePath: "/Media/certifications/badges/python-masterclass.webp"
   },
+  {
+    id: 54,
+    name: "AWS AI-Driven Development Lifecycle (AI-DLC) Ambassador Foundational (L100)",
+    issuer: "AWS Worldwide Field Enablement",
+    type: "badge",
+    category: "AWS",
+    issuedDate: "Jul 2026",
+    credentialUrl: "https://www.credly.com/badges/180d237c-a6b5-4bc2-9878-af47baca3cb0",
+    badgePath: "/Media/certifications/badges/aws-ai-dlc-ambassador.webp"
+  },
+  {
+    id: 55,
+    name: "AWS AI Foundational (L100) Accreditation",
+    issuer: "AWS Worldwide Field Enablement",
+    type: "badge",
+    category: "AWS",
+    issuedDate: "Jul 2026",
+    credentialUrl: "https://www.credly.com/badges/522c5335-c248-4732-ae97-0bae5f6dba42",
+    badgePath: "/Media/certifications/badges/aws-ai-foundational.webp"
+  },
+  {
+    id: 56,
+    name: "Well-Architected Proficient",
+    issuer: "AWS",
+    type: "badge",
+    category: "AWS",
+    issuedDate: "Jul 2026",
+    credentialUrl: "https://www.credly.com/badges/07982bc5-3bf7-4c58-9949-23bd610831dc",
+    badgePath: "/Media/certifications/badges/well-architected.webp"
+  }
 ];
+
+export const certificationCounts = certifications.reduce(
+  (counts, record) => { counts[record.type] += 1; return counts; },
+  { certification: 0, programme: 0, course: 0, badge: 0 }
+);

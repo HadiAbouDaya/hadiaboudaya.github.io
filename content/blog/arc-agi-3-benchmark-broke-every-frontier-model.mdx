@@ -1,20 +1,21 @@
 ---
 title: "ARC-AGI-3 Just Broke Every Frontier AI Model. Here's Why That Matters."
 date: "2026-03-28"
+updatedAt: "2026-10-19"
 tags: ["AI", "Benchmarks", "AGI", "LLMs", "Research"]
-excerpt: "Every frontier AI model scored below 1% on ARC-AGI-3. Humans scored 100%. The new benchmark abandons pattern-matching grids for interactive video game environments, exposing a fundamental gap between memorization and genuine intelligence."
+excerpt: "The launch-era frontier AI results were below 1% on ARC-AGI-3 relative to its selected human action-efficiency baseline, normalised to 100%. The new benchmark abandons pattern-matching grids for interactive video game environments, exposing a fundamental gap between memorization and genuine intelligence."
 coverImage: "/Media/blog/covers/arc-agi-3-benchmark-broke-every-frontier-model.jpg"
 ---
 
 # ARC-AGI-3 Just Broke Every Frontier AI Model. Here's Why That Matters.
 
-Every frontier AI model just scored below 1% on a new benchmark. Humans scored 100%. And the best AI needed over $5,000 in compute to achieve its 0.37%. That's not a typo. The most powerful AI systems ever built, the ones writing code, passing bar exams, and generating entire applications, got absolutely humiliated by a set of interactive puzzles that any person can solve in under three minutes.
+The launch-era frontier AI results were below 1% on a new benchmark. Its selected human action-efficiency baseline was normalised to 100%; this is not a claim that every person scores 100%. And the best AI needed over $5,000 in compute to achieve its 0.37%. That's not a typo. The most powerful AI systems ever built, the ones writing code, passing bar exams, and generating entire applications, got absolutely humiliated by a set of interactive puzzles designed to be human-solvable, with performance measured against a selected baseline.
 
 [ARC-AGI-3](https://arcprize.org/blog/arc-agi-3-launch) launched on March 25, 2026, and it might be the most important benchmark in AI right now. Not because of the dramatic scores, but because of what those scores reveal about the gap between what AI can do and what intelligence actually is.
 
 > **Key Takeaways**
 >
-> - Every frontier AI model scored below 1% on ARC-AGI-3, while humans scored 100%, exposing a fundamental gap between pattern matching and genuine intelligence.
+> - The reported launch-era AI scores were below 1% relative to a selected human baseline; that comparison measures action efficiency and should not be read as a population-wide human success rate.
 > - ARC-AGI-3 replaces static grid puzzles with interactive video game environments that require real-time exploration, cause-and-effect modeling, and goal inference.
 > - The top-performing systems in the developer preview were non-LLM approaches using CNNs with reinforcement learning, suggesting the path forward may not run through scaling transformers.
 > - The ARC Prize 2026 offers $2 million across three tracks, with the main ARC-AGI-3 track carrying a $700,000 grand prize.
@@ -49,9 +50,9 @@ Now watch GPT 5.4 try the same thing. It takes one step up, just like a human wo
 
 ## How did frontier AI models score on ARC-AGI-3?
 
-Every single frontier model scored below 1% on the [leaderboard](https://arcprize.org/leaderboard). Gemini 3.1 Pro leads the pack at 0.37%. GPT 5.4 manages 0.26%. Claude Opus 4.6 hits 0.25%. Grok-4.20 registers a flat zero. Humans score 100%.
+At the time of this article, the reported frontier-model scores on the [leaderboard](https://arcprize.org/leaderboard) were below 1%. The leaderboard is live, so these figures describe a publication-era snapshot rather than current standings. Gemini 3.1 Pro leads the pack at 0.37%. GPT 5.4 manages 0.26%. Claude Opus 4.6 hits 0.25%. Grok-4.20 registers a flat zero. The selected human baseline is normalised to 100%.
 
-And the cost per task is wild. GPT 5.4 High needed over $5,000 in compute to achieve its 0.3%. For a benchmark where any human can solve the tasks for free. In minutes.
+And the cost per task is wild. GPT 5.4 High needed over $5,000 in compute to achieve its 0.3%. The comparison also needs its units kept straight: model-run cost is not a human solve-time measurement, and neither is a general measure of intelligence.
 
 The scoring system is designed to make brute force worthless. ARC-AGI-3 uses something called RHAE, Relative Human Action Efficiency, which applies a quadratic penalty for inefficiency. If a human completes a level in 10 actions and an AI needs 100, the AI doesn't score 10%. It scores 1%. The penalty squares the ratio. An AI that stumbles through an environment trying random things until something works will score near zero even if it eventually "solves" the level. This is by design. The benchmark doesn't just care whether you get there. It cares whether you get there like a thinking agent would.
 
@@ -59,7 +60,7 @@ The scoring system is designed to make brute force worthless. ARC-AGI-3 uses som
 
 The sub-1% scores aren't a fluke, and they aren't just about the scoring being harsh. They reveal a fundamental limitation in how current AI systems work.
 
-Chollet put it bluntly: current models are reliant on memorization and retrieval. When the game is something they've never seen before, they're lost. But a human is never lost. A human figures it out on the fly because they have fluid intelligence. That's the difference the benchmark is measuring.
+Chollet put it bluntly: current models are reliant on memorization and retrieval. When the game is something they've never seen before, they're lost. Humans can also struggle. The benchmark is intended to examine how efficiently agents acquire unfamiliar rules, rather than proving a universal property of either humans or language models. That's the difference the benchmark is measuring.
 
 ARC-AGI-3 tests four capabilities that current LLMs essentially lack. Exploration: actively gathering information by interacting with the world. Modeling: building a mental model of how the world works from observation. Goal-setting: figuring out what you're supposed to do when nobody tells you. And planning: mapping out an efficient path to that goal while adjusting as you go.
 
@@ -85,7 +86,7 @@ Melanie Mitchell at the Santa Fe Institute raised a deeper concern rooted in Goo
 
 The launch created a perfect snapshot of the industry's cognitive dissonance. The same week ARC-AGI-3 showed every frontier model scoring below 1%, Jensen Huang was telling Lex Fridman that he thinks we've achieved AGI. Both of these things happened in the same timeline.
 
-The disagreement comes down to definitions. Chollet defines AGI as a system that can match the learning efficiency of humans. Under that framework, a 99.63% gap between humans and the best AI on novel interactive reasoning tasks means AGI is nowhere close. OpenAI's preferred definition, a system that can automate the majority of economically valuable work, leads to very different conclusions. You can argue we're already there, depending on what "economically valuable work" means to you.
+The disagreement comes down to definitions. Chollet defines AGI as a system that can match the learning efficiency of humans. Under that framework, the low launch-era action-efficiency scores indicate a substantial gap on these tasks; they are not a percentage measure of how close a system is to AGI. OpenAI's preferred definition, a system that can automate the majority of economically valuable work, leads to very different conclusions. You can argue we're already there, depending on what "economically valuable work" means to you.
 
 Chollet estimates AGI will arrive in the early 2030s, around the time ARC-AGI-6 or ARC-AGI-7 would launch. He frames it as a binary: either you believe AGI is possible, in which case a true AGI system will eventually solve ARC-AGI-3 because normal humans can, or you believe AI is merely an automation tool that will always need human intervention for every new task.
 
@@ -99,4 +100,7 @@ The competition runs on Kaggle with no internet access during evaluation. There 
 
 History says the sub-1% scores won't last forever. But ARC-AGI-3 might prove qualitatively harder to crack than its predecessors. The interactive format demands capabilities that no amount of training data seems to provide: autonomous goal discovery, real-time world modeling, and efficient adaptation to genuinely novel situations. The preview competition's best results came from reinforcement learning and graph search, paradigms from an earlier era of AI that the industry largely left behind during the scaling rush.
 
-I keep thinking about that moment in the gameplay video. A human player looks at the screen, spots a plus sign, thinks "maybe I need to interact with that," and within seconds has formed a theory about orientation matching that turns out to be correct. GPT 5.4 looks at the same environment and just walks into the same wall over and over. That gap isn't about compute or data or parameters. It's about something else entirely. And until we figure out what that something is, ARC-AGI-3 will keep sitting there at 0.37%, waiting.
+I keep thinking about that moment in the gameplay video. A human player looks at the screen, spots a plus sign, thinks "maybe I need to interact with that," and within seconds has formed a theory about orientation matching that turns out to be correct. GPT 5.4 looks at the same environment and just walks into the same wall over and over. That gap isn't about compute or data or parameters. It's about something else entirely. The useful question is which changes improve exploration and generalisation on unseen environments, measured under a clear and reproducible evaluation protocol.
+
+
+*Editorial update, October 2026: the launch-era numbers above are historical. ARC Prize later published a [human-performance methodology update](https://arcprize.org/blog/arc-agi-3-human-dataset); baseline definitions and benchmark versions must be checked before comparing later results.*

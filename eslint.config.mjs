@@ -8,6 +8,7 @@ const config = [
       "out/**",
       "build/**",
       "node_modules/**",
+      "Knowledge/**",
       "next-env.d.ts",
     ],
   },

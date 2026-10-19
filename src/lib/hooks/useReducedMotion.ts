@@ -1,7 +1,16 @@
 "use client";
 
-import { useMediaQuery } from "./useMediaQuery";
+import { useSyncExternalStore } from "react";
 
+const query = "(prefers-reduced-motion: reduce)";
+// Stable subscription identity prevents resubscription on every animation render.
+function subscribe(onChange: () => void) {
+  const media = window.matchMedia(query);
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
+}
+const getSnapshot = () => window.matchMedia(query).matches;
+const getServerSnapshot = () => false;
 export function useReducedMotion(): boolean {
-  return useMediaQuery("(prefers-reduced-motion: reduce)");
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }

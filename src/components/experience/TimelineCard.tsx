@@ -1,227 +1,121 @@
-"use client";
-
-import type { Experience } from "@/types";
 import { Badge } from "@/components/ui/Badge";
+import { Workflow } from "lucide-react";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
-import {
-  MapPin,
-  Calendar,
-  Briefcase,
-  GraduationCap,
-  User,
-  ExternalLink,
-  Clock,
-} from "lucide-react";
+import { caseStudies } from "@/data/work";
+import { formatMonth } from "@/lib/dates";
+import { experiencePresentation, projectDetailSections } from "@/lib/experience-presentation";
 import { cn } from "@/lib/utils";
-import { ACCENTS, type Accent } from "@/lib/accents";
+import type { CaseStudy, Experience } from "@/types";
+import styles from "./experience.module.css";
 
-interface TimelineCardProps {
-  item: Experience;
-  position: "left" | "right";
-  showDot?: boolean;
-  isDualLane?: boolean;
+export function ExperiencePeriod({ item }: { item: Pick<Experience, "startDate" | "endDate"> }) {
+  return <><time dateTime={item.startDate}>{formatMonth(item.startDate)}</time>{item.endDate !== item.startDate && <> – <time dateTime={item.endDate}>{formatMonth(item.endDate)}</time></>}</>;
 }
 
-export const typeConfig: Record<
-  Experience["type"],
-  { icon: typeof Briefcase; accent: Accent; label: string }
-> = {
-  work: { icon: Briefcase, accent: "blue", label: "Professional" },
-  education: { icon: GraduationCap, accent: "teal", label: "Education" },
-  freelance: { icon: User, accent: "emerald", label: "Freelance" },
-};
-
-function getDuration(startDate: string, endDate: string): string {
-  const start = new Date(startDate);
-  const end = endDate ? new Date(endDate) : new Date();
-  const months =
-    (end.getFullYear() - start.getFullYear()) * 12 +
-    end.getMonth() -
-    start.getMonth() +
-    1;
-  const years = Math.floor(months / 12);
-  const rem = months % 12;
-  if (years === 0) return `${rem} mo`;
-  if (rem === 0) return `${years} yr`;
-  return `${years} yr ${rem} mo`;
+function Chevron() {
+  return <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className={styles.chevron}><path d="m6 8 4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }
 
-export function TimelineCard({ item, position, showDot = true, isDualLane = false }: TimelineCardProps) {
-  const config = typeConfig[item.type];
-  const Icon = config.icon;
-  const accent = ACCENTS[config.accent];
+function CompanyLogo({ item, small = false }: { item: Experience; small?: boolean }) {
+  const consulting = item.id === "additional-ai-consulting";
+  return <div className={cn(styles.logo, small && styles.smallLogo, consulting && styles.consultingLogo)}>
+    {consulting ? <Workflow aria-hidden="true" strokeWidth={1.6} /> :
+      <ImageWithFallback src={item.logoPath} alt="" width={80} height={80} sizes={small ? "(max-width: 600px) 52px, 64px" : "(max-width: 600px) 56px, 80px"} className={styles.logoImage} fallbackText={item.company.slice(0, 2)} />}
+  </div>;
+}
 
-  return (
-    <div
-      id={`exp-${item.id}`}
-      className={cn(
-        "relative flex items-start w-full scroll-mt-24",
-        !isDualLane && (position === "left" ? "md:flex-row" : "md:flex-row-reverse")
-      )}
-    >
-      {/* Mobile dot */}
-      {showDot && (
-        <div className="md:hidden absolute left-4 -translate-x-1/2 mt-6 z-10">
-          <div className={cn("w-4 h-4 rounded-full ring-4 ring-surface", accent.dot)} />
-        </div>
-      )}
-
-      {/* Desktop dot */}
-      {showDot && (
-        <div
-          className={cn(
-            "hidden md:block absolute mt-6 z-10",
-            !isDualLane && "left-1/2 -translate-x-1/2",
-            isDualLane && position === "left" && "-right-8 translate-x-[50%]",
-            isDualLane && position === "right" && "-left-8 -translate-x-[50%]"
-          )}
-        >
-          <div className={cn("w-4 h-4 rounded-full ring-4 ring-surface", accent.dot)} />
-        </div>
-      )}
-
-      {/* Horizontal connector from center line to card edge */}
-      {showDot && (
-        <div
-          className={cn(
-            "hidden md:block absolute top-[2.125rem] border-t-[3px] border-dashed border-line-strong -z-10",
-            "w-8",
-            isDualLane && position === "left" && "-right-8",
-            isDualLane && position === "right" && "-left-8",
-            !isDualLane && position === "left" && "left-[calc(50%-2rem)]",
-            !isDualLane && position === "right" && "left-1/2"
-          )}
-        />
-      )}
-
-      {/* Card container */}
-      <div
-        className={cn(
-          "ml-10 md:ml-0 relative z-10 w-full",
-          !isDualLane && "md:w-[calc(50%-2rem)]",
-          !isDualLane && (position === "left" ? "md:mr-auto" : "md:ml-auto")
-        )}
-      >
-        <div
-          className={cn(
-            "bg-surface-raised rounded-card border border-line border-t-[4px] p-6",
-            accent.border,
-            "card-spotlight shadow-card transition-[box-shadow,border-color,transform] duration-300",
-            "hover:shadow-glow-sm hover:-translate-y-0.5",
-            "group"
-          )}
-        >
-          <div className="flex items-start gap-4">
-            {/* Company logo */}
-            <div className="relative flex-shrink-0 w-12 h-12 rounded-control overflow-hidden bg-slate-50 dark:bg-slate-200 border border-slate-100 dark:border-slate-300">
-              <ImageWithFallback
-                src={item.logoPath}
-                alt={`${item.company} logo`}
-                width={48}
-                height={48}
-                fallbackText={item.company.slice(0, 2).toUpperCase()}
-                className="w-full h-full object-contain p-1"
-                fallbackClassName="w-full h-full text-xs"
-              />
-            </div>
-
-            <div className="flex-1 min-w-0">
-              {/* Type label + duration */}
-              <div className="flex items-center gap-2 mb-1">
-                <Icon
-                  className={cn(
-                    "w-4 h-4 flex-shrink-0",
-                    accent.text
-                  )}
-                />
-                <span
-                  className={cn(
-                    "text-eyebrow uppercase",
-                    accent.text
-                  )}
-                >
-                  {config.label}
-                </span>
-                <span className="text-xs text-fg-mid flex items-center gap-1 ml-auto">
-                  <Clock className="w-3 h-3" />
-                  {getDuration(item.startDate, item.endDate)}
-                </span>
-              </div>
-
-              {/* Role */}
-              <h3 className="text-title text-fg leading-tight group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
-                {item.role}
-              </h3>
-
-              {/* Company + external link */}
-              <div className="flex items-center gap-1.5">
-                <p className={cn("font-medium text-sm", accent.text)}>
-                  {item.company}
-                </p>
-                {item.companyUrl && (
-                  <a
-                    href={item.companyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-fg-lo hover:text-primary-500 transition-colors"
-                    aria-label={`Visit ${item.company} website`}
-                  >
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                )}
-              </div>
-
-              {/* Period + location */}
-              <div className="flex flex-wrap gap-3 mt-2 text-xs text-fg-mid">
-                <span className="flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5" />
-                  {item.period}
-                </span>
-                <span className="flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5" />
-                  {item.location}
-                </span>
-              </div>
-
-              {/* Description */}
-              <p className="mt-3 text-sm text-fg-mid leading-relaxed">
-                {item.description}
-              </p>
-
-              {/* Bullet points with colored dots */}
-              {item.bullets.length > 0 && (
-                <ul className="mt-3 space-y-1.5">
-                  {item.bullets.map((bullet, i) => (
-                    <li
-                      key={i}
-                      className="text-sm text-fg-mid flex items-start gap-2"
-                    >
-                      <span
-                        className={cn(
-                          "mt-2 flex-shrink-0 w-1.5 h-1.5 rounded-full",
-                          accent.dot
-                        )}
-                      />
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              {/* Technology badges */}
-              {item.technologies.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mt-3">
-                  {item.technologies.map((tech) => (
-                    <Badge key={tech} variant="primary">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+function ProjectStory({ story, nested }: { story: CaseStudy; nested: boolean }) {
+  const Heading = nested ? "h5" : "h4";
+  const SectionHeading = nested ? "h6" : "h5";
+  const headingId = `project-${story.slug}-heading`;
+  return <section id={`project-${story.slug}`} data-project-evidence tabIndex={-1} aria-labelledby={headingId} className={styles.projectStory}>
+    <p className={styles.projectStage}>{story.stage}</p>
+    <Heading id={headingId} className={styles.projectTitle}>{story.title}</Heading>
+    <p className={styles.projectSummary}>{story.summary}</p>
+    <details data-project-details className={styles.projectDetails}>
+      <summary>
+        <span><span className={styles.openLabel}>Read contributions and outcomes</span><span className={styles.closeLabel}>Hide project details</span><span className="sr-only">: {story.title}</span></span>
+        <Chevron />
+      </summary>
+      <div className={styles.projectBody}>
+        {story.context && <p className={styles.projectContext}>{story.context}</p>}
+        {projectDetailSections(story).map(section => <section key={section.heading}>
+          <SectionHeading className={styles.projectSectionTitle}>{section.heading}</SectionHeading>
+          {section.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+        </section>)}
       </div>
+    </details>
+  </section>;
+}
+
+function Contributions({ bullets }: { bullets: string[] }) {
+  if (!bullets.length) return null;
+  if (bullets.length === 1) return <p className={styles.singleContribution}>{bullets[0]}</p>;
+  return <ul className={styles.bullets}>{bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul>;
+}
+
+/** Short facts stay visible; only full project narratives use progressive disclosure. */
+function EntryContent({ item, nested = false }: { item: Experience; nested?: boolean }) {
+  const Heading = nested ? "h5" : "h4";
+  const presentation = experiencePresentation(item, caseStudies);
+  return <div className={styles.entryContent}>
+    <Contributions bullets={presentation.bullets} />
+    {presentation.projects.map(project => <section key={project.heading} className={styles.contribution}>
+      <Heading className={styles.contentHeading}>{project.heading}</Heading>
+      <Contributions bullets={project.bullets} />
+    </section>)}
+    {presentation.stories.length > 0 && <div className={styles.projectStories}>{presentation.stories.map(story => <ProjectStory key={story.slug} story={story} nested={nested} />)}</div>}
+    {presentation.additional.length > 0 && <section className={styles.additionalWork}>
+      <Heading className={styles.contentHeading}>Additional contributions</Heading>
+      <Contributions bullets={presentation.additional} />
+    </section>}
+    {item.technologies.length > 0 && <ul aria-label="Technologies and methods" className={styles.technologies}>{item.technologies.map(technology => <li key={technology}><Badge>{technology}</Badge></li>)}</ul>}
+    {item.companyUrl && <p className={styles.website}><a href={item.companyUrl} target="_blank" rel="noopener noreferrer">{item.companyUrl.includes("github.com") ? "View project code" : `${item.company} website`}<span className="sr-only"> (opens in a new tab)</span></a></p>}
+  </div>;
+}
+
+function Engagement({ item }: { item: Experience }) {
+  const presentation = experiencePresentation(item, caseStudies);
+  const headingId = `exp-${item.id}-heading`;
+  return <li className={styles.branch}>
+    <article id={`exp-${item.id}`} tabIndex={-1} aria-labelledby={headingId} className={styles.engagement}>
+      <header className={styles.clientHeader}>
+        <div className={styles.clientIdentity}>
+          <CompanyLogo item={item} small />
+          <div className={styles.clientName}><h4 id={headingId}>{item.company}</h4><p className={styles.clientPeriod}><ExperiencePeriod item={item} /></p></div>
+        </div>
+        <p className={styles.clientRole}>{item.role}{item.location && <span> · {item.location}</span>}</p>
+        {presentation.description && <p className={styles.clientDescription}>{presentation.description}</p>}
+      </header>
+      <div className={styles.engagementBody}><EntryContent item={item} nested /></div>
+    </article>
+  </li>;
+}
+
+/** One semantic entry per role, with the consulting hierarchy visible at every viewport. */
+export function TimelineCard({ item }: { item: Experience }) {
+  const presentation = experiencePresentation(item, caseStudies);
+  const isFeatured = ["aws", "freelance-ai-consultant", "savencia"].includes(item.id);
+  const headingId = `exp-${item.id}-heading`;
+  return <article id={`exp-${item.id}`} tabIndex={-1} aria-labelledby={headingId} className={cn(styles.chapter, isFeatured && styles.featured)}>
+    <span aria-hidden="true" className={styles.careerProgress} />
+    <div className={styles.year} aria-hidden="true"><span>{item.endDate.slice(0, 4)}</span>{item.startDate.slice(0, 4) !== item.endDate.slice(0, 4) && <small>from {item.startDate.slice(0, 4)}</small>}</div>
+    <div className={styles.panel}>
+      <header className={styles.companyHeader}>
+        <CompanyLogo item={item} small={!isFeatured} />
+        <div className={styles.companyIdentity}>
+          <p className={styles.period}><ExperiencePeriod item={item} /></p>
+          <h3 id={headingId}>{item.company}</h3>
+          <p className={styles.role}>{item.role}</p>
+        </div>
+      </header>
+      {item.location && <p className={styles.location}><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M16 8c0 4.5-6 9-6 9S4 12.5 4 8a6 6 0 1 1 12 0Z" stroke="currentColor" strokeWidth="1.3"/><circle cx="10" cy="8" r="2" stroke="currentColor" strokeWidth="1.3"/></svg>{item.location}</p>}
+      {presentation.description && <p className={styles.description}>{presentation.description}</p>}
+      <EntryContent item={item} />
+      {item.engagements?.length ? <div className={styles.consulting}>
+        <div className={styles.consultingHeading}><p>Client engagements</p><span>Some engagements ran concurrently</span></div>
+        <ul className={styles.branches}>{item.engagements.map(engagement => <Engagement key={engagement.id} item={engagement} />)}</ul>
+      </div> : null}
     </div>
-  );
+  </article>;
 }

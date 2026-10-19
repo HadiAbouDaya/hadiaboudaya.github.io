@@ -14,6 +14,7 @@ export function ContactForm() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (status === "sending") return;
     setStatus("sending");
 
     const formData = new FormData(e.currentTarget);
@@ -35,7 +36,7 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-center">
+      <div role="status" className="flex flex-col items-center justify-center py-12 text-center">
         <CheckCircle className="w-12 h-12 text-emerald-500 mb-4" />
         <h3 className="text-title text-fg">Message Sent!</h3>
         <p className="text-fg-mid mt-2">
@@ -43,7 +44,7 @@ export function ContactForm() {
         </p>
         <button
           onClick={() => setStatus("idle")}
-          className="mt-4 text-sm text-primary-600 hover:text-primary-700 font-medium"
+          className="mt-4 text-sm text-primary-700 hover:text-primary-800 dark:text-primary-300 dark:hover:text-primary-200 font-medium"
         >
           Send another message
         </button>
@@ -52,7 +53,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form action={FORMSPREE_URL} method="post" onSubmit={handleSubmit} aria-busy={status === "sending"} className="space-y-6">
       <div>
         <label
           htmlFor="name"
@@ -64,6 +65,7 @@ export function ContactForm() {
           type="text"
           id="name"
           name="name"
+          autoComplete="name"
           required
           className="w-full px-4 py-3 rounded-control border border-line bg-surface-raised text-fg placeholder-fg-lo focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/30 transition-colors duration-300"
           placeholder="Your name"
@@ -81,6 +83,7 @@ export function ContactForm() {
           type="email"
           id="email"
           name="email"
+          autoComplete="email"
           required
           className="w-full px-4 py-3 rounded-control border border-line bg-surface-raised text-fg placeholder-fg-lo focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/30 transition-colors duration-300"
           placeholder="you@example.com"
@@ -105,7 +108,7 @@ export function ContactForm() {
       </div>
 
       {status === "error" && (
-        <div className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400">
+        <div role="alert" className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400">
           <AlertCircle className="w-4 h-4" />
           Something went wrong. Please try again or email me directly.
         </div>

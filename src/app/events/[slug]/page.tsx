@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { DEFAULT_OPEN_GRAPH, DEFAULT_TWITTER } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import { events } from "@/data/events";
 import { EventDetail } from "@/components/events/EventDetail";
 import { RelatedEvents } from "@/components/events/RelatedEvents";
-import { breadcrumbJsonLd, eventJsonLd } from "@/lib/jsonld";
+import { breadcrumbJsonLd, eventJsonLd, serializeJsonLd } from "@/lib/jsonld";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -24,6 +25,8 @@ export async function generateMetadata({
     title: event.title,
     description: event.summary,
     alternates: { canonical: `/events/${slug}/` },
+    openGraph: { ...DEFAULT_OPEN_GRAPH, title: event.title, description: event.summary, url: `/events/${slug}/` },
+    twitter: { ...DEFAULT_TWITTER, title: event.title, description: event.summary },
   };
 }
 
@@ -37,11 +40,11 @@ export default async function EventPage({ params }: PageProps) {
     <div className="section-padding pt-24">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([{ name: "Events", href: "/events" }, { name: event.title, href: `/events/${event.slug}` }])) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd([{ name: "Events", href: "/events/" }, { name: event.title, href: `/events/${event.slug}/` }])) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd(event)) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(eventJsonLd(event)) }}
       />
       <div className="container-main">
         <EventDetail event={event} />

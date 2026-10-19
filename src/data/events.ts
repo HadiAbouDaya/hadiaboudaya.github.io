@@ -1,8 +1,7 @@
 import type { Event } from "@/types";
 
+// Dates used for month-level milestones are sorting values, not verified event days.
 export const events: Event[] = [
-  // ─── 2026 ───────────────────────────────────────────────────────────────────
-
   {
     slug: "ai-era-students-guide",
     title: "AI Era: A Student's Guide",
@@ -13,20 +12,20 @@ export const events: Event[] = [
     organizations: [
       "IEEE Computer Society PU Student Chapter",
       "ZAKA Ambassadors",
-      "Google Developer Group on Campus - Phoenicia University",
+      "Google Developer Group on Campus - Phoenicia University"
     ],
-    summary:
-      "Delivered a 90-minute student webinar on how AI evolved, the physical supply chain behind it, and how early-career engineers can build durable skills for what comes next.",
-    description:
-      "Delivered \"AI Era: A Student's Guide,\" a 90-minute online workshop for engineering students followed by an open Q&A. The session started with why AI feels sudden despite more than 70 years of research, then traced the field from symbolic systems and machine learning through deep learning, transformers, ChatGPT, multimodal models, and tool-using agents. It also unpacked the physical supply chain behind every AI answer: chip design, EUV lithography, advanced fabrication, HBM and packaging, accelerator clusters, data centers, cooling, and grid power. The final section focused on what this shift means for young engineers, including changing task economics, durable technical foundations, AI-native development habits, production reliability, specialization, portfolio design, and a practical 12-month learning roadmap.",
+    summary: "Delivered a 90-minute student webinar on how AI evolved, the physical supply chain behind it, and how early-career engineers can build durable skills for what comes next.",
+    description: "Delivered \"AI Era: A Student's Guide,\" a 90-minute online workshop for engineering students followed by an open Q&A. The session started with why AI feels sudden despite more than 70 years of research, then traced the field from symbolic systems and machine learning through deep learning, transformers, ChatGPT, multimodal models, and tool-using agents. It also unpacked the physical supply chain behind every AI answer: chip design, EUV lithography, advanced fabrication, HBM and packaging, accelerator clusters, data centers, cooling, and grid power. The final section focused on what this shift means for young engineers, including changing task economics, durable technical foundations, AI-native development habits, production reliability, specialization, portfolio design, and a practical 12-month learning roadmap.",
     keyPoints: [
       "How AI developed from early symbolic systems to foundation models and agents",
       "Why data, algorithms, hardware, memory, networking, and energy advance together",
       "How the global AI supply chain runs from chip design and fabrication to data centers and power",
-      "How students can combine engineering foundations, AI literacy, domain expertise, and judgment",
+      "How students can combine engineering foundations, AI literacy, domain expertise, and judgment"
     ],
     duration: "90 minutes",
-    images: ["/Media/events/ai-era-students-guide/1.webp"],
+    images: [
+      "/Media/events/ai-era-students-guide/1.webp"
+    ],
     imagePosition: "top",
     tags: [
       "AI",
@@ -34,9 +33,12 @@ export const events: Event[] = [
       "AI Supply Chain",
       "Career Development",
       "Students",
-      "Webinar",
+      "Webinar"
     ],
     tier: "featured",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "aws-saa-ai-practitioner-certifications",
@@ -45,37 +47,28 @@ export const events: Event[] = [
     location: "Remote",
     category: "certification",
     role: "Earned",
-    organizations: ["Amazon Web Services"],
-    summary:
-      "Earned the AWS Solutions Architect Associate and AWS AI Practitioner certifications three days apart in July 2026, bringing the total to four active AWS certifications.",
-    description:
-      "Earned two AWS certifications three days apart: Solutions Architect Associate on July 18, 2026 and AI Practitioner on July 21, 2026. Together with the ML Specialty and Cloud Practitioner badges from 2025, this brings the total to four active AWS certifications. The Solutions Architect Associate exam validates designing resilient, high-performing, secure, and cost-optimized architectures on AWS. The AI Practitioner exam covers AWS AI and ML services, generative AI fundamentals, prompt engineering, and responsible AI practices. The plan is to keep collecting AWS certifications as a structured way of upskilling across the platform: each exam forces a full pass over services and design patterns that day-to-day project work does not always reach.",
+    organizations: [
+      "Amazon Web Services"
+    ],
+    summary: "Earned the AWS Solutions Architect Associate and AWS AI Practitioner certifications three days apart in July 2026, bringing the total to four active AWS certifications.",
+    description: "Earned two AWS certifications three days apart: Solutions Architect Associate on July 18, 2026 and AI Practitioner on July 21, 2026. Together with the ML Specialty and Cloud Practitioner badges from 2025, this brings the total to four active AWS certifications. The Solutions Architect Associate exam validates designing resilient, high-performing, secure, and cost-optimized architectures on AWS. The AI Practitioner exam covers AWS AI and ML services, generative AI fundamentals, prompt engineering, and responsible AI practices. The plan is to keep collecting AWS certifications as a structured way of upskilling across the platform: each exam forces a full pass over services and design patterns that day-to-day project work does not always reach.",
     credlyUrls: [
       "https://www.credly.com/badges/fcfeb417-ad73-46ba-9b29-48697f6cee43/public_url",
-      "https://www.credly.com/badges/e8cae191-7189-4471-a4a0-faa7228141f9/public_url",
+      "https://www.credly.com/badges/e8cae191-7189-4471-a4a0-faa7228141f9/public_url"
     ],
     images: [
-      "/Media/events/aws-solutions-architect-associate-and-ai-practitioner-certifications/1.webp",
+      "/Media/events/aws-solutions-architect-associate-and-ai-practitioner-certifications/1.webp"
     ],
-    tags: ["AWS", "Certification", "Cloud", "AI"],
+    tags: [
+      "AWS",
+      "Certification",
+      "Cloud",
+      "AI"
+    ],
     tier: "featured",
-  },
-  {
-    slug: "turinglabs-client-portal",
-    title: "Turing Labs Client Portal",
-    date: "2026-06-05",
-    location: "Remote",
-    category: "project",
-    role: "Creator",
-    organizations: ["Turing Labs"],
-    summary:
-      "Built the internal client portal for Turing Labs, an AI-native professional services firm serving B2B services and private equity. The highest-impact deliverable in the engagement: client leadership self-serve their engagement status instead of waiting on the team.",
-    description:
-      "Turing Labs is an AI-native professional services firm that delivers connected intelligence for B2B services and private equity firms, operating out of Zurich and Dublin. The firm builds on each client's own infrastructure and data, so everything it deploys belongs to the client, and it adopts newer AI models throughout an engagement rather than only at the start. It runs on the same connected-intelligence model it deploys for clients, having built that capability for its own operations first. The Client Portal is part of that: the internal tool Turing Labs uses for day-to-day client interactions, and the highest-impact deliverable in the engagement. It gives client leadership a single place to self-serve their engagement status instead of waiting on the team. They can ask questions about past meetings and get answers backed by the exact meeting and date, see outstanding action items and who owns them, and track project progress and milestones in plain business language, with each client seeing only their own data. The result is faster, self-service visibility for clients and less time spent answering routine status questions.",
-    websiteUrl: "https://www.turinglabs.ai/",
-    images: ["/Media/events/turinglabs-client-portal/1.webp"],
-    tags: ["AI", "Internal Tools", "Client Portal", "Meeting Intelligence", "Client Experience"],
-    tier: "standard",
+    datePrecision: "day",
+    dateMeaning: "completion",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "agentforce-world-tour-paris",
@@ -84,17 +77,26 @@ export const events: Event[] = [
     location: "Paris, France",
     category: "conference",
     role: "Attendee",
-    organizations: ["Salesforce"],
-    summary:
-      "Attended Salesforce's Agentforce World Tour Paris at Paris Expo Porte de Versailles, focused on Agentforce and the enterprise rollout of AI agents across the Salesforce ecosystem.",
-    description:
-      "Attended the Salesforce Agentforce World Tour Paris on May 21, 2026 at Paris Expo Porte de Versailles (Hall 6) as part of the Supportful team. The day centered on Agentforce, Salesforce's platform for building and deploying AI agents across its product suite, with keynotes, partner booths, and live product demos. The demo that stood out was the Slack integration, where agents operated directly inside the messaging workflow. The features were well executed but deliberately scoped: permission-aware, governed, and conservative about what the agents were allowed to do on their own. That scope is the interesting part. A company the size of Salesforce carries large compliance, security, and reputational constraints, so its agent rollout optimizes for safety and predictability over raw capability. Smaller teams that can absorb more risk often ship deeper agentic features faster, because the cost of a mistake is lower and the approval chain is shorter. Neither approach is strictly better. The right level of agent autonomy is a function of the cost of an error and the organization's tolerance for it, and a large enterprise and an early-stage company are solving that same equation with very different inputs. Seeing the contrast firsthand was directly relevant to the agentic systems I build at Supportful, where the tradeoff between capability, cost, and risk is a constant design decision.",
+    organizations: [
+      "Salesforce"
+    ],
+    summary: "Attended Salesforce's Agentforce World Tour Paris at Paris Expo Porte de Versailles, focused on Agentforce and the enterprise rollout of AI agents across the Salesforce ecosystem.",
+    description: "Attended the Salesforce Agentforce World Tour Paris on May 21, 2026 at Paris Expo Porte de Versailles (Hall 6) as part of the Supportful team. The day centered on Agentforce, Salesforce's platform for building and deploying AI agents across its product suite, with keynotes, partner booths, and live product demos. The demo that stood out was the Slack integration, where agents operated directly inside the messaging workflow. The features were well executed but deliberately scoped: permission-aware, governed, and conservative about what the agents were allowed to do on their own. That scope is the interesting part. A company the size of Salesforce carries large compliance, security, and reputational constraints, so its agent rollout optimizes for safety and predictability over raw capability. Smaller teams that can absorb more risk often ship deeper agentic features faster, because the cost of a mistake is lower and the approval chain is shorter. Neither approach is strictly better. The right level of agent autonomy is a function of the cost of an error and the organization's tolerance for it, and a large enterprise and an early-stage company are solving that same equation with very different inputs. Seeing the contrast firsthand was directly relevant to the agentic systems I build at Supportful, where the tradeoff between capability, cost, and risk is a constant design decision.",
     images: [
       "/Media/events/agentforce-world-tour-paris/1.webp",
-      "/Media/events/agentforce-world-tour-paris/2.webp",
+      "/Media/events/agentforce-world-tour-paris/2.webp"
     ],
-    tags: ["Salesforce", "Agentforce", "AI Agents", "Slack", "Conference"],
+    tags: [
+      "Salesforce",
+      "Agentforce",
+      "AI Agents",
+      "Slack",
+      "Conference"
+    ],
     tier: "standard",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "zaka-ftl-marketing-ai-training",
@@ -103,14 +105,31 @@ export const events: Event[] = [
     location: "Beirut, Lebanon",
     category: "training",
     role: "ZAKA AI Trainer",
-    organizations: ["ZAKA AI", "Fair Trade Lebanon"],
-    summary:
-      "Three-session corporate training for the Fair Trade Lebanon MarCom team on applying AI across marketing communications and content creation.",
-    description:
-      "Delivered a three-session in-person corporate training for the Fair Trade Lebanon marketing and communications team (April 15, 22, and 29, 2026). The track combined the ZAKA \"AI for Marketing Communications\" workshop with a rebuilt 90-slide \"AI for Content Creation and Digital Presence\" deck refreshed with April 2026 frontier-model comparisons. Capabilities covered: audience segmentation, personalized content production, campaign optimization, social listening, and reporting; prompting frameworks (zero-shot, few-shot, chain-of-thought, plus 5Ws, RACE, APE, CARE); hands-on exercises in AI-driven design, advertisement production, image and video generation, voice cloning, and avatar creation; and structured prompt orchestration for the latest image and video generation models.",
-    tags: ["ZAKA AI", "Corporate Training", "Marketing", "Generative AI", "Content Creation"],
-    images: ["/Media/events/zaka-ftl-marketing-ai-training/1.webp"],
+    organizations: [
+      "ZAKA AI",
+      "Fair Trade Lebanon"
+    ],
+    summary: "Three-session corporate training for the Fair Trade Lebanon MarCom team on applying AI across marketing communications and content creation.",
+    description: "Delivered a three-session in-person corporate training for the Fair Trade Lebanon marketing and communications team (April 15, 22, and 29, 2026). The track combined the ZAKA \"AI for Marketing Communications\" workshop with a rebuilt 90-slide \"AI for Content Creation and Digital Presence\" deck refreshed with April 2026 frontier-model comparisons. Capabilities covered: audience segmentation, personalized content production, campaign optimization, social listening, and reporting; prompting frameworks (zero-shot, few-shot, chain-of-thought, plus 5Ws, RACE, APE, CARE); hands-on exercises in AI-driven design, advertisement production, image and video generation, voice cloning, and avatar creation; and structured prompt orchestration for the latest image and video generation models.",
+    tags: [
+      "ZAKA AI",
+      "Corporate Training",
+      "Marketing",
+      "Generative AI",
+      "Content Creation"
+    ],
+    images: [
+      "/Media/events/zaka-ftl-marketing-ai-training/1.webp"
+    ],
     tier: "featured",
+    datePrecision: "day",
+    dateMeaning: "completion",
+    updatedAt: "2026-10-19",
+    duration: "Three sessions: 15, 22 and 29 April 2026",
+    outcomes: [
+      "Participants completed practical AI tasks during the sessions.",
+      "Clients requested further training after the ZAKA sessions."
+    ]
   },
   {
     slug: "zaka-usek-ai-training",
@@ -119,14 +138,32 @@ export const events: Event[] = [
     location: "Kaslik, Lebanon",
     category: "training",
     role: "ZAKA AI Trainer",
-    organizations: ["ZAKA AI", "USEK"],
-    summary:
-      "One-day corporate training at USEK Kaslik for staff: AM module on AI for deep research, reporting, dashboards, and presentations; PM module as an introduction to AI.",
-    description:
-      "Delivered a full-day in-person corporate training for USEK Kaslik staff on April 28, 2026, for an audience of 20+ attendees per session. The morning module focused on using AI for deep research, structured reporting, dashboard generation, and presentation production. The afternoon module was an introduction to AI, covering core concepts and a showcase of AI tools that staff can integrate into day-to-day work.",
-    tags: ["ZAKA AI", "Corporate Training", "Research", "Reporting", "Productivity", "Higher Education"],
-    images: ["/Media/events/zaka-usek-ai-training/1.webp"],
+    organizations: [
+      "ZAKA AI",
+      "USEK"
+    ],
+    summary: "One-day corporate training at USEK Kaslik for staff: AM module on AI for deep research, reporting, dashboards, and presentations; PM module as an introduction to AI.",
+    description: "Delivered a full-day in-person corporate training for USEK Kaslik staff on April 28, 2026, for an audience of 20+ attendees per session. The morning module focused on using AI for deep research, structured reporting, dashboard generation, and presentation production. The afternoon module was an introduction to AI, covering core concepts and a showcase of AI tools that staff can integrate into day-to-day work.",
+    tags: [
+      "ZAKA AI",
+      "Corporate Training",
+      "Research",
+      "Reporting",
+      "Productivity",
+      "Higher Education"
+    ],
+    images: [
+      "/Media/events/zaka-usek-ai-training/1.webp"
+    ],
     tier: "standard",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19",
+    duration: "One day; morning and afternoon modules",
+    outcomes: [
+      "Participants completed practical AI tasks during the sessions.",
+      "Clients requested further training after the ZAKA sessions."
+    ]
   },
   {
     slug: "anthropic-education-courses",
@@ -134,21 +171,33 @@ export const events: Event[] = [
     date: "2026-05-03",
     location: "Remote",
     category: "certification",
-    role: "Earned",
-    organizations: ["Anthropic"],
-    summary:
-      "Completed four Anthropic Education courses on Skilljar covering the Claude API, Claude Code, MCP, and Agent Skills.",
-    description:
-      "Completed four Anthropic Education courses on Skilljar between April and May 2026: Introduction to Agent Skills (Apr 26), Introduction to Model Context Protocol (May 3), Building with the Claude API (May 3), and Claude Code in Action (May 3). Even with prior hands-on experience across most of the material, each course added useful detail on the Claude API, MCP, and Claude Code workflows. The content is well structured and worth the time. Recommended for engineers building on the Anthropic stack.",
+    role: "Course participant",
+    organizations: [
+      "Anthropic"
+    ],
+    summary: "Completed four Anthropic Education courses on Skilljar covering the Claude API, Claude Code, MCP, and Agent Skills.",
+    description: "Completed four Anthropic Education courses on Skilljar between April and May 2026: Introduction to Agent Skills (Apr 26), Introduction to Model Context Protocol (May 3), Building with the Claude API (May 3), and Claude Code in Action (May 3). Even with prior hands-on experience across most of the material, each course added useful detail on the Claude API, MCP, and Claude Code workflows. The content is well structured and worth the time. Recommended for engineers building on the Anthropic stack.",
     credlyUrls: [
       "https://verify.skilljar.com/c/3ustottzmddf",
       "https://verify.skilljar.com/c/ywb9ynt3ujmq",
       "https://verify.skilljar.com/c/n97p9u9bxs6p",
-      "https://verify.skilljar.com/c/wcc4oismu2ij",
+      "https://verify.skilljar.com/c/wcc4oismu2ij"
     ],
-    images: ["/Media/events/anthropic-education-courses/1.webp"],
-    tags: ["Anthropic", "Claude", "Claude Code", "MCP", "Certification", "AI/ML"],
+    images: [
+      "/Media/events/anthropic-education-courses/1.webp"
+    ],
+    tags: [
+      "Anthropic",
+      "Claude",
+      "Claude Code",
+      "MCP",
+      "Courses",
+      "AI/ML"
+    ],
     tier: "standard",
+    datePrecision: "day",
+    dateMeaning: "completion",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "bobine-ai-video-generator",
@@ -158,14 +207,25 @@ export const events: Event[] = [
     category: "project",
     role: "Creator",
     organizations: [],
-    summary:
-      "Built Bobine, a CLI that turns any URL into a 9:16 short-form video (TikTok / Reels / Shorts) for ~$0.01 per render. Claude writes the script, edge-tts voices it, FFmpeg composites it over a looped gameplay background.",
-    description:
-      "Bobine is a Python CLI that takes a URL and a background gameplay clip, and produces a vertical 30-second video with AI-written script, AI voiceover, and word-synced burned-in captions. Pipeline: scrape the page with httpx + trafilatura, call Claude Sonnet 4.5 via structured tool use to write a script, generate voiceover with edge-tts (Microsoft Edge's TTS endpoint), use edge-tts word boundaries directly for per-word caption timings (no Whisper, no forced alignment), then compose everything with a single FFmpeg pass: loop the background, center-crop to 9:16, burn the ASS subtitles, mux the audio. Three modes: fully automated (URL → video), pre-written script (zero API calls, $0.00 per render), and text-file mode for paywalled or login-walled pages. Total cost in fully automated mode: ~$0.01 per video, just the Claude script call. The CLI is the foundation underneath a larger Bobine product roadmap covering branded characters, cloned voices, real AI video generation, and content calendars.",
-    tags: ["AI", "Claude API", "Python", "FFmpeg", "edge-tts", "Short-Form Video", "CLI"],
-    images: ["/Media/events/bobine-ai-video-generator/1.webp"],
+    summary: "Built Bobine, a personal Python CLI that turns a URL into a vertical short-form video using script generation, speech synthesis and FFmpeg.",
+    description: "Bobine is a Python CLI that takes a URL and a background gameplay clip, and produces a vertical 30-second video with AI-written script, AI voiceover, and word-synced burned-in captions. Pipeline: scrape the page with httpx + trafilatura, call Claude Sonnet 4.5 via structured tool use to write a script, generate voiceover with edge-tts (Microsoft Edge's TTS endpoint), use edge-tts word boundaries directly for per-word caption timings (no Whisper, no forced alignment), then compose everything with a single FFmpeg pass: loop the background, center-crop to 9:16, burn the ASS subtitles, mux the audio. Three modes: fully automated (URL → video), pre-written script (no script-generation API call), and text-file mode for paywalled or login-walled pages. At the April 2026 milestone, the estimated Claude script-generation API component was approximately $0.01 per example video. That was a dated component estimate, excluding compute, storage, other services and future pricing changes. The CLI is the foundation underneath a larger Bobine product roadmap covering branded characters, cloned voices, real AI video generation, and content calendars.",
+    tags: [
+      "AI",
+      "Claude API",
+      "Python",
+      "FFmpeg",
+      "edge-tts",
+      "Short-Form Video",
+      "CLI"
+    ],
+    images: [
+      "/Media/events/bobine-ai-video-generator/1.webp"
+    ],
     videoUrl: "/Media/events/bobine-ai-video-generator/muse-spark.mp4",
     tier: "featured",
+    datePrecision: "day",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "copyalpha-launch",
@@ -173,21 +233,29 @@ export const events: Event[] = [
     date: "2026-03-23",
     location: "Bekaa, Lebanon",
     category: "project",
-    role: "Creator",
+    role: "Personal product creator",
     organizations: [],
-    summary:
-      "Built and launched CopyAlpha, a full-stack crypto copy-trading platform with automated signal processing, risk management, and multi-exchange execution.",
-    description:
-      "Designed and built CopyAlpha solo as a SaaS platform that automates crypto copy trading from Telegram signal channels. Features a FastAPI backend, Next.js 15 dashboard, 10-step risk validation chain, multi-exchange support via ccxt, DEX execution, and a tiered subscription model (Free/Pro/Whale). Handles everything from signal parsing to position management with real-time analytics.",
+    summary: "Built CopyAlpha, a personal full-stack crypto copy-trading product with signal processing, configurable risk checks and multi-exchange execution.",
+    description: "Designed and built CopyAlpha solo as a SaaS platform that automates crypto copy trading from Telegram signal channels. Features a FastAPI backend, Next.js 15 dashboard, 10-step risk validation chain, multi-exchange support via ccxt, DEX execution, and a tiered subscription model (Free/Pro/Whale). Handles everything from signal parsing to position management with real-time analytics. The subscription tiers describe implemented product functionality; paid adoption, revenue and trading returns are not established.",
     images: [
       "/Media/events/copyalpha-launch/1.webp",
       "/Media/events/copyalpha-launch/2.webp",
       "/Media/events/copyalpha-launch/3.webp",
       "/Media/events/copyalpha-launch/4.webp",
-      "/Media/events/copyalpha-launch/5.webp",
+      "/Media/events/copyalpha-launch/5.webp"
     ],
-    tags: ["Crypto", "SaaS", "Full-Stack", "Trading", "FastAPI", "Next.js"],
+    tags: [
+      "Crypto",
+      "SaaS",
+      "Full-Stack",
+      "Trading",
+      "FastAPI",
+      "Next.js"
+    ],
     tier: "standard",
+    datePrecision: "day",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "lau-intro-to-ai",
@@ -200,22 +268,28 @@ export const events: Event[] = [
       "Lebanese American University",
       "IEEE Computer Engineering Club",
       "LAU Engineering Club",
-      "ZAKA Ambassadors",
+      "ZAKA Ambassadors"
     ],
-    summary:
-      'Hosted an "Introduction to AI" session for engineering and CS students at LAU Beirut, covering AI basics, Machine Learning, and Data Science with hands-on coding exercises.',
-    description:
-      'Honored to be invited to the Lebanese American University in Beirut to spend the afternoon with a room of engineering and CS students for an "Introduction to AI" session with the Engineering Club & IEEE Computer Engineering Club, in collaboration with ZAKA Ambassadors. Went from the basics of what AI really is, to how Machine Learning works in practice, and how Data Science ties everything together in real products and careers. The session mixed concepts with interactive questions and a coding exercise at the end.',
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7429474423969054720/",
+    summary: "Hosted an \"Introduction to AI\" session for engineering and CS students at LAU Beirut, covering AI basics, Machine Learning, and Data Science with hands-on coding exercises.",
+    description: "Honored to be invited to the Lebanese American University in Beirut to spend the afternoon with a room of engineering and CS students for an \"Introduction to AI\" session with the Engineering Club & IEEE Computer Engineering Club, in collaboration with ZAKA Ambassadors. Went from the basics of what AI really is, to how Machine Learning works in practice, and how Data Science ties everything together in real products and careers. The session mixed concepts with interactive questions and a coding exercise at the end.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7429474423969054720/",
     images: [
       "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/1.webp",
       "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/2.webp",
       "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/3.webp",
-      "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/4.webp",
+      "/Media/events/introduction-to-ai-at-lebanese-american-university-lau/4.webp"
     ],
-    tags: ["AI", "Machine Learning", "Data Science", "Workshop", "University"],
+    tags: [
+      "AI",
+      "Machine Learning",
+      "Data Science",
+      "Workshop",
+      "University"
+    ],
     tier: "featured",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "hec-blockchain-finance",
@@ -224,25 +298,33 @@ export const events: Event[] = [
     location: "Paris, France",
     category: "conference",
     role: "Attended",
-    organizations: ["HEC Paris"],
-    summary:
-      'Attended "Blockchain: the Future of Finance in 2026" at HEC Paris Alumni House, featuring speakers from Amundi, BNP Paribas, and Banque de France.',
-    description:
-      "Attended a session at HEC Paris Alumni House featuring Pierre Blanchet (Amundi) on bridging TradFi and DeFi, Daniel Turquety (BNP Paribas) on Europe's digital asset market, and Nicolas Barbaroux (Banque de France) on scaling tokenized finance. Station F startups pitched practical blockchain apps for finance.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7427637633083863040/",
+    organizations: [
+      "HEC Paris"
+    ],
+    summary: "Attended \"Blockchain: the Future of Finance in 2026\" at HEC Paris Alumni House, featuring speakers from Amundi, BNP Paribas, and Banque de France.",
+    description: "Attended a session at HEC Paris Alumni House featuring Pierre Blanchet (Amundi) on bridging TradFi and DeFi, Daniel Turquety (BNP Paribas) on Europe's digital asset market, and Nicolas Barbaroux (Banque de France) on scaling tokenized finance. Station F startups pitched practical blockchain apps for finance.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7427637633083863040/",
     images: [
       "/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/1.webp",
       "/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/2.webp",
       "/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/3.webp",
-      "/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/4.webp",
+      "/Media/events/blockchain-the-future-of-finance-in-2026-at-hec-paris/4.webp"
     ],
-    tags: ["Blockchain", "Finance", "DeFi", "Tokenization", "HEC Paris"],
+    tags: [
+      "Blockchain",
+      "Finance",
+      "DeFi",
+      "Tokenization",
+      "HEC Paris"
+    ],
     tier: "standard",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "aws-reinvent-recap-bdd",
-    title: "AWS re:Invent 2025 re:Cap at Beirut Digital District",
+    title: "Speaker at the 2026 AWS re:Invent 2025 re:Cap Community Event",
     date: "2026-02-07",
     location: "Beirut, Lebanon",
     category: "conference",
@@ -251,14 +333,11 @@ export const events: Event[] = [
     organizations: [
       "AWS User Group Lebanon",
       "Beirut Digital District",
-      "Supportful",
+      "Supportful"
     ],
-    summary:
-      'Co-hosted and spoke at the AWS re:Invent 2025 re:Cap at BDD 1075 Rooftop, presenting "Research to Voice: Research Paper Explanations Sent Straight to Your Inbox." Supportful sponsored the event.',
-    description:
-      "Always a pleasure to be part of the AWS User Group Lebanon and to help bring the re:Invent updates closer to local builders. Spoke alongside Peter Bardawil, Awedis Keofteian, Omar Chouman, and Jean-Pierre Fakhry. Supportful sponsored the event, continuing its support for the Lebanese tech community.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7425957060875386881/",
+    summary: "Co-hosted and spoke at the 2026 AWS re:Invent 2025 re:Cap community event at Beirut Digital District, presenting Research to Voice. Supportful sponsored the event.",
+    description: "Presented Research to Voice: Research Paper Explanations Sent Straight to Your Inbox at the AWS User Group Lebanon community recap of re:Invent 2025. Spoke alongside Peter Bardawil, Awedis Keofteian, Omar Chouman and Jean-Pierre Fakhry. This local event took place in February 2026, separately from the flagship re:Invent conference.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7425957060875386881/",
     images: [
       "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/1.webp",
       "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/2.webp",
@@ -267,10 +346,20 @@ export const events: Event[] = [
       "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/5.webp",
       "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/6.webp",
       "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/7.webp",
-      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/8.webp",
+      "/Media/events/aws-reinvent-2025-recap-at-beirut-digital-district/8.webp"
     ],
-    tags: ["AWS", "re:Invent", "Cloud", "AI", "Speaking", "Supportful"],
+    tags: [
+      "AWS",
+      "re:Invent",
+      "Cloud",
+      "AI",
+      "Speaking",
+      "Supportful"
+    ],
     tier: "featured",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "aws-ug-speaker-spotlight",
@@ -278,45 +367,57 @@ export const events: Event[] = [
     date: "2026-01-31",
     location: "Beirut, Lebanon",
     category: "community",
-    filterOverride: "speaking",
-    role: "Featured Speaker",
-    organizations: ["AWS User Group Lebanon"],
-    summary:
-      "Featured in AWS User Group Lebanon's Speaker Spotlight for the upcoming re:Invent re:Cap community event.",
-    description:
-      "Featured as a speaker for the upcoming AWS re:Invent re:Cap event. The spotlight highlighted work as a Data Scientist and AI Engineer building LLM agents, RAG systems, computer vision, and causal inference projects for SaaS, ad-tech, mobility, and F&B companies.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7423361802513690624/",
-    images: ["/Media/events/aws-user-group-lebanon-speaker-spotlight/1.webp"],
-    tags: ["AWS", "Community", "Speaker"],
+    filterOverride: "events",
+    role: "Promotional spotlight",
+    organizations: [
+      "AWS User Group Lebanon"
+    ],
+    summary: "Featured in AWS User Group Lebanon's Speaker Spotlight for the upcoming re:Invent re:Cap community event.",
+    description: "Featured in an AWS User Group Lebanon promotional spotlight for the upcoming local re:Invent re:Cap community event. The talk itself took place on 7 February 2026 and has its own archive entry.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7423361802513690624/",
+    images: [
+      "/Media/events/aws-user-group-lebanon-speaker-spotlight/1.webp"
+    ],
+    tags: [
+      "AWS",
+      "Community",
+      "Speaker"
+    ],
     tier: "standard",
+    datePrecision: "day",
+    dateMeaning: "announcement",
+    updatedAt: "2026-10-19"
   },
-
-  // ─── 2025 ───────────────────────────────────────────────────────────────────
-
   {
     slug: "aws-ml-cloud-certifications",
-    title: "AWS ML Specialty and Cloud Practitioner Certifications",
+    title: "Shared AWS Certification Milestone",
     date: "2025-12-01",
     location: "Remote",
     category: "certification",
-    role: "Earned",
-    organizations: ["Amazon Web Services"],
-    summary:
-      "Earned AWS ML Specialty and AWS Cloud Practitioner certifications after 4 years of building on AWS.",
-    description:
-      "After 4 years of using AWS to power most projects, kicked off the certification journey properly. Earned the ML Specialty and Cloud Practitioner badges as self-validation for lessons learned along the way.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7402750695927640064/",
+    role: "Credential announcement",
+    organizations: [
+      "Amazon Web Services"
+    ],
+    summary: "Shared a milestone in my AWS learning journey: Cloud Practitioner, issued in April 2025, and Machine Learning - Specialty, issued in December 2025.",
+    description: "The December 2025 announcement brought together two separately issued AWS certifications. The Cloud Practitioner record dates to April 2025; Machine Learning - Specialty dates to December 2025. Their individual credential records retain their own issue months.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7402750695927640064/",
     credlyUrls: [
       "https://www.credly.com/badges/8db8c943-b337-46de-92d6-205b7c53136f/public_url",
-      "https://www.credly.com/badges/9fbeb8b2-f24d-44bc-9a34-814002e480ed/public_url",
+      "https://www.credly.com/badges/9fbeb8b2-f24d-44bc-9a34-814002e480ed/public_url"
     ],
     images: [
-      "/Media/events/aws-ml-specialty-and-cloud-practitioner-certifications/1.webp",
+      "/Media/events/aws-ml-specialty-and-cloud-practitioner-certifications/1.webp"
     ],
-    tags: ["AWS", "Certification", "Machine Learning", "Cloud"],
+    tags: [
+      "AWS",
+      "Certification",
+      "Machine Learning",
+      "Cloud"
+    ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "announcement",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "building-smarter-aws-bekaa",
@@ -325,13 +426,13 @@ export const events: Event[] = [
     location: "Bekaa, Lebanon",
     category: "workshop",
     role: "Speaker / Host",
-    organizations: ["AWS User Group Lebanon", "Michel Daher Foundation"],
-    summary:
-      'Co-hosted and spoke at the first-ever "Building Smarter with AWS" community event in Bekaa. Over 40 attendees learned about cloud computing, AI, and AWS certification pathways.',
-    description:
-      'Co-hosted and spoke at the first-ever "Building Smarter with AWS" community event in Bekaa, organized with Michel Daher Foundation. Over 40 attendees learned about cloud computing, AI, and AWS certification pathways. Delivered a "Research to Voice" workshop alongside speakers Awedis Keofteian, Omar Mokhtar, and Jean-Pierre Fakhry.',
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7397193174491860992/",
+    organizations: [
+      "AWS User Group Lebanon",
+      "Michel Daher Foundation"
+    ],
+    summary: "Co-hosted and spoke at the first-ever \"Building Smarter with AWS\" community event in Bekaa. Over 40 attendees learned about cloud computing, AI, and AWS certification pathways.",
+    description: "Co-hosted and spoke at the first-ever \"Building Smarter with AWS\" community event in Bekaa, organized with Michel Daher Foundation. Over 40 attendees learned about cloud computing, AI, and AWS certification pathways. Delivered a \"Research to Voice\" workshop alongside speakers Awedis Keofteian, Omar Mokhtar, and Jean-Pierre Fakhry.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7397193174491860992/",
     images: [
       "/Media/events/building-smarter-with-aws-in-bekaa/1.webp",
       "/Media/events/building-smarter-with-aws-in-bekaa/2.webp",
@@ -341,7 +442,7 @@ export const events: Event[] = [
       "/Media/events/building-smarter-with-aws-in-bekaa/6.webp",
       "/Media/events/building-smarter-with-aws-in-bekaa/7.webp",
       "/Media/events/building-smarter-with-aws-in-bekaa/8.webp",
-      "/Media/events/building-smarter-with-aws-in-bekaa/9.webp",
+      "/Media/events/building-smarter-with-aws-in-bekaa/9.webp"
     ],
     tags: [
       "AWS",
@@ -350,9 +451,12 @@ export const events: Event[] = [
       "Speaking",
       "Bekaa",
       "Workshop",
-      "Cloud",
+      "Cloud"
     ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "agentic-ai-conference-dsd",
@@ -361,61 +465,89 @@ export const events: Event[] = [
     location: "Online",
     category: "conference",
     role: "Attended",
-    organizations: ["Data Science Dojo"],
-    summary:
-      "Attended the Agentic AI Conference by Data Science Dojo, a free conference featuring tutorials and panels with AI industry thought leaders.",
-    description:
-      "Attended the free virtual Agentic AI Conference organized by Data Science Dojo (September 15-19, 2025), attracting over 51,000 attendees globally. Featured tutorials and panels with AI industry thought leaders discussing agentic AI technologies, trends, and tools.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7373256861258526720/",
-    images: ["/Media/events/agentic-ai-conference-by-data-science-dojo/1.webp"],
-    tags: ["Agentic AI", "Conference", "Data Science Dojo"],
+    organizations: [
+      "Data Science Dojo"
+    ],
+    summary: "Attended the Agentic AI Conference by Data Science Dojo, a free conference featuring tutorials and panels with AI industry thought leaders.",
+    description: "Attended the free virtual Agentic AI Conference organized by Data Science Dojo (September 15-19, 2025), attracting over 51,000 attendees globally. Featured tutorials and panels with AI industry thought leaders discussing agentic AI technologies, trends, and tools.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7373256861258526720/",
+    images: [
+      "/Media/events/agentic-ai-conference-by-data-science-dojo/1.webp"
+    ],
+    tags: [
+      "Agentic AI",
+      "Conference",
+      "Data Science Dojo"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "causal-inference-savencia",
-    title: "Causal Inference Research at Savencia",
+    title: "Industrial Causal Analysis at Savencia",
     date: "2025-07-01",
     location: "La Boissiere-Ecole, France",
     category: "project",
-    organizations: ["Savencia"],
-    summary:
-      "Led a causal inference project to optimize lactoferrin production in dairy manufacturing using DoWhy, EconML, and CausalNex.",
-    description:
-      "Led a research project at Savencia applying causal inference methods to optimize lactoferrin production in dairy manufacturing. Built end-to-end Databricks data pipelines for experiment tracking and causal analysis. Applied Propensity Score Matching, Double ML, and Causal Forest to identify key production drivers.",
+    organizations: [
+      "Savencia"
+    ],
+    summary: "Investigated lactoferrin production during a July to December 2025 internship, using causal inference to inform industrial decisions.",
+    description: "Started a data science internship at Savencia in July 2025. The project examined which production parameters might affect lactoferrin output, using Databricks, DoWhy, EconML, Double Machine Learning and causal forests. Findings informed recommendations for R&D and engineering; no achieved yield increase or budget saving is claimed.",
     relatedExperienceId: "savencia",
     images: [
       "/Media/events/causal-inference-research-at-savencia/4.webp",
       "/Media/events/causal-inference-research-at-savencia/3.webp",
       "/Media/events/causal-inference-research-at-savencia/2.webp",
-      "/Media/events/causal-inference-research-at-savencia/1.webp",
+      "/Media/events/causal-inference-research-at-savencia/1.webp"
     ],
-    tags: ["Causal Inference", "DoWhy", "EconML", "Databricks", "Manufacturing"],
+    tags: [
+      "Causal Inference",
+      "DoWhy",
+      "EconML",
+      "Databricks",
+      "Manufacturing"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19",
+    role: "Data Scientist Intern",
+    caseStudySlug: "savencia-causal-inference"
   },
   {
     slug: "mcgill-exchange",
-    title: "Exchange Semester at McGill University",
+    title: "Joined the McGill Exchange Semester",
     date: "2025-04-01",
     location: "Montreal, Canada",
     category: "education",
-    role: "Student",
-    organizations: ["McGill University", "emlyon business school"],
-    summary:
-      "Completed an exchange semester at McGill University focused on Data Science and AI Strategy coursework. Visited Google and Microsoft Montreal offices.",
-    description:
-      "Joined McGill University for the international semester of the MSc in Data Science & AI Strategy. Visited the Google Montreal office for AI innovations and the Microsoft Montreal office for Azure AI insights. A game-changing experience bridging advanced AI research with real-world impact.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7335225108149485568/",
+    role: "Exchange student",
+    organizations: [
+      "McGill University",
+      "emlyon business school"
+    ],
+    summary: "Joined McGill University for an April to July 2025 exchange semester within the emlyon Data Science & AI Strategy programme.",
+    description: "Studied at McGill University from April to July 2025 as an exchange student within the emlyon programme. The experience included Data Science and AI Strategy coursework and visits to Google and Microsoft in Montreal. McGill was the exchange institution, rather than a separate degree.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7335225108149485568/",
     images: [
       "/Media/events/mcgill-university-exchange-semester/1.webp",
       "/Media/events/mcgill-university-exchange-semester/2.webp",
       "/Media/events/mcgill-university-exchange-semester/3.webp",
-      "/Media/events/mcgill-university-exchange-semester/4.webp",
+      "/Media/events/mcgill-university-exchange-semester/4.webp"
     ],
     relatedExperienceId: "mcgill",
-    tags: ["McGill", "Exchange", "Data Science", "Canada", "Google"],
+    tags: [
+      "McGill",
+      "Exchange",
+      "Data Science",
+      "Canada",
+      "Google"
+    ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "start",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "aust-generative-ai",
@@ -424,43 +556,50 @@ export const events: Event[] = [
     location: "Bhamdoun, Lebanon",
     category: "workshop",
     role: "Guest Speaker",
-    organizations: ["AUST", "AUST Faculty of Engineering and Computer Science"],
-    summary:
-      "Delivered a session on Generative AI and its future at AUST Bhamdoun Campus, covering n8n automation, multi-agent LLM systems, and RAG architectures.",
-    description:
-      "Invited as a guest speaker at AUST Bhamdoun Campus to deliver a session on Generative AI and its future. Explored the shift from traditional automation to Generative AI, diving into real-world use cases. Covered building automation pipelines with n8n, designing multi-agent LLM systems, and RAG architectures.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7327710511259619329/",
+    organizations: [
+      "AUST",
+      "AUST Faculty of Engineering and Computer Science"
+    ],
+    summary: "Delivered a session on Generative AI and its future at AUST Bhamdoun Campus, covering n8n automation, multi-agent LLM systems, and RAG architectures.",
+    description: "Invited as a guest speaker at AUST Bhamdoun Campus to deliver a session on Generative AI and its future. Explored the shift from traditional automation to Generative AI, diving into real-world use cases. Covered building automation pipelines with n8n, designing multi-agent LLM systems, and RAG architectures.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7327710511259619329/",
     images: [
       "/Media/events/generative-ai-session-at-aust-bhamdoun/1.webp",
       "/Media/events/generative-ai-session-at-aust-bhamdoun/2.webp",
       "/Media/events/generative-ai-session-at-aust-bhamdoun/3.webp",
-      "/Media/events/generative-ai-session-at-aust-bhamdoun/4.webp",
+      "/Media/events/generative-ai-session-at-aust-bhamdoun/4.webp"
     ],
-    tags: ["Generative AI", "LLMs", "RAG", "n8n", "Workshop", "AUST"],
+    tags: [
+      "Generative AI",
+      "LLMs",
+      "RAG",
+      "n8n",
+      "Workshop",
+      "AUST"
+    ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "mwc-barcelona-jury",
-    title: "MWC Barcelona 2025 & Talent Arena (Jury Member)",
+    title: "GenAI Project Jury and Mentoring: EPITECH / Vueling Initiative",
     date: "2025-03-01",
     location: "Barcelona, Spain",
     category: "conference",
-    filterOverride: "speaking",
-    role: "Jury Member",
+    filterOverride: "events",
+    role: "Project judge / mentor",
     organizations: [
       "MWC Barcelona",
       "Talent Arena",
       "Mobile World Capital Barcelona",
       "Vueling Airlines",
-      "EPITECH",
+      "EPITECH"
     ],
-    summary:
-      "Invited as jury member to MWC Barcelona 2025, mentoring and evaluating EPITECH students' GenAI projects during a Vueling Airlines flight.",
-    description:
-      "Honored to be invited by Mobile World Capital Barcelona and Vueling Airlines as a jury member, mentoring and evaluating EPITECH students as they competed mid-air during a Vueling Airlines flight. These brilliant minds worked on GenAI projects to revolutionize the inflight experience. Also attended Gwenaelle Avice Huet's session on digital skills for Europe's energy transition and a fireside chat with Steve Wozniak.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7304599888686686208/",
+    summary: "Mentored and evaluated EPITECH students' GenAI projects for the inflight experience during a Vueling initiative associated with MWC Barcelona and Talent Arena.",
+    description: "Joined a jury and mentoring initiative involving EPITECH students, Vueling Airlines and Mobile World Capital Barcelona. Students developed GenAI ideas for the inflight experience during a Vueling flight. Also attended sessions associated with MWC Barcelona and Talent Arena, including discussions with Gwenaelle Avice Huet and Steve Wozniak. The jury contribution applied to this student initiative.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7304599888686686208/",
     images: [
       "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/1.webp",
       "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/2.webp",
@@ -470,7 +609,7 @@ export const events: Event[] = [
       "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/6.webp",
       "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/7.webp",
       "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/8.webp",
-      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/9.webp",
+      "/Media/events/mwc-barcelona-2025-and-talent-arena-jury-member/9.webp"
     ],
     tags: [
       "MWC",
@@ -478,9 +617,12 @@ export const events: Event[] = [
       "Jury",
       "GenAI",
       "EPITECH",
-      "Steve Wozniak",
+      "Steve Wozniak"
     ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "emlyon-lisbon-seminar",
@@ -489,21 +631,29 @@ export const events: Event[] = [
     location: "Lisbon, Portugal",
     category: "education",
     role: "Attended",
-    organizations: ["emlyon business school"],
-    summary:
-      "Participated in the MSc Data Science & AI Strategy international seminar in Lisbon, exploring AI applications across industries.",
-    description:
-      "A week in Lisbon with emlyon business school diving deep into how AI is shaping industries. Visited OLX, MEO, Salesforce, SAP, FARFETCH, and AWS. Validated that multi-LLM architectures and agentic AI systems are aligned with where the industry is heading.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7302696840741711873/",
+    organizations: [
+      "emlyon business school"
+    ],
+    summary: "Participated in the MSc Data Science & AI Strategy international seminar in Lisbon, exploring AI applications across industries.",
+    description: "A week in Lisbon with emlyon business school diving deep into how AI is shaping industries. Visited OLX, MEO, Salesforce, SAP, FARFETCH, and AWS. Validated that multi-LLM architectures and agentic AI systems are aligned with where the industry is heading.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7302696840741711873/",
     images: [
       "/Media/events/emlyon-international-seminar-in-lisbon/1.webp",
       "/Media/events/emlyon-international-seminar-in-lisbon/2.webp",
       "/Media/events/emlyon-international-seminar-in-lisbon/3.webp",
-      "/Media/events/emlyon-international-seminar-in-lisbon/4.webp",
+      "/Media/events/emlyon-international-seminar-in-lisbon/4.webp"
     ],
-    tags: ["emlyon", "Lisbon", "AI Strategy", "Education", "Seminar"],
+    tags: [
+      "emlyon",
+      "Lisbon",
+      "AI Strategy",
+      "Education",
+      "Seminar"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "wids-paris-emlyon-datathon",
@@ -513,47 +663,65 @@ export const events: Event[] = [
     category: "hackathon",
     filterOverride: "speaking",
     role: "Mentor",
-    organizations: ["WiDS Worldwide", "Stanford University", "emlyon business school", "Le Village by CA Paris"],
-    summary:
-      "Mentored teams at the WiDS Paris @ emlyon Datathon, addressing challenges in autonomous AI systems.",
-    description:
-      "Participated as a mentor at the Women in Data Science (WiDS) Paris @ emlyon Datathon, organized in partnership with Stanford University and Le Village by CA Paris. The datathon focused on 'Harnessing AI Safely: Addressing the Challenges of Autonomous Systems,' bringing together data science enthusiasts to tackle real-world challenges in AI safety and autonomous systems.",
-    linkedinUrl:
-      "https://www.linkedin.com/posts/imenebrigui_ai-autonomous-activity-7304125582236090368-8tE6",
+    organizations: [
+      "WiDS Worldwide",
+      "Stanford University",
+      "emlyon business school",
+      "Le Village by CA Paris"
+    ],
+    summary: "Mentored teams at the WiDS Paris @ emlyon Datathon, addressing challenges in autonomous AI systems.",
+    description: "Participated as a mentor at the Women in Data Science (WiDS) Paris @ emlyon Datathon, organized in partnership with Stanford University and Le Village by CA Paris. The datathon focused on 'Harnessing AI Safely: Addressing the Challenges of Autonomous Systems,' bringing together data science enthusiasts to tackle real-world challenges in AI safety and autonomous systems.",
+    linkedinUrl: "https://www.linkedin.com/posts/imenebrigui_ai-autonomous-activity-7304125582236090368-8tE6",
     images: [
       "/Media/events/wids-paris-emlyon-datathon/1.webp",
       "/Media/events/wids-paris-emlyon-datathon/2.webp",
       "/Media/events/wids-paris-emlyon-datathon/3.webp",
-      "/Media/events/wids-paris-emlyon-datathon/4.webp",
+      "/Media/events/wids-paris-emlyon-datathon/4.webp"
     ],
-    tags: ["WiDS", "Datathon", "AI", "Autonomous Systems", "Mentorship", "emlyon"],
+    tags: [
+      "WiDS",
+      "Datathon",
+      "AI",
+      "Autonomous Systems",
+      "Mentorship",
+      "emlyon"
+    ],
     tier: "standard",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "philippe-rambach-ai-scale",
-    title: 'Philippe Rambach "AI @ Scale" at emlyon',
+    title: "Philippe Rambach \"AI @ Scale\" at emlyon",
     date: "2025-01-15",
     location: "Paris, France",
     category: "education",
-    filterOverride: "speaking",
-    role: "Session Organizer",
-    organizations: ["emlyon business school", "Schneider Electric"],
-    summary:
-      'Introduced and helped organize a session with Philippe Rambach (CAIO of Schneider Electric) on "AI @ Scale" at emlyon business school.',
-    description:
-      'Had the privilege of introducing Philippe Rambach, Chief Artificial Intelligence Officer at Schneider Electric, and helping organize his talk on "AI @ Scale" at emlyon business school. His insights into how AI is driving sustainability and transforming industries were truly eye-opening.',
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7285372021775982592/",
+    filterOverride: "events",
+    role: "Session organiser",
+    organizations: [
+      "emlyon business school",
+      "Schneider Electric"
+    ],
+    summary: "Introduced and helped organise Philippe Rambach's AI @ Scale session at emlyon business school.",
+    description: "Helped organise a session at emlyon business school and introduced Philippe Rambach, then Chief Artificial Intelligence Officer at Schneider Electric. He discussed AI at scale, sustainability and industrial applications.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7285372021775982592/",
     images: [
       "/Media/events/philippe-rambach-ai-scale-at-emlyon-business-school/1.webp",
-      "/Media/events/philippe-rambach-ai-scale-at-emlyon-business-school/2.webp",
+      "/Media/events/philippe-rambach-ai-scale-at-emlyon-business-school/2.webp"
     ],
-    tags: ["Schneider Electric", "AI", "Sustainability", "emlyon", "Speaking"],
+    tags: [
+      "Schneider Electric",
+      "AI",
+      "Sustainability",
+      "emlyon",
+      "Speaking"
+    ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19"
   },
-
-  // ─── 2024 ───────────────────────────────────────────────────────────────────
-
   {
     slug: "emlyon-ds-missions",
     title: "emlyon Data Science Missions Launch",
@@ -561,21 +729,28 @@ export const events: Event[] = [
     location: "Paris, France",
     category: "education",
     role: "Student",
-    organizations: ["emlyon business school"],
-    summary:
-      "Participated in the launch of Data Science Missions for the MSc in Data Science & AI Strategy, collaborating with industry partners on real-world AI challenges.",
-    description:
-      "Data Science Missions launch for the MSc in Data Science & AI Strategy program. Students collaborated with exceptional partners from diverse industries including Medinbox, Ampere (Renault Group), Club Med, datacraft, and Prosol to tackle challenges at the intersection of data science, AI and business.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7275841618690142208/",
+    organizations: [
+      "emlyon business school"
+    ],
+    summary: "Participated in the launch of Data Science Missions for the MSc in Data Science & AI Strategy, collaborating with industry partners on real-world AI challenges.",
+    description: "Data Science Missions launch for the MSc in Data Science & AI Strategy program. Students collaborated with exceptional partners from diverse industries including Medinbox, Ampere (Renault Group), Club Med, datacraft, and Prosol to tackle challenges at the intersection of data science, AI and business.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7275841618690142208/",
     images: [
       "/Media/events/emlyon-data-science-missions-launch/1.webp",
       "/Media/events/emlyon-data-science-missions-launch/2.webp",
       "/Media/events/emlyon-data-science-missions-launch/3.webp",
-      "/Media/events/emlyon-data-science-missions-launch/4.webp",
+      "/Media/events/emlyon-data-science-missions-launch/4.webp"
     ],
-    tags: ["emlyon", "Data Science", "AI", "Industry Partners"],
+    tags: [
+      "emlyon",
+      "Data Science",
+      "AI",
+      "Industry Partners"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "msc-emlyon",
@@ -583,15 +758,27 @@ export const events: Event[] = [
     date: "2024-09-01",
     location: "Paris, France",
     category: "education",
-    organizations: ["emlyon business school"],
-    summary:
-      "Began the Master of Science in Data Science & AI Strategy at emlyon business school in Paris.",
-    description:
-      "Enrolled in the MSc Data Science & AI Strategy program at emlyon business school in Paris, with a focus on causal inference, AI-driven business strategy, and applied machine learning. Received the LIFE Lebanon Scholarship and was elected class representative.",
+    organizations: [
+      "emlyon business school"
+    ],
+    summary: "Began the Master of Science in Data Science & AI Strategy at emlyon business school in Paris.",
+    description: "Began the MSc Data Science & AI Strategy programme at emlyon business school in Paris in September 2024; the programme period ran through January 2026. Coursework included causal inference, AI strategy and applied machine learning. Received the LIFE Lebanon Scholarship and served as class representative.",
     relatedExperienceId: "emlyon",
-    images: ["/Media/events/started-msc-at-emlyon-business-school/1.webp"],
-    tags: ["emlyon", "MSc", "AI Strategy", "Data Science", "Scholarship"],
+    images: [
+      "/Media/events/started-msc-at-emlyon-business-school/1.webp"
+    ],
+    tags: [
+      "emlyon",
+      "MSc",
+      "AI Strategy",
+      "Data Science",
+      "Scholarship"
+    ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "start",
+    updatedAt: "2026-10-19",
+    role: "Student"
   },
   {
     slug: "park-innovation-hackathon",
@@ -599,18 +786,29 @@ export const events: Event[] = [
     date: "2024-05-01",
     location: "Beirut, Lebanon",
     category: "hackathon",
-    filterOverride: "speaking",
-    role: "Hackathon Host",
-    organizations: ["Park Innovation", "Berytech"],
-    summary:
-      "Hosted a 4-hour hackathon for Park Innovation's IdeaLab Program focused on Agritech and Cleantech.",
-    description:
-      "Delivered a 4-hour hackathon as part of Park Innovation's IdeaLab Program in partnership with Berytech and co-funded by the Embassy of the Kingdom of the Netherlands. Brought together UX/UI designers, full stack developers, DevOps engineers, and digital marketers for a deep dive into AI applications in Agritech and Cleantech.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7200523301931114496/",
-    images: ["/Media/events/park-innovation-idealab-4hour-hackathon/1.webp"],
-    tags: ["Hackathon", "Agritech", "Cleantech", "Innovation", "Mentoring"],
+    filterOverride: "events",
+    role: "Hackathon host",
+    organizations: [
+      "Park Innovation",
+      "Berytech"
+    ],
+    summary: "Hosted a 4-hour hackathon for Park Innovation's IdeaLab Program focused on Agritech and Cleantech.",
+    description: "Delivered a 4-hour hackathon as part of Park Innovation's IdeaLab Program in partnership with Berytech and co-funded by the Embassy of the Kingdom of the Netherlands. Brought together UX/UI designers, full stack developers, DevOps engineers, and digital marketers for a deep dive into AI applications in Agritech and Cleantech.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7200523301931114496/",
+    images: [
+      "/Media/events/park-innovation-idealab-4hour-hackathon/1.webp"
+    ],
+    tags: [
+      "Hackathon",
+      "Agritech",
+      "Cleantech",
+      "Innovation",
+      "Mentoring"
+    ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "sws-2024-jury",
@@ -622,118 +820,175 @@ export const events: Event[] = [
     role: "Jury Member",
     organizations: [
       "Union of Arab Chambers",
-      "Scientific Center for Manufacturing and Production",
+      "Scientific Center for Manufacturing and Production"
     ],
-    summary:
-      "Served as an AI Specialist jury member at SWS 2024, evaluating Agritech, Medtech, and SaaS projects competing for a $2M funding pool.",
-    description:
-      "Had the privilege of serving as a jury member at the Startup Weekend Support SWS - 2024. Alongside a panel of expert juries, evaluated a dozen innovative ideas spanning Agritech, Medtech, and SaaS sectors. Discussed strategies for scaling innovations and preparing for real-world challenges ahead.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7192549378484584448/",
+    summary: "Served on the AI specialist jury at Startup Weekend Support 2024, evaluating Agritech, Medtech and SaaS project ideas.",
+    description: "Evaluated project ideas with a jury panel at Startup Weekend Support 2024, covering Agritech, Medtech and SaaS. Discussions addressed technical feasibility, scaling and preparation for real-world delivery. The advertised competition funding pool was separate from any funding received by individual participants.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7192549378484584448/",
     images: [
       "/Media/events/startup-weekend-support-sws-2024-jury-member/1.webp",
       "/Media/events/startup-weekend-support-sws-2024-jury-member/2.webp",
-      "/Media/events/startup-weekend-support-sws-2024-jury-member/3.webp",
+      "/Media/events/startup-weekend-support-sws-2024-jury-member/3.webp"
     ],
-    tags: ["Jury", "Hackathon", "Agritech", "Medtech", "SaaS", "Startups"],
+    tags: [
+      "Jury",
+      "Hackathon",
+      "Agritech",
+      "Medtech",
+      "SaaS",
+      "Startups"
+    ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "pmp-certification",
-    title: "PMP Certification Earned",
+    title: "PMP Certification Announcement",
     date: "2024-09-15",
     location: "Remote",
     category: "certification",
-    role: "Earned",
-    organizations: ["PMI"],
-    summary:
-      "Earned the Project Management Professional (PMP) certification from PMI, demonstrating advanced project management expertise and commitment to professional excellence.",
-    description:
-      "Successfully earned the globally recognized PMP certification from the Project Management Institute after meeting rigorous eligibility requirements and preparation. This certification validates expertise in leading and directing projects, combining technical knowledge with leadership capabilities. As an AI/ML engineer, this credential enhances the ability to deliver complex AI projects on time, within scope, and with measurable business impact, bridging the gap between technical innovation and strategic project execution.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7243642747339894784/",
-    credlyUrls: [
-      "https://www.credly.com/badges/84e5ad07-84f3-407c-88db-99ab1a8c7925/public_url",
+    role: "Credential announcement",
+    organizations: [
+      "PMI"
     ],
-    images: ["/Media/events/pmp-certification-earned/1.webp"],
-    tags: ["PMP", "Certification", "Project Management", "PMI", "Leadership"],
+    summary: "Shared the Project Management Professional (PMP) credential in September 2024, following its August 2024 issue.",
+    description: "The PMP credential was issued by the Project Management Institute in August 2024. This September archive entry records the later announcement, rather than a second award or a verified exam day.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7243642747339894784/",
+    credlyUrls: [
+      "https://www.credly.com/badges/84e5ad07-84f3-407c-88db-99ab1a8c7925/public_url"
+    ],
+    images: [
+      "/Media/events/pmp-certification-earned/1.webp"
+    ],
+    tags: [
+      "PMP",
+      "Certification",
+      "Project Management",
+      "PMI",
+      "Leadership"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "announcement",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "zaka-ml-specialization",
-    title: "ZAKA ML Specialization Program (Featured Graduate)",
+    title: "Featured Graduate of ZAKA's ML Programme",
     date: "2024-01-01",
     location: "Beirut, Lebanon",
-    category: "certification",
-    role: "Featured Graduate",
-    organizations: ["ZAKA"],
-    summary:
-      "Graduated from ZAKA's Machine Learning Specialization Program and featured in promotional materials to share experiences and promote the program to upcoming cohorts.",
-    description:
-      "Completed ZAKA's Machine Learning Specialization Program, gaining hands-on experience with modern ML frameworks and tools. Featured in promotional materials and testimonial videos to share the learning journey and encourage aspiring AI/ML practitioners to join the program. Highlighted the program's impact on building practical machine learning skills and advancing AI career development.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7148793112461533184/",
-    images: ["/Media/events/zaka-ml-specialization-program/1.webp"],
-    tags: ["ZAKA", "Machine Learning", "Certification", "AI", "Community"],
+    category: "community",
+    role: "Graduate spotlight",
+    organizations: [
+      "ZAKA"
+    ],
+    summary: "Featured in January 2024 as a graduate of ZAKA's Machine Learning programme, sharing the learning experience with prospective participants.",
+    description: "Contributed to a later graduate feature about ZAKA's Machine Learning programme. The programme took place from August to November 2022; the January 2024 feature was promotional activity, rather than another graduation.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7148793112461533184/",
+    images: [
+      "/Media/events/zaka-ml-specialization-program/1.webp"
+    ],
+    tags: [
+      "ZAKA",
+      "Machine Learning",
+      "Certification",
+      "AI",
+      "Community"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "announcement",
+    updatedAt: "2026-10-19",
+    filterOverride: "events"
   },
-
-  // ─── 2023 ───────────────────────────────────────────────────────────────────
-
   {
     slug: "mopo-multi-llm",
-    title: "Led Multi-LLM Orchestration Architecture at MOPO",
+    title: "MOPO: A Historical Project Milestone",
     date: "2023-08-01",
     location: "San Francisco (Remote)",
     category: "project",
-    role: "Technical Lead",
-    organizations: ["MOPO"],
-    summary:
-      "Led the design and implementation of a sophisticated multi-LLM agent system with RAG pipelines, knowledge graphs, and speech services for an AI-native startup.",
-    description:
-      "Led the architecture and development of MOPO's core multi-LLM agent system, where a lead agent orchestrates specialized tool agents for complex task execution. Spearheaded the implementation of RAG pipelines with vector embeddings, knowledge graphs, and semantic routers to enable intelligent information retrieval. Architected and deployed speech-to-text and translation services on AWS ECS. The technical foundation contributed to the company securing seed funding.",
+    role: "Consulting project lead",
+    organizations: [
+      "MOPO"
+    ],
+    summary: "Began the MOPO engagement in August 2023, leading an AI product from concept through production during the consulting relationship that continued to December 2025.",
+    description: "This archive entry marks the beginning of the MOPO engagement. The subsequent work combined business and technical decisions, multi-LLM orchestration, retrieval, knowledge graphs, speech services and cloud delivery. Hadi also supported pitching and fundraising preparation. The engagement's contributions and production scope are recorded in Experience.",
     relatedExperienceId: "mopo",
-    images: ["/Media/events/led-multi-llm-orchestration-architecture-at-mopo/1.webp"],
-    tags: ["LLMs", "RAG", "Multi-Agent", "Knowledge Graphs", "AWS ECS", "Technical Leadership"],
+    images: [
+      "/Media/events/led-multi-llm-orchestration-architecture-at-mopo/1.webp"
+    ],
+    tags: [
+      "LLMs",
+      "RAG",
+      "Multi-Agent",
+      "Knowledge Graphs",
+      "AWS ECS",
+      "Technical Leadership"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19",
+    caseStudySlug: "mopo-conversational-ai"
   },
   {
     slug: "freelance-ai-launch",
-    title: "Launched Freelance AI Consulting Practice",
+    title: "Started Independent AI Consulting",
     date: "2023-08-01",
     location: "Lebanon / Remote",
     category: "career",
-    summary:
-      "Started delivering end-to-end AI consulting engagements, building LLM-powered chatbots, RAG systems, and GenAI architectures for multiple clients.",
-    description:
-      "Launched a freelance AI consulting practice serving clients across Paris, Beirut, and San Francisco. Key engagements included: building an LLM chatbot and RAG agent on Azure AI Search for TowardsChange, developing a CV ranking system for ShebangNow, leading GenAI architecture design at AI.skilled, and building a voice-to-JSON agent for Traveln.ai.",
+    summary: "Started an independent AI consulting practice in August 2023. Across the practice period through July 2026, engagements included AI product delivery, enterprise knowledge access, sales workflows and needs-led architecture advice.",
+    description: "This milestone marks the start of the independent practice in August 2023. Later engagements formed part of the same consulting practice, whose full chronology and relationships are shown on the Experience page.",
     relatedExperienceId: "freelance-ai-consultant",
-    images: ["/Media/events/launched-freelance-ai-consulting-practice/1.webp"],
-    tags: ["Freelance", "Consulting", "LLMs", "RAG", "Azure AI"],
+    images: [
+      "/Media/events/launched-freelance-ai-consulting-practice/1.webp"
+    ],
+    tags: [
+      "Freelance",
+      "Consulting",
+      "LLMs",
+      "RAG",
+      "Azure AI"
+    ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "start",
+    updatedAt: "2026-10-19",
+    role: "Independent consultant"
   },
   {
     slug: "tech-accessibility-hackathon",
-    title: "Tech for Accessibility Hackathon - Winner",
+    title: "Tech for Accessibility Hackathon: Winning Team",
     date: "2023-07-15",
     location: "Beirut, Lebanon",
     category: "hackathon",
-    role: "Winner",
-    organizations: ["AUB Innovation Park", "Beirut Digital District"],
-    summary:
-      "Won the AUB Tech for Accessibility Hackathon at AUB Innovation Park in Beirut Digital District.",
-    description:
-      "Part of the winning team at the Tech for Accessibility Hackathon with Talal and Madiha Zein AUB Innovation Park at Beirut Digital District. This endeavor underscored the significant potential at the intersection of innovation, teamwork, and a commitment to change.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7090669954336706560/",
+    role: "Winning-team contributor",
+    organizations: [
+      "AUB Innovation Park",
+      "Beirut Digital District"
+    ],
+    summary: "Contributed to the winning team at the Tech for Accessibility Hackathon with Talal and Madiha Zein AUB Innovation Park at Beirut Digital District.",
+    description: "Part of the winning team at the Tech for Accessibility Hackathon with Talal and Madiha Zein AUB Innovation Park at Beirut Digital District. This endeavor underscored the significant potential at the intersection of innovation, teamwork, and a commitment to change.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7090669954336706560/",
     images: [
       "/Media/events/tech-for-accessibility-hackathon-winner/1.webp",
       "/Media/events/tech-for-accessibility-hackathon-winner/2.webp",
       "/Media/events/tech-for-accessibility-hackathon-winner/3.webp",
-      "/Media/events/tech-for-accessibility-hackathon-winner/4.webp",
+      "/Media/events/tech-for-accessibility-hackathon-winner/4.webp"
     ],
-    tags: ["Hackathon", "Winner", "Accessibility", "AUB", "Innovation"],
+    tags: [
+      "Hackathon",
+      "Winner",
+      "Accessibility",
+      "AUB",
+      "Innovation"
+    ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "ai-workshop-zahle",
@@ -742,21 +997,30 @@ export const events: Event[] = [
     location: "Zahle, Lebanon",
     category: "workshop",
     role: "Workshop Host",
-    organizations: ["Beirut AI", "Michel Daher Foundation"],
-    summary:
-      "Hosted an AI workshop in Zahle in collaboration with Michel Daher Foundation, introducing participants to AI and hands-on coding.",
-    description:
-      "In collaboration with the Michel Daher Foundation, Beirut AI brought its captivating AI workshop to Zahle. Participants discovered the world of Artificial Intelligence and its various applications, followed by a practical hands-on workshop where they coded along and built their first AI model.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7080583457717776384/",
+    organizations: [
+      "Beirut AI",
+      "Michel Daher Foundation"
+    ],
+    summary: "Hosted an AI workshop in Zahle in collaboration with Michel Daher Foundation, introducing participants to AI and hands-on coding.",
+    description: "In collaboration with the Michel Daher Foundation, Beirut AI brought its captivating AI workshop to Zahle. Participants discovered the world of Artificial Intelligence and its various applications, followed by a practical hands-on workshop where they coded along and built their first AI model.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7080583457717776384/",
     images: [
       "/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/1.webp",
       "/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/2.webp",
       "/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/3.webp",
-      "/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/4.webp",
+      "/Media/events/ai-workshop-in-zahle-with-michel-daher-foundation/4.webp"
     ],
-    tags: ["AI", "Workshop", "Zahle", "Michel Daher Foundation", "Beirut AI"],
+    tags: [
+      "AI",
+      "Workshop",
+      "Zahle",
+      "Michel Daher Foundation",
+      "Beirut AI"
+    ],
     tier: "featured",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "beirut-ai-bert-workshop",
@@ -765,21 +1029,35 @@ export const events: Event[] = [
     location: "Beirut, Lebanon",
     category: "workshop",
     role: "Speaker",
-    organizations: ["Beirut AI", "AWS Community", "ZAKA", "Berytech", "Beirut Digital District"],
-    summary:
-      "Led a series of NLP workshops at Beirut Digital District with 150+ attendees, covering BERT transformers, sentiment analysis, and deploying models on AWS SageMaker.",
-    description:
-      "Led a series of workshops at Beirut Digital District in partnership with the AWS Community Group, ZAKA, and Berytech. Spoke at the BDD event with around 150 attendees, delivering a live demo on deploying a Hugging Face BERT transformers model for sentiment analysis on AWS SageMaker serverless endpoint and showcasing ready-to-use AI services on AWS. Conducted two follow-up workshops on NLP in Production: exploring state-of-the-art transformers for Sentiment Analysis, and deploying the trained model in an AWS environment with production monitoring. Certificates were provided to attendees.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7045826644019732480/",
+    organizations: [
+      "Beirut AI",
+      "AWS Community",
+      "ZAKA",
+      "Berytech",
+      "Beirut Digital District"
+    ],
+    summary: "Delivered a BERT and AWS SageMaker demo at a Beirut Digital District event with around 150 attendees, followed by two NLP in Production workshops.",
+    description: "Led a series of workshops at Beirut Digital District in partnership with the AWS Community Group, ZAKA, and Berytech. Spoke at the BDD event with around 150 attendees, delivering a live demo on deploying a Hugging Face BERT transformers model for sentiment analysis on AWS SageMaker serverless endpoint and showcasing ready-to-use AI services on AWS. Conducted two follow-up workshops on NLP in Production: exploring state-of-the-art transformers for Sentiment Analysis, and deploying the trained model in an AWS environment with production monitoring. Certificates were provided to attendees.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7045826644019732480/",
     images: [
       "/Media/events/beirut-ai-bert-transformers-workshop/1.webp",
       "/Media/events/beirut-ai-bert-transformers-workshop/2.webp",
       "/Media/events/beirut-ai-bert-transformers-workshop/3.webp",
-      "/Media/events/beirut-ai-bert-transformers-workshop/4.webp",
+      "/Media/events/beirut-ai-bert-transformers-workshop/4.webp"
     ],
-    tags: ["BERT", "NLP", "Transformers", "Hugging Face", "Beirut AI", "AWS", "SageMaker"],
+    tags: [
+      "BERT",
+      "NLP",
+      "Transformers",
+      "Hugging Face",
+      "Beirut AI",
+      "AWS",
+      "SageMaker"
+    ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "lau-ai-club-workshop",
@@ -788,15 +1066,28 @@ export const events: Event[] = [
     location: "Online",
     category: "workshop",
     role: "Workshop Host",
-    organizations: ["Beirut AI", "LAU AI Club"],
-    summary:
-      "Hosted an online AI workshop for LAU AI Club as part of Beirut AI's Technical Ambassadors 10-workshop series across Lebanese universities.",
-    description:
-      "Delivered an online workshop for the LAU AI Club as part of Beirut AI's Technical Ambassadors program, a series of 10 workshops held across Lebanese universities to introduce students to AI concepts and hands-on projects. The workshop brought AI education directly to LAU students, expanding Beirut AI's reach into university communities.",
+    organizations: [
+      "Beirut AI",
+      "LAU AI Club"
+    ],
+    summary: "Hosted an online AI workshop for LAU AI Club as part of Beirut AI's Technical Ambassadors 10-workshop series across Lebanese universities.",
+    description: "Delivered an online workshop for the LAU AI Club as part of Beirut AI's Technical Ambassadors program, a series of 10 workshops held across Lebanese universities to introduce students to AI concepts and hands-on projects. The workshop brought AI education directly to LAU students, expanding Beirut AI's reach into university communities.",
     websiteUrl: "https://beirutai.org/highlights-2023/",
-    images: ["/Media/events/lau-ai-club-workshop/1.webp"],
-    tags: ["AI", "Workshop", "LAU", "Beirut AI", "University", "Technical Ambassadors"],
+    images: [
+      "/Media/events/lau-ai-club-workshop/1.webp"
+    ],
+    tags: [
+      "AI",
+      "Workshop",
+      "LAU",
+      "Beirut AI",
+      "University",
+      "Technical Ambassadors"
+    ],
     tier: "standard",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "beirut-ai-mentorship-batch1",
@@ -805,18 +1096,28 @@ export const events: Event[] = [
     location: "Lebanon / Remote",
     category: "community",
     role: "Mentor",
-    organizations: ["Beirut AI"],
-    summary:
-      "Selected as one of 9 mentors for the first batch of Beirut AI's Mentorship Program, guiding aspiring AI practitioners through structured learning and career development.",
-    description:
-      "Served as one of 9 mentors in the inaugural batch of Beirut AI's Mentorship Program. The program paired experienced AI practitioners with mentees to provide guidance on technical skills, career paths, and project development in the field of artificial intelligence. This initiative was part of Beirut AI's broader mission to grow and support the AI community in the MENA region.",
+    organizations: [
+      "Beirut AI"
+    ],
+    summary: "Selected as one of 9 mentors for the first batch of Beirut AI's Mentorship Program, guiding aspiring AI practitioners through structured learning and career development.",
+    description: "Served as one of 9 mentors in the inaugural batch of Beirut AI's Mentorship Program. The program paired experienced AI practitioners with mentees to provide guidance on technical skills, career paths, and project development in the field of artificial intelligence. This initiative was part of Beirut AI's broader mission to grow and support the AI community in the MENA region.",
     websiteUrl: "https://beirutai.org/highlights-2023/",
     images: [
       "/Media/events/beirut-ai-mentorship-batch1/1.webp",
-      "/Media/events/beirut-ai-mentorship-batch1/2.webp",
+      "/Media/events/beirut-ai-mentorship-batch1/2.webp"
     ],
-    tags: ["Mentorship", "AI", "Beirut AI", "Community", "Career Development"],
+    tags: [
+      "Mentorship",
+      "AI",
+      "Beirut AI",
+      "Community",
+      "Career Development"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19",
+    filterOverride: "speaking"
   },
   {
     slug: "usj-north-lu-workshop",
@@ -825,15 +1126,29 @@ export const events: Event[] = [
     location: "Online",
     category: "workshop",
     role: "Workshop Host",
-    organizations: ["Beirut AI", "USJ North", "Lebanese University"],
-    summary:
-      "Hosted an online AI workshop for USJ North and Lebanese University students as part of Beirut AI's Technical Ambassadors workshop series.",
-    description:
-      "Delivered an online workshop for students from USJ North (Universit\u00e9 Saint-Joseph, North campus) and the Lebanese University as part of Beirut AI's Technical Ambassadors program. This was one of 10 workshops held across Lebanese universities, bringing AI education to students outside of Beirut and expanding access to technical knowledge.",
+    organizations: [
+      "Beirut AI",
+      "USJ North",
+      "Lebanese University"
+    ],
+    summary: "Hosted an online AI workshop for USJ North and Lebanese University students as part of Beirut AI's Technical Ambassadors workshop series.",
+    description: "Delivered an online workshop for students from USJ North (Université Saint-Joseph, North campus) and the Lebanese University as part of Beirut AI's Technical Ambassadors program. This was one of 10 workshops held across Lebanese universities, bringing AI education to students outside of Beirut and expanding access to technical knowledge.",
     websiteUrl: "https://beirutai.org/highlights-2023/",
-    images: ["/Media/events/usj-north-lu-workshop/1.webp"],
-    tags: ["AI", "Workshop", "USJ", "Lebanese University", "Beirut AI", "Technical Ambassadors"],
+    images: [
+      "/Media/events/usj-north-lu-workshop/1.webp"
+    ],
+    tags: [
+      "AI",
+      "Workshop",
+      "USJ",
+      "Lebanese University",
+      "Beirut AI",
+      "Technical Ambassadors"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "beirut-ai-baalbek",
@@ -842,13 +1157,13 @@ export const events: Event[] = [
     location: "Baalbek, Lebanon",
     category: "workshop",
     role: "Workshop Host",
-    organizations: ["Beirut AI", "Baalbek Cultural Center"],
-    summary:
-      "Hosted multiple AI workshops at the Baalbek Cultural Center, bringing AI education to the historical city with Beirut AI.",
-    description:
-      "The Beirut AI team wrapped up an incredible event in the gorgeous city of Baalbek at the historical Baalbek Cultural Center. The mission was to demystify AI and make it accessible for everyone, moving the conversation around AI from intimidating tech jargon to everyday language. The event served as a platform to dispel fear and misconceptions, replacing them with appreciation and understanding.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7068188045170073600/",
+    organizations: [
+      "Beirut AI",
+      "Baalbek Cultural Center"
+    ],
+    summary: "Hosted multiple AI workshops at the Baalbek Cultural Center, bringing AI education to the historical city with Beirut AI.",
+    description: "The Beirut AI team wrapped up an incredible event in the gorgeous city of Baalbek at the historical Baalbek Cultural Center. The mission was to demystify AI and make it accessible for everyone, moving the conversation around AI from intimidating tech jargon to everyday language. The event served as a platform to dispel fear and misconceptions, replacing them with appreciation and understanding.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7068188045170073600/",
     images: [
       "/Media/events/beirut-ai-workshops-in-baalbek/1.webp",
       "/Media/events/beirut-ai-workshops-in-baalbek/8.webp",
@@ -857,10 +1172,19 @@ export const events: Event[] = [
       "/Media/events/beirut-ai-workshops-in-baalbek/4.webp",
       "/Media/events/beirut-ai-workshops-in-baalbek/5.webp",
       "/Media/events/beirut-ai-workshops-in-baalbek/6.webp",
-      "/Media/events/beirut-ai-workshops-in-baalbek/7.webp",
+      "/Media/events/beirut-ai-workshops-in-baalbek/7.webp"
     ],
-    tags: ["Beirut AI", "Baalbek", "Workshop", "AI Education", "Community"],
+    tags: [
+      "Beirut AI",
+      "Baalbek",
+      "Workshop",
+      "AI Education",
+      "Community"
+    ],
     tier: "featured",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "skillnest-ai-workshop",
@@ -869,11 +1193,12 @@ export const events: Event[] = [
     location: "Lebanon",
     category: "workshop",
     role: "Workshop Host",
-    organizations: ["Beirut AI", "Skillnest"],
-    summary:
-      "Led an AI workshop for Skillnest as part of Beirut AI's Technical Ambassadors workshop series.",
-    description:
-      "Led an in-person AI workshop for Skillnest, as part of Beirut AI's Technical Ambassadors program. The workshop was one of the 10-workshop series bringing AI education to various communities and platforms across Lebanon, introducing participants to AI fundamentals and hands-on applications.",
+    organizations: [
+      "Beirut AI",
+      "Skillnest"
+    ],
+    summary: "Led an AI workshop for Skillnest as part of Beirut AI's Technical Ambassadors workshop series.",
+    description: "Led an in-person AI workshop for Skillnest, as part of Beirut AI's Technical Ambassadors program. The workshop was one of the 10-workshop series bringing AI education to various communities and platforms across Lebanon, introducing participants to AI fundamentals and hands-on applications.",
     websiteUrl: "https://beirutai.org/highlights-2023/",
     images: [
       "/Media/events/skillnest-ai-workshop/1.webp",
@@ -883,10 +1208,19 @@ export const events: Event[] = [
       "/Media/events/skillnest-ai-workshop/5.webp",
       "/Media/events/skillnest-ai-workshop/6.webp",
       "/Media/events/skillnest-ai-workshop/7.webp",
-      "/Media/events/skillnest-ai-workshop/8.webp",
+      "/Media/events/skillnest-ai-workshop/8.webp"
     ],
-    tags: ["AI", "Workshop", "Skillnest", "Beirut AI", "Technical Ambassadors"],
+    tags: [
+      "AI",
+      "Workshop",
+      "Skillnest",
+      "Beirut AI",
+      "Technical Ambassadors"
+    ],
     tier: "featured",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "dataseccode-usal",
@@ -896,26 +1230,32 @@ export const events: Event[] = [
     category: "community",
     filterOverride: "speaking",
     role: "Speaker",
-    organizations: ["USAL University", "Binary Brains", "Beirut AI"],
-    summary:
-      "Spoke at the DatasecCode event at USAL University, featuring presentations on AI, computing, and security.",
-    description:
-      "Spoke at the DatasecCode event organized by Binary Brains club in collaboration with Beirut AI at the University of Sciences and Arts in Lebanon (USAL). Delivered an Introduction to AI with a hands-on project for the enthusiastic audience.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:7044988891073773569/",
+    organizations: [
+      "USAL University",
+      "Binary Brains",
+      "Beirut AI"
+    ],
+    summary: "Spoke at the DatasecCode event at USAL University, featuring presentations on AI, computing, and security.",
+    description: "Spoke at the DatasecCode event organized by Binary Brains club in collaboration with Beirut AI at the University of Sciences and Arts in Lebanon (USAL). Delivered an Introduction to AI with a hands-on project for the enthusiastic audience.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7044988891073773569/",
     images: [
       "/Media/events/dataseccode-event-at-usal/1.webp",
       "/Media/events/dataseccode-event-at-usal/2.webp",
       "/Media/events/dataseccode-event-at-usal/3.webp",
       "/Media/events/dataseccode-event-at-usal/4.webp",
-      "/Media/events/dataseccode-event-at-usal/5.webp",
+      "/Media/events/dataseccode-event-at-usal/5.webp"
     ],
-    tags: ["Data Science", "Community", "USAL", "Speaking"],
+    tags: [
+      "Data Science",
+      "Community",
+      "USAL",
+      "Speaking"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
-
-  // ─── 2022 ───────────────────────────────────────────────────────────────────
-
   {
     slug: "digital-health-ijcr",
     title: "Introduction to AI Workshop for Digital Health Chapter",
@@ -923,19 +1263,29 @@ export const events: Event[] = [
     location: "Online",
     category: "workshop",
     role: "Workshop Host",
-    organizations: ["Digital Health Chapter", "Beirut AI"],
-    summary:
-      "Hosted an Introduction to AI workshop for the Digital Health Chapter x Beirut AI, covering AI fundamentals and applications in medicine.",
-    description:
-      "Hosted an Introduction to AI workshop for IJCR's Digital Health Chapter in collaboration with Beirut AI. Covered AI fundamentals and applications in the field of medicine. No previous programming or AI experience was necessary, with certification of attendance provided. 40+ people joined from different countries to get introduced to the world of artificial intelligence and its uses in medicine.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:6978455580260581376/",
+    organizations: [
+      "Digital Health Chapter",
+      "Beirut AI"
+    ],
+    summary: "Hosted an Introduction to AI workshop for the Digital Health Chapter x Beirut AI, covering AI fundamentals and applications in medicine.",
+    description: "Hosted an Introduction to AI workshop for IJCR's Digital Health Chapter in collaboration with Beirut AI. Covered AI fundamentals and applications in the field of medicine. No previous programming or AI experience was necessary, with certification of attendance provided. 40+ people joined from different countries to get introduced to the world of artificial intelligence and its uses in medicine.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:6978455580260581376/",
     images: [
       "/Media/events/digital-health-workshop-ai-applications-in-medicine/1.webp",
-      "/Media/events/digital-health-workshop-ai-applications-in-medicine/2.webp",
+      "/Media/events/digital-health-workshop-ai-applications-in-medicine/2.webp"
     ],
-    tags: ["Digital Health", "AI", "Medicine", "Healthcare", "Workshop", "International"],
+    tags: [
+      "Digital Health",
+      "AI",
+      "Medicine",
+      "Healthcare",
+      "Workshop",
+      "International"
+    ],
     tier: "featured",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "digital-health-ijcr-august",
@@ -944,14 +1294,27 @@ export const events: Event[] = [
     location: "Online",
     category: "workshop",
     role: "Workshop Host",
-    organizations: ["IJCR", "Beirut AI"],
-    summary:
-      "Delivered an Introduction to AI session for the Digital Health Chapter x Beirut AI, introducing AI concepts to healthcare professionals.",
-    description:
-      "Delivered an Introduction to AI session for IJCR's Digital Health Chapter in collaboration with Beirut AI. Introduced AI concepts and their applications in healthcare to an international audience of medical professionals.",
-    images: ["/Media/events/digital-health-ijcr-august/1.jpeg"],
-    tags: ["Digital Health", "AI", "Medicine", "Healthcare", "Workshop", "International"],
+    organizations: [
+      "IJCR",
+      "Beirut AI"
+    ],
+    summary: "Delivered an Introduction to AI session for the Digital Health Chapter x Beirut AI, introducing AI concepts to healthcare professionals.",
+    description: "Delivered an Introduction to AI session for IJCR's Digital Health Chapter in collaboration with Beirut AI. Introduced AI concepts and their applications in healthcare to an international audience of medical professionals.",
+    images: [
+      "/Media/events/digital-health-ijcr-august/1.jpeg"
+    ],
+    tags: [
+      "Digital Health",
+      "AI",
+      "Medicine",
+      "Healthcare",
+      "Workshop",
+      "International"
+    ],
     tier: "standard",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "yolo-workshop-beirut-ai",
@@ -960,37 +1323,54 @@ export const events: Event[] = [
     location: "Beirut, Lebanon",
     category: "workshop",
     role: "Workshop Host",
-    organizations: ["Beirut AI"],
-    summary:
-      "Led a 2-hour hands-on workshop on Object Detection with YOLO for Beirut AI, training YOLOv7 on a custom dataset.",
-    description:
-      "Led a 2-hour hands-on and interactive workshop about Object Detection with YOLO. Started by defining object detection, discussed why YOLO algorithms are great, covered YOLO history and learning algorithm, then wrapped up with hands-on training of YOLOv7 on a custom dataset.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:6967789965795598337/",
-    images: [
-      "/Media/events/microsoft-azure-certifications-ai900-az900-via-zaka-ai-ready/1.webp",
+    organizations: [
+      "Beirut AI"
     ],
-    tags: ["YOLO", "YOLOv7", "Object Detection", "Computer Vision", "Workshop"],
+    summary: "Led a 2-hour hands-on workshop on Object Detection with YOLO for Beirut AI, training YOLOv7 on a custom dataset.",
+    description: "Led a 2-hour hands-on and interactive workshop about Object Detection with YOLO. Started by defining object detection, discussed why YOLO algorithms are great, covered YOLO history and learning algorithm, then wrapped up with hands-on training of YOLOv7 on a custom dataset.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:6967789965795598337/",
+    images: [
+      "/Media/events/microsoft-azure-certifications-ai900-az900-via-zaka-ai-ready/1.webp"
+    ],
+    tags: [
+      "YOLO",
+      "YOLOv7",
+      "Object Detection",
+      "Computer Vision",
+      "Workshop"
+    ],
     tier: "featured",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "zaka-ml-engineer",
-    title: "ZAKA Certified Machine Learning Engineer Program",
-    date: "2022-08-01",
+    title: "ZAKA Machine Learning Engineer Programme",
+    date: "2022-11-01",
     location: "Beirut, Lebanon",
     category: "certification",
-    role: "Graduate",
-    organizations: ["ZAKA"],
-    summary:
-      "Completed the ZAKA 16-week Machine Learning Engineer certification program.",
-    description:
-      "Completed ZAKA's intensive 16-week AI programme covering machine learning fundamentals, deep learning, model deployment, and real-world AI applications with hands-on training.",
+    role: "Programme graduate",
+    organizations: [
+      "ZAKA"
+    ],
+    summary: "Completed ZAKA's 16-week Machine Learning Engineer programme during August to November 2022.",
+    description: "Completed the August to November 2022 programme covering machine learning fundamentals, deep learning, deployment and practical projects. This training programme is recorded separately from university degrees and professional certification exams.",
     images: [
       "/Media/events/zaka-certified-machine-learning-engineer-program/1.webp",
-      "/Media/events/zaka-certified-machine-learning-engineer-program/2.webp",
+      "/Media/events/zaka-certified-machine-learning-engineer-program/2.webp"
     ],
-    tags: ["ZAKA", "Machine Learning", "Certification", "AI"],
+    tags: [
+      "ZAKA",
+      "Machine Learning",
+      "Certification",
+      "AI"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "completion",
+    updatedAt: "2026-10-19",
+    duration: "August to November 2022"
   },
   {
     slug: "intro-to-ai-aust-ieee",
@@ -999,14 +1379,26 @@ export const events: Event[] = [
     location: "Online",
     category: "workshop",
     role: "Workshop Host",
-    organizations: ["AUST IEEE Student Branch", "Beirut AI"],
-    summary:
-      "Hosted a hands-on Introduction to AI workshop for IEEE AUST Student Branch in collaboration with Beirut AI, with certification provided.",
-    description:
-      "Hosted an Introduction to Artificial Intelligence online workshop organized by the IEEE AUST Student Branch in collaboration with Beirut AI. Included a hands-on application session and certification of attendance for participants.",
-    images: ["/Media/events/intro-to-ai-aust-ieee/1.jpeg"],
-    tags: ["AI", "Workshop", "IEEE", "AUST", "Introduction"],
+    organizations: [
+      "AUST IEEE Student Branch",
+      "Beirut AI"
+    ],
+    summary: "Hosted a hands-on Introduction to AI workshop for IEEE AUST Student Branch in collaboration with Beirut AI, with certification provided.",
+    description: "Hosted an Introduction to Artificial Intelligence online workshop organized by the IEEE AUST Student Branch in collaboration with Beirut AI. Included a hands-on application session and certification of attendance for participants.",
+    images: [
+      "/Media/events/intro-to-ai-aust-ieee/1.jpeg"
+    ],
+    tags: [
+      "AI",
+      "Workshop",
+      "IEEE",
+      "AUST",
+      "Introduction"
+    ],
     tier: "standard",
+    datePrecision: "day",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "mobile-arts-ml",
@@ -1015,43 +1407,58 @@ export const events: Event[] = [
     location: "Cairo, Egypt",
     category: "community",
     role: "Team Member",
-    organizations: ["Mobile Arts"],
-    summary:
-      "Celebrated Mobile Arts' achievements with a team trip to Egypt, recognizing the company's milestones and growth.",
-    description:
-      "Joined the Mobile Arts team on a trip to Egypt to celebrate the company's achievements and milestones. A well-deserved getaway to recognize the hard work and success of the team.",
+    organizations: [
+      "Mobile Arts"
+    ],
+    summary: "Celebrated Mobile Arts' achievements with a team trip to Egypt, recognizing the company's milestones and growth.",
+    description: "Joined the Mobile Arts team on a trip to Egypt to celebrate the company's achievements and milestones. A well-deserved getaway to recognize the hard work and success of the team.",
     relatedExperienceId: "mobile-arts",
     images: [
       "/Media/events/mobile-arts-egypt-trip/3.webp",
       "/Media/events/mobile-arts-egypt-trip/1.webp",
-      "/Media/events/mobile-arts-egypt-trip/2.webp",
+      "/Media/events/mobile-arts-egypt-trip/2.webp"
     ],
-    tags: ["Mobile Arts", "Team", "Egypt", "Celebration"],
+    tags: [
+      "Mobile Arts",
+      "Team",
+      "Egypt",
+      "Celebration"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
-
-  // ─── 2021 ───────────────────────────────────────────────────────────────────
-
   {
     slug: "google-stanford-certs",
-    title: "Google Data Analytics + Stanford ML Course",
+    title: "Google Data Analytics and Stanford ML: Learning Milestone",
     date: "2021-10-01",
     location: "Remote",
     category: "certification",
-    role: "Earned",
-    organizations: ["Google", "Stanford University", "Coursera"],
-    summary:
-      "Completed both the Google Data Analytics Professional Certificate and Stanford's Machine Learning course by Andrew Ng.",
-    description:
-      "Completed the Google Data Analytics Professional Certificate covering data analysis phases, R programming, and data-driven decisions. Also completed Stanford's Machine Learning course by Andrew Ng, covering regression, neural networks, SVMs, PCA, K-Means, anomaly detection, and recommender systems.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:6851575708825747457/",
+    role: "Learning announcement",
+    organizations: [
+      "Google",
+      "Stanford University",
+      "Coursera"
+    ],
+    summary: "Shared a learning milestone in October 2021, bringing together Google Data Analytics and Stanford's Machine Learning course.",
+    description: "This archive milestone brings together distinct learning records: the Google Data Analytics Specialization, issued in September 2021, and Stanford's Machine Learning course, issued in December 2020. Their completion months remain separate in the learning inventory.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:6851575708825747457/",
     images: [
       "/Media/events/google-data-analytics-stanford-ml-course/1.webp",
-      "/Media/events/google-data-analytics-stanford-ml-course/2.webp",
+      "/Media/events/google-data-analytics-stanford-ml-course/2.webp"
     ],
-    tags: ["Google", "Stanford", "Machine Learning", "Andrew Ng", "Coursera"],
+    tags: [
+      "Google",
+      "Stanford",
+      "Machine Learning",
+      "Andrew Ng",
+      "Coursera"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "announcement",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "azure-certifications-zaka",
@@ -1059,23 +1466,32 @@ export const events: Event[] = [
     date: "2021-07-01",
     location: "Remote",
     category: "certification",
-    role: "Earned",
-    organizations: ["Microsoft", "ZAKA"],
-    summary:
-      "Completed the ZAKA AI Ready program and earned Microsoft Azure AI Fundamentals (AI-900) and Azure Fundamentals (AZ-900) certifications.",
-    description:
-      "The AI Ready program provided great learning about data and cloud concepts, Azure features and services, and fundamental principles of AI and ML on the Azure cloud. This knowledge helped earn both the Azure AI Fundamentals and Azure Fundamentals certifications.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:6817855104096464896/",
+    role: "Credential announcement",
+    organizations: [
+      "Microsoft",
+      "ZAKA"
+    ],
+    summary: "Shared the Azure AI Fundamentals and Azure Fundamentals certifications after ZAKA's AI Ready training.",
+    description: "The AI Ready programme covered data, cloud services and AI fundamentals on Azure. The individual credential records list Azure AI Fundamentals (AI-900) in June 2021 and Azure Fundamentals (AZ-900) in July 2021. This July milestone groups the learning journey rather than assigning one award date to both exams.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:6817855104096464896/",
     credlyUrls: [
       "https://www.credly.com/badges/c5d08c12-88f3-407a-95bd-13878ee18f32/public_url",
-      "https://www.credly.com/badges/ff9e3dcf-ec5d-4c65-af41-f73e4b8405f3/public_url",
+      "https://www.credly.com/badges/ff9e3dcf-ec5d-4c65-af41-f73e4b8405f3/public_url"
     ],
     images: [
-      "/Media/events/microsoft-azure-certifications-ai900-az900-via-zaka-ai-ready/badges.webp",
+      "/Media/events/microsoft-azure-certifications-ai900-az900-via-zaka-ai-ready/badges.webp"
     ],
-    tags: ["Microsoft", "Azure", "AI-900", "AZ-900", "Certification"],
+    tags: [
+      "Microsoft",
+      "Azure",
+      "AI-900",
+      "AZ-900",
+      "Certification"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "announcement",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "beirut-ai-bootcamp-hackathon",
@@ -1084,21 +1500,30 @@ export const events: Event[] = [
     location: "Beirut, Lebanon",
     category: "hackathon",
     role: "Finalist",
-    organizations: ["Beirut AI", "ZAKA"],
-    summary:
-      "Attended a 5-day Beirut AI bootcamp covering deep learning, NLP, CV, and time series. Reached finals of the Agri-hackathon with a crop recommendation system.",
-    description:
-      "Within a period of 5 days, the bootcamp covered deep learning, NLP, computer vision, and time series analysis. Reached the finals of the Agri-hackathon with a project recommending the best crop for a particular land based on soil chemicals and climate factors.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:6763485354323406849/",
+    organizations: [
+      "Beirut AI",
+      "ZAKA"
+    ],
+    summary: "Attended a 5-day Beirut AI bootcamp covering deep learning, NLP, CV, and time series. Reached finals of the Agri-hackathon with a crop recommendation system.",
+    description: "Within a period of 5 days, the bootcamp covered deep learning, NLP, computer vision, and time series analysis. Reached the finals of the Agri-hackathon with a project recommending the best crop for a particular land based on soil chemicals and climate factors.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:6763485354323406849/",
     images: [
       "/Media/events/beirut-ai-bootcamp-agri-hackathon/1.webp",
       "/Media/events/beirut-ai-bootcamp-agri-hackathon/2.webp",
       "/Media/events/beirut-ai-bootcamp-agri-hackathon/3.webp",
-      "/Media/events/beirut-ai-bootcamp-agri-hackathon/4.webp",
+      "/Media/events/beirut-ai-bootcamp-agri-hackathon/4.webp"
     ],
-    tags: ["Bootcamp", "Hackathon", "Agriculture", "Deep Learning", "NLP"],
+    tags: [
+      "Bootcamp",
+      "Hackathon",
+      "Agriculture",
+      "Deep Learning",
+      "NLP"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "decentra-tech-edge-ai",
@@ -1106,18 +1531,28 @@ export const events: Event[] = [
     date: "2021-05-01",
     location: "Beirut, Lebanon",
     category: "project",
-    organizations: ["Decentra Tech"],
-    summary:
-      "Trained and deployed computer vision models for real-time automotive safety on NVIDIA Jetson edge devices.",
-    description:
-      "Developed real-time computer vision systems for automotive safety. Trained models using NVIDIA TAO Toolkit, built inference pipelines with DeepStream SDK on Jetson Nano and Jetson Orin. Achieved ~60 FPS for collision warning, lane detection, and traffic sign detection.",
+    organizations: [
+      "Decentra Tech"
+    ],
+    summary: "Trained computer vision models and built DeepStream inference pipelines for automotive safety on NVIDIA Jetson devices.",
+    description: "Worked on model training with NVIDIA TAO Toolkit and inference pipelines with DeepStream on Jetson Nano and Jetson Orin during the May 2021 to May 2022 role. The reported approximately 60 FPS benchmark applies to an optimised model on Jetson Nano. It does not describe the complete multi-model safety pipeline or an Orin benchmark.",
     relatedExperienceId: "decentra-tech",
     images: [
       "/Media/events/edge-ai-deployment-at-decentra-tech/1.webp",
-      "/Media/events/edge-ai-deployment-at-decentra-tech/2.webp",
+      "/Media/events/edge-ai-deployment-at-decentra-tech/2.webp"
     ],
-    tags: ["Computer Vision", "NVIDIA Jetson", "Edge AI", "DeepStream", "ADAS"],
+    tags: [
+      "Computer Vision",
+      "NVIDIA Jetson",
+      "Edge AI",
+      "DeepStream",
+      "ADAS"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19",
+    role: "Computer Vision Developer"
   },
   {
     slug: "azure-dp900",
@@ -1126,21 +1561,30 @@ export const events: Event[] = [
     location: "Remote",
     category: "certification",
     role: "Earned",
-    organizations: ["Microsoft", "ZAKA"],
-    summary:
-      "Earned Microsoft Azure Data Fundamentals (DP-900) certification.",
-    description:
-      "Earned the DP-900 certification through the ZAKA program, covering Azure data services and fundamentals.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:6798677473883127808/",
+    organizations: [
+      "Microsoft",
+      "ZAKA"
+    ],
+    summary: "Earned Microsoft Azure Data Fundamentals (DP-900) certification.",
+    description: "Earned the DP-900 certification through the ZAKA program, covering Azure data services and fundamentals.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:6798677473883127808/",
     credlyUrls: [
-      "https://www.credly.com/badges/e164a28c-3251-4556-a5a1-5919dbe73f0c/public_url",
+      "https://www.credly.com/badges/e164a28c-3251-4556-a5a1-5919dbe73f0c/public_url"
     ],
     images: [
-      "/Media/events/microsoft-azure-dp900-certification/badge.webp",
+      "/Media/events/microsoft-azure-dp900-certification/badge.webp"
     ],
-    tags: ["Microsoft", "Azure", "DP-900", "Data", "Certification"],
+    tags: [
+      "Microsoft",
+      "Azure",
+      "DP-900",
+      "Data",
+      "Certification"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "announcement",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "ccnav7-networking",
@@ -1148,79 +1592,117 @@ export const events: Event[] = [
     date: "2021-03-01",
     location: "Remote",
     category: "certification",
-    role: "Earned",
-    organizations: ["Cisco"],
-    summary: "Completed the Cisco CCNAv7: Introduction to Networks course.",
-    description:
-      "Completed the Cisco CCNAv7 Introduction to Networks certification, covering networking fundamentals, IP addressing, Ethernet, and network architecture concepts.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:6775318696387719168/",
-    images: [
-      "/Media/events/ccnav7-introduction-to-networks/1.webp",
+    role: "Course announcement",
+    organizations: [
+      "Cisco"
     ],
-    tags: ["Cisco", "CCNA", "Networking", "Certification"],
+    summary: "Shared completion of Cisco's CCNAv7: Introduction to Networks course; the completion record lists February 2021.",
+    description: "The February 2021 completion record covers the Introduction to Networks course, including IP addressing, Ethernet and network architecture. This March archive milestone is separate from that issue month and does not represent the full CCNA certification.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:6775318696387719168/",
+    images: [
+      "/Media/events/ccnav7-introduction-to-networks/1.webp"
+    ],
+    tags: [
+      "Cisco",
+      "CCNA",
+      "Networking",
+      "Certification"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "announcement",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "vee-smart-nlp",
-    title: "NLP Sentiment Analysis at Vee Smart",
+    title: "NLP Internship at Vee Smart",
     date: "2021-02-01",
     location: "Beirut, Lebanon",
     category: "project",
-    organizations: ["Vee Smart"],
-    summary:
-      "Built sentiment analysis and NER pipelines on restaurant review data using LSTM and BERT models.",
-    description:
-      "Developed NLP models at Vee Smart for sentiment analysis and named entity recognition on Zomato restaurant reviews. Built pipelines using LSTM and BERT models, implementing aspect-based sentiment extraction.",
-    websiteUrl:
-      "https://lelabodigital.com/case-studies/veesmart-automated-customer-experience-cx-analysis-powered-by-ai/",
+    organizations: [
+      "Vee Smart"
+    ],
+    summary: "Built sentiment analysis and named entity recognition pipelines on restaurant reviews during a February to April 2021 internship.",
+    description: "During the Vee Smart internship, developed NLP pipelines using LSTM and BERT for sentiment analysis, named entity recognition and aspect-based extraction from restaurant reviews. The code remains available on GitHub.",
+    websiteUrl: "https://lelabodigital.com/case-studies/veesmart-automated-customer-experience-cx-analysis-powered-by-ai/",
     githubUrl: "https://github.com/HadiAbouDaya/VeeSmart",
-    images: ["/Media/events/vee-smart-nlp/1.webp"],
+    images: [
+      "/Media/events/vee-smart-nlp/1.webp"
+    ],
     relatedExperienceId: "vee-smart",
-    tags: ["NLP", "BERT", "LSTM", "Sentiment Analysis", "NER"],
+    tags: [
+      "NLP",
+      "BERT",
+      "LSTM",
+      "Sentiment Analysis",
+      "NER"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19",
+    role: "Machine Learning Engineer Intern"
   },
   {
     slug: "kefraya-ai-vine-detection",
-    title: "First ML Project: Vine Detection at Kefraya-AI",
+    title: "USJ / Kefraya-AI University Project",
     date: "2021-01-01",
     location: "Lebanon",
     category: "project",
-    organizations: ["Saint Joseph University", "Chateau Kefraya"],
-    summary:
-      "Trained a YOLOv3 model for vine detection from satellite and drone imagery for Chateau Kefraya vineyards.",
-    description:
-      "First hands-on machine learning project at Kefraya-AI (USJ), training a YOLOv3 object detection model to identify vines from satellite and drone imagery for Chateau Kefraya vineyards. Marked the transition from academic ML to applied computer vision.",
+    organizations: [
+      "Saint Joseph University",
+      "Chateau Kefraya"
+    ],
+    summary: "Trained a YOLOv3 model to detect vines in satellite imagery during a January to February 2021 university project.",
+    description: "Worked on a USJ university project involving Chateau Kefraya vineyards, using YOLOv3 to detect vines in satellite imagery. This was an academic project rather than a salaried role. The code remains available on GitHub.",
     githubUrl: "https://github.com/HadiAbouDaya/Kefraya-AI",
     images: [
       "/Media/events/kefraya-ai-vine-detection/1.webp",
-      "/Media/events/kefraya-ai-vine-detection/2.webp",
+      "/Media/events/kefraya-ai-vine-detection/2.webp"
     ],
     relatedExperienceId: "kefraya-ai",
-    tags: ["YOLOv3", "Computer Vision", "Agriculture", "Satellite Imagery"],
+    tags: [
+      "YOLOv3",
+      "Computer Vision",
+      "Agriculture",
+      "Satellite Imagery"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19",
+    role: "University project contributor"
   },
-
-  // ─── 2020 ───────────────────────────────────────────────────────────────────
-
   {
     slug: "deeplearning-ai-specialization",
     title: "DeepLearning.AI Deep Learning Specialization",
     date: "2020-12-01",
     location: "Remote",
     category: "certification",
-    role: "Earned",
-    organizations: ["DeepLearning.AI", "Coursera"],
-    summary:
-      "Completed the DeepLearning.AI specialization covering neural networks, CNNs, and sequence models.",
-    description:
-      "Completed the DeepLearning.AI Deep Learning specialization, learning about neural networks, deep neural network optimization, ML project structure, CNNs, and sequence models. Taught by Andrew Ng, it provided a superpower for building AI applications.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:6729094193362300928/",
-    credlyUrls: ["https://coursera.org/verify/specialization/56RYX6BMDXX5"],
-    images: ["/Media/events/deeplearning-ai-deep-learning-specialization/1.webp"],
-    tags: ["DeepLearning.AI", "Deep Learning", "CNNs", "Neural Networks"],
+    role: "Programme announcement",
+    organizations: [
+      "DeepLearning.AI",
+      "Coursera"
+    ],
+    summary: "Shared the Deep Learning Specialization, whose completion record lists November 2020.",
+    description: "The programme covered neural networks, optimisation, ML project structure, convolutional networks and sequence models. Its completion record lists November 2020; the December archive entry is a later learning milestone.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:6729094193362300928/",
+    credlyUrls: [
+      "https://coursera.org/verify/specialization/56RYX6BMDXX5"
+    ],
+    images: [
+      "/Media/events/deeplearning-ai-deep-learning-specialization/1.webp"
+    ],
+    tags: [
+      "DeepLearning.AI",
+      "Deep Learning",
+      "CNNs",
+      "Neural Networks"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "announcement",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "amideast-business",
@@ -1229,33 +1711,53 @@ export const events: Event[] = [
     location: "Lebanon",
     category: "education",
     role: "Participant",
-    organizations: ["Amideast"],
-    summary:
-      "Completed the 3-month Amideast 'Start Your Own Business' workshop, mentored by Andre Abi Awad.",
-    description:
-      "Three months of amazing experience attending the Amideast Start Your Own Business Workshop. Got mentored by Andre Abi Awad and gained an entrepreneurial mindset through shared information, experiences, and networking.",
-    linkedinUrl:
-      "https://www.linkedin.com/feed/update/urn:li:activity:6709903035121864704/",
-    images: ["/Media/events/amideast-start-your-own-business-workshop/1.webp"],
-    tags: ["Entrepreneurship", "Business", "Amideast", "Workshop"],
+    organizations: [
+      "Amideast"
+    ],
+    summary: "Completed the 3-month Amideast 'Start Your Own Business' workshop, mentored by Andre Abi Awad.",
+    description: "Three months of amazing experience attending the Amideast Start Your Own Business Workshop. Got mentored by Andre Abi Awad and gained an entrepreneurial mindset through shared information, experiences, and networking.",
+    linkedinUrl: "https://www.linkedin.com/feed/update/urn:li:activity:6709903035121864704/",
+    images: [
+      "/Media/events/amideast-start-your-own-business-workshop/1.webp"
+    ],
+    tags: [
+      "Entrepreneurship",
+      "Business",
+      "Amideast",
+      "Workshop"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "eddys-group-backend",
-    title: "Backend Development at Eddys Group",
+    title: "Laravel Development Internship at Eddy's Group",
     date: "2020-09-01",
     location: "Beirut, Lebanon",
     category: "career",
-    role: "Laravel Developer",
-    organizations: ["Eddys Group"],
-    summary:
-      "First professional software development role, building backend services and APIs using the Laravel PHP framework.",
-    description:
-      "Joined Eddys Group as a Laravel Developer, building backend services and APIs for business applications. This role provided foundational experience in professional software development, REST API design, and database management with MySQL.",
+    role: "Laravel Developer Intern",
+    organizations: [
+      "Eddys Group"
+    ],
+    summary: "Built backend services and APIs using Laravel during a September to December 2020 internship.",
+    description: "Worked on Laravel backend services, REST APIs and MySQL databases during the internship. Earlier freelance WordPress work is recorded separately.",
     relatedExperienceId: "eddys-group",
-    images: ["/Media/events/backend-development-at-eddys-group/1.webp"],
-    tags: ["Laravel", "PHP", "MySQL", "Backend", "API"],
+    images: [
+      "/Media/events/backend-development-at-eddys-group/1.webp"
+    ],
+    tags: [
+      "Laravel",
+      "PHP",
+      "MySQL",
+      "Backend",
+      "API"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "freelance-wordpress",
@@ -1264,37 +1766,51 @@ export const events: Event[] = [
     location: "Lebanon",
     category: "career",
     role: "Freelancer",
-    summary:
-      "Launched freelance career building and customizing WordPress websites for local businesses.",
-    description:
-      "Started freelancing by building and customizing WordPress websites for local businesses and clients in Lebanon. Handled design, development, and deployment end-to-end, gaining early entrepreneurial experience.",
+    summary: "Launched freelance career building and customizing WordPress websites for local businesses.",
+    description: "Started freelancing by building and customizing WordPress websites for local businesses and clients in Lebanon. Handled design, development, and deployment end-to-end, gaining early entrepreneurial experience.",
     relatedExperienceId: "freelance-wordpress",
-    images: ["/Media/events/started-freelance-wordpress-development/1.webp"],
-    tags: ["WordPress", "Freelance", "Web Development", "PHP"],
+    images: [
+      "/Media/events/started-freelance-wordpress-development/1.webp"
+    ],
+    tags: [
+      "WordPress",
+      "Freelance",
+      "Web Development",
+      "PHP"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19"
   },
-
-  // ─── 2019 ───────────────────────────────────────────────────────────────────
-
   {
     slug: "vp-ceuzb-usj",
-    title: "VP Student Representative at CEUZB (USJ)",
+    title: "Student Representation at CEUZB / USJ",
     date: "2019-02-01",
     location: "Beirut, Lebanon",
     category: "community",
     role: "Vice-President",
-    organizations: ["Saint Joseph University", "CEUZB"],
-    summary:
-      "Elected as Vice-President of the Student Representative Committee (Amicale) at CEUZB, championing student interests and organizing events.",
-    description:
-      "Championed student interests as elected VP, expertly steering communications between students and administration, leading event planning, and fostering community spirit. Organized a fundraising and aid campaign to support those affected by Lebanon's economic crisis and the Lebanese Revolution.",
+    organizations: [
+      "Saint Joseph University",
+      "CEUZB"
+    ],
+    summary: "Served as Vice-President of the student representative committee at CEUZB / USJ, supporting student communication and organising activities.",
+    description: "Represented student interests, helped coordinate communication with university administration and organised student activities. This archive record groups university service; the precise appointment chronology is not asserted.",
     images: [
       "/Media/events/vp-student-representative-at-ceuzb-usj/1.webp",
       "/Media/events/vp-student-representative-at-ceuzb-usj/2.webp",
-      "/Media/events/vp-student-representative-at-ceuzb-usj/3.webp",
+      "/Media/events/vp-student-representative-at-ceuzb-usj/3.webp"
     ],
-    tags: ["Student Leadership", "USJ", "Community", "Lebanon"],
+    tags: [
+      "Student Leadership",
+      "USJ",
+      "Community",
+      "Lebanon"
+    ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "lebanese-revolution-aid",
@@ -1303,15 +1819,28 @@ export const events: Event[] = [
     location: "Beirut, Lebanon",
     category: "community",
     role: "Organizer",
-    organizations: ["CEUZB", "Université Saint-Joseph"],
-    summary:
-      "Organized a student-led fundraising and aid campaign at USJ during the Lebanese Revolution to support those affected by the economic crisis.",
-    description:
-      "During the Lebanese Revolution of 2019, organized a fundraising and aid campaign as VP of the student representative committee (CEUZB) at Université Saint-Joseph. Led student volunteers in collecting and distributing essential supplies, channeling student energy into meaningful community support during Lebanon's economic crisis and civil unrest.",
+    organizations: [
+      "CEUZB",
+      "Université Saint-Joseph"
+    ],
+    summary: "Organized a student-led fundraising and aid campaign at USJ during the Lebanese Revolution to support those affected by the economic crisis.",
+    description: "During the Lebanese Revolution of 2019, organized a fundraising and aid campaign as VP of the student representative committee (CEUZB) at Université Saint-Joseph. Led student volunteers in collecting and distributing essential supplies, channeling student energy into meaningful community support during Lebanon's economic crisis and civil unrest.",
     linkedinUrl: "https://www.usj.edu.lb/news.php?id=8302",
-    images: ["/Media/events/lebanese-revolution-aid-campaign/1.webp"],
-    tags: ["Lebanon", "Revolution", "Aid", "Community", "Leadership", "USJ"],
+    images: [
+      "/Media/events/lebanese-revolution-aid-campaign/1.webp"
+    ],
+    tags: [
+      "Lebanon",
+      "Revolution",
+      "Aid",
+      "Community",
+      "Leadership",
+      "USJ"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "fomaco-technician",
@@ -1319,22 +1848,26 @@ export const events: Event[] = [
     date: "2019-06-01",
     location: "Lebanon",
     category: "career",
-    role: "Assistant Technician",
-    organizations: ["Fomaco sarl"],
-    summary:
-      "Summer internship as an assistant technician, troubleshooting and repairing electrical systems on-site.",
-    description:
-      "Assisted electricians on site; responded to issues, troubleshot and diagnosed root causes, planned solutions, executed repairs, and verified that machines worked as expected.",
+    role: "Assistant Technician Intern",
+    organizations: [
+      "Fomaco sarl"
+    ],
+    summary: "Summer internship as an assistant technician, troubleshooting and repairing electrical systems on-site.",
+    description: "Assisted electricians on site; responded to issues, troubleshot and diagnosed root causes, planned solutions, executed repairs, and verified that machines worked as expected.",
     images: [
       "/Media/events/fomaco-sarl-assistant-technician-summer/1.webp",
-      "/Media/events/fomaco-sarl-assistant-technician-summer/2.webp",
+      "/Media/events/fomaco-sarl-assistant-technician-summer/2.webp"
     ],
-    tags: ["Electrical", "Troubleshooting", "Internship"],
+    tags: [
+      "Electrical",
+      "Troubleshooting",
+      "Internship"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19"
   },
-
-  // ─── 2018 ───────────────────────────────────────────────────────────────────
-
   {
     slug: "usj-esib-engineering",
     title: "Engineer's Degree at USJ-ESIB",
@@ -1342,19 +1875,27 @@ export const events: Event[] = [
     location: "Beirut, Lebanon",
     category: "education",
     role: "Student",
-    organizations: ["Saint Joseph University", "ESIB"],
-    summary:
-      "Began a five-year Software Engineering degree at USJ-ESIB with progressive specialization in ML, computer vision, and AI.",
-    description:
-      "Enrolled in the five-year Software Engineering program at USJ-ESIB in Beirut. The program featured progressive specialization towards machine learning, computer vision, and artificial intelligence. Served as VP of the Student Representative Committee and completed projects including gene mutation prediction, solar panel detection, licence plate recognition, and pose estimation.",
-    images: ["/Media/events/usj-esib-engineering/1.webp"],
+    organizations: [
+      "Saint Joseph University",
+      "ESIB"
+    ],
+    summary: "Began a five-year Software Engineering degree at USJ-ESIB with progressive specialization in ML, computer vision, and AI.",
+    description: "Enrolled in the five-year Software Engineering program at USJ-ESIB in Beirut. The program featured progressive specialization towards machine learning, computer vision, and artificial intelligence. Served as VP of the Student Representative Committee and completed projects including gene mutation prediction, solar panel detection, licence plate recognition, and pose estimation.",
+    images: [
+      "/Media/events/usj-esib-engineering/1.webp"
+    ],
     relatedExperienceId: "usj-esib",
-    tags: ["Software Engineering", "USJ", "ESIB", "Computer Science"],
+    tags: [
+      "Software Engineering",
+      "USJ",
+      "ESIB",
+      "Computer Science"
+    ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19"
   },
-
-  // ─── Ongoing / Multi-year ───────────────────────────────────────────────────
-
   {
     slug: "beirut-ai-technical-ambassador",
     title: "Beirut AI Technical Ambassador",
@@ -1362,16 +1903,27 @@ export const events: Event[] = [
     location: "Beirut, Lebanon",
     category: "community",
     role: "Technical Ambassador",
-    organizations: ["Beirut AI", "AWS Community"],
-    summary:
-      "Conducted workshops on AWS SageMaker, BERT, YOLO, and MLOps for around 180 attendees in collaboration with AWS Community and multiple universities.",
-    description:
-      "Advanced the technical acumen within Beirut AI, leading in-depth workshops on Hugging Face BERT transformers and YOLO object detection. Directed collaborative events with AWS and universities (AUB, LAU, USJ, USAL). Championed AI literacy through formats ranging from introductory principles to model deployment strategies. Mentored a growing AI community focused on technical mastery.",
-    images: [
-      "/Media/events/beirut-ai-technical-ambassador/1.webp",
+    organizations: [
+      "Beirut AI",
+      "AWS Community"
     ],
-    tags: ["Beirut AI", "Ambassador", "Workshops", "AWS", "BERT", "YOLO"],
+    summary: "Contributed practical workshops on BERT, YOLO, AWS SageMaker and model deployment through Beirut AI and partner communities.",
+    description: "Led practical workshops and supported collaborations with AWS community members and universities. Contributions included introductory AI sessions, transformer demonstrations and object detection exercises. Event-specific entries describe their own audiences; they are not combined into a unique participant total.",
+    images: [
+      "/Media/events/beirut-ai-technical-ambassador/1.webp"
+    ],
+    tags: [
+      "Beirut AI",
+      "Ambassador",
+      "Workshops",
+      "AWS",
+      "BERT",
+      "YOLO"
+    ],
     tier: "featured",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "beirut-ai-student-ambassador",
@@ -1380,31 +1932,50 @@ export const events: Event[] = [
     location: "Beirut, Lebanon",
     category: "community",
     role: "Student Ambassador",
-    organizations: ["Beirut AI"],
-    summary:
-      "Pioneered Beirut AI's strategic initiatives, introducing university students to the community and organizing hackathons.",
-    description:
-      "Pioneered Beirut AI's strategic initiatives, cementing its status as a pivotal institution for AI knowledge in the MENA region. Introduced university students to the community, increased engagement in workshops and events, and promoted collaboration through hackathons across Lebanese universities.",
-    images: [
-      "/Media/events/beirut-ai-technical-ambassador/2.webp",
+    organizations: [
+      "Beirut AI"
     ],
-    tags: ["Beirut AI", "Student Ambassador", "Community", "Hackathons"],
+    summary: "Introduced university students to Beirut AI and helped organise community workshops and hackathons.",
+    description: "Supported university outreach, introduced students to community learning opportunities and helped organise workshops and hackathons. The contribution is retained without asserting a precise sequence of ambassador appointments.",
+    images: [
+      "/Media/events/beirut-ai-technical-ambassador/2.webp"
+    ],
+    tags: [
+      "Beirut AI",
+      "Student Ambassador",
+      "Community",
+      "Hackathons"
+    ],
     tier: "standard",
+    datePrecision: "month",
+    dateMeaning: "occurrence",
+    updatedAt: "2026-10-19"
   },
   {
     slug: "medical-ai-research",
-    title: "Medical AI Research",
+    title: "Dental AI Research Collaboration",
     date: "2023-06-01",
     location: "Lebanon / Remote",
     category: "project",
-    role: "Researcher",
-    organizations: ["Faculté de médecine dentaire (FMD)"],
-    summary:
-      "Collaborated with dentistry students at USJ FMD to develop an object detection model for identifying dental cavities and their types.",
-    description:
-      "Worked with dentistry students at Université Saint-Joseph's Faculté de médecine dentaire (FMD) to develop an AI-powered object detection system. The goal was to identify dental cavities and classify their types using machine learning, supporting diagnostic processes in dental care.",
-    images: ["/Media/events/medical-ai-research/1.webp"],
-    tags: ["Medical AI", "Dental Imaging", "Object Detection", "Research", "USJ"],
+    role: "Research collaborator",
+    organizations: [
+      "Faculté de médecine dentaire (FMD)"
+    ],
+    summary: "Collaborated with dentistry students at USJ FMD on an object detection prototype for dental cavities.",
+    description: "Worked with dentistry students at Université Saint-Joseph's Faculté de médecine dentaire on a prototype to identify cavities and classify their types. This was a research collaboration; no peer-reviewed publication or validated clinical deployment is claimed.",
+    images: [
+      "/Media/events/medical-ai-research/1.webp"
+    ],
+    tags: [
+      "Medical AI",
+      "Dental Imaging",
+      "Object Detection",
+      "Research",
+      "USJ"
+    ],
     tier: "standard",
-  },
+    datePrecision: "month",
+    dateMeaning: "milestone",
+    updatedAt: "2026-10-19"
+  }
 ];

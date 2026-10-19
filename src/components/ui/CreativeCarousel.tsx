@@ -2,278 +2,134 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { m, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
-import { SPRING, DUR } from "@/lib/motion";
-
-interface CreativeCarouselProps {
-  images: string[];
-  alt: string;
-  onImageClick?: (index: number) => void;
-}
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
+interface CreativeCarouselProps { images: string[]; alt: string; onImageClick?: (index: number) => void }
+interface ScrollState { active: number; left: boolean; right: boolean }
 
 export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [hoveredDotIndex, setHoveredDotIndex] = useState<number | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeIndexRef = useRef(0);
-  const isNavigating = useRef(false);
+  const slides = useRef<Array<HTMLDivElement | null>>([]);
+  const requested = useRef<number | null>(null);
+  const active = useRef(0);
+  const settleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [state, setState] = useState<ScrollState>({ active: 0, left: false, right: false });
+  const reduced = useReducedMotion();
+  const sourceKey = JSON.stringify(images);
 
-  const updateScrollState = useCallback(() => {
+  const measure = useCallback((settle = false) => {
     const el = scrollRef.current;
     if (!el) return;
-    setCanScrollLeft(el.scrollLeft > 10);
-    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 10);
-
-    // Don't override activeIndex during programmatic navigation (dot/arrow clicks)
-    if (isNavigating.current) return;
-
-    const cardWidth = window.innerWidth >= 640 ? 360 : 320;
-    const gap = 16;
-    const maxScroll = el.scrollWidth - el.clientWidth;
-
-    let index;
-    if (maxScroll > 0 && el.scrollLeft >= maxScroll - 2) {
-      // At the very end of scroll → last card
-      index = images.length - 1;
-    } else {
-      index = Math.round(el.scrollLeft / (cardWidth + gap));
-    }
-
-    index = Math.max(0, Math.min(index, images.length - 1));
-    activeIndexRef.current = index;
-    setActiveIndex(index);
+    const settlingIndex = settle ? requested.current : null;
+    if (settle) requested.current = null;
+    const max = Math.max(0, el.scrollWidth - el.clientWidth);
+    const rect = el.getBoundingClientRect();
+    const positions = slides.current.slice(0, images.length).map(slide => slide
+      ? Math.max(0, Math.min(max, slide.getBoundingClientRect().left - rect.left + el.scrollLeft - el.clientLeft)) : 0);
+    let nearest = 0;
+    let distance = Infinity;
+    positions.forEach((position, index) => {
+      const nextDistance = Math.abs(position - el.scrollLeft);
+      if (nextDistance < distance - 0.5 || (Math.abs(nextDistance - distance) <= 0.5 && index === active.current)) {
+        distance = nextDistance;
+        nearest = index;
+      }
+    });
+    if (settlingIndex !== null && Math.abs(positions[settlingIndex] - el.scrollLeft) <= 1) nearest = settlingIndex;
+    else if (max > 1 && el.scrollLeft >= max - 1 && requested.current === null) nearest = images.length - 1;
+    const nextActive = requested.current ?? nearest;
+    active.current = Math.max(0, Math.min(nextActive, images.length - 1));
+    const next = { active: active.current, left: el.scrollLeft > 1, right: el.scrollLeft < max - 1 };
+    setState(old => old.active === next.active && old.left === next.left && old.right === next.right ? old : next);
   }, [images.length]);
 
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-
-    updateScrollState();
-
-    el.addEventListener("scroll", updateScrollState);
-
-    const resizeObserver = new ResizeObserver(updateScrollState);
-    resizeObserver.observe(el);
-
-    return () => {
-      el.removeEventListener("scroll", updateScrollState);
-      resizeObserver.disconnect();
+    const clearTimer = () => { if (settleTimer.current !== null) clearTimeout(settleTimer.current); settleTimer.current = null; };
+    const settle = () => { clearTimer(); measure(true); };
+    const onScroll = () => {
+      measure();
+      clearTimer();
+      // scrollend is not available in every supported browser.
+      settleTimer.current = setTimeout(settle, 160);
     };
-  }, [updateScrollState]);
+    const interrupt = () => {
+      requested.current = null;
+      clearTimer();
+      // Cancel any in-flight smooth scroll before accepting direct manipulation.
+      el.scrollTo({ left: el.scrollLeft, behavior: "instant" });
+      measure(true);
+    };
+    const onResize = () => { interrupt(); };
+    measure(true);
+    el.addEventListener("scroll", onScroll, { passive: true });
+    el.addEventListener("scrollend", settle);
+    el.addEventListener("pointerdown", interrupt, { passive: true });
+    el.addEventListener("wheel", interrupt, { passive: true });
+    el.addEventListener("keydown", interrupt);
+    const observer = typeof ResizeObserver !== "undefined" ? new ResizeObserver(onResize) : null;
+    observer?.observe(el);
+    slides.current.forEach(slide => { if (slide) observer?.observe(slide); });
+    window.addEventListener("resize", onResize);
+    return () => {
+      clearTimer(); observer?.disconnect(); requested.current = null;
+      el.removeEventListener("scroll", onScroll); el.removeEventListener("scrollend", settle);
+      el.removeEventListener("pointerdown", interrupt); el.removeEventListener("wheel", interrupt);
+      el.removeEventListener("keydown", interrupt); window.removeEventListener("resize", onResize);
+    };
+  }, [measure, sourceKey]);
 
-  const navigateTo = useCallback((index: number) => {
+  useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    const cardWidth = window.innerWidth >= 640 ? 360 : 320;
-    const gap = 16;
-    isNavigating.current = true;
-    activeIndexRef.current = index;
-    setActiveIndex(index);
-    el.scrollTo({ left: index * (cardWidth + gap), behavior: "smooth" });
-  }, []);
+    requested.current = null;
+    active.current = 0;
+    el.scrollTo({ left: 0, behavior: "instant" });
+    measure(true);
+  }, [sourceKey, measure]);
 
-  const scroll = (direction: "left" | "right") => {
-    const newIndex = direction === "left"
-      ? Math.max(0, activeIndexRef.current - 1)
-      : Math.min(images.length - 1, activeIndexRef.current + 1);
-    navigateTo(newIndex);
+  const navigateTo = (index: number) => {
+    const el = scrollRef.current;
+    const slide = slides.current[index];
+    if (!el || !slide) return;
+    const max = Math.max(0, el.scrollWidth - el.clientWidth);
+    const left = Math.max(0, Math.min(max, slide.getBoundingClientRect().left - el.getBoundingClientRect().left + el.scrollLeft - el.clientLeft));
+    requested.current = index;
+    active.current = index;
+    setState(old => ({ ...old, active: index }));
+    el.scrollTo({ left, behavior: reduced ? "instant" : "smooth" });
+    if (settleTimer.current !== null) clearTimeout(settleTimer.current);
+    settleTimer.current = setTimeout(() => { settleTimer.current = null; measure(true); }, reduced ? 0 : 600);
   };
 
-  return (
-    <div className="relative my-8 group">
-      {/* Decorative gradient overlay on left */}
-      <div
-        className={`absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-surface to-transparent z-10 pointer-events-none transition-opacity duration-300 ${canScrollLeft ? "opacity-100" : "opacity-0"
-          }`}
-      />
-
-      {/* Decorative gradient overlay on right */}
-      <div
-        className={`absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-surface to-transparent z-10 pointer-events-none transition-opacity duration-300 ${canScrollRight ? "opacity-100" : "opacity-0"
-          }`}
-      />
-
-
-      {/* Main scrollable container */}
-      <div
-        ref={scrollRef}
-        onTouchStart={() => { isNavigating.current = false; }}
-        onMouseDown={() => { isNavigating.current = false; }}
-        className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 px-2 cursor-grab active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
-        style={{ scrollbarWidth: "none" }}
-      >
-        {images.map((img, i) => (
-          <m.div
-            key={i}
-            className="relative shrink-0 snap-start group/card"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...SPRING.smooth, delay: i * 0.1 }}
-            onHoverStart={() => setHoveredIndex(i)}
-            onHoverEnd={() => setHoveredIndex(null)}
-          >
-            {/* Card container with enhanced styling */}
-            <m.button
-              onClick={() => onImageClick?.(i)}
-              className="relative block rounded-card-lg overflow-hidden shadow-card hover:shadow-card-hover transition-shadow duration-300 w-80 h-96 sm:w-[360px] sm:h-[400px]"
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              transition={SPRING.smooth}
-            >
-              {/* Image */}
-              <Image
-                src={img}
-                alt={`${alt} - image ${i + 1} of ${images.length}`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 640px) 320px, 360px"
-              />
-
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300" />
-
-              {/* Zoom indicator */}
-              <m.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{
-                  opacity: hoveredIndex === i ? 1 : 0,
-                  scale: hoveredIndex === i ? 1 : 0.8
-                }}
-                transition={SPRING.snappy}
-                className="absolute top-4 right-4 w-10 h-10 rounded-full glass-2 flex items-center justify-center shadow-card"
-              >
-                <Maximize2 className="w-5 h-5 text-fg" />
-              </m.div>
-
-              {/* Image counter badge */}
-              <div className="absolute bottom-4 left-4 px-3 py-1.5 rounded-full glass-2 text-xs font-semibold text-fg shadow-card">
-                {i + 1} / {images.length}
-              </div>
-            </m.button>
-          </m.div>
-        ))}
-
-        {/* End spacer for better UX */}
-        <div className="w-8 shrink-0" />
-      </div>
-
-      {/* Navigation buttons */}
-      <AnimatePresence>
-        {canScrollLeft && (
-          <m.button
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 10 }}
-            transition={SPRING.snappy}
-            onClick={() => scroll("left")}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-surface-raised shadow-card-hover flex items-center justify-center text-fg hover:bg-primary-600 hover:text-white dark:hover:bg-primary-600 transition-colors duration-150 opacity-0 group-hover:opacity-100"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label="Scroll left"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </m.button>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {canScrollRight && (
-          <m.button
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -10 }}
-            transition={SPRING.snappy}
-            onClick={() => scroll("right")}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-surface-raised shadow-card-hover flex items-center justify-center text-fg hover:bg-primary-600 hover:text-white dark:hover:bg-primary-600 transition-colors duration-150 opacity-0 group-hover:opacity-100"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label="Scroll right"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </m.button>
-        )}
-      </AnimatePresence>
-
-      {/* Progress indicator with track and dots */}
-      <div className="relative flex items-center justify-center mt-6">
-        {/* Track line behind dots */}
-        <div className="absolute h-[2px] bg-line rounded-full" style={{ width: `${(images.length - 1) * 44}px` }} />
-        {/* Animated progress fill */}
-        <m.div
-          className="absolute left-1/2 h-[2px] rounded-full bg-primary-500/40 dark:bg-primary-400/30 origin-left"
-          style={{
-            width: `${(images.length - 1) * 44}px`,
-            x: `-50%`,
-          }}
-          initial={false}
-        >
-          <m.div
-            className="h-full rounded-full bg-primary-600 dark:bg-primary-400"
-            animate={{
-              width: images.length > 1 ? `${(activeIndex / (images.length - 1)) * 100}%` : "100%",
-            }}
-            transition={SPRING.snappy}
-          />
-        </m.div>
-        {/* Dots */}
-        <div className="relative flex items-center gap-[36px]">
-          {images.map((_, i) => {
-            const isActive = activeIndex === i;
-            const isHovered = hoveredDotIndex === i;
-
-            return (
-              <m.button
-                key={i}
-                onClick={() => navigateTo(i)}
-                onMouseEnter={() => setHoveredDotIndex(i)}
-                onMouseLeave={() => setHoveredDotIndex(null)}
-                className="relative p-2 -m-2 cursor-pointer"
-                aria-label={`Go to image ${i + 1}`}
-                aria-current={isActive ? "true" : "false"}
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-                transition={SPRING.snappy}
-              >
-                <m.div
-                  className="rounded-full"
-                  animate={{
-                    width: isActive ? 12 : 8,
-                    height: isActive ? 12 : 8,
-                    backgroundColor: isActive
-                      ? "rgb(37, 99, 235)"
-                      : isHovered
-                        ? "rgb(59, 130, 246)"
-                        : "rgb(203, 213, 225)",
-                    boxShadow: isActive
-                      ? "0 0 0 3px rgba(59, 130, 246, 0.2)"
-                      : "none",
-                  }}
-                  transition={SPRING.snappy}
-                />
-                {/* Tooltip on hover */}
-                <AnimatePresence>
-                  {isHovered && !isActive && (
-                    <m.span
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: -8 }}
-                      exit={{ opacity: 0, y: -5 }}
-                      transition={{ duration: DUR.fast }}
-                      className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-surface-overlay backdrop-blur-sm text-fg text-xs rounded-control whitespace-nowrap pointer-events-none"
-                    >
-                      {i + 1} / {images.length}
-                    </m.span>
-                  )}
-                </AnimatePresence>
-              </m.button>
-            );
-          })}
-        </div>
-      </div>
-
+  if (!images.length) return null;
+  return <div className="relative my-8 group" role="region" aria-label={`${alt} gallery`}>
+    <div ref={scrollRef} className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 px-2 [scrollbar-width:thin]">
+      {images.map((src, index) => <div key={`${src}-${index}`} ref={node => { slides.current[index] = node; }}
+        className="relative shrink-0 snap-start group/card w-[min(320px,85vw)] sm:w-[360px]">
+        <button type="button" onClick={() => onImageClick?.(index)} aria-label={`Open ${alt}, image ${index + 1} of ${images.length}`}
+          className="relative block w-full h-96 sm:h-[400px] rounded-card-lg overflow-hidden shadow-card hover:shadow-card-hover transition-shadow">
+          <Image src={src} alt={`${alt} - image ${index + 1} of ${images.length}`} fill className="object-cover"
+            sizes="(max-width: 640px) 85vw, 360px" />
+          <span className="absolute top-4 right-4 w-10 h-10 rounded-full glass-2 flex items-center justify-center text-fg"><Maximize2 className="w-5 h-5" /></span>
+          <span className="absolute bottom-4 left-4 px-3 py-1.5 rounded-pill glass-2 text-xs font-semibold text-fg">{index + 1} / {images.length}</span>
+        </button>
+      </div>)}
     </div>
-  );
+    <div className="flex items-center justify-center gap-2 mt-3">
+      <button type="button" disabled={!state.left} onClick={() => navigateTo(Math.max(0, active.current - 1))}
+        className="shrink-0 w-11 h-11 rounded-pill border border-line bg-surface-raised text-fg disabled:opacity-40" aria-label="Scroll left"><ChevronLeft className="w-5 h-5 mx-auto" /></button>
+      <div className="flex flex-wrap justify-center gap-1 min-w-0" aria-label="Choose image">
+        {images.map((src, index) => <button key={`${src}-${index}`} type="button" onClick={() => navigateTo(index)}
+          className="w-9 h-9 flex items-center justify-center rounded-pill" aria-label={`Go to image ${index + 1}`}
+          aria-current={state.active === index ? "true" : undefined}>
+          <span className={`rounded-full ${state.active === index ? "w-3 h-3 bg-primary-600 ring-2 ring-primary-500/30" : "w-2 h-2 bg-fg-lo"}`} />
+        </button>)}
+      </div>
+      <button type="button" disabled={!state.right} onClick={() => navigateTo(Math.min(images.length - 1, active.current + 1))}
+        className="shrink-0 w-11 h-11 rounded-pill border border-line bg-surface-raised text-fg disabled:opacity-40" aria-label="Scroll right"><ChevronRight className="w-5 h-5 mx-auto" /></button>
+    </div>
+    <p className="sr-only" aria-live="polite">Image {state.active + 1} of {images.length}</p>
+  </div>;
 }

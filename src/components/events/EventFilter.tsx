@@ -2,48 +2,43 @@
 
 import { useState, useMemo } from "react";
 import { m, AnimatePresence } from "framer-motion";
-import { events } from "@/data/events";
-import { categoryConfig, FILTER_GROUPS } from "@/data/eventCategories";
+import { FILTER_GROUPS, getEventFilterGroup, type EventSummary } from "@/data/eventCategories";
+import { filterIcons } from "./EventIcons";
 import { EventCard } from "./EventCard";
 import { FilterPills, type FilterPillOption } from "@/components/ui/FilterPills";
 import MotionMaxProvider from "@/components/animations/MotionMaxProvider";
 import { fadeUp } from "@/lib/motion";
 import { trackEvent, EVENTS } from "@/lib/analytics";
-import type { Event } from "@/types";
 
 type EventFilterKey = "all" | (typeof FILTER_GROUPS)[number]["key"];
 
-function getFilterGroup(event: Event): string {
-  return event.filterOverride ?? categoryConfig[event.category].filterGroup;
-}
-
-export function EventFilter() {
+export function EventFilter({ events }: { events: EventSummary[] }) {
   const [activeFilter, setActiveFilter] = useState<EventFilterKey>("all");
   const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     if (activeFilter === "all") return events;
-    return events.filter((e) => getFilterGroup(e) === activeFilter);
-  }, [activeFilter]);
+    return events.filter((e) => getEventFilterGroup(e) === activeFilter);
+  }, [activeFilter, events]);
 
   const filterOptions = useMemo<FilterPillOption<EventFilterKey>[]>(
     () =>
       FILTER_GROUPS.map((group) => ({
         key: group.key,
         label: group.label,
-        icon: group.icon,
+        icon: filterIcons[group.key],
         count:
           group.key === "all"
             ? events.length
-            : events.filter((e) => getFilterGroup(e) === group.key).length,
+            : events.filter((e) => getEventFilterGroup(e) === group.key).length,
       })),
-    []
+    [events]
   );
 
   const yearGroups = useMemo(() => {
     const groups: Record<number, typeof events> = {};
     for (const event of filtered) {
-      const year = new Date(event.date).getFullYear();
+      const year = Number(event.date.slice(0, 4));
       if (!groups[year]) groups[year] = [];
       groups[year].push(event);
     }
@@ -51,7 +46,7 @@ export function EventFilter() {
       .map(([year, evts]) => ({
         year: Number(year),
         events: evts.sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+          (a, b) => b.date.localeCompare(a.date)
         ),
       }))
       .sort((a, b) => b.year - a.year);
@@ -88,7 +83,7 @@ export function EventFilter() {
                 <m.div
                   key={year}
                   variants={fadeUp}
-                  initial="hidden"
+                  initial={false}
                   animate="visible"
                   exit={{ opacity: 0 }}
                 >

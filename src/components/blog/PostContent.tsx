@@ -5,6 +5,7 @@ import { BlogReadTracker } from "@/components/blog/BlogReadTracker";
 import { AuthorCard } from "@/components/blog/AuthorCard";
 import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { formatDate } from "@/lib/dates";
 
 interface AdjacentPost {
   slug: string;
@@ -38,11 +39,11 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
       </div>
 
       <div className="section-padding">
-        <article className="max-w-prose mx-auto">
+        <article className="min-w-0 max-w-prose mx-auto [overflow-wrap:anywhere]">
           {/* Header */}
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-primary-600 hover:text-primary-700 mb-6"
+            className="inline-flex items-center gap-2 text-sm text-primary-700 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Blog
@@ -57,16 +58,12 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
           </div>
 
           <div className="flex flex-wrap items-center gap-4 text-sm text-fg-mid">
-            <Link href="/about" className="flex items-center gap-2 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+            <Link href="/about" className="flex items-center gap-2 hover:text-primary-700 dark:hover:text-primary-400 transition-colors">
               <span className="font-medium text-fg-mid">Hadi Abou Daya</span>
             </Link>
             <span className="flex items-center gap-1">
               <Calendar className="w-4 h-4" />
-              {new Date(post.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+              <time dateTime={post.date}>{formatDate(post.date)}</time>
             </span>
             <span className="flex items-center gap-1">
               <Clock className="w-4 h-4" />
@@ -74,9 +71,15 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
             </span>
           </div>
 
+          {post.updatedAt && post.updatedAt !== post.date && (
+            <p className="mt-2 text-sm text-fg-mid">
+              Updated <time dateTime={post.updatedAt}>{formatDate(post.updatedAt)}</time>
+            </p>
+          )}
+
           {/* MDX Content */}
           <BlogReadTracker slug={post.slug} title={post.title} readingTime={post.readingTime}>
-            <div className="mt-8 prose prose-slate dark:prose-invert lg:prose-lg prose-headings:text-fg prose-a:text-primary-500 prose-a:decoration-primary-500/30 hover:prose-a:decoration-primary-500 prose-code:text-primary-700 dark:prose-code:text-primary-300 prose-pre:bg-slate-900 prose-blockquote:border-l-primary-500/50">
+            <div data-article-body className="mt-8 prose prose-slate dark:prose-invert lg:prose-lg prose-headings:text-fg prose-a:text-primary-700 dark:prose-a:text-primary-300 hover:prose-a:text-primary-800 dark:hover:prose-a:text-primary-200 prose-a:underline prose-a:decoration-primary-700/50 dark:prose-a:decoration-primary-300/50 hover:prose-a:decoration-primary-700 dark:hover:prose-a:decoration-primary-300 prose-code:text-primary-700 dark:prose-code:text-primary-300 prose-pre:bg-slate-900 prose-blockquote:border-l-primary-500/50">
               {children}
             </div>
           </BlogReadTracker>
@@ -89,7 +92,7 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
               {prevPost ? (
                 <Link
                   href={`/blog/${prevPost.slug}`}
-                  className="group flex items-center gap-2 text-sm text-fg-mid hover:text-primary-600 dark:hover:text-primary-400 transition-colors min-w-0"
+                  className="group flex items-center gap-2 text-sm text-fg-mid hover:text-primary-700 dark:hover:text-primary-400 transition-colors min-w-0"
                 >
                   <ArrowLeft className="w-4 h-4 shrink-0 group-hover:-translate-x-0.5 transition-transform" />
                   <span className="truncate">{prevPost.title}</span>
@@ -100,7 +103,7 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
               {nextPost ? (
                 <Link
                   href={`/blog/${nextPost.slug}`}
-                  className="group flex items-center gap-2 text-sm text-fg-mid hover:text-primary-600 dark:hover:text-primary-400 transition-colors min-w-0 text-right ml-auto"
+                  className="group flex items-center gap-2 text-sm text-fg-mid hover:text-primary-700 dark:hover:text-primary-400 transition-colors min-w-0 text-right ml-auto"
                 >
                   <span className="truncate">{nextPost.title}</span>
                   <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-0.5 transition-transform" />

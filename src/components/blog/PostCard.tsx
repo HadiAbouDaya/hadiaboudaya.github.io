@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import type { BlogPost } from "@/types";
 import { Card } from "@/components/ui/Card";
@@ -7,7 +5,7 @@ import { Badge } from "@/components/ui/Badge";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
-import { trackEvent, EVENTS } from "@/lib/analytics";
+import { formatDate } from "@/lib/dates";
 
 interface PostCardProps {
   post: Omit<BlogPost, "content">;
@@ -18,7 +16,7 @@ interface PostCardProps {
 export function PostCard({ post, featured = false }: PostCardProps) {
   return (
     <ScrollReveal>
-      <Link href={`/blog/${post.slug}`} onClick={() => trackEvent(EVENTS.BLOG_POST_CLICKED, { slug: post.slug, title: post.title })}>
+      <Link href={`/blog/${post.slug}/`} data-blog-slug={post.slug}>
         <Card
           variant={featured ? "featured" : "interactive"}
           className="overflow-hidden group"
@@ -46,18 +44,14 @@ export function PostCard({ post, featured = false }: PostCardProps) {
             ))}
           </div>
 
-          <h2 className="text-title text-fg group-hover:text-primary-500 transition-colors duration-300">
+          <h2 className="text-title text-fg group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors duration-300">
             {post.title}
           </h2>
 
           <div className="flex items-center gap-4 mt-2 text-xs text-fg-mid">
             <span className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
-              {new Date(post.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+              <time dateTime={post.date}>{formatDate(post.date)}</time>
             </span>
             <span className="flex items-center gap-1">
               <Clock className="w-3 h-3" />
@@ -69,7 +63,7 @@ export function PostCard({ post, featured = false }: PostCardProps) {
             {post.excerpt}
           </p>
 
-          <span className="inline-flex items-center gap-1 mt-4 text-sm text-primary-600 font-medium group-hover:gap-2 transition-all">
+          <span className="inline-flex items-center gap-1 mt-4 text-sm text-primary-700 dark:text-primary-400 group-hover:text-primary-800 dark:group-hover:text-primary-300 font-medium group-hover:gap-2 transition-all">
             Read more
             <ArrowRight className="w-4 h-4" />
           </span>

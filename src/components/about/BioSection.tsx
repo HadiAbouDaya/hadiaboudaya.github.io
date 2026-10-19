@@ -1,18 +1,16 @@
-"use client";
-
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { BIO } from "@/data/about";
+import { BIO_PARAGRAPHS } from "@/data/about";
 
 export function BioSection() {
   return (
     <section>
-      <SectionHeading title="About Me" subtitle="AI/ML Engineer based in Paris, France" />
+      <SectionHeading title="About Me" subtitle="AI Consultant · Software Engineer · Paris, France" />
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-12 items-center">
         <ScrollReveal direction="left" className="md:col-span-3">
-          <p className="text-lg text-fg-mid leading-relaxed">{BIO}</p>
+          <div className="space-y-5">{BIO_PARAGRAPHS.map(paragraph => <p key={paragraph} className="text-lg text-fg-mid leading-relaxed">{paragraph}</p>)}</div>
         </ScrollReveal>
 
         <ScrollReveal direction="right" className="md:col-span-2 flex justify-center">
