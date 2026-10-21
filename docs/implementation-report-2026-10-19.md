@@ -1,5 +1,15 @@
 # Website and Knowledge implementation report
 
+## MOPO follow-up — 21 October 2026
+
+The approved update gives the MOPO product acquisition two visible placements: one prominent outcome inside its existing Experience project, above the native disclosure, and one concise sentence in the existing Home consulting highlight. The product was acquired by Act-On in January 2026 and development continued with its team, confirmed directly by the user. The external InSite link shows the product; it is not presented as an acquisition announcement. The MOPO engagement remains August 2023–December 2025, with company, role, project title, delivery stage and all prior narrative paragraphs preserved.
+
+An optional product-acquisition record supplies buyer/month/continuation/product details to Experience, Home, search and both generated public profiles. The restrained outcome uses existing type, colors and a narrow blue rule. No new asset, page or disclosure is introduced. All seven active private Knowledge guides, the detailed Master dossier/chronology and source register are reconciled; the full legacy annex is preserved.
+
+Validation: all 61 tests, lint, type checking, build and strict export verifiers passed. Six isolated headless Chromium layouts cover desktop/390px/320px in both themes, visible outcome with details closed, accessible product link, no overflow, and Act-On InSite search from Education to the correct project/focus. Export retains 87 HTML/CSP pages, 83 professional pages, 163 JSON-LD blocks, 165 search records (75,535 bytes), 269 rasters and 801 variants, with no artifact warnings or checked private markers. Approved originals and exact CVs pass preservation checks. Source comparison preserves all 36 original narrative paragraphs and every other project unchanged.
+
+## Earlier release — 19 October 2026
+
 19 October 2026. The user approved final review and deployment of the current implementation. The compact Contact CV layout is the release design; the earlier wireframes are retained as history. The previous deployment hold is superseded.
 
 ## Final release review

@@ -82,6 +82,17 @@
 .projectStage { max-width: 68ch; color: var(--text-mid); font-size: var(--experience-meta); line-height: 1.6; margin-bottom: .4rem; }
 .projectTitle { max-width: 55ch; color: var(--text-hi); font-size: 1.25rem; font-weight: 600; line-height: 1.5; letter-spacing: -.015em; }
 .projectSummary { max-width: 68ch; margin-top: .65rem; color: var(--text-mid); font-size: var(--experience-text); line-height: 1.75; }
+.acquisition { max-width: 68ch; margin-block: 1.5rem .75rem; padding: .15rem 0 .15rem 1.1rem; border-left: 2px solid var(--color-primary-500); }
+.acquisitionHeading { display: flex; align-items: baseline; flex-wrap: wrap; gap: .4rem 1rem; }
+.acquisitionHeading h5, .acquisitionHeading h6 { color: var(--text-hi); font-size: var(--experience-text); font-weight: 650; line-height: 1.5; }
+.acquisitionHeading time { color: var(--text-mid); font-size: var(--experience-meta); line-height: 1.6; }
+.acquisition > p { margin-top: .65rem; color: var(--text-mid); font-size: var(--experience-text); line-height: 1.75; }
+.acquisitionLink { display: inline-flex; align-items: center; gap: .35rem; min-height: 2.75rem; margin-top: .4rem; padding-block: .5rem; font-size: var(--experience-label); font-weight: 500; line-height: 1.6; color: var(--color-primary-700); text-decoration: underline; text-underline-offset: 4px; }
+.acquisitionLink svg { width: 1rem; height: 1rem; flex-shrink: 0; }
+.acquisitionLink:hover { color: var(--color-primary-800); }
+.acquisitionLink:focus-visible { outline: 2px solid var(--color-primary-500); outline-offset: 4px; border-radius: .3rem; }
+:global(.dark) .acquisitionLink { color: var(--color-primary-300); }
+:global(.dark) .acquisitionLink:hover { color: var(--color-primary-200); }
 .projectDetails { margin-top: .65rem; }
 .projectDetails > summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 2.75rem; padding: .65rem 0; cursor: pointer; list-style: none; color: var(--color-primary-700); font-size: var(--experience-label); font-weight: 550; line-height: 1.6; }
 :global(.dark) .projectDetails > summary { color: var(--color-primary-300); }

@@ -2,10 +2,17 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { latestExperience, professionalExperiences } from "@/data/experience";
 import { certifications } from "@/data/certifications";
+import { caseStudies } from "@/data/work";
+import { formatMonth } from "@/lib/dates";
+
+const mopoAcquisition = caseStudies.find(item => item.engagementId === "mopo")?.acquisition;
+const consultingSummary = "Client discovery, architecture and hands-on AI delivery";
 
 const featured = [
   { id: "aws", summary: "Customer-facing AI and data delivery, including an agentic platform pilot built with Amazon Bedrock and AgentCore." },
-  { id: "freelance-ai-consultant", summary: "Client discovery, architecture and hands-on AI delivery across a consulting practice, with engagements including Supportful, MOPO and MinervaHub." },
+  { id: "freelance-ai-consultant", summary: mopoAcquisition
+    ? `${consultingSummary}—including MOPO’s conversational AI product, acquired by ${mopoAcquisition.buyer} in ${formatMonth(mopoAcquisition.date, { month: "long" })}.`
+    : `${consultingSummary} across a consulting practice, with engagements including Supportful, MOPO and MinervaHub.` },
   { id: "savencia", summary: "Causal inference for industrial production, translating analytical findings into recommendations for R&D and engineering teams." },
 ];
 

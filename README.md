@@ -28,7 +28,7 @@ pnpm preview --port 3000
 
 - `src/data/profile.ts`: public identity and exact bilingual CV downloads.
 - `src/data/experience.ts`: professional and education chronology, with consulting engagements nested under one independent practice. Month dates express engagement periods. Professional entries sort by end month.
-- `src/data/work.ts`: eight project evidence records connected to engagement IDs. Project search results and public profile text point to `/experience/#project-{slug}`; role links use `#exp-{id}`. The catalog has no standalone public routes.
+- `src/data/work.ts`: eight project evidence records connected to engagement IDs. Project search results and public profile text point to `/experience/#project-{slug}`; role links use `#exp-{id}`. The catalog has no standalone public routes. Optional product-acquisition records keep buyer, month, continuation and product link separate from the engagement period; Experience, the Home consulting highlight, search and public profile text derive their wording from that shared record.
 - `src/data/skills.ts`: capabilities linked to delivery evidence.
 - `src/data/certifications.ts`: professional certifications, programmes, courses and enablement badges. Counts are derived.
 - `src/data/events.ts`: events and milestones with explicit date precision and meaning. An announcement or recorded month is not an exact launch date.

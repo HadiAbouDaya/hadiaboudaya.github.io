@@ -7,6 +7,7 @@ import { formatEventDate } from "@/data/eventCategories";
 import { events } from "@/data/events";
 import { BIO_PARAGRAPHS } from "@/data/about";
 import { getAllPostSearchItems } from "@/lib/mdx";
+import { productAcquisitionSummary } from "@/lib/project-outcomes";
 
 function relationship(id: string) {
   const { engagement, practice } = getEngagementContext(id);
@@ -17,10 +18,12 @@ export function publicProfileText(full = false) {
   for (const item of caseStudies) {
     const link = `[${item.title}](${PROFILE.url}/experience/#project-${item.slug})`;
     const context = `${relationship(item.engagementId)}${item.context ? ` / ${item.context}` : ""}. ${item.stage}.`;
+    const acquisition = item.acquisition ? `${productAcquisitionSummary(item)} [View ${item.acquisition.productName}](${item.acquisition.productUrl}).` : "";
     if (full) {
       lines.push(`### ${link}`, context, item.summary, `Technologies: ${item.technologies.join(", ")}.`);
+      if (acquisition) lines.push(acquisition);
       for (const section of item.sections) lines.push(`#### ${section.heading}`, ...section.paragraphs);
-    } else lines.push(`- ${link}: ${context} ${item.summary}`);
+    } else lines.push(`- ${link}: ${context} ${item.summary}${acquisition ? ` ${acquisition}` : ""}`);
   }
   lines.push("", "## Professional experience");
   for (const entry of professionalExperiences) {

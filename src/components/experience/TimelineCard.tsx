@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/Badge";
-import { Workflow } from "lucide-react";
+import { ArrowUpRight, Workflow } from "lucide-react";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { caseStudies } from "@/data/work";
 import { formatMonth } from "@/lib/dates";
@@ -32,6 +32,17 @@ function ProjectStory({ story, nested }: { story: CaseStudy; nested: boolean }) 
     <p className={styles.projectStage}>{story.stage}</p>
     <Heading id={headingId} className={styles.projectTitle}>{story.title}</Heading>
     <p className={styles.projectSummary}>{story.summary}</p>
+    {story.acquisition && <section data-product-acquisition aria-labelledby={`${headingId}-acquisition`} className={styles.acquisition}>
+      <div className={styles.acquisitionHeading}>
+        <SectionHeading id={`${headingId}-acquisition`}>Product acquired by {story.acquisition.buyer}</SectionHeading>
+        <time dateTime={story.acquisition.date}>{formatMonth(story.acquisition.date, { month: "long" })}</time>
+      </div>
+      <p>{story.acquisition.continuation}</p>
+      <a href={story.acquisition.productUrl} target="_blank" rel="noopener noreferrer" className={styles.acquisitionLink}>
+        View {story.acquisition.productName}<ArrowUpRight aria-hidden="true" />
+        <span className="sr-only"> (opens in a new tab)</span>
+      </a>
+    </section>}
     <details data-project-details className={styles.projectDetails}>
       <summary>
         <span><span className={styles.openLabel}>Read contributions and outcomes</span><span className={styles.closeLabel}>Hide project details</span><span className="sr-only">: {story.title}</span></span>

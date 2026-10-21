@@ -24,6 +24,14 @@ export interface CaseStudy {
   context?: string;
   stage: string;
   summary: string;
+  /** A product acquisition, recorded separately from the contributor's engagement dates. */
+  acquisition?: {
+    buyer: string;
+    date: string;
+    continuation: string;
+    productName: string;
+    productUrl: string;
+  };
   sections: { heading: string; paragraphs: string[] }[];
   technologies: string[];
   updatedAt: string;

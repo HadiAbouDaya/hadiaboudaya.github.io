@@ -81,6 +81,13 @@ export const caseStudies: CaseStudy[] = [
     "engagementId": "mopo",
     "stage": "Production launch",
     "summary": "MOPO's product enabled customers to obtain answers grounded in company knowledge and automate customer-facing conversations.",
+    "acquisition": {
+      "buyer": "Act-On",
+      "date": "2026-01",
+      "continuation": "Act-On acquired the product and continued its development with its own team.",
+      "productName": "Act-On InSite",
+      "productUrl": "https://act-on.com/product/act-on-insite/"
+    },
     "sections": [
       {
         "heading": "The need",
@@ -112,7 +119,7 @@ export const caseStudies: CaseStudy[] = [
       "PostgreSQL",
       "vector search"
     ],
-    "updatedAt": "2026-10-19"
+    "updatedAt": "2026-10-21"
   },
   {
     "slug": "minervahub-portal-advisory",
