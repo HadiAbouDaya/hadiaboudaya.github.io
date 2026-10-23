@@ -46,6 +46,8 @@ Keep existing media originals and URLs. The image pipeline selects owners for co
 
 The PDFs in `public/cv/` are exact approved artifacts, verified by SHA-256. Change the register and verification hashes only when replacing them with newly approved source files. Do not regenerate them during website builds.
 
+The 23 October 2026 timeline reconciliation follows the current bilingual CVs and live LinkedIn profile: AWS May–Oct 2026, Independent AI Consulting Jun 2023–May 2026, Supportful Dec 2025–May 2026 and MOPO Jun 2023–Jan 2026. Related start milestones use June 2023 at month precision. The downloadable PDFs are exact copies of those current CVs; earlier reports describe their dated artifacts.
+
 ## Private authoring records
 
 `Knowledge/` is ignored and maintained separately. App code, builds and CI must work without it and must never import, copy or publish it. It is not part of the public content ingestion path. TypeScript and ESLint explicitly exclude it, including private source archives. Local preservation manifests and evidence records stay there.

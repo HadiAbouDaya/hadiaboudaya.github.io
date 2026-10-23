@@ -906,14 +906,14 @@ export const events: Event[] = [
   {
     slug: "mopo-multi-llm",
     title: "MOPO: A Historical Project Milestone",
-    date: "2023-08-01",
+    date: "2023-06-01",
     location: "San Francisco (Remote)",
     category: "project",
     role: "Consulting project lead",
     organizations: [
       "MOPO"
     ],
-    summary: "Began the MOPO engagement in August 2023, leading an AI product from concept through production during the consulting relationship that continued to December 2025.",
+    summary: "Began the MOPO engagement in June 2023, leading an AI product from concept through production during the consulting relationship that continued to January 2026.",
     description: "This archive entry marks the beginning of the MOPO engagement. The subsequent work combined business and technical decisions, multi-LLM orchestration, retrieval, knowledge graphs, speech services and cloud delivery. Hadi also supported pitching and fundraising preparation. The engagement's contributions and production scope are recorded in Experience.",
     relatedExperienceId: "mopo",
     images: [
@@ -930,17 +930,17 @@ export const events: Event[] = [
     tier: "standard",
     datePrecision: "month",
     dateMeaning: "milestone",
-    updatedAt: "2026-10-19",
+    updatedAt: "2026-10-23",
     caseStudySlug: "mopo-conversational-ai"
   },
   {
     slug: "freelance-ai-launch",
     title: "Started Independent AI Consulting",
-    date: "2023-08-01",
+    date: "2023-06-01",
     location: "Lebanon / Remote",
     category: "career",
-    summary: "Started an independent AI consulting practice in August 2023. Across the practice period through July 2026, engagements included AI product delivery, enterprise knowledge access, sales workflows and needs-led architecture advice.",
-    description: "This milestone marks the start of the independent practice in August 2023. Later engagements formed part of the same consulting practice, whose full chronology and relationships are shown on the Experience page.",
+    summary: "Started an independent AI consulting practice in June 2023. Across the practice period through May 2026, engagements included AI product delivery, enterprise knowledge access, sales workflows and needs-led architecture advice.",
+    description: "This milestone marks the start of the independent practice in June 2023. Later engagements formed part of the same consulting practice, whose full chronology and relationships are shown on the Experience page.",
     relatedExperienceId: "freelance-ai-consultant",
     images: [
       "/Media/events/launched-freelance-ai-consulting-practice/1.webp"
@@ -955,7 +955,7 @@ export const events: Event[] = [
     tier: "featured",
     datePrecision: "month",
     dateMeaning: "start",
-    updatedAt: "2026-10-19",
+    updatedAt: "2026-10-23",
     role: "Independent consultant"
   },
   {

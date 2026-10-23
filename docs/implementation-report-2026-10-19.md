@@ -1,5 +1,15 @@
 # Website and Knowledge implementation report
 
+## Timeline reconciliation — 23 October 2026
+
+The current English/French PDF and DOCX CVs agree with the live LinkedIn experience list. The website now follows those presentation dates: AWS May–Oct 2026; Independent AI Consulting Jun 2023–May 2026; Supportful Dec 2025–May 2026; MOPO Jun 2023–Jan 2026. Both structured months and display periods are corrected. Home, search metadata and both generated public profiles consume the shared experience data. Other role dates, overlaps and the five consulting groups are retained.
+
+The MOPO and independent-consulting start milestones now use June 2023, with their month precision preserved. Their descriptions use the corrected engagement end months. Act-On's January 2026 product acquisition remains a distinct outcome, with no exact closing day or continued personal employment inferred.
+
+Both public CV downloads are replaced with exact current source PDFs; their integrity hashes are updated together. The source CVs and LinkedIn profile are unchanged. Private Knowledge records retain the new chronology and source provenance, previous snapshots and the complete Master legacy annex. Earlier sections below describe their dated versions and do not override this correction.
+
+Validation: all 61 existing tests, lint, type checking, the static build and both strict export verifiers passed. The export retains 87 HTML/CSP pages, 83 professional pages, 163 JSON-LD blocks, 165 search records (75,525 bytes), 269 rasters and 801 variants. Focused evidence-to-export assertions confirm all four corrected ranges, 14 unchanged date records, both June milestones, exact CV source/public/export equality and the unchanged legacy annex. Browser review confirms the rendered periods, visible MOPO acquisition with details closed, fragment focus, no horizontal overflow and no console warnings/errors.
+
 ## MOPO follow-up — 21 October 2026
 
 The approved update gives the MOPO product acquisition two visible placements: one prominent outcome inside its existing Experience project, above the native disclosure, and one concise sentence in the existing Home consulting highlight. The product was acquired by Act-On in January 2026 and development continued with its team, confirmed directly by the user. The external InSite link shows the product; it is not presented as an acquisition announcement. The MOPO engagement remains August 2023–December 2025, with company, role, project title, delivery stage and all prior narrative paragraphs preserved.
