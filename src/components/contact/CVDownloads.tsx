@@ -35,7 +35,7 @@ export function CVDownloads() {
       <span className="text-sm text-fg-mid">PDF</span>
     </div>
     <div className="flex flex-wrap gap-3">
-      {CV_FILES.map(file => <a key={file.language} href={file.href} hrefLang={file.language}
+      {CV_FILES.map(file => <a key={file.language} href={`${file.href}?v=${file.sha256.slice(0, 12)}`} hrefLang={file.language}
         type="application/pdf" download aria-label={`${file.label} (PDF download)`}
         className="inline-flex min-h-12 items-center justify-center gap-2 rounded-control border border-line px-3 py-3 text-sm font-medium text-fg transition-colors duration-200 hover:border-line-strong hover:bg-surface-sunken focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-500">
         <Download aria-hidden="true" className="h-4 w-4 shrink-0 text-primary-600 dark:text-primary-400" />
