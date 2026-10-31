@@ -1,0 +1,1 @@
+{"version":1,"release":"a97890db-7044-4131-be73-0a6d65803242","kdf":{"name":"PBKDF2","hash":"SHA-256","iterations":600000,"salt":"Dulyb123hYf9UP8yUGbz2A=="},"wrappedKey":{"iv":"GGg3JEaZsht6INz9","data":"6WlGZRYgAY4C5Fee0PZvkpCI5x4ovnyvK3Sbt7pGrhhmqW93/0Iw0sVQnm3X3gpA"},"manifest":{"id":"33a9a6a7-7894-4adc-abd8-aa9d8ead1c18","mime":"application/json","bytes":133329}}

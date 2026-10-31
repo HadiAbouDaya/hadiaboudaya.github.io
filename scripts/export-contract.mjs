@@ -1,6 +1,6 @@
 export const SITE_ORIGIN = "https://hadi.aboudaya.com";
 export const REQUIRED_ROUTES = [
-  "/", "/about/", "/experience/", "/events/", "/certifications/", "/blog/", "/contact/", "/privacy/", "/luna/",
+  "/", "/about/", "/experience/", "/events/", "/certifications/", "/blog/", "/contact/", "/privacy/", "/luna/", "/luna/birthday/",
 ];
 // Page retirement is deliberately separate from retention of its Media assets.
 export const RETIRED_ROUTES = [

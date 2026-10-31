@@ -1,6 +1,8 @@
 "use client";
 
-import Image from "next/image";
+import Link from "next/link";
+import { VaultImage } from "./VaultImage";
+import { useVault } from "./VaultProvider";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import {
@@ -17,7 +19,6 @@ import {
 } from "lucide-react";
 
 const SONG_START_SECONDS = 131;
-const SONG_SRC = "/Media/luna/our-song.mp3";
 const AUDIO_ENGINE_VERSION = "web-audio-offset-v2";
 const SONG_VOLUME = 0.72;
 
@@ -25,20 +26,6 @@ type SafariWindow = Window &
   typeof globalThis & {
     webkitAudioContext?: typeof AudioContext;
   };
-
-const photos = [
-  { src: "/Media/luna/01-kiss.webp", alt: "Hadi kissing Luna beside the lake", shape: "wide" },
-  { src: "/Media/luna/02-lakeside.webp", alt: "Luna and Hadi smiling beside the lake", shape: "wide" },
-  { src: "/Media/luna/03-under-the-trees.webp", alt: "Luna and Hadi together under the trees", shape: "wide" },
-  { src: "/Media/luna/04-brussels-rooftop.webp", alt: "Luna and Hadi above Brussels", shape: "wide" },
-  { src: "/Media/luna/05-brussels-sun.webp", alt: "Luna and Hadi in the Brussels sunshine", shape: "wide" },
-  { src: "/Media/luna/06-mirror.webp", alt: "Luna taking a mirror photograph", shape: "portrait" },
-  { src: "/Media/luna/07-summer-portrait.webp", alt: "Luna in warm summer light", shape: "portrait" },
-  { src: "/Media/luna/08-brussels-street.webp", alt: "Luna on a quiet Brussels street", shape: "portrait" },
-  { src: "/Media/luna/09-seaside-white.webp", alt: "Luna walking beside the sea", shape: "portrait" },
-  { src: "/Media/luna/10-seaside-sunset.webp", alt: "Luna smiling by the sea at sunset", shape: "portrait" },
-  { src: "/Media/luna/11-golden-hour.webp", alt: "Luna in golden evening light", shape: "portrait" },
-] as const;
 
 const reveal = {
   initial: { opacity: 0, y: 32 },
@@ -48,6 +35,9 @@ const reveal = {
 } as const;
 
 function PeonyBouquet({ className = "", interactive = false }: { className?: string; interactive?: boolean }) {
+  const { manifest } = useVault();
+  const birthday = manifest?.birthday;
+  const text = birthday?.text ?? {};
   const [bloom, setBloom] = useState(0);
   const bouquetRef = useRef<HTMLButtonElement>(null);
 
@@ -71,7 +61,7 @@ function PeonyBouquet({ className = "", interactive = false }: { className?: str
         bouquetRef.current?.style.setProperty("--bouquet-ry", "0deg");
       }}
       onClick={() => interactive && setBloom((value) => value + 1)}
-      aria-label={interactive ? "Make the peonies bloom" : "Peony bouquet"}
+      aria-label={interactive ? text.bloomLabel : text.bouquetLabel}
       disabled={!interactive}
     >
       <m.span
@@ -79,12 +69,11 @@ function PeonyBouquet({ className = "", interactive = false }: { className?: str
         animate={interactive ? { scale: bloom % 2 ? 1.08 : 1, rotate: bloom % 2 ? 1.5 : 0 } : undefined}
         transition={{ type: "spring", stiffness: 180, damping: 14 }}
       >
-        <Image
-          src="/Media/luna/peony-bouquet.webp"
+        <VaultImage
+          asset={birthday?.assets[text.bouquetAsset]}
           alt=""
           width={1500}
           height={1050}
-          unoptimized
           priority={!interactive}
         />
       </m.span>
@@ -112,15 +101,17 @@ function MusicControl({
   onPlay: () => void;
   onToggle: () => void;
 }) {
+  const { manifest } = useVault();
+  const text = manifest?.birthday.text ?? {};
   return (
     <div className={`luna-music-control ${needsTap ? "needs-tap" : ""}`}>
       {needsTap && (
         <button className="luna-play-song" type="button" onClick={onPlay}>
           <Music2 />
-          <span>Play our song</span>
+          <span>{text.playSong}</span>
         </button>
       )}
-      <button type="button" onClick={onToggle} aria-label={muted ? "Play the song" : "Mute the song"}>
+      <button type="button" onClick={onToggle} aria-label={muted ? text.playLabel : text.muteLabel}>
         {muted ? <VolumeX /> : <Volume2 />}
       </button>
     </div>
@@ -128,6 +119,11 @@ function MusicControl({
 }
 
 export function LunaExperience() {
+  const { manifest, decryptAsset, lock } = useVault();
+  const birthday = manifest?.birthday;
+  const text = birthday?.text ?? {};
+  const photos = birthday?.photos ?? [];
+  const asset = (slot: string) => birthday?.assets[text[slot]];
   const [entered, setEntered] = useState(false);
   const [muted, setMuted] = useState(false);
   const [needsPlaybackTap, setNeedsPlaybackTap] = useState(false);
@@ -138,14 +134,16 @@ export function LunaExperience() {
   const audioSourceRef = useRef<AudioBufferSourceNode>(null);
   const gainNodeRef = useRef<GainNode>(null);
   const playbackGenerationRef = useRef(0);
+  const audioAbortRef = useRef<AbortController | null>(null);
 
   const loadAudioData = () => {
     if (!audioDataPromiseRef.current) {
-      audioDataPromiseRef.current = fetch(SONG_SRC)
-        .then((response) => {
-          if (!response.ok) throw new Error(`Unable to load song (${response.status})`);
-          return response.arrayBuffer();
-        })
+      const song = asset("songAsset");
+      if (!song) return Promise.reject(new Error("Audio is unavailable."));
+      const controller = new AbortController();
+      audioAbortRef.current = controller;
+      audioDataPromiseRef.current = decryptAsset(song, controller.signal)
+        .then((blob) => blob.arrayBuffer())
         .catch((error) => {
           audioDataPromiseRef.current = null;
           throw error;
@@ -160,10 +158,11 @@ export function LunaExperience() {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    void loadAudioData().catch(() => undefined);
-
     return () => {
       playbackGenerationRef.current += 1;
+      audioAbortRef.current?.abort();
+      audioDataPromiseRef.current = null;
+      audioBufferPromiseRef.current = null;
       try {
         audioSourceRef.current?.stop();
       } catch {
@@ -172,6 +171,9 @@ export function LunaExperience() {
       audioSourceRef.current?.disconnect();
       gainNodeRef.current?.disconnect();
       void audioContextRef.current?.close().catch(() => undefined);
+      audioSourceRef.current = null;
+      gainNodeRef.current = null;
+      audioContextRef.current = null;
       document.body.classList.remove("luna-experience-active");
       document.body.style.overflow = previousOverflow;
     };
@@ -202,10 +204,16 @@ export function LunaExperience() {
 
     void (async () => {
       await resumePromise;
+      if (generation !== playbackGenerationRef.current || context.state === "closed") return;
 
       if (!audioBufferPromiseRef.current) {
         audioBufferPromiseRef.current = loadAudioData()
-          .then((data) => context.decodeAudioData(data.slice(0)))
+          .then((data) => {
+            if (generation !== playbackGenerationRef.current || context.state === "closed") {
+              throw new DOMException("Playback cancelled", "AbortError");
+            }
+            return context.decodeAudioData(data.slice(0));
+          })
           .catch((error) => {
             audioBufferPromiseRef.current = null;
             throw error;
@@ -277,13 +285,12 @@ export function LunaExperience() {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.8 } }}
           >
-            <Image
-              src="/Media/luna/09-seaside-white.webp"
-              alt="Luna beside the sea"
+            <VaultImage
+              asset={asset("entryPhotoAsset")}
+              alt={text.entryPhotoAlt}
               fill
               priority
               sizes="100vw"
-              unoptimized
               className="luna-entry-photo"
             />
             <div className="luna-entry-wash" />
@@ -293,18 +300,24 @@ export function LunaExperience() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.8 }}
             >
-              <span className="luna-kicker">13.08.2026</span>
-              <h1>Luna, this is for you.</h1>
-              <p>Twenty looks beautiful on you.</p>
+              <span className="luna-kicker">{text.entryDate}</span>
+              <h1>{text.entryTitle}</h1>
+              <p>{text.entrySubtitle}</p>
               <button type="button" onClick={enter}>
                 <Heart aria-hidden="true" />
-                Open
+                {text.open}
               </button>
             </m.div>
           </m.div>
         )}
       </AnimatePresence>
 
+      {entered && (
+        <nav aria-label="Private space" style={{ position: "fixed", top: "max(1rem, env(safe-area-inset-top))", left: "1rem", zIndex: 90, display: "flex", gap: ".5rem" }}>
+          <Link href="/luna/" style={{ display: "grid", placeItems: "center", minHeight: 44, padding: "0 .8rem", borderRadius: 6, background: "#285143", color: "white", textDecoration: "none", fontSize: ".8rem" }}>Album</Link>
+          <button type="button" onClick={lock} style={{ minHeight: 44, padding: "0 .8rem", border: 0, borderRadius: 6, background: "#285143", color: "white", cursor: "pointer", fontSize: ".8rem" }}>Lock</button>
+        </nav>
+      )}
       {entered && (
         <MusicControl
           muted={muted}
@@ -316,22 +329,21 @@ export function LunaExperience() {
 
       <section className="luna-hero">
         <div className="luna-hero-photo" aria-hidden="true">
-          <Image
-            src="/Media/luna/10-seaside-sunset.webp"
+          <VaultImage
+            asset={asset("heroPhotoAsset")}
             alt=""
             fill
             priority
             sizes="100vw"
-            unoptimized
           />
         </div>
         <div className="luna-hero-copy">
           <m.span initial={{ opacity: 0 }} animate={entered ? { opacity: 1 } : {}} transition={{ delay: 0.55 }}>
-            Joyeux anniversaire · Je t&apos;aime
+            {text.heroKicker}
           </m.span>
           <m.h2 initial={{ opacity: 0, y: 26 }} animate={entered ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.7, duration: 0.8 }}>
-            Happy 20th,
-            <strong>Luna.</strong>
+            {text.heroTitle}
+            <strong>{text.heroName}</strong>
           </m.h2>
         </div>
         <m.div
@@ -342,80 +354,80 @@ export function LunaExperience() {
         >
           <PeonyBouquet />
         </m.div>
-        <a className="luna-scroll-cue" href="#our-story" aria-label="Continue to your birthday message">
+        <a className="luna-scroll-cue" href="#our-story" aria-label={text.scrollLabel}>
           <ArrowDown />
         </a>
       </section>
 
       <section id="our-story" className="luna-story luna-section">
         <m.div className="luna-story-copy" {...reveal}>
-          <span className="luna-section-number">01 · The beginning</span>
-          <h2>One question.<br />One message.<br />Then, us.</h2>
+          <span className="luna-section-number">{text.storyNumber}</span>
+          <h2>{text.storyLine1}<br />{text.storyLine2}<br />{text.storyLine3}</h2>
           <p>
-            Before there was an us, I reached out to Jad and asked him about you. Then I sent you a message on Instagram. I am very glad I did.
+            {text.storyBody}
           </p>
         </m.div>
         <m.div className="luna-story-photos" {...reveal} transition={{ ...reveal.transition, delay: 0.12 }}>
           <figure className="luna-photo luna-photo-main">
-            <Image src="/Media/luna/01-kiss.webp" alt="Hadi kissing Luna beside the lake" fill sizes="(max-width: 760px) 82vw, 40vw" unoptimized />
+            <VaultImage asset={asset("storyMainPhotoAsset")} alt={text.storyMainPhotoAlt} fill sizes="(max-width: 760px) 82vw, 40vw" />
           </figure>
           <figure className="luna-photo luna-photo-small">
-            <Image src="/Media/luna/03-under-the-trees.webp" alt="Luna and Hadi under the trees" fill sizes="(max-width: 760px) 48vw, 20vw" unoptimized />
+            <VaultImage asset={asset("storySmallPhotoAsset")} alt={text.storySmallPhotoAlt} fill sizes="(max-width: 760px) 48vw, 20vw" />
           </figure>
         </m.div>
       </section>
 
       <section className="luna-pride luna-section">
         <m.div className="luna-pride-heading" {...reveal}>
-          <span className="luna-section-number">02 · What I see in you</span>
+          <span className="luna-section-number">{text.prideNumber}</span>
           <div className="luna-medical-mark" aria-hidden="true">
             <HeartPulse />
             <span />
             <Stethoscope />
           </div>
-          <h2>I know how strong you are, even when life feels heavy.</h2>
+          <h2>{text.prideTitle}</h2>
         </m.div>
         <m.div className="luna-pride-grid" {...reveal}>
           <figure className="luna-photo luna-pride-photo">
-            <Image src="/Media/luna/08-brussels-street.webp" alt="Luna on a Brussels street" fill sizes="(max-width: 760px) 92vw, 42vw" unoptimized />
+            <VaultImage asset={asset("pridePhotoAsset")} alt={text.pridePhotoAlt} fill sizes="(max-width: 760px) 92vw, 42vw" />
           </figure>
           <div className="luna-pride-copy">
             <BookOpen aria-hidden="true" />
             <p>
-              I see the work you put in, the sacrifices medicine asks of you, and how you keep moving through the difficult days. I hope you always remember what you are capable of.
+              {text.prideBody}
             </p>
-            <strong>I am always proud of you.</strong>
+            <strong>{text.prideClosing}</strong>
           </div>
         </m.div>
       </section>
 
       <section className="luna-brussels">
         <div className="luna-brussels-photo">
-          <Image src="/Media/luna/04-brussels-rooftop.webp" alt="Luna and Hadi overlooking Brussels" fill sizes="100vw" unoptimized />
+          <VaultImage asset={asset("cityPhotoAsset")} alt={text.cityPhotoAlt} fill sizes="100vw" />
         </div>
         <m.div className="luna-brussels-copy" {...reveal}>
-          <span><MapPin /> Bruxelles</span>
-          <h2>The city where you are building your future.</h2>
-          <p>May it bring you closer to every good thing you are working toward.</p>
+          <span><MapPin /> {text.city}</span>
+          <h2>{text.cityTitle}</h2>
+          <p>{text.cityBody}</p>
         </m.div>
       </section>
 
       <section className="luna-gallery luna-section">
         <m.div className="luna-gallery-heading" {...reveal}>
-          <span className="luna-section-number">03 · A few moments I keep close</span>
-          <h2>You, exactly as you are.</h2>
+          <span className="luna-section-number">{text.galleryNumber}</span>
+          <h2>{text.galleryTitle}</h2>
         </m.div>
         <div className="luna-gallery-grid">
           {photos.map((photo, index) => (
             <m.figure
               className={`luna-gallery-item luna-gallery-item-${index + 1} ${photo.shape}`}
-              key={photo.src}
+              key={photo.asset}
               initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.55, delay: (index % 3) * 0.07 }}
             >
-              <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 700px) 46vw, 30vw" unoptimized />
+              <VaultImage asset={birthday?.assets[photo.asset]} alt={photo.alt} fill sizes="(max-width: 700px) 46vw, 30vw" />
             </m.figure>
           ))}
         </div>
@@ -423,10 +435,10 @@ export function LunaExperience() {
 
       <section className="luna-bloom luna-section">
         <m.div className="luna-bloom-copy" {...reveal}>
-          <span className="luna-section-number">04 · For what comes next</span>
+          <span className="luna-section-number">{text.bloomNumber}</span>
           <Sparkles aria-hidden="true" />
-          <h2>For twenty, I wish you calm in the hard moments and joy in the ordinary ones.</h2>
-          <p>Tap the flowers. They are all yours.</p>
+          <h2>{text.bloomTitle}</h2>
+          <p>{text.bloomBody}</p>
         </m.div>
         <m.div
           className="luna-bloom-stage"
@@ -441,15 +453,15 @@ export function LunaExperience() {
 
       <section className="luna-letter luna-section">
         <m.div className="luna-letter-photo" {...reveal}>
-          <Image src="/Media/luna/05-brussels-sun.webp" alt="Luna and Hadi together in Brussels" fill sizes="(max-width: 760px) 92vw, 42vw" unoptimized />
+          <VaultImage asset={asset("letterPhotoAsset")} alt={text.letterPhotoAlt} fill sizes="(max-width: 760px) 92vw, 42vw" />
         </m.div>
         <m.div className="luna-letter-copy" {...reveal} transition={{ ...reveal.transition, delay: 0.12 }}>
-          <span className="luna-section-number">05 · From me to you</span>
-          <h2>My wish for you.</h2>
+          <span className="luna-section-number">{text.letterNumber}</span>
+          <h2>{text.letterTitle}</h2>
           <p>
-            Sometimes my love comes out firmly because I believe in you and want the best for you. Underneath it is care, confidence in you, and the wish to see you choose what is best for yourself. I hope this year gives you strength, peace, and every reason to be proud of the person you are becoming.
+            {text.letterBody}
           </p>
-          <strong>With all my love,<br />Hadi</strong>
+          <strong>{text.letterClosing}<br />{text.letterName}</strong>
         </m.div>
       </section>
 
@@ -458,28 +470,28 @@ export function LunaExperience() {
           {Array.from({ length: 18 }, (_, index) => <i key={index} style={{ "--star-index": index } as React.CSSProperties} />)}
         </div>
         <m.div className="luna-finale-copy" {...reveal}>
-          <span>One last thing</span>
-          <h2>I am always proud of you.</h2>
-          <p>Happy 20th, Luna.</p>
+          <span>{text.finaleKicker}</span>
+          <h2>{text.finaleTitle}</h2>
+          <p>{text.finaleBody}</p>
         </m.div>
         <button
           className="luna-cake-button"
           type="button"
           onClick={() => setCandlesOut(true)}
-          aria-label={candlesOut ? "The candles are out" : "Tap to blow out the candles"}
+          aria-label={candlesOut ? text.candlesOutLabel : text.candlesLabel}
         >
           <span className="luna-candles" aria-hidden="true">
             <i><b /></i><i><b /></i>
           </span>
           <span className="luna-cake" aria-hidden="true">
             <i className="luna-cake-top" />
-            <i className="luna-cake-middle">20</i>
+            <i className="luna-cake-middle">{text.age}</i>
             <i className="luna-cake-bottom" />
           </span>
-          <span className="luna-cake-instruction">{candlesOut ? "Make a beautiful wish." : "Tap the candles"}</span>
+          <span className="luna-cake-instruction">{candlesOut ? text.wish : text.candlesInstruction}</span>
         </button>
         <m.p className="luna-signature" animate={candlesOut ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}>
-          With all my love, Hadi
+          {text.signature}
         </m.p>
       </section>
     </div>
