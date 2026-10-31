@@ -148,7 +148,8 @@ try {
     await page.getByRole("link", {name:"Album",exact:true}).click();
     await expect(page.locator("#album-title")).toBeVisible();
     expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
-    expect(await page.evaluate(() => window.__lunaQA.stopped)).toBeGreaterThan(0);
+    // Navigation can paint the album before React flushes passive audio cleanup.
+    await expect.poll(() => page.evaluate(() => window.__lunaQA.stopped)).toBeGreaterThan(0);
 
     if (sealedChapters.length) {
       const chapter = sealedChapters[0];
