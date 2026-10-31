@@ -61,10 +61,10 @@
 .albumFooter > a { display: inline-flex; min-height: 44px; align-items: center; gap: 1rem; font-family: "Iowan Old Style", Georgia, serif; font-size: 1.2rem; }
 .albumFooter > a > svg:first-child { color: var(--album-love); }
 .albumFooter > button { display: inline-flex; min-height: 44px; gap: .6rem; align-items: center; background: transparent; border: 0; color: var(--album-muted); font-size: .8rem; }
-.vaultImage { position: relative; display: block; width: 100%; overflow: hidden; background: #dce2e9; }
+.vaultImage { position: relative; display: block; width: 100%; overflow: hidden; background: var(--vault-image-background, #dce2e9); }
 .vaultImageFill { position: absolute; inset: 0; height: 100%; }
 .vaultImage > img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.imagePlaceholder { display: block; position: absolute; inset: 0; background: linear-gradient(125deg, #dce2e9, #e8eaf0 55%, #e4dfe7); }
+.imagePlaceholder { display: block; position: absolute; inset: 0; background: var(--vault-image-placeholder-background, linear-gradient(125deg, #dce2e9, #e8eaf0 55%, #e4dfe7)); }
 .imageError { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem; padding: 1rem; color: #36495c; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: .78rem; text-align: center; }
 .imageError button { position: relative; min-height: 44px; min-width: 90px; border: 1px solid #9ba8b7; border-radius: 5px; background: #fff; color: #243546; font: inherit; cursor: pointer; }
 .viewer { position: fixed; inset: 0; z-index: 1000; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; background: #141d28; color: #f1f4f8; padding: max(.5rem, env(safe-area-inset-top)) max(.7rem, env(safe-area-inset-right)) max(.6rem, env(safe-area-inset-bottom)) max(.7rem, env(safe-area-inset-left)); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
