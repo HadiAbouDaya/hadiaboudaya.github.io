@@ -45,7 +45,7 @@ export async function prepareVault({ photosDir, privateDir, destination = "publi
         const { data, info } = await oriented.clone().resize({ width: size, height: size, fit: "inside", withoutEnlargement: true }).webp({ quality }).toBuffer({ resolveWithObject: true });
         variants[variant] = await writeObject(data, "image/webp", { width: info.width, height: info.height });
       }
-      const photo = { id: crypto.randomUUID(), group, alt: albumInput.photoDescriptions?.[filename] ?? `A memory from ${chapterInput.chapters.find(chapter => chapter.id === group).title}`, width: variants.full.width, height: variants.full.height, ...variants };
+      const photo = { id: crypto.randomUUID(), group, alt: albumInput.photoDescriptions?.[filename] ?? `A memory from ${chapterInput.chapters.find(chapter => chapter.id === group).title}`, width: variants.full.width, height: variants.full.height, sequence: albumInput.photoOrder?.[filename] ?? photos.length, ...variants };
       photos.push(photo); byFilename.set(filename, photo);
       if (photos.length % 40 === 0) console.log(`Prepared ${photos.length} encrypted photographs`);
     }
@@ -60,10 +60,10 @@ export async function prepareVault({ photosDir, privateDir, destination = "publi
       assets[filename.replace(/\.[^.]+$/, "")] = await writeObject(buffer, filename.endsWith(".mp3") ? "audio/mpeg" : "image/webp", dimensions);
     }
     const manifest = {
-      version: chapterInput.chapters.some(chapter => chapter.presentation) ? 2 : 1,
-      album: { title: albumInput.title, subtitle: albumInput.subtitle, coverIds: albumInput.coverFilenames.map(name => byFilename.get(name)?.id).filter(Boolean) },
-      chapters: chapterInput.chapters.map(({ id, title, dateLabel, source, coverFilename, order, presentation }) => ({ id, title, dateLabel, source, coverId: byFilename.get(coverFilename)?.id, order, ...(presentation ? { presentation } : {}) })),
-      photos,
+      version: albumInput.trips?.length || chapterInput.chapters.some(chapter => chapter.journey) ? 3 : chapterInput.chapters.some(chapter => chapter.presentation) ? 2 : 1,
+      album: { title: albumInput.title, subtitle: albumInput.subtitle, coverIds: albumInput.coverFilenames.map(name => byFilename.get(name)?.id).filter(Boolean), ...(albumInput.trips ? { trips: albumInput.trips.map(({ coverFilename, ...trip }) => ({ ...trip, coverId: byFilename.get(coverFilename)?.id })) } : {}) },
+      chapters: chapterInput.chapters.map(({ id, title, dateLabel, source, coverFilename, order, presentation, journey }) => ({ id, title, dateLabel, source, coverId: byFilename.get(coverFilename)?.id, order, ...(presentation ? { presentation } : {}), ...(journey ? { journey } : {}) })),
+      photos: photos.sort((a, b) => a.sequence - b.sequence),
       birthday: { ...birthdayInput, assets },
     };
     validateManifest(manifest);

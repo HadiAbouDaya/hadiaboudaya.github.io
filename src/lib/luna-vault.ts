@@ -1,13 +1,20 @@
 export type VaultAsset = { id: string; mime: string; bytes: number; width?: number; height?: number };
-export type VaultPhoto = { id: string; width: number; height: number; thumb: VaultAsset; medium: VaultAsset; full: VaultAsset; alt: string; group: string };
+export type VaultPhoto = { id: string; width: number; height: number; thumb: VaultAsset; medium: VaultAsset; full: VaultAsset; alt: string; group: string; sequence?: number };
+export const JOURNEY_MOTIFS = ["skyline", "prism", "road", "bokeh", "headlights", "tram", "meadow", "ink", "orbit", "tide", "umbrellas", "candle", "paper", "steam", "reflection"] as const;
+export type VaultJourneyTheme = {
+  motif: typeof JOURNEY_MOTIFS[number]; accent: string; backdrop: string; ink: string;
+  kicker: string; description: string; actionLabel: string; activeLabel: string;
+};
+export const DEFAULT_JOURNEY_THEME: VaultJourneyTheme = { motif: "paper", accent: "#155c65", backdrop: "#d7e7e3", ink: "#1f3444", kicker: "A moment to return to", description: "A few photographs, a whole little world.", actionLabel: "Turn a page", activeLabel: "Keep this moment" };
 export type VaultChapterPresentation = {
   kind: "sealed"; teaser: string; description: string; sealLabel: string;
   openLabel: string; closeLabel: string; revealedNote: string; exhibitLabel: string;
 };
-export type VaultChapter = { id: string; title: string; dateLabel: string; source: string; coverId: string; order: number; presentation?: VaultChapterPresentation };
+export type VaultChapter = { id: string; title: string; dateLabel: string; source: string; coverId: string; order: number; presentation?: VaultChapterPresentation; journey?: VaultJourneyTheme };
+export type VaultTrip = { id: string; title: string; dateLabel: string; description: string; coverId: string; chapterIds: string[]; order: number };
 export type VaultManifest = {
-  version: 1 | 2;
-  album: { title: string; subtitle: string; coverIds: string[] };
+  version: 1 | 2 | 3;
+  album: { title: string; subtitle: string; coverIds: string[]; trips?: VaultTrip[] };
   chapters: VaultChapter[];
   photos: VaultPhoto[];
   birthday: { text: Record<string, string>; assets: Record<string, VaultAsset>; photos: { asset: string; alt: string; shape: string }[] };
@@ -47,7 +54,7 @@ export function validAsset(value: unknown): value is VaultAsset {
 }
 export function validateManifest(value: unknown): asserts value is VaultManifest {
   const manifest = value as VaultManifest;
-  if (!manifest || ![1, 2].includes(manifest.version) || !Array.isArray(manifest.photos) || manifest.photos.length > 10_000 ||
+  if (!manifest || ![1, 2, 3].includes(manifest.version) || !Array.isArray(manifest.photos) || manifest.photos.length > 10_000 ||
       !Array.isArray(manifest.chapters) || !manifest.album || typeof manifest.album.title !== "string" ||
       !Array.isArray(manifest.album.coverIds) || !manifest.birthday?.text || !manifest.birthday.assets || !Array.isArray(manifest.birthday.photos)) throw new Error("Invalid album contents");
   const ids = new Set<string>();
@@ -55,6 +62,7 @@ export function validateManifest(value: unknown): asserts value is VaultManifest
     if (!photo || typeof photo.id !== "string" || ids.has(photo.id) || !Number.isFinite(photo.width) || photo.width < 1 ||
       !Number.isFinite(photo.height) || photo.height < 1 || !validAsset(photo.thumb) || !validAsset(photo.medium) || !validAsset(photo.full) ||
       typeof photo.alt !== "string" || typeof photo.group !== "string") throw new Error("Invalid photograph");
+    if (photo.sequence !== undefined && (!Number.isSafeInteger(photo.sequence) || photo.sequence < 0 || photo.sequence > 10_000)) throw new Error("Invalid photograph order");
     ids.add(photo.id);
   }
   for (const asset of Object.values(manifest.birthday.assets)) if (!validAsset(asset)) throw new Error("Invalid keepsake asset");
@@ -63,6 +71,12 @@ export function validateManifest(value: unknown): asserts value is VaultManifest
     if (!chapter || typeof chapter.id !== "string" || chapterIds.has(chapter.id) || typeof chapter.title !== "string" ||
       typeof chapter.dateLabel !== "string" || !ids.has(chapter.coverId)) throw new Error("Invalid chapter");
     chapterIds.add(chapter.id);
+    if (chapter.journey !== undefined) {
+      const theme = chapter.journey;
+      if (manifest.version < 3 || !theme || !JOURNEY_MOTIFS.includes(theme.motif) ||
+          [theme.accent, theme.backdrop, theme.ink].some(value => typeof value !== "string" || !/^#[0-9a-f]{6}$/i.test(value)) ||
+          [theme.kicker, theme.description, theme.actionLabel, theme.activeLabel].some(value => typeof value !== "string" || !value.trim() || value.length > 1000)) throw new Error("Invalid journey theme");
+    }
     if (chapter.presentation !== undefined) {
       const presentation = chapter.presentation;
       if (manifest.version < 2 || !presentation || presentation.kind !== "sealed" ||
@@ -70,6 +84,19 @@ export function validateManifest(value: unknown): asserts value is VaultManifest
     }
   }
   if (manifest.photos.some(photo => !chapterIds.has(photo.group)) || manifest.album.coverIds.some(id => !ids.has(id))) throw new Error("Invalid album references");
+  if (manifest.album.trips !== undefined) {
+    if (manifest.version < 3 || !Array.isArray(manifest.album.trips) || manifest.album.trips.length > 1000) throw new Error("Invalid trip grouping");
+    const assigned = new Set<string>(), tripIds = new Set<string>();
+    for (const trip of manifest.album.trips) {
+      if (!trip || typeof trip.id !== "string" || !trip.id || chapterIds.has(trip.id) || tripIds.has(trip.id) ||
+          [trip.title, trip.dateLabel, trip.description].some(value => typeof value !== "string" || !value.trim() || value.length > 1000) ||
+          !Number.isSafeInteger(trip.order) || !Array.isArray(trip.chapterIds) || trip.chapterIds.length < 2 ||
+          trip.chapterIds.some(id => !chapterIds.has(id) || assigned.has(id) || manifest.chapters.find(chapter => chapter.id === id)?.presentation?.kind === "sealed") ||
+          new Set(trip.chapterIds).size !== trip.chapterIds.length || !manifest.photos.some(photo => photo.id === trip.coverId && trip.chapterIds.includes(photo.group))) throw new Error("Invalid trip grouping");
+      tripIds.add(trip.id);
+      trip.chapterIds.forEach(id => assigned.add(id));
+    }
+  }
 }
 export async function deriveWrappingKey(password: string, config: VaultConfig, usages: KeyUsage[]) {
   const material = await crypto.subtle.importKey("raw", encoder.encode(password), "PBKDF2", false, ["deriveKey"]);

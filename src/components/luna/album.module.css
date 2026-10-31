@@ -157,6 +157,49 @@
 }
 .viewerStageZoomed { touch-action: pan-x pan-y pinch-zoom; }
 
+.overviewActions { display: flex; flex-wrap: wrap; gap: .85rem; align-items: center; }
+.allPhotosButton { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; border: 0; min-height: 50px; padding: .7rem 1rem; color: var(--album-ink); background: transparent; font-size: .85rem; }
+.allPhotosButton span { color: var(--album-muted); font-size: .7rem; }
+.atlasHero { min-height: min(700px, 79svh); }
+.atlasJourneys { padding: 3rem max(2rem, calc((100% - 1190px) / 2)) 5rem; outline: none; }
+.atlasHeading { display: flex; justify-content: space-between; gap: 2rem; align-items: end; margin-bottom: 2.4rem; }
+.atlasHeading h2 { margin: 0; font: 400 clamp(2.2rem, 4vw, 3.5rem)/1.1 "Iowan Old Style",Georgia,serif; letter-spacing: -.035em; }
+.atlasHeading p { color: var(--album-muted); line-height: 1.6; font-size: .9rem; margin: 1rem 0 0; }
+.atlasHeading > span { white-space: nowrap; color: var(--album-muted); font-size: .8rem; }
+.journeyRoom { --journey-accent: #155c65; --journey-backdrop: #d7e7e3; --journey-ink: #1f3444; background: var(--journey-backdrop); color: var(--journey-ink); min-height: calc(100svh - 92px); outline: none; overflow-x: clip; }
+.roomNavigation { display: flex; align-items: center; justify-content: space-between; gap: 1.4rem; width: min(1190px, 100%); margin: auto; padding: 1.5rem 2rem; }
+.roomNavigation > button { display: inline-flex; gap: .7rem; align-items: center; min-height: 44px; border: 0; background: transparent; color: inherit; padding: .65rem 0; font-size: .85rem; }
+.roomNavigation > span { text-align: right; font-family: Georgia,serif; font-style: italic; font-size: .85rem; opacity: .8; }
+.roomHero { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: center; gap: clamp(2rem,5vw,5rem); max-width: 1190px; margin: auto; padding: 2rem 2rem 4rem; }
+.roomStory { min-width: 0; }
+.roomKicker { color: var(--journey-accent); font-size: .85rem; line-height: 1.5; margin: 0 0 1rem; }
+.roomHero h1, .allHeading h1 { font: 400 clamp(2.8rem,5.5vw,5.4rem)/1.03 "Iowan Old Style",Georgia,serif; letter-spacing: -.045em; margin: 0; overflow-wrap: anywhere; }
+.roomDescription { font-size: .98rem; line-height: 1.75; max-width: 35ch; margin: 1.5rem 0 .9rem; }
+.roomCount { font-size: .76rem; opacity: .75; }
+.roomCover { position: relative; min-width: 0; width: 100%; aspect-ratio: 4/5; max-height: 660px; background: rgb(255 255 255 / .4); border: 10px solid rgb(255 255 255 / .85); border-bottom-width: 57px; box-shadow: 0 20px 40px -26px rgb(20 40 55 / .4); transform: rotate(2deg); }
+.roomCover > span:first-child { background: transparent; }
+.coverDate { position: absolute; left: .45rem; right: .45rem; bottom: -43px; text-align: center; font: italic .86rem/1.5 Georgia,serif; color: var(--journey-ink); }
+.roomGallery { background: rgb(255 255 255 / .73); border-radius: 30px 30px 0 0; padding-top: 3.4rem; }
+.roomGallery .galleryHeading { margin-bottom: 2rem; }
+.roomGallery .shuffleButton { color: var(--journey-ink); border-color: var(--journey-accent); }
+.allHeading { max-width: 1190px; margin: auto; padding: 2rem 2rem 4rem; }
+.allHeading p { font-size: 1rem; line-height: 1.6; }
+@media (max-width:700px) {
+  .atlasHero { min-height: auto; }
+  .atlasJourneys { padding: 2.2rem 1.2rem 3.5rem; }
+  .atlasHeading { display: block; margin-bottom: 1.7rem; }
+  .atlasHeading > span { display: block; margin-top: 1rem; }
+  .atlasHeading h2 { font-size: 2.45rem; }
+  .roomNavigation { padding: .9rem 1.2rem; align-items: start; }
+  .roomNavigation > span { max-width: 35%; font-size: .75rem; padding-top: .8rem; }
+  .roomHero { grid-template-columns: minmax(0,1fr); padding: 1.4rem 1.4rem 3rem; gap: 2.6rem; }
+  .roomHero h1, .allHeading h1 { font-size: clamp(2.7rem,11vw,4.4rem); }
+  .roomDescription { font-size: .94rem; }
+  .roomCover { max-width: 430px; justify-self: center; aspect-ratio: 4/4.7; }
+  .roomGallery { padding-top: 2.5rem; border-radius: 22px 22px 0 0; }
+  .allHeading { padding: 1.5rem 1.2rem 2.3rem; }
+}
+
 .sealedCollection { background: var(--album-petal); padding: 4.6rem max(2rem, calc((100% - 1190px) / 2)); overflow-x: clip; }
 .sealedIntro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .95fr); align-items: center; gap: clamp(2rem, 6vw, 6rem); }
 .sealedCopy { max-width: 31rem; }
@@ -206,3 +249,7 @@
   .sealedExhibit:nth-child(2n) { transform: rotate(2deg); }
   .sealedExhibitCaption { min-height: 56px; font-size: 1rem; }
 }
+.tripStops { max-width: 1120px; margin: 0 auto; padding: 1rem clamp(1.2rem, 4vw, 3rem) 4rem; }
+.tripStops h2 { font: 400 clamp(2rem, 5vw, 3.5rem) / 1.12 Georgia, serif; letter-spacing: -.04em; margin: 1rem 0 2rem; text-wrap: balance; }
+.tripStopsLink { display: inline-flex; align-items: center; gap: .7rem; min-height: 44px; margin-top: 1.4rem; color: var(--journey-ink); text-underline-offset: .3rem; }
+.tripStopsLink:focus-visible { outline: 3px solid var(--journey-accent); outline-offset: 5px; }

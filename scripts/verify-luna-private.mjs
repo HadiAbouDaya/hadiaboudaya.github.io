@@ -4,7 +4,7 @@ import path from "node:path";
 import assert from "node:assert/strict";
 import sharp from "sharp";
 import { createHash } from "node:crypto";
-import { unlockVault, decryptVaultObject, validateManifest, validateVaultConfig } from "../src/lib/luna-vault.ts";
+import { unlockVault, decryptVaultObject, validateManifest, validateVaultConfig, DEFAULT_JOURNEY_THEME } from "../src/lib/luna-vault.ts";
 import { filesUnder } from "./lib/files.mjs";
 
 const privateDir = process.env.LUNA_PRIVATE_DIR;
@@ -54,7 +54,10 @@ await Promise.all(Array.from({ length: 4 }, async () => {
 // Detect actual private text/secrets in output, not just recognizable source paths.
 const privateText = [...new Set([
   ...Object.values(manifest.birthday.text).filter(value => value.length >= 20),
-  ...manifest.chapters.flatMap(chapter => [chapter.title, ...[chapter.source, ...Object.values(chapter.presentation ?? {})].filter(value => typeof value === "string" && value.length >= 20)]),
+  ...manifest.chapters.flatMap(chapter => [chapter.title, ...[chapter.source, ...Object.values(chapter.presentation ?? {}), ...Object.values(chapter.journey ?? {})].filter(value => typeof value === "string" && value.length >= 20)]),
+  ...manifest.chapters.flatMap(chapter => [chapter.journey?.kicker, chapter.journey?.description, chapter.journey?.actionLabel, chapter.journey?.activeLabel].filter(value => typeof value === "string" && value.length >= 8 && !Object.values(DEFAULT_JOURNEY_THEME).includes(value))),
+  ...manifest.photos.map(photo => photo.alt).filter(value => value.length >= 20),
+  ...(manifest.album.trips ?? []).flatMap(trip => [trip.title, trip.description]),
   ...originals.flatMap(({name}) => [name, encodeURIComponent(name)]),
   passphrase, backup.rawKey, manifest.album.title, manifest.album.subtitle,
 ])];
