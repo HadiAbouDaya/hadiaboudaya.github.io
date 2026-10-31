@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState, type TouchEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type TouchEvent, type CSSProperties } from "react";
 import { ArrowDown, ArrowLeft, ArrowRight, Gift, Heart, LockKeyhole, Shuffle, X, ZoomIn, ZoomOut } from "lucide-react";
-import type { VaultChapter, VaultPhoto } from "@/lib/luna-vault";
+import { DEFAULT_JOURNEY_THEME, type VaultChapter, type VaultPhoto } from "@/lib/luna-vault";
 import { useVault } from "./VaultProvider";
 import { VaultImage } from "./VaultImage";
 import styles from "./album.module.css";
+import { JourneyCards } from "./JourneyCards";
+import { JourneyEffects } from "./JourneyEffects";
 
 const PAGE_SIZE = 24;
 
@@ -30,7 +32,6 @@ function SealedCollection({ chapter, photos, onOpen }: { chapter: VaultChapter; 
     <section className={styles.sealedCollection} aria-labelledby={`sealed-title-${chapter.id}`} data-sealed-collection={chapter.id} data-sealed-open={revealed ? "true" : "false"}>
       <div className={styles.sealedIntro}>
         <div className={styles.sealedCopy}>
-          <p className={styles.sealedTeaser}>{presentation.teaser}</p>
           <h2 id={`sealed-title-${chapter.id}`}>{chapter.title}</h2>
           <p className={styles.sealedDescription}>{presentation.description}</p>
           <span className={styles.sealedDate}>{chapter.dateLabel}</span>
@@ -98,7 +99,10 @@ function PhotoViewer({ photos, initialIndex, onClose }: { photos: VaultPhoto[]; 
     return () => {
       document.body.style.overflow = overflow;
       document.removeEventListener("keydown", keys);
-      if (previouslyFocused?.isConnected) previouslyFocused.focus({ preventScroll: true });
+      // The parent releases inert in its passive effect after this cleanup.
+      requestAnimationFrame(() => {
+        if (previouslyFocused?.isConnected) previouslyFocused.focus({ preventScroll: true });
+      });
     };
   }, [move, onClose]);
 
@@ -149,11 +153,19 @@ function PhotoViewer({ photos, initialIndex, onClose }: { photos: VaultPhoto[]; 
 
 export function AlbumExperience() {
   const { manifest, lock } = useVault();
-  const [group, setGroup] = useState("");
+  const [view, setView] = useState<"overview" | "chapter" | "trip" | "all">("overview");
+  const [chapterId, setChapterId] = useState<string | null>(null);
+  const [tripId, setTripId] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [viewer, setViewer] = useState<{ photos: VaultPhoto[]; index: number } | null>(null);
   const background = useRef<HTMLDivElement>(null);
-  const gallery = useRef<HTMLElement>(null);
+  const room = useRef<HTMLElement>(null);
+  const journeys = useRef<HTMLElement>(null);
+  const overviewScroll = useRef(0);
+  const entrySelector = useRef<string | null>(null);
+  const tripScroll = useRef(0);
+  const roomReturn = useRef<{scroll: number; selector: string} | null>(null);
+  const allPhotosButton = useRef<HTMLButtonElement>(null);
   const closeViewer = useCallback(() => setViewer(null), []);
 
   useEffect(() => {
@@ -162,27 +174,82 @@ export function AlbumExperience() {
     return () => { if (element) element.inert = false; };
   }, [viewer]);
 
+  useEffect(() => {
+    if (view === "overview") return;
+    const restore = roomReturn.current;
+    roomReturn.current = null;
+    const frame = requestAnimationFrame(() => {
+      window.scrollTo({ top: restore?.scroll ?? 0, behavior: "instant" });
+      const target = restore ? document.querySelector<HTMLElement>(restore.selector) : room.current;
+      target?.focus({ preventScroll: true });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [view, chapterId]);
+
   if (!manifest) return null;
-  const sealedChapters = manifest.chapters.filter((chapter) => chapter.presentation?.kind === "sealed").sort((a, b) => a.order - b.order);
-  const sealedIds = new Set(sealedChapters.map((chapter) => chapter.id));
-  const photos = manifest.photos.filter((photo) => !sealedIds.has(photo.group));
-  const filtered = group ? photos.filter((photo) => photo.group === group) : photos;
-  const chapters = manifest.chapters.filter((chapter) => !sealedIds.has(chapter.id)).sort((a, b) => a.order - b.order);
-  const selectedChapter = chapters.find((chapter) => chapter.id === group);
-  const covers = manifest.album.coverIds.map((id) => photos.find((photo) => photo.id === id)).filter((photo): photo is VaultPhoto => Boolean(photo)).slice(0, 3);
+  const sealedChapters = manifest.chapters.filter(chapter => chapter.presentation?.kind === "sealed").sort((a, b) => a.order - b.order);
+  const sealedIds = new Set(sealedChapters.map(chapter => chapter.id));
+  const photos = manifest.photos.filter(photo => !sealedIds.has(photo.group)).sort((a, b) => (a.sequence ?? 0) - (b.sequence ?? 0));
+  const chapters = manifest.chapters.filter(chapter => !sealedIds.has(chapter.id)).sort((a, b) => a.order - b.order);
+  const trips = manifest.album.trips ?? [];
+  const trip = trips.find(entry => entry.id === tripId);
+  const tripChapters = trip ? trip.chapterIds.map(id => chapters.find(entry => entry.id === id)).filter((entry): entry is VaultChapter => !!entry) : [];
+  const groupedChapters = new Set(trips.flatMap(entry => entry.chapterIds));
+  const tripEntries: VaultChapter[] = trips.map(entry => ({ ...entry, source: "Confirmed multi-stop visit", journey: { ...(chapters.find(chapter => chapter.id === entry.chapterIds[0])?.journey ?? DEFAULT_JOURNEY_THEME), description: entry.description } }));
+  const entries = [...chapters.filter(entry => !groupedChapters.has(entry.id)), ...tripEntries].sort((a, b) => a.order - b.order);
+  const chapter = view === "trip" ? tripEntries.find(entry => entry.id === tripId) : chapters.find(entry => entry.id === chapterId);
+  const theme = chapter?.journey ?? DEFAULT_JOURNEY_THEME;
+  const chapterPhotos = view === "trip" && trip ? trip.chapterIds.flatMap(id => photos.filter(photo => photo.group === id)) : view === "chapter" && chapter ? photos.filter(photo => photo.group === chapter.id) : photos;
+  const cardPhotos = photos.map(photo => {
+    const parent = trips.find(entry => entry.chapterIds.includes(photo.group));
+    return parent ? { ...photo, group: parent.id } : photo;
+  });
+  const cover = chapterPhotos.find(photo => photo.id === chapter?.coverId) ?? chapterPhotos[0];
+  const covers = manifest.album.coverIds.map(id => photos.find(photo => photo.id === id)).filter((photo): photo is VaultPhoto => Boolean(photo)).slice(0, 3);
   const heroPhotos = covers.length ? covers : photos.slice(0, 3);
-  const open = (photo: VaultPhoto, collection = photos) => setViewer({ photos: collection, index: collection.findIndex((entry) => entry.id === photo.id) });
-  const selectChapter = (chapterId: string) => {
-    setGroup(chapterId);
+  const open = (photo: VaultPhoto, collection = photos) => setViewer({ photos: collection, index: collection.findIndex(entry => entry.id === photo.id) });
+  const selectChapter = (id: string, heroPhotoId?: string) => {
+    const parent = trips.find(entry => entry.id === id || entry.chapterIds.includes(id));
+    overviewScroll.current = window.scrollY;
+    entrySelector.current = heroPhotoId ? `[data-journey-hero="${CSS.escape(heroPhotoId)}"]` : `[data-journey-card="${CSS.escape(parent?.id ?? id)}"]`;
+    setTripId(parent?.id ?? null);
+    setChapterId(parent?.id ?? id);
     setVisibleCount(PAGE_SIZE);
-    gallery.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" });
-    gallery.current?.focus({ preventScroll: true });
+    setView(parent ? "trip" : "chapter");
+  };
+  const selectStop = (id: string) => {
+    tripScroll.current = window.scrollY;
+    setChapterId(id);
+    setVisibleCount(PAGE_SIZE);
+    setView("chapter");
+  };
+  const showAll = () => {
+    overviewScroll.current = window.scrollY;
+    setVisibleCount(PAGE_SIZE);
+    setView("all");
+  };
+  const backToJourneys = () => {
+    if (view === "chapter" && trip) {
+      roomReturn.current = { scroll: tripScroll.current, selector: `[data-journey-card="${CSS.escape(chapterId ?? "")}"]` };
+      setChapterId(trip.id);
+      setVisibleCount(PAGE_SIZE);
+      setView("trip");
+      return;
+    }
+    const fromAll = view === "all";
+    setView("overview");
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: overviewScroll.current, behavior: "instant" });
+      const entry = entrySelector.current ? document.querySelector<HTMLElement>(entrySelector.current) : null;
+      (fromAll ? allPhotosButton.current : entry ?? journeys.current)?.focus({ preventScroll: true });
+    });
   };
   const randomPhoto = () => {
-    if (!filtered.length) return;
+    if (!chapterPhotos.length) return;
     const number = crypto.getRandomValues(new Uint32Array(1))[0] / 4294967296;
-    setViewer({ photos: filtered, index: Math.floor(number * filtered.length) });
+    setViewer({ photos: chapterPhotos, index: Math.floor(number * chapterPhotos.length) });
   };
+  const roomStyle = { "--journey-accent": theme.accent, "--journey-backdrop": theme.backdrop, "--journey-ink": theme.ink } as CSSProperties;
 
   return (
     <div className={styles.album}>
@@ -194,64 +261,40 @@ export function AlbumExperience() {
             <button type="button" onClick={lock} className={styles.lockButton}><LockKeyhole size={17} /><span>Lock</span></button>
           </div>
         </header>
-        <section className={styles.hero} aria-labelledby="album-title">
-          <div className={styles.heroCopy}>
-            <span className={styles.smallNote}>A place to come back to.</span>
-            <h1 id="album-title">{manifest.album.title}</h1>
-            <p>{manifest.album.subtitle}</p>
-            <button type="button" className={styles.primaryButton} onClick={() => { gallery.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" }); gallery.current?.focus({ preventScroll: true }); }}>
-              Open the album <ArrowDown size={17} />
-            </button>
-          </div>
-          <div className={styles.photoStack} aria-label="A few photographs from the album">
-            {heroPhotos.map((photo, index) => (
-              <button type="button" key={photo.id} className={`${styles.stackPhoto} ${styles[`stackPhoto${index}`]}`} onClick={() => open(photo)} aria-label={`Open photo: ${photo.alt}`}>
-                <VaultImage asset={photo.medium} alt={photo.alt} fill priority style={{ objectFit: "cover" }} />
-                <span className={styles.stackPaper} aria-hidden="true" />
-              </button>
-            ))}
-          </div>
-          <span className={styles.heroFootnote}>Little moments, kept close.</span>
-        </section>
-        {chapters.length > 0 && <section className={styles.journeys} aria-labelledby="journeys-title">
-          <div className={styles.journeysHeading}><h2 id="journeys-title">Our little journeys</h2><p>A few days can hold so much.</p></div>
-          <div className={styles.journeyRail}>
-            {chapters.map((chapter) => {
-              const cover = photos.find((photo) => photo.id === chapter.coverId);
-              const count = photos.filter((photo) => photo.group === chapter.id).length;
-              return <button type="button" className={`${styles.journeyCard} ${group === chapter.id ? styles.journeySelected : ""}`} key={chapter.id} onClick={() => selectChapter(chapter.id)} aria-label={`Open ${chapter.title}, ${chapter.dateLabel}, ${count} photographs`}>
-                <span className={styles.journeyCover}>{cover && <VaultImage asset={cover.thumb} alt={cover.alt} fill />}</span>
-                <span className={styles.journeyDate}>{chapter.dateLabel}</span>
-                <span className={styles.journeyTitle}>{chapter.title}<ArrowRight size={17} /></span>
-                <span className={styles.journeyCount}>{count} photographs</span>
-              </button>;
-            })}
-          </div>
-          <p className={styles.groupingNote}>Grouped from photo dates.</p>
+        {view === "overview" ? <>
+          <section className={`${styles.hero} ${styles.atlasHero}`} aria-labelledby="album-title">
+            <div className={styles.heroCopy}>
+              <h1 id="album-title">{manifest.album.title}</h1>
+              <p>{manifest.album.subtitle}</p>
+              <div className={styles.overviewActions}>
+                <button type="button" className={styles.primaryButton} onClick={() => { journeys.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" }); journeys.current?.focus({ preventScroll: true }); }}>Choose a journey <ArrowDown size={17} /></button>
+                <button ref={allPhotosButton} type="button" className={styles.allPhotosButton} onClick={showAll}>All photos <span>{photos.length}</span></button>
+              </div>
+            </div>
+            <div className={styles.photoStack} aria-label="A few photographs from the album">
+              {heroPhotos.map((photo, index) => <button type="button" key={photo.id} data-journey-hero={photo.id} className={`${styles.stackPhoto} ${styles[`stackPhoto${index}`]}`} onClick={() => selectChapter(photo.group, photo.id)} aria-label={`Open ${trips.find(entry => entry.chapterIds.includes(photo.group))?.title ?? chapters.find(entry => entry.id === photo.group)?.title ?? "this journey"}`}><VaultImage asset={photo.medium} alt={photo.alt} fill priority retryOnParentClick={false} style={{ objectFit: "cover" }} /><span className={styles.stackPaper} aria-hidden="true" /></button>)}
+            </div>
+          </section>
+          <section ref={journeys} className={styles.atlasJourneys} tabIndex={-1} aria-labelledby="journeys-title">
+            <div className={styles.atlasHeading}><div><h2 id="journeys-title">Step back into a memory.</h2><p>Choose a place, then make its little world come alive.</p></div><span>{entries.length} journeys & keepsakes</span></div>
+            <JourneyCards chapters={entries} photos={cardPhotos} onSelect={selectChapter} selectedId={tripId ?? chapterId ?? undefined} />
+          </section>
+          {sealedChapters.map(entry => <SealedCollection key={entry.id} chapter={entry} photos={manifest.photos.filter(photo => photo.group === entry.id)} onOpen={open} />)}
+          <footer className={styles.albumFooter}><Link href="/luna/birthday/"><Gift size={19} /><span>Keep a little birthday magic.</span><ArrowRight size={18} /></Link><button type="button" onClick={lock}><LockKeyhole size={16} />Close our album</button></footer>
+        </> : <section ref={room} tabIndex={-1} className={styles.journeyRoom} data-journey-room={view === "all" ? "all" : chapter?.id} data-trip-room={view === "trip" ? trip?.id : undefined} data-journey-motif={view !== "all" ? theme.motif : "paper"} style={roomStyle} aria-labelledby="room-title">
+          <div className={styles.roomNavigation}><button type="button" onClick={backToJourneys}><ArrowLeft size={18} />{view === "chapter" && trip ? "Back to the whole trip" : "Back to journeys"}</button></div>
+          {view !== "all" && chapter ? <div className={styles.roomHero}>
+            <div className={styles.roomStory}><h1 id="room-title">{chapter.title}</h1><p className={styles.roomDescription}>{theme.description}</p><span className={styles.roomCount}>{chapterPhotos.length} {chapterPhotos.length === 1 ? "photograph" : "photographs"}{view === "trip" ? ` · ${tripChapters.length} stops, one trip` : " to come back to."}</span>{view === "chapter" && <JourneyEffects key={chapter.id} theme={theme} />}{view === "trip" && <a className={styles.tripStopsLink} href="#trip-stops">Explore the stops <ArrowDown size={17} /></a>}</div>
+            {cover && <div className={styles.roomCover}><VaultImage asset={cover.medium} alt={cover.alt} fill priority style={{objectFit:"contain"}} /><span className={styles.coverDate}>{chapter.dateLabel}</span></div>}
+          </div> : <div className={styles.allHeading}><h1 id="room-title">Every little moment.</h1><p>All {photos.length} photographs, gathered in one place.</p></div>}
+          {view === "trip" && <section id="trip-stops" className={styles.tripStops} aria-labelledby="trip-stops-title"><h2 id="trip-stops-title">Different stops. One trip.</h2><JourneyCards chapters={tripChapters} photos={photos} onSelect={selectStop} headingLabel="Explore this stop" /></section>}
+          <section id="photographs" className={`${styles.gallery} ${styles.roomGallery}`} aria-labelledby="gallery-title">
+            <div className={styles.galleryHeading}><div><h2 id="gallery-title">The photographs</h2><p className={styles.photoCount} aria-live="polite">{chapterPhotos.length} {chapterPhotos.length === 1 ? "photograph" : "photographs"}</p></div><button type="button" className={styles.shuffleButton} onClick={randomPhoto}><Shuffle size={17} />Surprise me</button></div>
+            <div className={styles.photoGrid}>{chapterPhotos.slice(0, visibleCount).map(photo => <button type="button" className={styles.photoTile} data-photo-id={photo.id} key={photo.id} onClick={() => open(photo, chapterPhotos)} aria-label={`Open photo: ${photo.alt}`}><VaultImage asset={photo.thumb} alt={photo.alt} width={photo.width} height={photo.height} /></button>)}</div>
+            {visibleCount < chapterPhotos.length && <div className={styles.moreRow}><button type="button" className={styles.moreButton} onClick={() => setVisibleCount(value => value + PAGE_SIZE)}>A few more moments <span>{Math.min(PAGE_SIZE, chapterPhotos.length - visibleCount)} more</span></button></div>}
+            {visibleCount >= chapterPhotos.length && <p className={styles.endNote}>All here. Until the next memory.</p>}
+          </section>
         </section>}
-        {sealedChapters.map((chapter) => <SealedCollection key={chapter.id} chapter={chapter} photos={manifest.photos.filter((photo) => photo.group === chapter.id)} onOpen={open} />)}
-        <section ref={gallery} id="photographs" tabIndex={-1} className={styles.gallery} aria-labelledby="gallery-title">
-          <div className={styles.galleryHeading}>
-            <div><h2 id="gallery-title">{selectedChapter?.title ?? "The moments"}</h2><p>{selectedChapter ? selectedChapter.dateLabel : `${photos.length} photographs, and room for more.`}</p></div>
-            <button type="button" className={styles.shuffleButton} onClick={randomPhoto}><Shuffle size={17} />Surprise me</button>
-          </div>
-          <div className={styles.galleryTools}>
-            {chapters.length > 0 ? (
-              <label className={styles.groupSelect}><span>Browse</span><select value={group} onChange={(event) => { setGroup(event.target.value); setVisibleCount(PAGE_SIZE); }}><option value="">Every moment</option>{chapters.map((chapter) => <option key={chapter.id} value={chapter.id}>{chapter.title}</option>)}</select></label>
-            ) : <span />}
-            <span className={styles.photoCount} aria-live="polite">{filtered.length} {filtered.length === 1 ? "photograph" : "photographs"}</span>
-          </div>
-          <div className={styles.photoGrid}>
-            {filtered.slice(0, visibleCount).map((photo) => (
-              <button type="button" className={styles.photoTile} key={photo.id} onClick={() => open(photo, filtered)} aria-label={`Open photo: ${photo.alt}`}>
-                <VaultImage asset={photo.thumb} alt={photo.alt} width={photo.width} height={photo.height} />
-              </button>
-            ))}
-          </div>
-          {visibleCount < filtered.length && <div className={styles.moreRow}><button type="button" className={styles.moreButton} onClick={() => setVisibleCount((value) => value + PAGE_SIZE)}>A few more moments <span>{Math.min(PAGE_SIZE, filtered.length - visibleCount)} more</span></button></div>}
-          {filtered.length > 0 && visibleCount >= filtered.length && <p className={styles.endNote}>All here. Until the next memory.</p>}
-        </section>
-        <footer className={styles.albumFooter}><Link href="/luna/birthday/"><Gift size={19} /><span>Keep a little birthday magic.</span><ArrowRight size={18} /></Link><button type="button" onClick={lock}><LockKeyhole size={16} />Close our album</button></footer>
       </div>
       {viewer !== null && viewer.photos[viewer.index] && <PhotoViewer photos={viewer.photos} initialIndex={viewer.index} onClose={closeViewer} />}
     </div>

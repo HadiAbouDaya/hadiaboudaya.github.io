@@ -1,0 +1,120 @@
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: clamp(2.2rem, 5vw, 5.1rem) clamp(1.5rem, 4vw, 4rem);
+  padding: .85rem .5rem 2rem;
+}
+
+.card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid rgb(31 52 68 / .12);
+  border-radius: 3px;
+  background: #fcfdfd;
+  color: var(--journey-ink);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  box-shadow: 0 15px 32px -29px rgb(31 52 68 / .45);
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: .7rem -.4rem -.5rem .45rem;
+  border: 1px solid rgb(31 52 68 / .1);
+  border-radius: 3px;
+  background: var(--journey-backdrop);
+  transform: rotate(var(--card-angle));
+  pointer-events: none;
+  transition: transform 220ms ease;
+}
+
+.card:nth-child(even) { margin-top: 3.6rem; }
+.card[data-selected="true"] { border-color: var(--journey-accent); }
+.cards .card:focus-visible { outline: 3px solid var(--journey-accent); outline-offset: 8px; }
+
+.cover {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--journey-backdrop);
+}
+
+.card:nth-child(3n + 1) .cover { aspect-ratio: 3 / 2; }
+.cover img { transition: transform 450ms cubic-bezier(.2, .6, .3, 1); }
+.coverShade { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 70%, rgb(16 30 38 / .13)); pointer-events: none; }
+.cornerFold { position: absolute; right: 0; bottom: 0; width: 1.55rem; height: 1.55rem; background: linear-gradient(135deg, transparent 49%, var(--journey-backdrop) 50%); pointer-events: none; }
+
+.mark {
+  position: absolute;
+  top: .9rem;
+  left: .9rem;
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  border: 1px solid rgb(255 255 255 / .78);
+  border-radius: 50%;
+  background: #f8fbf8;
+  color: var(--journey-accent);
+  box-shadow: 0 3px 11px -7px rgb(16 30 38 / .35);
+}
+
+.coverAction {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgb(20 37 45 / .68);
+  color: #fff;
+}
+
+.paper { display: flex; flex-direction: column; align-items: flex-start; width: 100%; padding: 1.6rem 1.8rem 1.4rem; background: #fcfdfd; }
+.title { display: block; max-width: 21ch; font: 400 clamp(1.9rem, 3.2vw, 3rem) / 1.07 "Iowan Old Style", "Palatino Linotype", Georgia, serif; letter-spacing: -.04em; text-wrap: balance; }
+.details { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1.1rem; width: 100%; margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid #e1e8eb; color: #62727b; font-size: .73rem; line-height: 1.5; }
+.openLabel { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; margin-top: .3rem; color: var(--journey-ink); font-size: .8rem; }
+.openLabel svg { transition: transform 220ms ease; }
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover { transform: translateY(-5px); border-color: var(--journey-accent); box-shadow: 0 23px 35px -29px rgb(31 52 68 / .55); }
+  .card:hover::before { transform: rotate(calc(var(--card-angle) * -1)); }
+  .card:hover .cover img { transform: scale(1.025); }
+  .card:hover .openLabel svg { transform: translate(2px, -2px); }
+}
+
+@media (max-width: 700px) {
+  .cards { grid-template-columns: minmax(0, 1fr); gap: 2.4rem; padding: .6rem .3rem 1.4rem; }
+  .card:nth-child(even) { margin-top: 0; }
+  .cover, .card:nth-child(3n + 1) .cover { aspect-ratio: 4 / 3; }
+  .paper { padding: 1.35rem 1.35rem 1rem; }
+  .title { font-size: clamp(2rem, 8.5vw, 2.7rem); max-width: 23ch; }
+  .details { margin-top: 1.1rem; }
+  .mark { width: 39px; height: 39px; top: .75rem; left: .75rem; }
+  .coverAction { width: 35px; height: 35px; top: .75rem; right: .75rem; }
+}
+
+@media (max-width: 360px) {
+  .paper { padding-inline: 1rem; }
+  .title { font-size: 2rem; }
+  .details { gap: .5rem; font-size: .7rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .card::before, .cover img, .openLabel svg { transition: none; }
+}

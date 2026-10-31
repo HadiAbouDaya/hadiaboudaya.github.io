@@ -43,6 +43,7 @@ export async function appendCollection({ privateDir, collectionFile, destination
   }
   const temporary = await mkdtemp(path.join(os.tmpdir(), "private-collection-"));
   const session = { config, key, nonces }, pending = [], photos = [], photoByFilename = new Map();
+  const firstSequence = Math.max(-1, ...backup.manifest.photos.map((photo, index) => photo.sequence ?? index)) + 1;
   try {
     const seal = async (bytes, mime, dimensions) => {
       const { asset, buffer } = await sealVaultObject(session, bytes, mime, dimensions);
@@ -63,11 +64,12 @@ export async function appendCollection({ privateDir, collectionFile, destination
         const { data, info } = await source.clone().resize({width:size,height:size,fit:"inside",withoutEnlargement:true}).webp({quality}).toBuffer({resolveWithObject:true});
         variants[variant] = await seal(data, "image/webp", {width:info.width,height:info.height});
       }
-      const photo = { id: crypto.randomUUID(), group: collection.chapter.id, alt: entry.alt, width: variants.full.width, height: variants.full.height, ...variants };
+      const photo = { id: crypto.randomUUID(), group: collection.chapter.id, alt: entry.alt, width: variants.full.width, height: variants.full.height, sequence: firstSequence + photos.length, ...variants };
       photos.push(photo); photoByFilename.set(entry.file, photo);
     }
     const chapter = { ...collection.chapter, coverId: photoByFilename.get(collection.cover)?.id };
-    const manifest = { ...backup.manifest, version: chapter.presentation ? 2 : backup.manifest.version, photos: [...backup.manifest.photos, ...photos], chapters: [...backup.manifest.chapters, chapter] };
+    const version = Math.max(backup.manifest.version, chapter.journey ? 3 : chapter.presentation ? 2 : 1);
+    const manifest = { ...backup.manifest, version, photos: [...backup.manifest.photos, ...photos], chapters: [...backup.manifest.chapters, chapter] };
     validateManifest(manifest);
     const nextConfig = { ...config, manifest: await seal(Buffer.from(JSON.stringify(manifest)), "application/json") };
     validateVaultConfig(nextConfig);
