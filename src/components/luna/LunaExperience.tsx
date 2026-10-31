@@ -345,8 +345,8 @@ export function LunaExperience() {
 
       {entered && (
         <nav aria-label="Private space" style={{ position: "fixed", top: "max(1rem, env(safe-area-inset-top))", left: "1rem", zIndex: 90, display: "flex", gap: ".5rem" }}>
-          <Link href="/luna/" onClick={pauseMusic} style={{ display: "grid", placeItems: "center", minHeight: 44, padding: "0 .8rem", borderRadius: 6, background: "#285143", color: "white", textDecoration: "none", fontSize: ".8rem" }}>Album</Link>
-          <button type="button" onClick={() => { pauseMusic(); lock(); }} style={{ minHeight: 44, padding: "0 .8rem", border: 0, borderRadius: 6, background: "#285143", color: "white", cursor: "pointer", fontSize: ".8rem" }}>Lock</button>
+          <Link href="/luna/" onClick={pauseMusic} style={{ display: "grid", placeItems: "center", minHeight: 44, padding: "0 .8rem", borderRadius: 2, background: "#285143", color: "white", textDecoration: "none", fontSize: ".8rem" }}>Album</Link>
+          <button type="button" onClick={() => { pauseMusic(); lock(); }} style={{ minHeight: 44, padding: "0 .8rem", border: 0, borderRadius: 2, background: "#285143", color: "white", cursor: "pointer", fontSize: ".8rem" }}>Lock</button>
         </nav>
       )}
       {entered && (

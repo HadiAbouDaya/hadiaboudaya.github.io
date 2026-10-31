@@ -107,7 +107,7 @@ body.luna-experience-active {
   margin-top: 1.75rem;
   gap: 0.55rem;
   border: 1px solid rgb(255 255 255 / 0.68);
-  border-radius: 6px;
+  border-radius: 2px;
   background: rgb(255 250 248 / 0.92);
   color: var(--luna-green);
   font-size: 0.9rem;
@@ -136,7 +136,7 @@ body.luna-experience-active {
   right: 1rem;
   display: flex;
   border: 1px solid rgb(255 255 255 / 0.58);
-  border-radius: 6px;
+  border-radius: 2px;
   background: rgb(40 81 67 / 0.9);
   box-shadow: 0 8px 24px rgb(40 58 50 / 0.18);
   overflow: hidden;
@@ -287,7 +287,7 @@ body.luna-experience-active {
   height: 2.8rem;
   place-items: center;
   border: 1px solid rgb(40 81 67 / 0.38);
-  border-radius: 50%;
+  border-radius: 2px;
   color: var(--luna-green);
 }
 

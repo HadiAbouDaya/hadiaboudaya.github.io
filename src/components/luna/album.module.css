@@ -13,22 +13,21 @@
 }
 .album *, .album *::before, .album *::after { box-sizing: border-box; }
 .album button, .album select, .album a { -webkit-tap-highlight-color: transparent; }
-.album button, .album select { font: inherit; }
+:where(.album) :where(button, select) { font: inherit; }
 .album button { cursor: pointer; }
 .album a { color: inherit; text-decoration: none; }
 .album button:focus-visible, .album a:focus-visible, .album select:focus-visible { outline: 3px solid var(--album-love); outline-offset: 5px; }
 .header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 92px; width: min(1320px, 100%); margin: auto; padding: 1.25rem 3rem; }
 .wordmark { font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif; font-size: 1.35rem; }
 .headerActions { display: flex; align-items: center; gap: 1.6rem; }
-.keepsake, .lockButton { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; min-height: 44px; font-size: .82rem; }
-.lockButton { border: 0; background: transparent; color: var(--album-muted); }
-.keepsake:hover { color: var(--album-love); }
+.keepsake, .lockButton { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; min-height: 44px; padding: .55rem .8rem; border: 1px solid #a8b5c3; border-radius: 2px; background: var(--album-paper); color: var(--album-ink); font-size: .82rem; line-height: 1.25; }
+.keepsake:hover, .lockButton:hover { border-color: var(--album-ink); background: #fff; }
 .hero { position: relative; display: grid; grid-template-columns: .93fr 1.07fr; align-items: center; min-height: min(760px, 83svh); width: min(1190px, 100%); margin: auto; padding: 3rem 2.6rem 6rem; gap: 1rem; }
 .heroCopy { position: relative; z-index: 4; padding-bottom: 1.5rem; }
 .smallNote { display: block; color: var(--album-muted); font-size: .86rem; margin-bottom: 1.5rem; }
 .hero h1 { margin: 0; max-width: 9ch; font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif; font-size: clamp(3.5rem, 6.5vw, 6rem); font-weight: 400; line-height: 1.04; letter-spacing: -.055em; }
 .heroCopy > p { color: var(--album-muted); max-width: 29ch; font-size: clamp(.95rem, 1.5vw, 1.1rem); line-height: 1.75; margin: 1.8rem 0 2.1rem; }
-.primaryButton { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 1.4rem; padding: .8rem 1.3rem; border: 1px solid var(--album-love); border-radius: 7px; background: var(--album-love); color: #fff; font-size: .88rem; }
+.primaryButton { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 1.1rem; padding: .8rem 1.2rem; border: 1px solid var(--album-love); border-radius: 2px; background: var(--album-love); color: #fff; font-size: .88rem; line-height: 1.25; }
 .primaryButton:hover { background: #7b2d44; }
 .photoStack { position: relative; height: 435px; width: min(100%, 520px); justify-self: center; margin-top: -1.3rem; }
 .stackPhoto { position: absolute; display: block; width: 65%; aspect-ratio: 4 / 5; padding: 0; border: 10px solid #fdfdfd; border-bottom-width: 36px; border-radius: 2px; background: #ccd5df; box-shadow: 0 18px 45px -19px rgb(36 53 70 / .48), 0 1px 3px rgb(36 53 70 / .12); overflow: hidden; transition: transform 300ms ease, box-shadow 300ms ease; }
@@ -42,18 +41,20 @@
 .galleryHeading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .galleryHeading h2 { font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif; font-size: clamp(2.3rem, 4vw, 3.4rem); font-weight: 400; letter-spacing: -.035em; margin: 0 0 .5rem; }
 .galleryHeading p { color: var(--album-muted); font-size: .87rem; margin: 0; line-height: 1.7; }
-.shuffleButton { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; gap: .65rem; border: 1px solid #d5dde7; border-radius: 7px; background: transparent; padding: .7rem 1.1rem; color: var(--album-ink); font-size: .84rem; white-space: nowrap; }
-.shuffleButton:hover { background: var(--album-sky); }
+.shuffleButton { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: .65rem; border: 1px solid #788c9d; border-radius: 2px; background: #fff; padding: .75rem 1.1rem; color: var(--album-ink); font-size: .88rem; line-height: 1.25; white-space: nowrap; flex-shrink: 0; }
+.shuffleButton:hover { border-color: var(--album-ink); background: var(--album-sky); }
+.shuffleButton svg { flex: 0 0 auto; }
+.galleryHeading > div { min-width: 0; }
 .galleryTools { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 2.2rem 0 1.4rem; flex-wrap: wrap; }
 .groupSelect { display: flex; align-items: center; gap: .75rem; font-size: .8rem; color: var(--album-muted); max-width: 100%; min-width: 0; }
-.groupSelect select { min-height: 44px; min-width: 155px; border: 1px solid #d5dde7; background: #fff; color: var(--album-ink); padding: .5rem 1.8rem .5rem .75rem; border-radius: 5px; font-size: .82rem; }
+.groupSelect select { min-height: 44px; min-width: 155px; border: 1px solid #d5dde7; background: #fff; color: var(--album-ink); padding: .5rem 1.8rem .5rem .75rem; border-radius: 2px; font-size: .82rem; }
 .photoCount { color: var(--album-muted); font-size: .75rem; }
 .photoGrid { columns: 4; column-gap: 1rem; }
 .photoTile { position: relative; display: block; width: 100%; padding: 0; margin: 0 0 1rem; border: 0; border-radius: 3px; overflow: hidden; background: #e3e8ee; break-inside: avoid; text-align: left; }
 .photoTile img { transition: transform 250ms ease; }
 .photoTile:hover img { transform: scale(1.025); }
 .moreRow { display: flex; justify-content: center; margin-top: 2.6rem; }
-.moreButton { display: flex; flex-direction: column; align-items: center; gap: .3rem; min-width: 230px; min-height: 62px; border: 1px solid #c6cfda; border-radius: 7px; background: transparent; color: var(--album-ink); padding: .8rem 1.5rem; font-size: .9rem; }
+.moreButton { display: flex; flex-direction: column; align-items: center; gap: .3rem; min-width: 230px; min-height: 62px; border: 1px solid #788c9d; border-radius: 2px; background: #fff; color: var(--album-ink); padding: .8rem 1.5rem; font-size: .9rem; }
 .moreButton span { font-size: .72rem; color: var(--album-muted); }
 .moreButton:hover { background: var(--album-sky); }
 .endNote { text-align: center; color: var(--album-muted); font-family: "Iowan Old Style", Georgia, serif; font-size: 1.1rem; margin: 3rem 0 0; font-style: italic; }
@@ -66,9 +67,9 @@
 .vaultImage > img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .imagePlaceholder { display: block; position: absolute; inset: 0; background: var(--vault-image-placeholder-background, linear-gradient(125deg, #dce2e9, #e8eaf0 55%, #e4dfe7)); }
 .imageError { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem; padding: 1rem; color: #36495c; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: .78rem; text-align: center; }
-.imageError button { position: relative; min-height: 44px; min-width: 90px; border: 1px solid #9ba8b7; border-radius: 5px; background: #fff; color: #243546; font: inherit; cursor: pointer; }
+.imageError button { position: relative; min-height: 44px; min-width: 90px; border: 1px solid #9ba8b7; border-radius: 2px; background: #fff; color: #243546; font: inherit; cursor: pointer; }
 .viewer { position: fixed; inset: 0; z-index: 1000; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; background: #141d28; color: #f1f4f8; padding: max(.5rem, env(safe-area-inset-top)) max(.7rem, env(safe-area-inset-right)) max(.6rem, env(safe-area-inset-bottom)) max(.7rem, env(safe-area-inset-left)); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-.viewer button { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0; color: inherit; border: 1px solid rgb(255 255 255 / .16); border-radius: 50%; background: transparent; cursor: pointer; }
+.viewer button { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0; color: inherit; border: 1px solid #718295; border-radius: 2px; background: transparent; cursor: pointer; }
 .viewer button:hover { background: rgb(255 255 255 / .12); }
 .viewer button:focus-visible { outline: 3px solid #f1d9e3; outline-offset: 4px; }
 .viewerToolbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .6rem .7rem; font-size: .85rem; font-variant-numeric: tabular-nums; }
@@ -116,7 +117,8 @@
   .galleryHeading { align-items: flex-start; }
   .galleryHeading h2 { font-size: 2.35rem; }
   .galleryHeading p { max-width: 23ch; font-size: .78rem; }
-  .shuffleButton { gap: .45rem; font-size: .76rem; padding: .6rem .7rem; margin-top: .2rem; }
+  .galleryHeading { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.1rem; }
+  .shuffleButton { width: 100%; gap: .6rem; font-size: .9rem; padding: .8rem 1rem; margin: 0; }
   .galleryTools { margin-top: 1.6rem; }
   .groupSelect { gap: .5rem; }
   .groupSelect > span { display: none; }
@@ -130,7 +132,7 @@
   .viewerBottom { gap: .5rem; padding-inline: .6rem; }
   .viewerBottom p { font-size: .75rem; }
 }
-@media (max-width: 375px) { .photoStack { height: 310px; } .shuffleButton { font-size: 0; gap: 0; width: 45px; } .shuffleButton svg { width: 18px; } }
+@media (max-width: 375px) { .photoStack { height: 310px; } }
 @media (prefers-reduced-motion: reduce) {
   .album *, .album *::before, .album *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
@@ -158,8 +160,14 @@
 .viewerStageZoomed { touch-action: pan-x pan-y pinch-zoom; }
 
 .overviewActions { display: flex; flex-wrap: wrap; gap: .85rem; align-items: center; }
-.allPhotosButton { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; border: 0; min-height: 50px; padding: .7rem 1rem; color: var(--album-ink); background: transparent; font-size: .85rem; }
-.allPhotosButton span { color: var(--album-muted); font-size: .7rem; }
+.allPhotosButton { display: inline-flex; align-items: center; justify-content: center; gap: .85rem; border: 1px solid #788c9d; border-radius: 2px; min-height: 50px; padding: .8rem 1.1rem; color: var(--album-ink); background: #fff; font-size: .88rem; line-height: 1.25; }
+.allPhotosButton:hover { border-color: var(--album-ink); background: var(--album-paper); }
+.allPhotosButton span { padding-left: .85rem; border-left: 1px solid #b8c5cf; color: var(--album-muted); font-size: .78rem; font-variant-numeric: tabular-nums; }
+@media (max-width: 700px) {
+  .heroCopy { width: 100%; }
+  .overviewActions { display: grid; grid-template-columns: minmax(0, 1fr); gap: .65rem; }
+  .overviewActions > button { width: 100%; justify-content: space-between; }
+}
 .atlasHero { min-height: min(700px, 79svh); }
 .atlasJourneys { padding: 3rem max(2rem, calc((100% - 1190px) / 2)) 5rem; outline: none; }
 .atlasHeading { display: flex; justify-content: space-between; gap: 2rem; align-items: end; margin-bottom: 2.4rem; }
@@ -168,7 +176,8 @@
 .atlasHeading > span { white-space: nowrap; color: var(--album-muted); font-size: .8rem; }
 .journeyRoom { --journey-accent: #155c65; --journey-backdrop: #d7e7e3; --journey-ink: #1f3444; background: var(--journey-backdrop); color: var(--journey-ink); min-height: calc(100svh - 92px); outline: none; overflow-x: clip; }
 .roomNavigation { display: flex; align-items: center; justify-content: space-between; gap: 1.4rem; width: min(1190px, 100%); margin: auto; padding: 1.5rem 2rem; }
-.roomNavigation > button { display: inline-flex; gap: .7rem; align-items: center; min-height: 44px; border: 0; background: transparent; color: inherit; padding: .65rem 0; font-size: .85rem; }
+.roomNavigation > button { display: inline-flex; gap: .7rem; align-items: center; min-height: 44px; border: 1px solid currentColor; border-radius: 2px; background: rgb(255 255 255 / .45); color: inherit; padding: .65rem .85rem; font-size: .85rem; line-height: 1.25; text-align: left; }
+.roomNavigation > button svg { flex: 0 0 auto; }
 .roomNavigation > span { text-align: right; font-family: Georgia,serif; font-style: italic; font-size: .85rem; opacity: .8; }
 .roomHero { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: center; gap: clamp(2rem,5vw,5rem); max-width: 1190px; margin: auto; padding: 2rem 2rem 4rem; }
 .roomStory { min-width: 0; }
