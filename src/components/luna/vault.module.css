@@ -5,10 +5,10 @@
 .note>p { font-size:.98rem; line-height:1.65; color:#536479; margin:1.3rem 0 2.4rem; }
 .form { text-align:left; }
 .form label { display:block; font-size:.85rem; font-weight:600; margin-bottom:.65rem; }
-.inputRow { display:flex; gap:.7rem; align-items:center; border:1px solid #aab6c6; background:#f7f9fc; padding:0 .85rem; border-radius:10px; }
+.inputRow { display:flex; gap:.7rem; align-items:center; border:1px solid #aab6c6; background:#f7f9fc; padding:0 .85rem; border-radius:2px; }
 .inputRow input { width:100%; min-width:0; background:transparent; border:0; padding:.9rem 0; font-size:1rem; color:inherit; outline-offset:4px; }
 .inputRow button { padding:.7rem .2rem; min-height:44px; background:none; border:0; color:#536479; font:inherit; font-size:.8rem; cursor:pointer; }
-.open { margin-top:.85rem; width:100%; min-height:52px; display:flex; align-items:center; justify-content:center; gap:.8rem; background:#923c55; border:0; border-radius:10px; color:#fff; font:inherit; cursor:pointer; transition:background .2s; }
+.open { margin-top:.85rem; width:100%; min-height:52px; display:flex; align-items:center; justify-content:center; gap:.8rem; background:#923c55; border:0; border-radius:2px; color:#fff; font:inherit; cursor:pointer; transition:background .2s; }
 .open:hover { background:#793047; }
 .open:disabled { opacity:.65; cursor:wait; }
 .hint { display:flex; align-items:flex-start; justify-content:center; gap:.45rem; font-size:.73rem; line-height:1.5; color:#596b80; text-align:center; margin:1rem 0 0; }

@@ -14,7 +14,7 @@
 }
 
 .private-space *, .private-space *::before, .private-space *::after { box-sizing: border-box; }
-.private-space button, .private-space input, .private-space select { font: inherit; }
+:where(.private-space) :where(button, input, select) { font: inherit; }
 .private-space button, .private-space a, .private-space input, .private-space select { -webkit-tap-highlight-color: transparent; }
 .private-space button { cursor: pointer; }
 .private-space button:disabled { cursor: wait; }

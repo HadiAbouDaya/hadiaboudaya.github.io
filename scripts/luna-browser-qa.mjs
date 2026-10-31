@@ -249,7 +249,16 @@ try {
     await expect(page.getByRole("button", {name:"Fit photo to screen"})).toBeVisible();
     await page.keyboard.press("Escape");
     await expect(page.getByRole("dialog")).toHaveCount(0);
-    await page.getByRole("button", {name:"Surprise me"}).click();
+    const surprise=page.getByRole("button", {name:"Surprise me",exact:true});
+    expect(await surprise.evaluate(button=>{
+      const bounds=button.getBoundingClientRect(),walker=document.createTreeWalker(button,NodeFilter.SHOW_TEXT);let node,visibleLabel=false;
+      while((node=walker.nextNode()))if(node.textContent.trim()){
+        const range=document.createRange();range.selectNodeContents(node);const text=range.getBoundingClientRect();
+        if(text.width>0&&text.height>0&&parseFloat(getComputedStyle(node.parentElement).fontSize)>0)visibleLabel=text.left>=bounds.left-1&&text.right<=bounds.right+1&&text.top>=bounds.top-1&&text.bottom<=bounds.bottom+1;
+      }
+      return visibleLabel;
+    })).toBe(true);
+    await surprise.click();
     await expect(page.getByRole("dialog")).toBeVisible();
     await page.getByRole("button", {name:"Close photo viewer"}).click();
     expect(await page.evaluate(() => window.__lunaQA.blobs.size < 60)).toBe(true);

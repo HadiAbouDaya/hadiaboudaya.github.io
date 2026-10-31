@@ -31,7 +31,7 @@
 .reflectionSweep { fill: var(--journey-accent); opacity: .12; }
 .controls { display: flex; align-items: center; justify-content: flex-end; gap: 1rem; padding: .55rem 1rem .8rem; }
 .controls > span { font: italic .88rem / 1.5 Georgia, serif; opacity: .72; }
-.controls button { min-height: 44px; min-width: 44px; max-width: 65%; padding: .5rem .85rem; border: 1px solid currentColor; border-radius: 4px; background: transparent; color: var(--journey-ink); font: inherit; font-size: .78rem; line-height: 1.35; cursor: pointer; }
+.controls button { min-height: 44px; min-width: 44px; max-width: 100%; padding: .65rem .9rem; border: 1px solid currentColor; border-radius: 2px; background: transparent; color: var(--journey-ink); font: inherit; font-size: .88rem; line-height: 1.35; cursor: pointer; }
 .controls button:hover { background: rgb(255 255 255 / .4); }
 .controls button:focus-visible { outline: 3px solid var(--journey-accent); outline-offset: 3px; }
 .controls button[aria-pressed="true"] { background: var(--journey-ink); color: var(--journey-backdrop); }
@@ -83,5 +83,5 @@
 @keyframes turnPage { 0% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-9px) rotate(-2deg); } 100% { transform: none; } }
 @keyframes warmSteam { from { transform: translateY(8px); opacity: .1; } to { transform: translateY(-5px); opacity: 1; } }
 @keyframes windowGlint { from { transform: translateX(0); opacity: .05; } 55% { opacity: .5; } to { transform: translateX(115px); opacity: .35; } }
-@media (max-width: 600px) { .illustration { padding-inline: .3rem; } .controls { gap: .65rem; padding-inline: .8rem; } .controls > span { font-size: .76rem; } .controls button { font-size: .75rem; max-width: 62%; padding-inline: .65rem; } }
+@media (max-width: 600px) { .illustration { padding-inline: .3rem; } .controls { gap: .65rem; padding-inline: .8rem; } .controls > span { font-size: .76rem; } .controls button { width: 100%; font-size: .85rem; max-width: 100%; padding-inline: .85rem; } }
 @media (prefers-reduced-motion: reduce) { .effects *, .effects *::before, .effects *::after { animation: none !important; transition: none !important; } }
