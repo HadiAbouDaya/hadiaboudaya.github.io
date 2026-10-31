@@ -6,6 +6,10 @@ if (!privateDir || !path.isAbsolute(privateDir)) throw new Error("Set LUNA_PRIVA
 const {passphrase} = JSON.parse(await readFile(path.join(privateDir,"access.json"),"utf8"));
 process.on("uncaughtException", error => { console.error(String(error.message).replaceAll(passphrase,"[redacted]")); process.exit(1); });
 const {manifest,config} = JSON.parse(await readFile(path.join(privateDir,"release-backup.json"),"utf8"));
+const sealedChapters=manifest.chapters.filter(chapter=>chapter.presentation?.kind==="sealed");
+const sealedIds=new Set(sealedChapters.map(chapter=>chapter.id));
+const ordinaryChapters=manifest.chapters.filter(chapter=>!sealedIds.has(chapter.id));
+const ordinaryPhotos=manifest.photos.filter(photo=>!sealedIds.has(photo.group));
 const origin = process.env.LUNA_TEST_ORIGIN ?? "http://127.0.0.1:4173";
 const browser = await chromium.launch({executablePath:process.env.LUNA_CHROME_PATH ?? "/opt/google/chrome/chrome"});
 const context = await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,reducedMotion:"reduce"});
@@ -31,7 +35,7 @@ try {
   const revealMs=Date.now()-started;
   const initialBytes=await page.evaluate(()=>performance.getEntriesByType("resource").filter(entry=>entry.name.endsWith(".bin")).reduce((sum,entry)=>sum+entry.transferSize,0));
   // Large-photo retry works after a download failure.
-  const first=manifest.photos[0];let failures=0;
+  const first=ordinaryPhotos[0];let failures=0;
   await page.route(`**/${first.full.id}.bin`,async route=>{if(failures++===0)await route.fulfill({status:503,body:"Unavailable"});else await route.continue();});
   await page.locator('[class*="photoTile"]').first().click();
   await expect(page.getByRole("dialog").getByText("Photo unavailable")).toBeVisible();
@@ -39,14 +43,27 @@ try {
   await page.waitForFunction(()=>{const img=document.querySelector('[role="dialog"] img');return img?.complete&&img.naturalWidth>0;});
   await page.getByRole("button",{name:"Close photo viewer"}).click();
   await page.unroute(`**/${first.full.id}.bin`);
-  // All 257 thumbnails can be reached without fetching 257 large images.
+  // All ordinary thumbnails remain reachable without exposing sealed photos.
   while(await page.getByRole("button",{name:/A few more moments/}).count()) await page.getByRole("button",{name:/A few more moments/}).click();
-  await expect(page.locator('[class*="photoTile"]')).toHaveCount(manifest.photos.length);
+  await expect(page.locator('[class*="photoTile"]')).toHaveCount(ordinaryPhotos.length);
+  for(const chapter of sealedChapters){
+    const collection=page.locator(`[data-sealed-collection="${chapter.id}"]`);
+    const special=manifest.photos.find(photo=>photo.group===chapter.id);
+    // Resealing while decryption/download is pending cannot reveal a late image.
+    await page.route(`**/${special.medium.id}.bin`,async route=>{await new Promise(resolve=>setTimeout(resolve,700));try{await route.continue();}catch{/* cancelled on reseal */}});
+    await collection.getByRole("button",{name:chapter.presentation.openLabel,exact:true}).click();
+    await expect(collection).toHaveAttribute("data-sealed-open","true");
+    await collection.getByRole("button",{name:chapter.presentation.closeLabel,exact:true}).click();
+    await page.waitForTimeout(900);
+    await expect(collection).toHaveAttribute("data-sealed-open","false");
+    await expect(collection.locator("img")).toHaveCount(0);
+    await page.unroute(`**/${special.medium.id}.bin`);
+  }
   await page.getByRole("button",{name:"Lock",exact:true}).click();await expect(page.getByLabel("Our passphrase")).toBeVisible();
   await unlock();
   // Late photo downloads cannot restore content after lock.
   await page.route("**/luna/vault/*/*.bin",async route=>{await new Promise(resolve=>setTimeout(resolve,800));try{await route.continue();}catch{/* cancelled on lock */}});
-  await page.getByRole("combobox").selectOption(manifest.chapters.at(-1).id);
+  await page.getByRole("combobox").selectOption(ordinaryChapters.at(-1).id);
   await page.getByRole("button",{name:"Lock",exact:true}).click();
   await page.waitForTimeout(1100);
   await expect(page.getByLabel("Our passphrase")).toBeVisible();expect(await page.locator('img[src^="blob:"]').count()).toBe(0);
@@ -56,7 +73,7 @@ try {
   await page.goBack();
   await expect(page.getByLabel("Our passphrase")).toBeVisible();
   expect(errors).toEqual([]);
-  const report={origin,checks:["configuration-failure","catalog-tamper","photo-retry","all-257-reachable","lock-during-download","back-forward-relock"],revealMs,initialEncryptedTransferBytes:initialBytes,errors:0};
+  const report={origin,checks:["configuration-failure","catalog-tamper","photo-retry","all-ordinary-photos-reachable","reseal-during-download","lock-during-download","back-forward-relock"],ordinaryPhotos:ordinaryPhotos.length,sealedCollections:sealedChapters.length,revealMs,initialEncryptedTransferBytes:initialBytes,errors:0};
   await writeFile(path.join(privateDir,"qa",/127\.0\.0\.1|localhost/.test(origin)?"local-resilience.json":"live-resilience.json"),JSON.stringify(report,null,2)+"\n",{mode:0o600});
   console.log(JSON.stringify(report));
 } finally {await context.close();await browser.close();}
