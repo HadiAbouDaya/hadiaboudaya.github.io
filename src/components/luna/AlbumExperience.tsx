@@ -2,13 +2,67 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState, type TouchEvent } from "react";
-import { ArrowDown, ArrowLeft, ArrowRight, Gift, LockKeyhole, Shuffle, X, ZoomIn, ZoomOut } from "lucide-react";
-import type { VaultPhoto } from "@/lib/luna-vault";
+import { ArrowDown, ArrowLeft, ArrowRight, Gift, Heart, LockKeyhole, Shuffle, X, ZoomIn, ZoomOut } from "lucide-react";
+import type { VaultChapter, VaultPhoto } from "@/lib/luna-vault";
 import { useVault } from "./VaultProvider";
 import { VaultImage } from "./VaultImage";
 import styles from "./album.module.css";
 
 const PAGE_SIZE = 24;
+
+function SealedCollection({ chapter, photos, onOpen }: { chapter: VaultChapter; photos: VaultPhoto[]; onOpen: (photo: VaultPhoto, collection: VaultPhoto[]) => void }) {
+  const [revealed, setRevealed] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
+  const presentation = chapter.presentation;
+  if (presentation?.kind !== "sealed" || !photos.length) return null;
+  const panelId = `sealed-${chapter.id}`;
+  const changeReveal = () => {
+    const next = !revealed;
+    setRevealed(next);
+    window.requestAnimationFrame(() => {
+      if (next) panel.current?.focus({ preventScroll: true });
+      else toggle.current?.focus({ preventScroll: true });
+    });
+  };
+
+  return (
+    <section className={styles.sealedCollection} aria-labelledby={`sealed-title-${chapter.id}`} data-sealed-collection={chapter.id} data-sealed-open={revealed ? "true" : "false"}>
+      <div className={styles.sealedIntro}>
+        <div className={styles.sealedCopy}>
+          <p className={styles.sealedTeaser}>{presentation.teaser}</p>
+          <h2 id={`sealed-title-${chapter.id}`}>{chapter.title}</h2>
+          <p className={styles.sealedDescription}>{presentation.description}</p>
+          <span className={styles.sealedDate}>{chapter.dateLabel}</span>
+        </div>
+        <div className={`${styles.envelope} ${revealed ? styles.envelopeOpen : ""}`}>
+          <div className={styles.envelopeFlap} aria-hidden="true" />
+          <svg className={styles.envelopeBite} viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+            <path d="M30 0H80V54C72 54 67 49 67 42C56 46 47 39 48 29C37 31 29 23 32 13C26 10 25 5 30 0Z" />
+          </svg>
+          <button ref={toggle} type="button" className={styles.sealControl} onClick={changeReveal} aria-expanded={revealed} aria-controls={panelId} aria-label={revealed ? presentation.closeLabel : presentation.openLabel} data-sealed-toggle>
+            <span className={styles.sealMedallion} aria-hidden="true"><Heart size={27} strokeWidth={1.2} /></span>
+            <span className={styles.sealStamp}>{presentation.sealLabel}</span>
+            <span className={styles.sealAction}>{revealed ? presentation.closeLabel : presentation.openLabel}<ArrowRight size={16} aria-hidden="true" /></span>
+          </button>
+        </div>
+      </div>
+      <div ref={panel} id={panelId} className={styles.sealedPanel} tabIndex={-1} hidden={!revealed} aria-label={chapter.title}>
+        {revealed && <>
+          <p className={styles.sealedRevealedNote}>{presentation.revealedNote}</p>
+          <div className={styles.sealedExhibits} data-sealed-exhibits>
+            {photos.map((photo, index) => (
+              <button key={photo.id} type="button" className={styles.sealedExhibit} onClick={() => onOpen(photo, photos)} aria-label={`${presentation.exhibitLabel} ${String.fromCharCode(65 + index)}: ${photo.alt}`} data-sealed-photo={photo.id}>
+                <span className={styles.sealedExhibitPhoto}><VaultImage asset={photo.medium} alt={photo.alt} width={photo.width} height={photo.height} /></span>
+                <span className={styles.sealedExhibitCaption}><span>{presentation.exhibitLabel} {String.fromCharCode(65 + index)}</span><ArrowRight size={17} aria-hidden="true" /></span>
+              </button>
+            ))}
+          </div>
+        </>}
+      </div>
+    </section>
+  );
+}
 
 function PhotoViewer({ photos, initialIndex, onClose }: { photos: VaultPhoto[]; initialIndex: number; onClose: () => void }) {
   const { decryptAsset } = useVault();
@@ -109,9 +163,11 @@ export function AlbumExperience() {
   }, [viewer]);
 
   if (!manifest) return null;
-  const photos = manifest.photos;
+  const sealedChapters = manifest.chapters.filter((chapter) => chapter.presentation?.kind === "sealed").sort((a, b) => a.order - b.order);
+  const sealedIds = new Set(sealedChapters.map((chapter) => chapter.id));
+  const photos = manifest.photos.filter((photo) => !sealedIds.has(photo.group));
   const filtered = group ? photos.filter((photo) => photo.group === group) : photos;
-  const chapters = [...manifest.chapters].sort((a, b) => a.order - b.order);
+  const chapters = manifest.chapters.filter((chapter) => !sealedIds.has(chapter.id)).sort((a, b) => a.order - b.order);
   const selectedChapter = chapters.find((chapter) => chapter.id === group);
   const covers = manifest.album.coverIds.map((id) => photos.find((photo) => photo.id === id)).filter((photo): photo is VaultPhoto => Boolean(photo)).slice(0, 3);
   const heroPhotos = covers.length ? covers : photos.slice(0, 3);
@@ -173,6 +229,7 @@ export function AlbumExperience() {
           </div>
           <p className={styles.groupingNote}>Grouped from photo dates.</p>
         </section>}
+        {sealedChapters.map((chapter) => <SealedCollection key={chapter.id} chapter={chapter} photos={manifest.photos.filter((photo) => photo.group === chapter.id)} onOpen={open} />)}
         <section ref={gallery} id="photographs" tabIndex={-1} className={styles.gallery} aria-labelledby="gallery-title">
           <div className={styles.galleryHeading}>
             <div><h2 id="gallery-title">{selectedChapter?.title ?? "The moments"}</h2><p>{selectedChapter ? selectedChapter.dateLabel : `${photos.length} photographs, and room for more.`}</p></div>

@@ -34,6 +34,7 @@ const decode = async asset => {
 const manifest = JSON.parse((await decode(config.manifest)).toString());
 validateManifest(manifest);
 const backup = JSON.parse(await readFile(path.join(privateDir, "release-backup.json"), "utf8"));
+const originals = JSON.parse(await readFile(path.join(privateDir, "originals.sha256.json"), "utf8"));
 assert.deepEqual(manifest, backup.manifest, "Catalog did not preserve private authoring data");
 const assets = [...manifest.photos.flatMap(photo => [photo.thumb, photo.medium, photo.full]), ...Object.values(manifest.birthday.assets)];
 let checked = 0, next = 0;
@@ -51,7 +52,12 @@ await Promise.all(Array.from({ length: 4 }, async () => {
   }
 }));
 // Detect actual private text/secrets in output, not just recognizable source paths.
-const privateText = Object.values(manifest.birthday.text).filter(value => value.length >= 20).concat([passphrase, backup.rawKey, manifest.album.title, manifest.album.subtitle]);
+const privateText = [...new Set([
+  ...Object.values(manifest.birthday.text).filter(value => value.length >= 20),
+  ...manifest.chapters.flatMap(chapter => [chapter.title, ...[chapter.source, ...Object.values(chapter.presentation ?? {})].filter(value => typeof value === "string" && value.length >= 20)]),
+  ...originals.flatMap(({name}) => [name, encodeURIComponent(name)]),
+  passphrase, backup.rawKey, manifest.album.title, manifest.album.subtitle,
+])];
 let scanned = 0;
 for (const file of await filesUnder(path.resolve(directory))) {
   if (!/\.(html|js|json|txt|xml|css|map)$/.test(file)) continue;

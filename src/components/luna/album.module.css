@@ -156,3 +156,53 @@
   .journeyTitle { font-size: 1.35rem; }
 }
 .viewerStageZoomed { touch-action: pan-x pan-y pinch-zoom; }
+
+.sealedCollection { background: var(--album-petal); padding: 4.6rem max(2rem, calc((100% - 1190px) / 2)); overflow-x: clip; }
+.sealedIntro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .95fr); align-items: center; gap: clamp(2rem, 6vw, 6rem); }
+.sealedCopy { max-width: 31rem; }
+.sealedTeaser { color: var(--album-love); font-size: .84rem; margin: 0 0 1.15rem; }
+.sealedCopy h2 { margin: 0; font: 400 clamp(2.7rem, 4.6vw, 4.5rem) / 1.05 "Iowan Old Style", "Palatino Linotype", Georgia, serif; letter-spacing: -.045em; }
+.sealedDescription { color: #625262; max-width: 35ch; font-size: .98rem; line-height: 1.75; margin: 1.4rem 0 1rem; }
+.sealedDate { display: block; color: #765a6b; font: italic .9rem / 1.5 "Iowan Old Style", Georgia, serif; }
+.envelope { position: relative; min-height: 290px; width: min(100%, 440px); justify-self: center; display: grid; place-items: center; padding: 3.2rem 2rem 2rem; background: #fff7f8; border: 1px solid #d5b4c3; border-radius: 3px; box-shadow: 0 16px 30px -25px rgb(79 39 62 / .45); transform: rotate(3deg); }
+.envelope::before, .envelope::after { content: ""; position: absolute; bottom: 0; height: 1px; width: 57%; background: #ead7df; transform-origin: bottom; pointer-events: none; }
+.envelope::before { left: 0; transform: rotate(-27deg); transform-origin: left; }
+.envelope::after { right: 0; transform: rotate(27deg); transform-origin: right; }
+.envelopeFlap { position: absolute; top: 0; inset-inline: 0; height: 53%; background: #f8eaf0; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.envelopeBite { position: absolute; right: -1px; top: -1px; width: 79px; height: 79px; fill: var(--album-petal); pointer-events: none; }
+.sealControl { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; max-width: 100%; padding: .45rem; border: 0; background: transparent; color: var(--album-love); transform: rotate(-3deg); }
+.sealMedallion { display: grid; place-items: center; width: 76px; height: 76px; border: 1px solid #9e4a63; border-radius: 50%; background: #923c55; color: #fff0f4; box-shadow: inset 0 0 0 5px #a8536d, inset 0 0 0 6px #bd7b90, 0 4px 8px -5px #703148; transition: transform 220ms ease, background 220ms ease, color 220ms ease; }
+.sealControl:hover .sealMedallion { transform: rotate(-7deg) scale(1.05); }
+.sealStamp { margin-top: .9rem; font: italic .89rem / 1.5 "Iowan Old Style", Georgia, serif; color: #825269; }
+.sealAction { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; min-height: 44px; margin-top: .1rem; font-size: .83rem; text-align: center; }
+.sealAction svg { flex-shrink: 0; }
+.envelopeOpen .sealMedallion { background: #fff7f8; color: var(--album-love); transform: rotate(-9deg) scale(.9); }
+.envelopeOpen .sealAction svg { transform: rotate(180deg); }
+.sealedPanel { margin-top: 3.1rem; scroll-margin-top: 2rem; outline: none; }
+.sealedPanel[hidden] { display: none; }
+.sealedPanel:focus-visible { outline: none; }
+.sealedRevealedNote { margin: 0 0 1.8rem; text-align: center; font: italic clamp(1.15rem, 2.2vw, 1.5rem) / 1.5 "Iowan Old Style", Georgia, serif; color: #6c4057; }
+.sealedExhibits { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 3vw, 2.3rem); max-width: 1050px; margin: auto; padding: .6rem .35rem; }
+.sealedExhibit { position: relative; display: block; width: 100%; min-width: 0; padding: .65rem .65rem 0; text-align: left; border: 1px solid #ebd7df; border-radius: 2px; background: #fffdfd; box-shadow: 0 11px 25px -18px rgb(79 39 62 / .5); transform: rotate(-2deg); transition: transform 220ms ease, box-shadow 220ms ease; }
+.sealedExhibit:nth-child(2n) { transform: rotate(2deg) translateY(.5rem); }
+.sealedExhibit:nth-child(3n) { transform: rotate(-1deg); }
+.sealedExhibit:hover, .sealedExhibit:focus-visible { transform: rotate(0deg) translateY(-5px); box-shadow: 0 17px 30px -18px rgb(79 39 62 / .5); }
+.sealedExhibitPhoto { display: block; overflow: hidden; }
+.sealedExhibitCaption { display: flex; min-height: 57px; align-items: center; justify-content: space-between; gap: .75rem; padding-inline: .3rem; color: #765164; font: italic .95rem / 1.4 "Iowan Old Style", Georgia, serif; }
+.sealedExhibitCaption svg { flex-shrink: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .sealedPanel:not([hidden]) { animation: openCollection 320ms ease-out both; }
+  @keyframes openCollection { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+}
+@media (max-width: 700px) {
+  .sealedCollection { padding: 3.2rem 1.4rem 3.4rem; }
+  .sealedIntro { grid-template-columns: minmax(0, 1fr); gap: 2.3rem; }
+  .sealedCopy h2 { font-size: clamp(2.7rem, 11vw, 3.5rem); }
+  .sealedDescription { font-size: .92rem; margin-top: 1.1rem; }
+  .envelope { width: min(94%, 380px); min-height: 270px; padding-inline: 1rem; }
+  .sealedPanel { margin-top: 2.5rem; }
+  .sealedExhibits { grid-template-columns: minmax(0, 1fr); gap: 2.2rem; max-width: 340px; padding-inline: .4rem; }
+  .sealedExhibit { padding: .65rem .65rem 0; }
+  .sealedExhibit:nth-child(2n) { transform: rotate(2deg); }
+  .sealedExhibitCaption { min-height: 56px; font-size: 1rem; }
+}

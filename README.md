@@ -80,6 +80,14 @@ node --experimental-strip-types scripts/prepare-luna-vault.mjs --photos /absolut
 
 Visit chapters are editorial inferences from available capture dates, shared-file dates, and visual context; the private mapping stays editable. Do not automatically treat WhatsApp filename dates as exact capture dates. Retain private originals and recovery material before regenerating. Old encrypted releases remain available for cached configurations; changing a wrapper cannot revoke historical copies or leaked credentials. Previously published birthday material may remain in Git history or others' copies.
 
+Special collections can use an encrypted `presentation` with `kind: "sealed"`. They stay outside ordinary chapters, cover images, and random memories; their images mount only after the seal opens and are released on reseal. Catalog schema 2 prevents older renderers from accidentally mixing these photos into ordinary browsing. Current renderers still accept the original schema 1 catalog.
+
+For a small addition, the local append tool preserves existing ciphertext and the shared passphrase. A collection definition inside the private authoring directory supplies a chapter, presentation copy, relative JPEG paths with alt text, and a cover filename. Both the passphrase and recovery key are checked against the current catalog before fresh objects are published. Keep the private originals, main chapter mapping, descriptions, and hash inventory synchronized so a later complete regeneration preserves the addition.
+
+```sh
+node --experimental-strip-types scripts/append-luna-collection.mjs --private-dir /absolute/private/authoring --collection /absolute/private/authoring/collections/example/collection.json
+```
+
 The build runs a dedicated private-boundary verifier alongside the existing portfolio contracts. Local full-content and browser checks require the external authoring directory and never belong in public CI:
 
 ```sh

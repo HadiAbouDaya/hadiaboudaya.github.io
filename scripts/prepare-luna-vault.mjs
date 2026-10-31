@@ -60,9 +60,9 @@ export async function prepareVault({ photosDir, privateDir, destination = "publi
       assets[filename.replace(/\.[^.]+$/, "")] = await writeObject(buffer, filename.endsWith(".mp3") ? "audio/mpeg" : "image/webp", dimensions);
     }
     const manifest = {
-      version: 1,
+      version: chapterInput.chapters.some(chapter => chapter.presentation) ? 2 : 1,
       album: { title: albumInput.title, subtitle: albumInput.subtitle, coverIds: albumInput.coverFilenames.map(name => byFilename.get(name)?.id).filter(Boolean) },
-      chapters: chapterInput.chapters.map(({ id, title, dateLabel, source, coverFilename, order }) => ({ id, title, dateLabel, source, coverId: byFilename.get(coverFilename)?.id, order })),
+      chapters: chapterInput.chapters.map(({ id, title, dateLabel, source, coverFilename, order, presentation }) => ({ id, title, dateLabel, source, coverId: byFilename.get(coverFilename)?.id, order, ...(presentation ? { presentation } : {}) })),
       photos,
       birthday: { ...birthdayInput, assets },
     };

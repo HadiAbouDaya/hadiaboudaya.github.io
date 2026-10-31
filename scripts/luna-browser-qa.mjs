@@ -8,6 +8,12 @@ if (!privateDir || !path.isAbsolute(privateDir) || path.resolve(privateDir).star
 const { passphrase } = JSON.parse(await readFile(path.join(privateDir, "access.json"), "utf8"));
 process.on("uncaughtException", error => { console.error(String(error.message).replaceAll(passphrase,"[redacted]")); process.exit(1); });
 const { manifest, config } = JSON.parse(await readFile(path.join(privateDir, "release-backup.json"), "utf8"));
+const sealedChapters = manifest.chapters.filter(chapter => chapter.presentation?.kind === "sealed");
+const sealedIds = new Set(sealedChapters.map(chapter => chapter.id));
+const ordinaryChapters = manifest.chapters.filter(chapter => !sealedIds.has(chapter.id));
+const ordinaryPhotos = manifest.photos.filter(photo => !sealedIds.has(photo.group));
+const sealedAssetIds = new Set(manifest.photos.filter(photo => sealedIds.has(photo.group)).flatMap(photo => [photo.thumb.id, photo.medium.id, photo.full.id]));
+const isSealedAssetRequest = url => sealedAssetIds.has(new URL(url).pathname.split("/").at(-1)?.replace(/\.bin$/, ""));
 const origin = process.env.LUNA_TEST_ORIGIN ?? "http://127.0.0.1:4173";
 const live = !/localhost|127\.0\.0\.1/.test(origin);
 const engine = process.env.LUNA_BROWSER ?? "chromium";
@@ -58,19 +64,22 @@ try {
     expect(await page.locator('img[src^="blob:"]').count()).toBe(0);
     await unlock();
     await page.waitForFunction(() => document.querySelectorAll('img[src^="blob:"]').length >= 3 && [...document.images].every(image => image.complete && image.naturalWidth > 0));
-    await expect(page.locator('[class*="journeyCard"]')).toHaveCount(manifest.chapters.length);
+    await expect(page.locator('[class*="journeyCard"]')).toHaveCount(ordinaryChapters.length);
+    expect(requests.some(isSealedAssetRequest)).toBe(false);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     expect(await page.locator('link[rel="manifest"],link[as="font"]').count()).toBe(0);
     await page.screenshot({ path: path.join(qaDir, `${live ? "live" : "local"}-${engine}-${size.name}-album.png`) });
 
     // All inferred visit chapters contain their complete matching collection.
-    for (const chapter of manifest.chapters) {
+    for (const chapter of ordinaryChapters) {
       await page.getByRole("combobox").selectOption(chapter.id);
       const count = manifest.photos.filter(photo => photo.group === chapter.id).length;
       await expect(page.locator('[class*="photoCount"]')).toHaveText(`${count} ${count === 1 ? "photograph" : "photographs"}`);
       await expect(page.locator('[class*="photoTile"]')).toHaveCount(Math.min(24, count));
     }
     await page.getByRole("combobox").selectOption("");
+    const availableGroups = await page.getByRole("combobox").locator("option").evaluateAll(options => options.map(option => option.value));
+    expect(availableGroups.some(id => sealedIds.has(id))).toBe(false);
     await page.getByRole("button", {name:/A few more moments/}).click();
     await expect(page.locator('[class*="photoTile"]')).toHaveCount(48);
     await page.locator('[class*="photoTile"]').first().click();
@@ -88,6 +97,38 @@ try {
     await expect(page.getByRole("dialog")).toBeVisible();
     await page.getByRole("button", {name:"Close photo viewer"}).click();
     expect(await page.evaluate(() => window.__lunaQA.blobs.size < 60)).toBe(true);
+    expect(requests.some(isSealedAssetRequest)).toBe(false);
+
+    // Special collections stay sealed and unfetched until deliberately opened.
+    for (const chapter of sealedChapters) {
+      const sealedPhotos = manifest.photos.filter(photo => photo.group === chapter.id);
+      const collection = page.locator(`[data-sealed-collection="${chapter.id}"]`);
+      await expect(collection).toHaveAttribute("data-sealed-open", "false");
+      await expect(collection.locator("[data-sealed-photo]")).toHaveCount(0);
+      await expect(collection.locator("img")).toHaveCount(0);
+      await collection.getByRole("button", {name:chapter.presentation.openLabel,exact:true}).click();
+      await expect(collection).toHaveAttribute("data-sealed-open", "true");
+      await expect(collection.locator("[data-sealed-photo]")).toHaveCount(sealedPhotos.length);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      await collection.locator("[data-sealed-photo]").first().click();
+      await expect(page.getByRole("dialog")).toBeVisible();
+      await expect(page.locator('[class*="viewerToolbar"]')).toContainText(`/ ${sealedPhotos.length}`);
+      await page.waitForFunction(() => { const image = document.querySelector('[role="dialog"] img'); return image?.complete && image.naturalWidth > 0; });
+      await page.keyboard.press("ArrowRight");
+      await expect(page.locator('[class*="viewerToolbar"]')).toContainText("2");
+      await page.keyboard.press("Escape");
+      await expect(page.getByRole("dialog")).toHaveCount(0);
+      await expect(collection.locator('img[src^="blob:"]').first()).toBeVisible();
+      await page.screenshot({path:path.join(qaDir, `${live ? "live" : "local"}-${engine}-${size.name}-sealed.png`)});
+      const exposedURLs = await collection.locator('img[src^="blob:"]').evaluateAll(images => images.map(image => image.src));
+      await collection.getByRole("button", {name:chapter.presentation.closeLabel,exact:true}).click();
+      await expect(collection).toHaveAttribute("data-sealed-open", "false");
+      await expect(collection.locator("img")).toHaveCount(0);
+      await page.waitForFunction(urls => urls.every(url => !window.__lunaQA.blobs.has(url)), exposedURLs);
+      await collection.getByRole("button", {name:chapter.presentation.openLabel,exact:true}).click();
+      await expect(collection.locator("[data-sealed-photo]")).toHaveCount(sealedPhotos.length);
+      await collection.getByRole("button", {name:chapter.presentation.closeLabel,exact:true}).click();
+    }
 
     const song = manifest.birthday.assets[manifest.birthday.text.songAsset];
     const songURL = `${origin}/luna/vault/${config.release}/${song.id}.bin`;
@@ -109,6 +150,10 @@ try {
     expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
     expect(await page.evaluate(() => window.__lunaQA.stopped)).toBeGreaterThan(0);
 
+    if (sealedChapters.length) {
+      const chapter = sealedChapters[0];
+      await page.locator(`[data-sealed-collection="${chapter.id}"]`).getByRole("button", {name:chapter.presentation.openLabel,exact:true}).click();
+    }
     await page.getByRole("button", {name:"Lock",exact:true}).click();
     await expect(page.getByLabel("Our passphrase")).toBeVisible();
     expect(await page.locator('img[src^="blob:"]').count()).toBe(0);
@@ -116,6 +161,11 @@ try {
     expect(await page.evaluate(() => localStorage.length + sessionStorage.length)).toBe(0);
     expect(await page.evaluate(() => document.cookie)).toBe("");
     await unlock();
+    for (const chapter of sealedChapters) {
+      const collection = page.locator(`[data-sealed-collection="${chapter.id}"]`);
+      await expect(collection).toHaveAttribute("data-sealed-open", "false");
+      await expect(collection.locator("img")).toHaveCount(0);
+    }
     await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent("pagehide")));
     await expect(page.getByLabel("Our passphrase")).toBeVisible();
     await unlock();
@@ -132,7 +182,7 @@ try {
     await expect(page.getByLabel("Our passphrase")).toBeVisible();
     expect(external).toEqual([]);
     expect(errors).toEqual([]);
-    reports.push({ viewport:size.name, engine, checks:"unlock,wrong-key,all-chapters,pagination,viewer,zoom,keyboard,birthday,audio-offset,flowers,candles,lock,blob-cleanup,history,reload,isolation", errors:0, externalRequests:0, knownWebKitReplacementDiagnostics:navigationDiagnostics.length });
+    reports.push({ viewport:size.name, engine, checks:"unlock,wrong-key,all-chapters,pagination,viewer,zoom,keyboard,sealed-no-prefetch,sealed-reveal,sealed-viewer,reseal,sealed-lock-reset,birthday,audio-offset,flowers,candles,lock,blob-cleanup,history,reload,isolation", ordinaryPhotos:ordinaryPhotos.length, sealedCollections:sealedChapters.length, errors:0, externalRequests:0, knownWebKitReplacementDiagnostics:navigationDiagnostics.length });
     await context.close();
     console.log(`${engine} ${size.name}: passed`);
   }

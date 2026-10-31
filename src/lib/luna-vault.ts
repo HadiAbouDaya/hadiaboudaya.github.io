@@ -1,8 +1,12 @@
 export type VaultAsset = { id: string; mime: string; bytes: number; width?: number; height?: number };
 export type VaultPhoto = { id: string; width: number; height: number; thumb: VaultAsset; medium: VaultAsset; full: VaultAsset; alt: string; group: string };
-export type VaultChapter = { id: string; title: string; dateLabel: string; source: string; coverId: string; order: number };
+export type VaultChapterPresentation = {
+  kind: "sealed"; teaser: string; description: string; sealLabel: string;
+  openLabel: string; closeLabel: string; revealedNote: string; exhibitLabel: string;
+};
+export type VaultChapter = { id: string; title: string; dateLabel: string; source: string; coverId: string; order: number; presentation?: VaultChapterPresentation };
 export type VaultManifest = {
-  version: 1;
+  version: 1 | 2;
   album: { title: string; subtitle: string; coverIds: string[] };
   chapters: VaultChapter[];
   photos: VaultPhoto[];
@@ -43,7 +47,7 @@ export function validAsset(value: unknown): value is VaultAsset {
 }
 export function validateManifest(value: unknown): asserts value is VaultManifest {
   const manifest = value as VaultManifest;
-  if (!manifest || manifest.version !== 1 || !Array.isArray(manifest.photos) || manifest.photos.length > 10_000 ||
+  if (!manifest || ![1, 2].includes(manifest.version) || !Array.isArray(manifest.photos) || manifest.photos.length > 10_000 ||
       !Array.isArray(manifest.chapters) || !manifest.album || typeof manifest.album.title !== "string" ||
       !Array.isArray(manifest.album.coverIds) || !manifest.birthday?.text || !manifest.birthday.assets || !Array.isArray(manifest.birthday.photos)) throw new Error("Invalid album contents");
   const ids = new Set<string>();
@@ -59,6 +63,11 @@ export function validateManifest(value: unknown): asserts value is VaultManifest
     if (!chapter || typeof chapter.id !== "string" || chapterIds.has(chapter.id) || typeof chapter.title !== "string" ||
       typeof chapter.dateLabel !== "string" || !ids.has(chapter.coverId)) throw new Error("Invalid chapter");
     chapterIds.add(chapter.id);
+    if (chapter.presentation !== undefined) {
+      const presentation = chapter.presentation;
+      if (manifest.version < 2 || !presentation || presentation.kind !== "sealed" ||
+        [presentation.teaser, presentation.description, presentation.sealLabel, presentation.openLabel, presentation.closeLabel, presentation.revealedNote, presentation.exhibitLabel].some(value => typeof value !== "string" || !value.trim() || value.length > 1000)) throw new Error("Invalid collection presentation");
+    }
   }
   if (manifest.photos.some(photo => !chapterIds.has(photo.group)) || manifest.album.coverIds.some(id => !ids.has(id))) throw new Error("Invalid album references");
 }
