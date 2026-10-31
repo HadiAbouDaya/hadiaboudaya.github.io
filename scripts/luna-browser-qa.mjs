@@ -296,6 +296,14 @@ try {
     await page.waitForFunction(() => window.__lunaQA.starts.some(args => args[1] === 131), {timeout:20000});
     await page.getByRole("button", {name:manifest.birthday.text.bloomLabel,exact:true}).click();
     await expect(page.locator(".luna-bloom-burst")).toHaveCount(1);
+    await page.waitForFunction(()=>document.querySelectorAll(".luna-bouquet-image").length===2&&[...document.querySelectorAll(".luna-bouquet-image")].every(host=>{const image=host.querySelector("img");return image?.complete&&image.naturalWidth>0;}));
+    const bouquetBackgrounds=await page.locator(".luna-bouquet-image > span").evaluateAll(wrappers=>wrappers.map(wrapper=>{
+      const style=getComputedStyle(wrapper),canvas=document.createElement("canvas");canvas.width=canvas.height=1;
+      const context=canvas.getContext("2d");context.fillStyle=style.backgroundColor;context.fillRect(0,0,1,1);
+      return {alpha:context.getImageData(0,0,1,1).data[3],image:style.backgroundImage};
+    }));
+    expect(bouquetBackgrounds).toEqual([{alpha:0,image:"none"},{alpha:0,image:"none"}]);
+    await expect(page.locator('.luna-bouquet-image [class*="imagePlaceholder"]')).toHaveCount(0);
     await page.getByRole("button", {name:manifest.birthday.text.candlesLabel,exact:true}).click();
     await expect(page.locator(".luna-finale")).toHaveClass(/is-celebrating/);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -339,7 +347,7 @@ try {
     await expect(page.getByLabel("Our passphrase")).toBeVisible();
     expect(external).toEqual([]);
     expect(errors).toEqual([]);
-    reports.push({ viewport:size.name, engine, checks:"unlock,wrong-key,journey-overview,cover-visibility-reentry,trip-stop-hierarchy,trip-photo-scope,all-journey-rooms,room-photo-scope,journey-effects,reduced-motion,back-focus,all-photos,pagination,viewer,zoom,keyboard,mobile-swipe,sealed-no-prefetch,sealed-reveal,sealed-viewer,reseal,sealed-lock-reset,birthday,audio-offset,flowers,candles,lock,blob-cleanup,history,reload,isolation", ordinaryPhotos:ordinaryPhotos.length, ordinaryChapters:ordinaryChapters.length, overviewEntries:overviewIds.length, trips:trips.length, sealedCollections:sealedChapters.length, errors:0, externalRequests:0, knownWebKitReplacementDiagnostics:navigationDiagnostics.length });
+    reports.push({ viewport:size.name, engine, checks:"unlock,wrong-key,journey-overview,cover-visibility-reentry,trip-stop-hierarchy,trip-photo-scope,all-journey-rooms,room-photo-scope,journey-effects,reduced-motion,back-focus,all-photos,pagination,viewer,zoom,keyboard,mobile-swipe,sealed-no-prefetch,sealed-reveal,sealed-viewer,reseal,sealed-lock-reset,birthday,audio-offset,flowers,bouquet-cutout-transparency,candles,lock,blob-cleanup,history,reload,isolation", ordinaryPhotos:ordinaryPhotos.length, ordinaryChapters:ordinaryChapters.length, overviewEntries:overviewIds.length, trips:trips.length, sealedCollections:sealedChapters.length, errors:0, externalRequests:0, knownWebKitReplacementDiagnostics:navigationDiagnostics.length });
     await context.close();
     console.log(`${engine} ${size.name}: passed`);
   }

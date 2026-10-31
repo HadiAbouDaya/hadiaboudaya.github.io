@@ -263,6 +263,8 @@ body.luna-experience-active {
 }
 
 .luna-bouquet-image {
+  --vault-image-background: transparent;
+  --vault-image-placeholder-background: transparent;
   display: block;
   width: 100%;
   transform: rotateX(var(--bouquet-rx)) rotateY(var(--bouquet-ry));
