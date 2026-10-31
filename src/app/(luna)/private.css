@@ -1,0 +1,29 @@
+:root {
+  color-scheme: light;
+  background: #e9eef6;
+}
+
+.private-space {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100svh;
+  color: #243546;
+  background: #e9eef6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.private-space *, .private-space *::before, .private-space *::after { box-sizing: border-box; }
+.private-space button, .private-space input, .private-space select { font: inherit; }
+.private-space button, .private-space a, .private-space input, .private-space select { -webkit-tap-highlight-color: transparent; }
+.private-space button { cursor: pointer; }
+.private-space button:disabled { cursor: wait; }
+.private-space img { display: block; max-width: 100%; }
+.private-space :focus-visible { outline: 3px solid #923c55; outline-offset: 4px; }
+.private-space main:focus { outline: none; }
+.private-skip { position: fixed; z-index: 1000; top: 1rem; left: 1rem; transform: translateY(-200%); padding: .75rem 1rem; border-radius: .4rem; background: #fff; color: #243546; }
+.private-skip:focus { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .private-space *, .private-space *::before, .private-space *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

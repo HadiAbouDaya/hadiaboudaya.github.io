@@ -65,3 +65,27 @@ The production dependency audit passed with zero advisories on 19 October 2026. 
 ## Publication
 
 The GitHub Pages workflow validates the frozen install, tests, lint, types and export before publishing. A push to `main` or a manual workflow dispatch starts that workflow. Use the local preview for review; deploy only when explicitly requested.
+
+## Encrypted personal space
+
+The personal space has a separate Next root layout and no portfolio styles, fonts, search, theme, or telemetry. Its album and birthday renderer read personal content only after browser decryption. Public navigation, sitemap, search, sharing metadata, and LLM files do not advertise it.
+
+Only opaque encrypted objects and a versioned key wrapper are published under `public/luna/vault`. Photos, thumbnails, the catalog, birthday text, and music use AES-256-GCM with unique 96-bit IVs and authenticated object/release identifiers. PBKDF2-SHA-256 (600,000 iterations and a random salt) derives a wrapping key in a dedicated static worker. The shared passphrase and non-extractable decryption key remain in memory. Lock, refresh, and document history restoration clear the session; no decrypted content is written to browser storage. Public ciphertext can be cached safely. This is content encryption, not identity authentication; a strong random passphrase is required.
+
+Authoring inputs, original media, editable chapter mappings, recovery keys, access instructions, and QA screenshots belong in a private directory **outside this public repository**. The local preparation command reads `access.json`, `album-content.json`, `chapters.json`, `birthday-content.json`, and `birthday-media/` there. It transforms images in memory, converts to sRGB, strips metadata, and writes only ciphertext to the repository:
+
+```sh
+node --experimental-strip-types scripts/prepare-luna-vault.mjs --photos /absolute/private/photos --private-dir /absolute/private/authoring
+```
+
+Visit chapters are editorial inferences from available capture dates, shared-file dates, and visual context; the private mapping stays editable. Do not automatically treat WhatsApp filename dates as exact capture dates. Retain private originals and recovery material before regenerating. Old encrypted releases remain available for cached configurations; changing a wrapper cannot revoke historical copies or leaked credentials. Previously published birthday material may remain in Git history or others' copies.
+
+The build runs a dedicated private-boundary verifier alongside the existing portfolio contracts. Local full-content and browser checks require the external authoring directory and never belong in public CI:
+
+```sh
+LUNA_PRIVATE_DIR=/absolute/private/authoring node --experimental-strip-types scripts/verify-luna-private.mjs
+LUNA_PRIVATE_DIR=/absolute/private/authoring node scripts/luna-browser-qa.mjs
+LUNA_PRIVATE_DIR=/absolute/private/authoring node scripts/luna-resilience-qa.mjs
+```
+
+Browser checks use the static preview at port 4173; `LUNA_TEST_ORIGIN` selects an HTTPS production host, `LUNA_BROWSER=webkit` selects WebKit, and `LUNA_CHROME_PATH` overrides the installed Chrome executable. Install the relevant Playwright browser when needed. Credentials are read locally and failures redact them. Never upload access instructions, plaintext catalogs, recovery backups, or unlocked screenshots to a PR.

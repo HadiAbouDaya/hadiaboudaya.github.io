@@ -2,7 +2,7 @@
 //
 // GitHub Pages cannot send custom HTTP response headers, so this policy
 // is delivered as a <meta http-equiv> tag from the root layout (see
-// src/app/layout.tsx). Directives that browsers ignore in a meta tag
+// src/app/(portfolio)/layout.tsx). Directives that browsers ignore in a meta tag
 // (frame-ancestors) and headers with no meta equivalent (HSTS,
 // X-Content-Type-Options, X-Frame-Options, Permissions-Policy) live in
 // public/_headers instead: any header-capable static host or CDN placed
@@ -25,4 +25,23 @@ export const CONTENT_SECURITY_POLICY = [
   "object-src 'none'",
   "base-uri 'self'",
   "upgrade-insecure-requests",
+].join("; ");
+
+
+/** The private space has no third-party integrations. Only ciphertext is fetched. */
+export const LUNA_CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' blob: data:",
+  "font-src 'self'",
+  "media-src 'self' blob:",
+  "worker-src 'self'",
+  "connect-src 'self'",
+  "form-action 'none'",
+  "frame-src 'none'",
+  "object-src 'none'",
+  "base-uri 'none'",
+  // All resources are same-origin and relative. Avoid upgrading loopback preview
+  // HTTP assets to nonexistent HTTPS endpoints in WebKit; production uses HTTPS.
 ].join("; ");

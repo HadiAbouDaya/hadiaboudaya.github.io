@@ -1263,66 +1263,6 @@
       "sha256": "8e9981f97160a9e5afecfa9056904e0a88546d538eacaabb5d9b548c1e71ba71"
     },
     {
-      "path": "public/Media/luna/01-kiss.webp",
-      "bytes": 186212,
-      "sha256": "a5f896a4ea35b256c9e150b698e997b1a33555be084133d38e61841e66ad7017"
-    },
-    {
-      "path": "public/Media/luna/02-lakeside.webp",
-      "bytes": 244746,
-      "sha256": "2c07ef2ab9e37baa288cc7de370fafe19bb9a4ea47b2f5787be13719798640b4"
-    },
-    {
-      "path": "public/Media/luna/03-under-the-trees.webp",
-      "bytes": 220206,
-      "sha256": "1d32fea63a97f00536a912f8b7065faa1405b1593e67bb45a5268c09df90aee3"
-    },
-    {
-      "path": "public/Media/luna/04-brussels-rooftop.webp",
-      "bytes": 175256,
-      "sha256": "d39d99801e72acfc14dbfa94e9a27cc9cafce8b6198b74d56151b5f091be6da1"
-    },
-    {
-      "path": "public/Media/luna/05-brussels-sun.webp",
-      "bytes": 210758,
-      "sha256": "a96caebda322992aa62d2313812aa18aee8004653aec80d3c548730c0aeaea18"
-    },
-    {
-      "path": "public/Media/luna/06-mirror.webp",
-      "bytes": 41948,
-      "sha256": "39bc1d163314550c0272498006c3be2a3a5e657e7fb546df88b7601035903f77"
-    },
-    {
-      "path": "public/Media/luna/07-summer-portrait.webp",
-      "bytes": 154858,
-      "sha256": "2dde76eb2665cbc165c8c340a2a921d0140ecbc1c34c88f9f12c85cd1b8220db"
-    },
-    {
-      "path": "public/Media/luna/08-brussels-street.webp",
-      "bytes": 358514,
-      "sha256": "cdeccd004d4b320c34218f8bc87b28edfdcb48fc85a690053bb5a5e89822c786"
-    },
-    {
-      "path": "public/Media/luna/09-seaside-white.webp",
-      "bytes": 94970,
-      "sha256": "177384e843da7e20f7048d80ab27c6aabfda2eb5ffde4f330522f7699bfa5412"
-    },
-    {
-      "path": "public/Media/luna/10-seaside-sunset.webp",
-      "bytes": 65528,
-      "sha256": "be138e4f16f318f3f2c84b153c1c1af52af02e0612013f047c1b0825202e8841"
-    },
-    {
-      "path": "public/Media/luna/11-golden-hour.webp",
-      "bytes": 110298,
-      "sha256": "cf4dbc122cfcad15c30e72e5fc60ab447b09e1048ac9c5b6f24b52be00810f93"
-    },
-    {
-      "path": "public/Media/luna/peony-bouquet.webp",
-      "bytes": 237220,
-      "sha256": "79adb55b5d8eb120aa6f0f1709d757a7a1f86317952599e1e3d11acb62f73b47"
-    },
-    {
       "path": "public/Media/profile/headshot.jpg",
       "bytes": 54686,
       "sha256": "a782f9e2dca6eb6f4fcdfbd60f13f9e5726632dd02a8af0cc1f4f1ae22224bc8"
