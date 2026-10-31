@@ -45,14 +45,20 @@ try {
     qaPhase=`${engine} ${size.name}: unlock`;
     const context = await browser.newContext({ viewport: size, reducedMotion: "reduce", ...(size.name !== "desktop" ? { isMobile: true, hasTouch: true, deviceScaleFactor: 2 } : {}) });
     await context.addInitScript(() => {
-      window.__lunaQA = { blobs: new Set(), starts: [], stopped: 0 };
+      window.__lunaQA = { blobs: new Set(), starts: [], stopped: 0, realStarts: [], activeSongSources: new Set() };
       const create = URL.createObjectURL, revoke = URL.revokeObjectURL;
       URL.createObjectURL = function(blob) { const url = create.call(this, blob); window.__lunaQA.blobs.add(url); return url; };
       URL.revokeObjectURL = function(url) { window.__lunaQA.blobs.delete(url); return revoke.call(this, url); };
       if (window.AudioBufferSourceNode) {
-        const start = AudioBufferSourceNode.prototype.start, stop = AudioBufferSourceNode.prototype.stop;
-        AudioBufferSourceNode.prototype.start = function(...args) { window.__lunaQA.starts.push(args); return start.apply(this,args); };
-        AudioBufferSourceNode.prototype.stop = function(...args) { window.__lunaQA.stopped++; return stop.apply(this,args); };
+        const start = AudioBufferSourceNode.prototype.start, stop = AudioBufferSourceNode.prototype.stop, disconnect = AudioBufferSourceNode.prototype.disconnect;
+        AudioBufferSourceNode.prototype.start = function(...args) {
+          const result=start.apply(this,args);window.__lunaQA.starts.push(args);
+          // Safari's one-sample context-unlock source is deliberately silent.
+          if(this.buffer?.duration>1){window.__lunaQA.realStarts.push({args,path:location.pathname,visibility:document.visibilityState});window.__lunaQA.activeSongSources.add(this);this.addEventListener("ended",()=>window.__lunaQA.activeSongSources.delete(this),{once:true});}
+          return result;
+        };
+        AudioBufferSourceNode.prototype.stop = function(...args) { window.__lunaQA.stopped++;window.__lunaQA.activeSongSources.delete(this);return stop.apply(this,args); };
+        AudioBufferSourceNode.prototype.disconnect = function(...args) {window.__lunaQA.activeSongSources.delete(this);return disconnect.apply(this,args);};
       }
     });
     const page = await context.newPage(), errors = [], external = [], requests = [], navigationDiagnostics = [];
@@ -288,12 +294,16 @@ try {
     qaPhase=`${engine} ${size.name}: birthday`;
     const songURL = `${origin}/luna/vault/${config.release}/${song.id}.bin`;
     const songBefore = requests.filter(url => url === songURL).length;
+    expect(songBefore).toBe(0);
+    expect(await page.evaluate(()=>window.__lunaQA.realStarts.length)).toBe(0);
     await page.getByRole("link", {name:"The birthday keepsake"}).click();
     await expect(page.locator(".luna-entry")).toBeVisible();
     expect(requests.filter(url => url === songURL).length).toBe(songBefore);
+    expect(await page.evaluate(()=>window.__lunaQA.realStarts.length)).toBe(0);
     await page.getByRole("button", {name:manifest.birthday.text.open,exact:true}).click();
     await expect(page.locator(".luna-entry")).toHaveCount(0);
     await page.waitForFunction(() => window.__lunaQA.starts.some(args => args[1] === 131), {timeout:20000});
+    await expect.poll(()=>page.evaluate(()=>window.__lunaQA.activeSongSources.size)).toBe(1);
     await page.getByRole("button", {name:manifest.birthday.text.bloomLabel,exact:true}).click();
     await expect(page.locator(".luna-bloom-burst")).toHaveCount(1);
     await page.waitForFunction(()=>document.querySelectorAll(".luna-bouquet-image").length===2&&[...document.querySelectorAll(".luna-bouquet-image")].every(host=>{const image=host.querySelector("img");return image?.complete&&image.naturalWidth>0;}));
@@ -308,11 +318,33 @@ try {
     await expect(page.locator(".luna-finale")).toHaveClass(/is-celebrating/);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await page.screenshot({ path: path.join(qaDir, `${live ? "live" : "local"}-${engine}-${size.name}-birthday.png`) });
+    // Headless engines keep background tabs visible; simulate that lifecycle
+    // signal explicitly and require a new user tap when visibility returns.
+    await page.evaluate(()=>{Object.defineProperty(document,"hidden",{configurable:true,value:true});Object.defineProperty(document,"visibilityState",{configurable:true,value:"hidden"});document.dispatchEvent(new Event("visibilitychange"));});
+    await expect.poll(()=>page.evaluate(()=>window.__lunaQA.activeSongSources.size)).toBe(0);
+    const beforeVisible=await page.evaluate(()=>window.__lunaQA.realStarts.length);
+    await page.evaluate(()=>{delete document.hidden;delete document.visibilityState;document.dispatchEvent(new Event("visibilitychange"));});
+    await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+    expect(await page.evaluate(()=>window.__lunaQA.realStarts.length)).toBe(beforeVisible);
+    await page.getByRole("button",{name:manifest.birthday.text.playLabel,exact:true}).click();
+    await expect.poll(()=>page.evaluate(()=>window.__lunaQA.activeSongSources.size)).toBe(1);
     await page.getByRole("link", {name:"Album",exact:true}).click();
     await expect(page.locator("#album-title")).toBeVisible();
     expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
-    // Navigation can paint the album before React flushes passive audio cleanup.
-    await expect.poll(() => page.evaluate(() => window.__lunaQA.stopped)).toBeGreaterThan(0);
+    await expect.poll(()=>page.evaluate(()=>window.__lunaQA.activeSongSources.size)).toBe(0);
+    const beforeReentry=await page.evaluate(()=>window.__lunaQA.realStarts.length);
+    await page.getByRole("link",{name:"The birthday keepsake"}).click();
+    await expect(page.locator(".luna-entry")).toBeVisible();
+    expect(await page.evaluate(()=>window.__lunaQA.realStarts.length)).toBe(beforeReentry);
+    await page.getByRole("button",{name:manifest.birthday.text.open,exact:true}).click();
+    await expect.poll(()=>page.evaluate(()=>window.__lunaQA.activeSongSources.size)).toBe(1);
+    await page.getByRole("button",{name:"Lock",exact:true}).click();
+    await expect(page.getByLabel("Our passphrase")).toBeVisible();
+    await expect.poll(()=>page.evaluate(()=>window.__lunaQA.activeSongSources.size)).toBe(0);
+    await page.goBack();
+    await expect(page.getByLabel("Our passphrase")).toBeVisible();
+    await unlock();
+    expect(await page.evaluate(()=>window.__lunaQA.realStarts.every(start=>start.path.replace(/\/+$/,"")==="/luna/birthday"&&start.visibility==="visible"))).toBe(true);
 
     if (sealedChapters.length) {
       qaPhase=`${engine} ${size.name}: lifecycle`;
@@ -347,7 +379,7 @@ try {
     await expect(page.getByLabel("Our passphrase")).toBeVisible();
     expect(external).toEqual([]);
     expect(errors).toEqual([]);
-    reports.push({ viewport:size.name, engine, checks:"unlock,wrong-key,journey-overview,cover-visibility-reentry,trip-stop-hierarchy,trip-photo-scope,all-journey-rooms,room-photo-scope,journey-effects,reduced-motion,back-focus,all-photos,pagination,viewer,zoom,keyboard,mobile-swipe,sealed-no-prefetch,sealed-reveal,sealed-viewer,reseal,sealed-lock-reset,birthday,audio-offset,flowers,bouquet-cutout-transparency,candles,lock,blob-cleanup,history,reload,isolation", ordinaryPhotos:ordinaryPhotos.length, ordinaryChapters:ordinaryChapters.length, overviewEntries:overviewIds.length, trips:trips.length, sealedCollections:sealedChapters.length, errors:0, externalRequests:0, knownWebKitReplacementDiagnostics:navigationDiagnostics.length });
+    reports.push({ viewport:size.name, engine, checks:"unlock,wrong-key,journey-overview,cover-visibility-reentry,trip-stop-hierarchy,trip-photo-scope,all-journey-rooms,room-photo-scope,journey-effects,reduced-motion,back-focus,all-photos,pagination,viewer,zoom,keyboard,mobile-swipe,sealed-no-prefetch,sealed-reveal,sealed-viewer,reseal,sealed-lock-reset,birthday,audio-offset,no-audio-before-open,audio-route-stop,audio-lock-stop,simulated-tab-hide-stop,no-audio-autoresume,flowers,bouquet-cutout-transparency,candles,lock,blob-cleanup,history,reload,isolation", ordinaryPhotos:ordinaryPhotos.length, ordinaryChapters:ordinaryChapters.length, overviewEntries:overviewIds.length, trips:trips.length, sealedCollections:sealedChapters.length, errors:0, externalRequests:0, knownWebKitReplacementDiagnostics:navigationDiagnostics.length });
     await context.close();
     console.log(`${engine} ${size.name}: passed`);
   }
