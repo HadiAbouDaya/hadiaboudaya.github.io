@@ -79,7 +79,7 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
 
           {/* MDX Content */}
           <BlogReadTracker slug={post.slug} title={post.title} readingTime={post.readingTime}>
-            <div data-article-body className="mt-8 prose prose-slate dark:prose-invert lg:prose-lg prose-headings:text-fg prose-a:text-primary-700 dark:prose-a:text-primary-300 hover:prose-a:text-primary-800 dark:hover:prose-a:text-primary-200 prose-a:underline prose-a:decoration-primary-700/50 dark:prose-a:decoration-primary-300/50 hover:prose-a:decoration-primary-700 dark:hover:prose-a:decoration-primary-300 prose-code:text-primary-700 dark:prose-code:text-primary-300 prose-pre:bg-slate-900 prose-blockquote:border-l-primary-500/50">
+            <div data-article-body className="mt-8 prose prose-slate dark:prose-invert lg:prose-lg prose-headings:text-fg prose-a:text-primary-700 dark:prose-a:text-primary-300 hover:prose-a:text-primary-800 dark:hover:prose-a:text-primary-200 prose-a:underline prose-a:decoration-primary-700/50 dark:prose-a:decoration-primary-300/50 hover:prose-a:decoration-primary-700 dark:hover:prose-a:decoration-primary-300 prose-code:text-primary-700 dark:prose-code:text-primary-300 prose-pre:bg-slate-900 [&_pre_code]:text-slate-100 prose-blockquote:border-l-primary-500/50">
               {children}
             </div>
           </BlogReadTracker>

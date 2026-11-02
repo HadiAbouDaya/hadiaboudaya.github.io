@@ -1,0 +1,181 @@
+---
+title: "The Michelin Principle: AI Software Factories People Can Stand Behind"
+date: "2026-11-03"
+tags: ["AI Agents", "Software Engineering", "Architecture", "Technical Leadership", "DevOps"]
+excerpt: "Agents can execute the work. People still own the outcome. A technical operating model for consistent quality in AI software factories."
+coverImage: "/Media/blog/covers/michelin-principle-ai-software-factories.png"
+---
+
+# The Michelin Principle: AI Software Factories People Can Stand Behind
+
+The build is green. The security scan is clean. Deployment succeeded.
+
+At 10:03 the following morning, a customer receives a reminder for an appointment they moved yesterday. The application shows the new time. The reminder shows the old one. Both services are reporting excellent uptime.
+
+The implementation agent completed its task. The reviewer found no violations of the supplied specification. The release workflow did exactly what it was configured to do.
+
+Somewhere, a dashboard is having a wonderful day.
+
+This fictional booking feature captures a problem I care about in AI software factories: successful execution can coexist with a failed user experience. As agents take on more delivery work, people must still own the result across the boundaries between tasks, services and teams.
+
+In [my previous article](/blog/ai-software-factory-beyond-coding-agents/), I described a software factory as a system connecting requirements to production through bounded agents, durable workflows and verifiable evidence. This article adds an operating principle: **delegating execution must preserve human ownership of purpose, engineering judgment and consequences.**
+
+## The Michelin principle, expressed as engineering
+
+The Michelin kitchen is the inspiration for this principle: specialist execution contributes to a result whose quality must hold together consistently. Michelin’s own [explanation of its assessment](https://guide.michelin.com/sg/en/article/features/what-is-a-michelin-star) emphasizes consistency over time and awards stars to the restaurant rather than an individual chef. I call the software interpretation the **Michelin principle**: judge the delivery system by the coherent outcome it repeatedly produces for users.
+
+Technically, that means stable quality expectations, coordinated interfaces, qualified review, and ownership that continues after deployment. A spectacular demonstration is useful evidence about one demonstration. A dependable product must survive ordinary users, conflicting requests, delayed events and the next release.
+
+It also means choosing an appropriate quality target. An internal prototype and a customer-facing booking platform need different controls. Requiring maximum ceremony everywhere would consume the attention needed for consequential decisions.
+
+The standard should be explicit enough that people and automation can act on it, and specific enough to reflect the product being built.
+
+## Give the change an outcome owner
+
+For the booking feature, “implement the rescheduling endpoint” is a task. The intended outcome is that a customer can move an eligible appointment and subsequently rely on the confirmed time throughout the experience.
+
+That outcome crosses the API, reservation state, interface, notification system and support workflow. If ownership ends at each component boundary, the integration between those components becomes everybody’s assumption.
+
+I would assign a named human outcome owner, backed by a team and an explicit handover when responsibility changes. This person coordinates decisions and follows the change through validation and observation. They need access to the relevant specialists; they do not need to personally inspect every query, accessibility detail and deployment setting.
+
+Responsibilities remain concrete:
+
+- **Product ownership:** define the user problem, eligibility rules, success criteria and acceptable trade-offs.
+- **Engineering ownership:** establish system invariants, integration semantics, maintainability and the correctness of the implementation, including generated code.
+- **Verification ownership:** challenge the specification and assess whether the evidence supports the claims being made.
+- **Operational ownership:** establish visibility, release conditions, incident response and recovery capability.
+
+In a small team, one person may hold several responsibilities. In a larger organization, the boundaries need to be recorded. An agent can carry out tasks for any of these roles; decisions that require organizational authority still need a legitimate human owner or a policy approved by one.
+
+The outcome owner also needs a route to resolve cross-team disagreements. Giving someone the title while denying them influence over scope, staffing or release decisions creates a very well-documented dead end.
+
+## Put the intent somewhere the workflow can inspect
+
+An issue description can start the conversation. Before implementation, I want a concise outcome contract connecting the user promise to its constraints, evidence and owners.
+
+For our example, an illustrative record might look like this. The identifiers are placeholders for a repository’s real identity and policy systems, not a framework configuration:
+
+```yaml
+change: booking-reschedule
+outcome: >-
+  A customer can move an eligible booking and rely on
+  the confirmed time across the application and reminders.
+
+ownership:
+  outcome: named-change-owner
+  engineering: booking-service-owner
+  operations: booking-on-call
+
+invariants:
+  - One active reservation per booking.
+  - A conflicting concurrent update is surfaced explicitly.
+  - A stale event cannot replace newer booking state.
+  - Reminder dispatch validates the current booking version.
+
+evidence:
+  - concurrent-update-test
+  - stale-event-and-reminder-test
+  - customer-journey-review
+
+release:
+  policy: booking-change-policy-v1
+  disable_control: booking-reschedule-flag
+  observation: booking-reschedule-observation-plan-v1
+```
+
+The contract makes missing decisions visible. How long can an update remain pending? What should the interface say when an external calendar has not acknowledged it? Can the customer change an appointment immediately before a reminder is sent?
+
+An agent can propose answers and explore consequences. A responsible product or engineering owner must settle material uncertainty before it becomes accidental behaviour.
+
+The workflow can enforce that required records and evidence exist. Their presence alone does not establish their quality. Someone still has to assess whether the invariant is appropriate, whether the test can detect a violation, and whether the observation plan measures the promise.
+
+A schema validator will happily accept a beautifully structured misunderstanding.
+
+## Engineer the boundaries between successful tasks
+
+Return to the incorrect reminder. Suppose the rescheduling API updated the booking correctly, but the notification worker retained a job containing the previous appointment time.
+
+Every local test might pass. The API test checks the database update. The notification test checks that the worker sends the payload it receives. The UI test checks that the response renders. The missing question concerns whether that payload is still authoritative when it is used.
+
+A useful design makes those semantics explicit. For example, booking state can have a monotonically increasing version. A queued reminder carries the version it was created against. Before dispatch, the worker checks the current state and cancels or regenerates a stale reminder according to the agreed policy.
+
+That check introduces another boundary: a reschedule could happen between the check and the external send. The engineering owner must define the required ordering and choose a mechanism that supports it, perhaps serializing relevant operations per booking. A version field by itself does not eliminate the race.
+
+External delivery adds a further limit. A message already accepted by a provider may be impossible to retract. The product needs an honest policy for that case, potentially including a corrective notification. Nobody should claim that a feature flag can unsend an email.
+
+This is where people contribute engineering judgment: identifying the guarantee that matters, understanding its cost, and deciding what the system can promise. Agents can investigate implementations, generate tests and expose counterexamples. The team remains responsible for the guarantee it chooses.
+
+Google’s [engineering review guidance](https://google.github.io/eng-practices/review/reviewer/looking-for.html) covers design, functionality, concurrency, useful tests and qualified review. Those concerns remain relevant when a model produces the patch. Faster generation increases the importance of understanding what enters the codebase.
+
+## Human responsibility needs working controls
+
+“A human will review it” sounds reassuring until the human receives a large diff, a confident summary and six minutes before release.
+
+For responsibility to be meaningful, I would design for four conditions:
+
+- **Understanding:** people can inspect the architecture, assumptions and changed behaviour, and maintain enough practical familiarity to investigate failures.
+- **Evidence:** they can access relevant tests, actual execution results, integration behaviour and remaining uncertainty.
+- **Capacity:** the volume and size of changes leave time for real judgment.
+- **Authority:** they can narrow scope, require further work, suspend automation or stop a release.
+
+These are design constraints on the factory. Limit concurrent changes by review and integration capacity. Split work into changes that people can understand. Route specialized decisions to qualified reviewers. Maintain rehearsed procedures for disabling behaviour and reconciling partially completed operations.
+
+This does not require every human to approve every routine action. A team can authorize a well-defined class of changes in advance and let policy enforce that authorization. Human responsibility includes deciding the boundaries of that class and checking whether its observed results still justify the autonomy granted.
+
+Lisanne Bainbridge’s 1983 paper, [“Ironies of Automation”](https://www.sciencedirect.com/science/article/pii/0005109883900468), examined difficulties created when automation leaves people responsible for abnormal conditions. The relevance to agent workflows is my interpretation: a person expected to intervene needs the context and practiced ability to do so.
+
+I would preserve that ability through design reviews, selected direct investigation, recovery exercises and deliberate review of exceptions. Removing routine execution should free people to understand the system more deeply. A workflow that progressively makes its owners unable to explain the service has weakened its own recovery capability.
+
+## Make review a decision with a scope
+
+An approval should tell us what was assessed and why proceeding is justified. “Looks good” becomes rather ambitious when nobody has agreed what was looked at.
+
+For the booking change, a review package should identify the candidate revision, the user promise, the affected contracts, the evidence for concurrent updates and stale reminders, unresolved findings, release exposure and recovery limitations.
+
+Different decisions require different evidence. A product owner may accept the notification timing policy. An engineer may assess ordering and failure handling. An accessibility reviewer may inspect confirmation and error states. The outcome owner checks that these decisions form a coherent release case.
+
+If an implementation change invalidates a design assumption, the workflow should reopen the affected decision. A previous approval cannot silently stretch to cover a different guarantee.
+
+This also changes how agent reviewers should report. Findings need a violated criterion and supporting evidence. A reviewer that approves a module should state the scope of that assessment. The release process can then detect gaps, instead of interpreting several narrow approvals as proof of the whole user journey.
+
+Review becomes more useful when people can quickly find the question requiring their judgment. Raw transcripts can support an investigation, while the decision itself needs a focused explanation and inspectable references.
+
+## Production observation belongs to the same ownership chain
+
+The release service can confirm that an artifact is running. Establishing whether customers can reschedule reliably requires different observations.
+
+For this feature, I would examine successful completion of eligible rescheduling attempts, conflicts surfaced correctly, consistency of the displayed booking, and stale reminders prevented or detected. Expected business rejections should be distinguishable from technical failures. Otherwise a dashboard can hide a broken flow inside an impressively broad category called “invalid request.”
+
+Google’s [guidance on implementing SLOs](https://sre.google/workbook/implementing-slos/) discusses critical user journeys and indicators including correctness and freshness, alongside availability and latency. The practical lesson here is to choose observations that reflect what the customer relies on.
+
+Those observations still have limits. Synthetic journeys cover selected cases. A provider accepting a notification does not prove the customer received or understood it. Customer feedback and targeted human review complement instrumentation. The team should state which parts of the outcome it can establish and which remain uncertain.
+
+The observation plan also needs decision rules: when to expand exposure, investigate, disable a feature or prioritize a repair. Google’s [example error-budget policy](https://sre.google/workbook/error-budget-policy/) illustrates how reliability evidence can change release priorities. Its thresholds belong to that example; a team should choose policies appropriate to its own service.
+
+An agent can correlate anomalies, collect evidence and execute preauthorized containment. The people responsible for the service decide how that authority is granted, supervised and withdrawn. A production signal that creates an unread ticket has recorded a problem without establishing that anyone will respond.
+
+## Accountability should produce repair and learning
+
+When a customer receives the wrong reminder, the team needs to establish impact, contain further incorrect messages, reconcile affected bookings and communicate appropriately. It then needs to improve the system that allowed the defect through.
+
+“The agent wrote it” is useful provenance. It is an incomplete account of why the organization released it.
+
+Which assumption was missing? Why did local checks appear sufficient? Who could see the cross-service behaviour? Did review capacity match generated change volume? Could the owner actually delay release?
+
+Google’s [blameless postmortem guidance](https://sre.google/sre-book/postmortem-culture/) focuses on contributing conditions and preventive action. That approach is compatible with clear responsibility: people own the response and follow-through while examining how the system shaped their decisions.
+
+Leadership has responsibilities here too. It controls staffing, incentives, budgets and the pressure to ship. A policy requiring careful review cannot compensate indefinitely for a delivery target that makes careful review impossible.
+
+Corrective work needs an owner, a priority and a way to verify completion. That may mean adding a regression scenario, changing the notification contract, reducing automatic release authority or removing unnecessary complexity. Sometimes the improvement is less agent activity and a simpler service boundary.
+
+## Build the ownership path before expanding autonomy
+
+I would introduce this model around one user journey. Establish its owner and decision rights, record its outcome contract, connect agent tasks to the relevant constraints, and gather evidence that crosses service boundaries. Then release with limited exposure and an operational team ready to act on observations.
+
+Expand autonomy when the observed results support it. If verification is weak, ownership is unclear or recovery cannot be performed safely, those are engineering tasks to resolve before increasing execution volume.
+
+This is the additional discipline I want inside a software factory. Agents can write code, examine designs, run checks and investigate production. People continue to shape the product, understand consequential decisions, maintain the ability to intervene and follow the result through its real-world effects.
+
+In our booking example, the work is complete when the team has adequate evidence that customers can rely on their changed appointments, knows the remaining limitations, and can operate the feature responsibly. The original green build remains part of that evidence.
+
+The customer who received yesterday’s reminder still deserves an answer from someone who owns the service today.
