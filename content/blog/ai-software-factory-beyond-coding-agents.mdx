@@ -1,0 +1,204 @@
+---
+title: "Building an AI Software Factory: From Coding Agents to Reliable Delivery"
+date: "2026-11-02"
+tags: ["AI Agents", "Software Engineering", "Architecture", "DevOps", "Platform Engineering"]
+excerpt: "An AI software factory connects requirements to production through durable workflows, independent verification and explicit authority. Here is how I would design one."
+coverImage: "/Media/blog/covers/ai-software-factory.png"
+---
+
+# Building an AI Software Factory: From Coding Agents to Reliable Delivery
+
+A coding agent can finish a pull request while the team is still deciding what the feature should do. That gap explains both the promise and the difficulty of an AI software factory.
+
+Generating a patch is one operation inside a much larger system. Someone still has to establish the intended behaviour, resolve conflicting requirements, protect existing contracts, assess evidence, authorize a release, and discover whether the change actually helped users.
+
+**I use “AI software factory” to mean a delivery system in which agents perform bounded work across the software lifecycle, while explicit policies, executable checks and accountable people govern how that work reaches production.** End-to-end automation is the ambition. The amount of autonomy should depend on the change and the evidence available.
+
+My central design principle is straightforward: every consequential transition should depend on evidence that another component can inspect. An agent saying “done” is useful communication. A verified production state is a delivery result.
+
+## Faster coding changes the constraint
+
+Consider a deliberately simplified example. A change takes ten working days from request to release: two in implementation and eight in clarification, review, testing, coordination and waiting. Making implementation four times faster reduces the total to eight and a half days, a 15% reduction. This assumes everything else stays constant; it is arithmetic, not a productivity forecast.
+
+In practice, everything else may change. More patches can create a longer review queue. Larger generated diffs can increase verification time. Conversely, agents that clarify requirements or reproduce incidents can reduce work outside implementation.
+
+That is why I would measure the entire flow before choosing what to automate. DORA’s [2025 research](https://dora.dev/research/2025/dora-report/) frames AI as an amplifier of an organization’s existing strengths and weaknesses. It supports investing in the delivery system around the tool; it does not establish that a particular autonomous factory architecture works.
+
+Task-level research also deserves careful reading. METR’s [early-2025 randomized study](https://arxiv.org/abs/2507.09089) involved 16 experienced open-source developers completing 246 tasks in familiar repositories. Allowing the tools studied increased completion time by 19%. That result describes those developers, tasks and tools, rather than a permanent limit on AI assistance. In its [February 2026 update](https://metr.org/blog/2026-02-24-uplift-update/), METR reported that selection effects and measurement difficulties made its follow-up an unreliable estimate of current productivity effects.
+
+My conclusion is to establish a local baseline: time to an accepted, operating change, including review and rework. Perceived speed and code volume are insufficient evidence.
+
+## Seven phases, connected by artifact contracts
+
+Seven phases are a useful decomposition, rather than a mandatory standard or a sequence of seven agents. A small change can share steps; a design discovery can send work back to requirements. The important boundary is what each phase must establish before the next one proceeds.
+
+| Phase | Artifact or state produced | Evidence required for handoff |
+|---|---|---|
+| Requirements and analysis | Problem statement, acceptance criteria, assumptions and exclusions | Behaviour is testable; unresolved product decisions have an owner |
+| Design and architecture | Contracts, data model, UI states and relevant decisions | Compatibility, failure behaviour and operational impact are addressed |
+| Planning and decomposition | Dependency graph of bounded tasks | Each task has inputs, ownership, completion conditions and integration points |
+| Implementation and build | Reviewable patch and build artifact | Changes stay within scope and build with the recorded inputs |
+| Tests and verification | Test results, review findings and security evidence | Acceptance criteria and existing invariants hold on the candidate revision |
+| Deployment and release | Identified artifact deployed to a defined environment | Current authorization, rollout checks and recovery procedure are available |
+| Operations and maintenance | Observed service behaviour and follow-up work | Health and intended behaviour are checked over a suitable observation window |
+
+The handoff should identify the exact inputs used. A design based on an older requirements revision should not silently pass as current. A test report must name the code revision it tested.
+
+I would version concise specifications and decisions alongside the code, with structured manifests linking them to execution records. Large logs, sensitive traces and build artifacts belong in access-controlled storage with explicit retention, rather than being committed indiscriminately. Git records document changes; the workflow ledger records runs, attempts, approvals and external effects.
+
+Security belongs throughout this process. [NIST’s SSDF 1.1](https://csrc.nist.gov/pubs/sp/800/218/final) provides secure development practices that can be integrated into an SDLC. It is a useful reference for designing controls, rather than a certification conferred by adding a security agent.
+
+## A worked example: “Let account managers export customer records”
+
+This is an illustrative design exercise, not a claim about a system I have deployed.
+
+The request looks small. An implementation agent could immediately build a CSV endpoint and a download button. But “customer records” hides most of the decisions that determine whether the feature is correct:
+
+- Which records and fields can each role export?
+- Does export permission differ from permission to view one record?
+- How is tenant isolation enforced in background jobs and downloads?
+- What happens if permission is revoked after a job is queued?
+- How are large exports, expired links and partial failures presented?
+- Which retention and audit rules apply to the exported data?
+
+### Requirements turn uncertainty into decisions
+
+Suppose the product and security owners decide that exports contain an approved field set, remain tenant-scoped, require a dedicated permission, and expire after an agreed interval. The actor’s authorization must be rechecked before generation and before issuing a download capability. The expiry interval is a product decision recorded in the specification.
+
+Acceptance criteria can now describe concrete cases: a user cannot export another tenant’s records; a revoked user cannot obtain a new download link; repeated submissions do not accidentally create duplicate jobs; expired exports are unavailable; spreadsheet formula characters are handled according to an agreed CSV policy.
+
+An agent can identify these questions and propose options. It should preserve an unresolved decision as unresolved. Inventing a retention period to keep the pipeline moving would create an unapproved requirement.
+
+### Design establishes the boundaries
+
+I would specify the request and status APIs, the job state machine, the data snapshot semantics, the authorization points, and the UI’s queued, running, completed, failed and expired states. For larger datasets, asynchronous generation may be appropriate; a small bounded export may need no job infrastructure at all.
+
+A signed object-storage link deserves particular attention. Once issued, it may remain usable until expiry even if the user’s application permission changes. Immediate revocation may require an authenticated download proxy or a different capability design. “Check permission at download” is not a complete design if the actual download bypasses the application.
+
+The decision record should explain this trade-off and state the intended guarantee. The verifier then has something precise to test.
+
+### Planning identifies safe parallelism
+
+Once contracts are agreed, API implementation, UI work and independent authorization test design may proceed concurrently. Schema changes and job processing still have dependencies. Changes to the same authorization module need coordinated ownership.
+
+An atomic task is a unit that can be implemented and verified against a stable contract. It is not necessarily one file or one prompt. I would require each task to name its base revision, expected changes, relevant criteria and integration dependencies. After parallel branches are combined, the integrated candidate must be verified again.
+
+The critical path often runs through a shared decision or interface. Adding more coding workers cannot remove that dependency.
+
+## The runtime needs durable state and bounded intelligence
+
+I would build the factory around five responsibilities: event intake, durable orchestration, isolated execution, evidence storage, and controlled access to external tools.
+
+An authenticated issue event enters intake. Intake deduplicates delivery, validates repository scope and creates a work-item record. The workflow loads the applicable policies, schedules a bounded task, persists its output, evaluates the next transition, and waits when a decision or external result is required.
+
+This separates two types of control. The workflow determines which transitions are allowed. The agent decides how to perform work within the current task. Anthropic’s [workflow/agent distinction](https://www.anthropic.com/research/building-effective-agents) is useful here: predefined control paths and model-directed problem solving serve different needs. A factory can combine them without letting an LLM invent its own release authority.
+
+Durability matters because an approval can take hours, a worker can crash, and a webhook can arrive twice. With a replay-based workflow engine, model calls and external effects should run through recorded activities or equivalent persisted steps. Replaying workflow history must not casually generate a different plan or repeat a release.
+
+### Recovering a workflow does not guarantee a single external effect
+
+Imagine a worker asks a provider to deploy an artifact. The provider accepts the request, but the worker loses connectivity before recording the response. A timeout now means the result is unknown. Blindly retrying may start another rollout.
+
+[Temporal’s discussion of idempotency](https://temporal.io/blog/idempotency-and-durable-execution) explains why retried activities need safe handling of external effects. My connector contract would distinguish three outcomes:
+
+- **Succeeded:** a provider receipt or authoritative read confirms the intended effect.
+- **Failed:** evidence establishes that the operation failed without the intended effect.
+- **Unknown:** the effect may have occurred; reconcile before deciding whether to retry.
+
+Where supported, an idempotency key should identify the logical operation across retries. Where it is unavailable, a durable intent record and provider lookup can support reconciliation. That still requires understanding the provider’s guarantees; a local record alone cannot make an external API exactly-once.
+
+The same issue applies to opening pull requests, creating incidents and sending notifications. Each connector needs an explicit recovery strategy.
+
+## The knowledge base needs ownership and enforcement
+
+The knowledge base should contain the organization’s architecture decisions, approved technologies, security expectations, coding conventions, testing standards and operational procedures. Loading all of it into every prompt would create unnecessary cost and conflicting context.
+
+I would assemble task-specific context from a small common policy set plus the relevant repository, subsystem and phase material. Each run should record the policy revision and retrieved document identifiers. Deprecated decisions need clear status and replacements; contradictions need a responsible owner.
+
+There is also a crucial distinction between guidance and enforcement. A rule that says “do not merge without passing checks” helps an agent reason. Branch protection and a merge service that validates required checks enforce the boundary. A document saying “never read production secrets” cannot protect secrets already mounted in a worker.
+
+Agents can propose knowledge updates after discovering a recurring failure or making a new design decision. Policy owners should review those updates before they become authoritative. Otherwise an agent could weaken the rules used to assess its own work.
+
+Issue descriptions, repository comments and retrieved pages are inputs with different trust levels. A malicious instruction inside one of them should not acquire the authority of an organizational policy simply because it entered the context window.
+
+## Review loops need independent evidence and stopping rules
+
+Separate reviewer agents can improve coverage, but agreement between models is not proof. Reviewers may share the implementer’s assumptions, especially when they see the same explanation and an incomplete specification.
+
+For the export example, I would ask a verifier to derive adversarial cases from the approved contract and inspect actual behaviour: cross-tenant requests, revocation during processing, expired links, repeated requests and spreadsheet input. The implementer’s tests remain useful, alongside independently maintained regression checks and targeted human review where needed.
+
+Review findings should identify the violated criterion, the affected artifact revision, evidence or reproduction steps, severity, and what would resolve the finding. “Improve security” gives the next worker very little to act on.
+
+I would bound repair loops by attempt count, elapsed time and spend. Infrastructure failures, ambiguous requirements and repeated functional defects need different responses. Retrying an unclear requirement with a larger model is still retrying an unclear requirement.
+
+The workflow should also detect oscillation, such as one repair repeatedly undoing another. At the limit, it should hand a person the current artifact, unresolved findings and attempted fixes. An escalation is a controlled outcome, not permission to lower the acceptance bar.
+
+## Human gates should bind authority to the change
+
+Risk depends on potential impact, reversibility, uncertainty and the quality of verification. A dependency patch is not automatically low-risk: a small update to an authentication library or build plugin can have substantial consequences.
+
+I would allow a fully automated path only for a clearly defined class of changes with strong checks and a bounded blast radius. The customer-export feature would warrant explicit review of data access and capability semantics. A destructive migration would need a different release policy again.
+
+Approval should identify what is authorized: the artifact or commit digest, target environment, relevant policy revision, approver and validity conditions. The release service should check those conditions when the action executes. A later patch, changed target or material policy update can invalidate the earlier approval.
+
+This also affects intermediate artifacts. If implementation reveals that the approved design cannot meet an acceptance criterion, the agent should reopen the decision. A final merge approval should not conceal an unreviewed change in requirements.
+
+People need a focused review package: the proposed decision, material changes, evidence, remaining uncertainty and recovery plan. Asking them to read thousands of transcript lines encourages superficial approval. Human attention is a limited resource that the factory must use deliberately.
+
+## Isolation, identity and MCP solve different problems
+
+Each execution should receive a clean workspace, pinned toolchain inputs, resource limits and the minimum credentials needed for its task. For untrusted generated code, I would restrict outbound access, avoid host mounts and Docker socket access, and consider a stronger isolation boundary such as a microVM according to the threat model. [Docker’s security documentation](https://docs.docker.com/engine/security/) makes clear that container security depends on kernel mechanisms, daemon exposure and configuration; creating a container is only part of the design.
+
+The implementer might push a task branch. The verifier might read source and submit results. A separate release service might deploy an approved digest. These identities can share orchestration while holding different permissions. A role label in a prompt is not an identity boundary.
+
+MCP can provide a common interface to tools, alongside direct APIs and CI integrations. Authorization still requires deliberate configuration. The [MCP security guidance](https://modelcontextprotocol.io/specification/2025-11-25/basic/security_best_practices) covers issues including confused-deputy attacks, token audience validation and forbidden token passthrough. A tool being reachable through MCP does not make every invocation authorized.
+
+I would enforce permissions outside the model and keep secrets out of prompts and retained logs where possible. Audit records should identify the actor, requested action, authorization decision and external receipt, with redaction and access controls appropriate to the data.
+
+## Verification must cover the product and the factory
+
+There are two systems to evaluate. The application change must satisfy its contract. The factory must demonstrate that it follows the process that makes the result trustworthy.
+
+For the factory, I would maintain representative tasks with known outcomes and injected failures: duplicate events, revoked credentials, worker interruption after a successful write, an outdated approval, prompt injection in an issue, a flaky test and an exhausted budget. These scenarios test the control system rather than just the coding model.
+
+Anthropic’s [agent-evaluation guidance](https://www.anthropic.com/research/demystifying-evals-for-ai-agents) distinguishes the execution transcript from the resulting environment state and describes code-based, model-based and human graders. That distinction is essential: a persuasive explanation of a successful release cannot substitute for checking the release.
+
+I would repeat representative trials to understand variability and measure how often the system completes reliably within its allowed budget. Model, prompt, tool and policy changes should pass regression evaluations before receiving broader authority. Offline results should be complemented by limited production exposure and observation.
+
+The audit trail should record observable inputs, outputs, tool interactions, checks and decisions. It should not depend on access to hidden model reasoning, nor retain sensitive data without a purpose and retention policy.
+
+## Release completes only after production observation
+
+The release pipeline should promote the identified artifact that was verified. Rebuilding differently for production can invalidate earlier evidence. [SLSA’s build and provenance model](https://slsa.dev/spec/v1.2/) provides a foundation for tracing an artifact to its source and build process. Provenance helps establish origin and integrity; functional correctness still requires other evidence.
+
+For a suitable service, I would use a limited rollout with explicit health checks, sufficient observation and stop conditions. Google’s [SRE guidance on canary releases](https://sre.google/workbook/canarying-releases/) describes evaluating a partial, time-limited deployment before wider rollout. A healthy infrastructure dashboard alone may miss a feature that returns empty exports or exposes the wrong fields.
+
+Recovery also depends on the change. Reverting a binary does not reverse an incompatible database migration or retract a downloaded file. The plan may need backward-compatible schema evolution, a feature disablement, cleanup or a forward repair.
+
+An operations agent can correlate symptoms with recent changes, gather evidence and propose a cause. It should preserve that cause as a hypothesis until tested. Automatic remediation should be restricted to preauthorized actions with bounded effects; broader changes can become new work items.
+
+Incident-triggered work needs deduplication and rate limits too. Otherwise a noisy alert can create an incident storm, consume the factory’s budget and make recovery harder.
+
+## Economics: accepted changes per unit of total effort
+
+Token cost matters, but it is only part of delivery cost. I would account for inference, tool calls, sandbox compute, CI, storage, human review and subsequent rework. A useful measure is total cost per accepted change over a defined observation period, including failed attempts and incident-related repair within that period.
+
+Budgets should exist at task, work-item and organization levels. The scheduler needs to reserve or account for in-flight spend, so concurrent workers cannot each consume the same remaining allowance. Timeouts and cancellation must stop downstream work where possible, rather than merely hiding its result.
+
+Model routing can reduce cost when evaluations show that a smaller model handles a task reliably. Parallel agents help when work is sufficiently independent. Both decisions should include coordination, retries and verification cost.
+
+For delivery outcomes, DORA’s [current five-metric model](https://dora.dev/guides/dora-metrics/) includes change lead time, deployment frequency, failed deployment recovery time, change fail rate and deployment rework rate. I would pair those service-level measures with request-to-production time, review waiting time, human intervention, escaped defects and cost per accepted change. DORA change lead time starts at commit; it does not capture every upstream delay.
+
+These measurements should reveal where to improve the system. Turning them into isolated targets risks encouraging smaller-looking work items or more deployments without better outcomes.
+
+## How I would introduce a factory
+
+I would begin with one repository and one well-understood change class. First make the existing delivery path reproducible: reliable builds, meaningful acceptance checks, identifiable artifacts and a documented recovery procedure.
+
+Then run the factory in shadow mode. Let it propose requirements, plans, patches and review findings while people retain release authority. Compare its results with actual decisions, inspect failures, and measure whether it reduces total effort.
+
+Next, permit bounded implementation and pull-request creation. Add automated release only for a narrow class whose observed results justify it, with a way to suspend that authority. Expand by demonstrated capability rather than by elapsed time or the number of agents deployed.
+
+Some work should remain exploratory or human-led: contested product direction, poorly understood legacy behaviour, irreversible decisions, and changes whose success cannot yet be evaluated adequately. The factory can help investigate those problems without pretending they are already specified.
+
+The engineering responsibility grows with automation. Someone must decide which evidence is sufficient, who can grant authority, how failures are contained and whether users received the intended result. That is the part of an AI software factory I would design first.

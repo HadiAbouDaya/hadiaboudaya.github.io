@@ -257,9 +257,13 @@ test("calendar helpers validate dates and stay UTC regardless of environment tim
   }
 });
 
-test("all 11 repository articles compile with the parsed Markdown allowlist", async () => {
+test("all repository articles compile with the parsed Markdown allowlist", async () => {
   const posts = mdx.getAllPosts();
-  assert.equal(posts.length, 11);
+  const sources = fs.readdirSync(new URL("../content/blog/", import.meta.url), { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".mdx"))
+    .map((entry) => entry.name.slice(0, -4)).sort();
+  assert.ok(sources.length > 0, "the repository contains articles");
+  assert.deepEqual(posts.map((post) => post.slug).sort(), sources, "every article is included in the catalog");
   for (const post of posts) {
     await serialize(post.content, { mdxOptions: { remarkPlugins: [remarkGfm, mdx.remarkValidateMdx] } });
     assert.strictEqual(mdx.getPostBySlug(post.slug), post, "lookups reuse parsed entries");
