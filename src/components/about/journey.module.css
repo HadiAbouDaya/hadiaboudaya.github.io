@@ -1,0 +1,73 @@
+.journey {
+  max-width: 70rem;
+  margin: 5rem auto 0;
+}
+
+.layout {
+  display: grid;
+  gap: 1.75rem;
+  margin-top: 2rem;
+}
+
+.chapter {
+  min-width: 0;
+}
+
+.chapter h3 {
+  margin: 0 0 0.625rem;
+  color: var(--text-hi);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.chapter p {
+  max-width: 62ch;
+  margin: 0;
+  color: color-mix(in srgb, var(--text-hi) 70%, var(--text-mid));
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.portrait {
+  width: min(74%, 15.625rem);
+  aspect-ratio: 4 / 5;
+  justify-self: center;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card-lg);
+}
+
+@media (min-width: 64rem) {
+  .journey {
+    margin-top: 8rem;
+  }
+
+  .layout {
+    grid-template-columns: 21.25rem minmax(0, 1fr);
+    column-gap: clamp(3rem, 5.5vw, 5rem);
+    row-gap: 2rem;
+    align-items: start;
+    margin-top: 2.5rem;
+  }
+
+  .chapter {
+    grid-column: 2;
+  }
+
+  .chapter h3 {
+    font-size: 1.375rem;
+  }
+
+  .chapter p {
+    font-size: 1.125rem;
+  }
+
+  .portrait {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    width: 100%;
+  }
+}

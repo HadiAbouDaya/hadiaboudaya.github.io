@@ -19,9 +19,20 @@ export const LANGUAGES: Language[] = [
   { greeting: "مرحبا", name: "Arabic", proficiency: "Native" },
 ];
 
-export const JOURNEY_PARAGRAPHS = [
-  "Born and raised in Lebanon's Bekaa Valley, I grew up interested in physics, mathematics and how things work. After my Lebanese Baccalaureate in General Science at Collège Saint Joseph in Zahle, I moved to Beirut to study Software Engineering at USJ-ESIB.",
-  "My background spans software development, machine learning and AI consulting. Early work in NLP and edge computer vision led to production cloud ML at Mobile Arts, followed by client work in conversational AI, enterprise knowledge access and business workflows.",
-  "Through independent consulting, I combined implementation with needs analysis, architecture and delivery planning. At MOPO, I led a project from concept through production launch. Other engagements included production sales and sports agents through Supportful, knowledge-access solutions at TowardsChange, and employee-portal advisory work for MinervaHub.",
-  "My studies in Data Science and AI Strategy at emlyon, including an exchange semester at McGill, added a business perspective to that engineering background. At Savencia, I applied causal inference to an industrial production question and communicated recommendations to R&D and engineering teams. My AWS Professional Services experience included a customer-facing agentic platform pilot.",
-];
+export const JOURNEY_CHAPTERS = [
+  {
+    id: "origins",
+    heading: "From the Bekaa Valley to Beirut",
+    paragraph: "I grew up in Lebanon’s Bekaa Valley, interested in physics, mathematics and how things work. After school in Zahle, I moved to Beirut to study software engineering at USJ-ESIB.",
+  },
+  {
+    id: "building",
+    heading: "Learning through building",
+    paragraph: "My early work took me from language processing and computer vision to machine-learning systems used in production. Through independent consulting, I began working on company-knowledge assistants and business workflows. At MOPO, I led a project from concept through production launch.",
+  },
+  {
+    id: "business",
+    heading: "Bringing engineering and business together",
+    paragraph: "Studying Data Science and AI Strategy at emlyon, with an exchange semester at McGill, added a business perspective to my engineering background. My consulting work brings those perspectives together: understanding client needs, making architecture decisions and carrying the work through implementation.",
+  },
+] as const;
