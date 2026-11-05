@@ -38,17 +38,17 @@ export function RelatedEvents({ currentSlug, currentCategory, currentTags }: Rel
             <Link
               key={event.slug}
               href={`/events/${event.slug}/`}
-              className="group flex items-center gap-3 p-3 rounded-card hover:bg-surface-sunken transition-colors duration-150"
+              className="group flex flex-wrap items-center gap-3 p-3 rounded-card hover:bg-surface-sunken transition-colors duration-150"
             >
               <Badge accent={config.accent}>
                 <Icon className="w-3 h-3 mr-1" />
                 {event.role ?? config.label}
               </Badge>
-              <span className="text-sm font-medium text-fg-mid group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-150 truncate">
+              <span className="order-3 w-full text-sm font-medium text-fg-mid group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-150 sm:order-none sm:min-w-0 sm:flex-1">
                 {event.title}
               </span>
-              <span className="ml-auto text-xs text-fg-lo shrink-0 flex items-center gap-1">
-                <Calendar className="w-3 h-3" />
+              <span className="text-xs text-fg-lo flex items-center gap-1 sm:ml-auto">
+                <Calendar className="w-3 h-3 shrink-0" />
                 {formatEventDate(event, true)}
               </span>
             </Link>

@@ -49,7 +49,7 @@ function ProfessionalNavbar({ contentRevision }: NavbarProps) {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k" && !e.repeat) {
         e.preventDefault();
         setSearchMounted(true);
         setSearchOpen((o) => !o);
@@ -91,6 +91,7 @@ function ProfessionalNavbar({ contentRevision }: NavbarProps) {
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={pathname === link.href || pathname.startsWith(link.href + "/") ? "page" : undefined}
                 className={`px-2 py-2 rounded-control text-sm font-medium transition-colors ${
                   pathname === link.href || pathname.startsWith(link.href + "/")
                     ? "text-primary-600 bg-primary-500/10 dark:text-primary-400"
@@ -127,6 +128,8 @@ function ProfessionalNavbar({ contentRevision }: NavbarProps) {
               onClick={() => { setIsMobileOpen(true); trackEvent(EVENTS.MOBILE_MENU_TOGGLED, { opened: true }); }}
               className="inline-flex min-h-11 min-w-11 items-center justify-center p-2 rounded-control text-fg-mid hover:text-fg transition-colors"
               aria-label="Open menu"
+              aria-haspopup="dialog"
+              aria-expanded={isMobileOpen}
             >
               <Menu className="w-6 h-6" />
             </button>

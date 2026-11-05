@@ -10,6 +10,26 @@ build dependencies with `pnpm install --frozen-lockfile`.
   Use `pnpm preview --port 4173 --host 127.0.0.1` (or PORT/HOST environment variables) to select the listener.
 - `pnpm test:runtime`: the application owner's article-progress/runtime checks.
 
+## Public browser checks
+
+After `pnpm build`, run `pnpm test:browser`. The runner starts an ephemeral static
+preview, executes the interaction, search, and contact suites, then closes it.
+CI runs this gate before uploading a deployment artifact. Tests intercept every
+contact submission and block external writes, including analytics.
+
+`PORTFOLIO_CHROME_PATH` selects a Chromium executable. By default tests use
+system Chrome when available, otherwise the browser installed by Playwright.
+`PORTFOLIO_TEST_ORIGIN` selects an existing preview or production origin and
+`PORTFOLIO_BROWSER=webkit` selects an installed Playwright WebKit browser.
+WebKit needs an HTTPS origin because it applies the site's insecure-request
+upgrade policy to loopback HTTP assets too. Certificate exceptions apply only
+to local previews. Production HTTPS checks keep certificate verification.
+
+The suites cover visible static content without JavaScript, modified-click/keyboard behavior, mobile menu focus, filters
+and history, filtered certification links, reduced-motion Back to top, real
+404 recovery, search failure/timeout/retry and IME input, contact failure/timeout
+and focus recovery, gallery boundaries/zoom/focus, and keyboard scrolling of narrow article code blocks.
+
 ## Image contract
 
 `image-families.mjs` selects the authoritative source for colliding stems. All
@@ -53,7 +73,12 @@ controller tests isolate URL/focus/event boundaries, with real browser checks
 recorded separately.
 Verification also requires exact approved CV bytes, generated
 LLM text and a real 1200x630 PNG sharing image. It also checks every HTML CSP,
-unique IDs, internal links/fragments, image source preservation and dimensions.
+document language (including error pages), unique IDs, internal links/fragments,
+image source preservation and dimensions.
+The sitemap must list every exported professional page exactly once at its
+canonical URL, excluding private, missing and noncanonical destinations. Static
+pages omit modification dates until an editorial date is available; article and
+event entries retain their recorded dates.
 It does not infer live host status/headers from a local artifact or require
 Knowledge files, private evidence or a new CI secret.
 

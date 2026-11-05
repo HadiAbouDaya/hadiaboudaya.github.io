@@ -39,6 +39,7 @@ export function FilterPills<K extends string>({
 
   // Roving focus: arrow keys move between pills and activate (radiogroup pattern).
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
     let next = index;
     switch (e.key) {
       case "ArrowRight":

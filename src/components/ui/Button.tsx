@@ -27,7 +27,7 @@ export function Button({
 
   const variants = {
     primary:
-      "bg-primary-600 text-white hover:bg-primary-500 active:bg-primary-700 shadow-[inset_0_1px_0_rgb(255_255_255/0.15),0_1px_2px_rgb(2_6_23/0.3)] hover:shadow-glow-sm active:translate-y-px",
+      "bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 shadow-[inset_0_1px_0_rgb(255_255_255/0.15),0_1px_2px_rgb(2_6_23/0.3)] hover:shadow-glow-sm active:translate-y-px",
     outline:
       "border border-line text-fg hover:bg-surface-sunken hover:border-line-strong",
   };

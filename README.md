@@ -19,10 +19,13 @@ pnpm test:runtime
 pnpm lint
 pnpm typecheck
 pnpm build
+pnpm test:browser
 pnpm preview --port 3000
 ```
 
 `pnpm check:build` rechecks an existing `out/` artifact. `pnpm start` also serves the static export. The preview supports real 404 responses, PNG/PDF MIME types, and media byte ranges. It is bound to loopback by default.
+
+`pnpm test:browser` starts its own temporary static preview and checks public navigation, search recovery, contact validation, keyboard scrolling, and 404 recovery. Install Chromium with `pnpm exec playwright install chromium` if no system Chrome is available. All contact submissions are intercepted and external writes are blocked. See [browser test options](scripts/README.md#public-browser-checks) for WebKit and production checks.
 
 ## Content and relationships
 
@@ -60,7 +63,7 @@ Analytics is optional through `NEXT_PUBLIC_POSTHOG_KEY` and `NEXT_PUBLIC_POSTHOG
 
 The release uses Next 16.4.2, React 19.3.1 and Sharp 0.35.5 with a frozen lockfile. Article frontmatter uses the YAML parser directly: executable engines, duplicate keys, custom tags and aliases are rejected. The typography plugin uses the patched selector parser through `pnpm-workspace.yaml`; pnpm 11 reads overrides there.
 
-The production dependency audit passed with zero advisories on 19 October 2026. The full audit retains one development-only `braces` advisory ([GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)) through the Next lint plugin. No patched package is published; its patterns come from repository-controlled lint configuration, and it is absent from the browser export. Recheck when updating the lint toolchain. ESLint remains on the compatible 9.x line for this release.
+The full dependency audit passed with zero advisories on 5 November 2026. A scoped override pins the TypeScript lint parser's `minimatch` dependency to 11.0.1 for [GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249). Remove that override once the parser's own dependency range includes the fix. ESLint remains on the compatible 9.x line for this release.
 
 ## Publication
 

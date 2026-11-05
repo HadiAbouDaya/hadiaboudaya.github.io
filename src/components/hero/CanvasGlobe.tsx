@@ -18,6 +18,7 @@ const LOCATIONS = [
 ];
 
 interface Point3D { x: number; y: number; z: number }
+interface GlobeMesh { vertices: Point3D[]; edges: [number, number][] }
 
 function latLonTo3D(lat: number, lon: number, r: number): Point3D {
   const phi = (90 - lat) * (Math.PI / 180);
@@ -29,16 +30,6 @@ function latLonTo3D(lat: number, lon: number, r: number): Point3D {
   };
 }
 
-function rotateY(p: Point3D, a: number): Point3D {
-  const c = Math.cos(a), s = Math.sin(a);
-  return { x: p.x * c + p.z * s, y: p.y, z: -p.x * s + p.z * c };
-}
-
-function rotateX(p: Point3D, a: number): Point3D {
-  const c = Math.cos(a), s = Math.sin(a);
-  return { x: p.x, y: p.y * c - p.z * s, z: p.y * s + p.z * c };
-}
-
 function project(p: Point3D, cx: number, cy: number, fov: number) {
   const scale = fov / (fov - p.z);
   return { x: cx + p.x * scale, y: cy - p.y * scale, scale };
@@ -46,7 +37,7 @@ function project(p: Point3D, cx: number, cy: number, fov: number) {
 
 // Generate unit-sphere icosahedron edges (radius=1), scaled at draw time.
 // Subdivision level 3 matches Three.js icosahedronGeometry(r, 3).
-function generateUnitIcosahedronEdges(): [Point3D, Point3D][] {
+function generateUnitIcosahedronMesh(): GlobeMesh {
   const t = (1 + Math.sqrt(5)) / 2;
   const raw: Point3D[] = [
     { x: -1, y: t, z: 0 }, { x: 1, y: t, z: 0 }, { x: -1, y: -t, z: 0 }, { x: 1, y: -t, z: 0 },
@@ -85,7 +76,18 @@ function generateUnitIcosahedronEdges(): [Point3D, Point3D][] {
   }
 
   const edgeSet = new Set<string>();
-  const edges: [Point3D, Point3D][] = [];
+  const edges: [number, number][] = [];
+  const vertices: Point3D[] = [];
+  const vertexIndices = new Map<string, number>();
+  function vertexIndex(point: Point3D, key: string) {
+    let index = vertexIndices.get(key);
+    if (index === undefined) {
+      index = vertices.length;
+      vertexIndices.set(key, index);
+      vertices.push(point);
+    }
+    return index;
+  }
 
   for (const [a, b, c] of currentFaces) {
     const pairs: [Point3D, Point3D][] = [[a, b], [b, c], [c, a]];
@@ -95,12 +97,12 @@ function generateUnitIcosahedronEdges(): [Point3D, Point3D][] {
       const key = k1 < k2 ? `${k1}|${k2}` : `${k2}|${k1}`;
       if (!edgeSet.has(key)) {
         edgeSet.add(key);
-        edges.push([p1, p2]);
+        edges.push([vertexIndex(p1, k1), vertexIndex(p2, k2)]);
       }
     }
   }
 
-  return edges;
+  return { vertices, edges };
 }
 
 function generateArc(start: Point3D, end: Point3D, radius: number, segments: number): Point3D[] {
@@ -117,10 +119,10 @@ function generateArc(start: Point3D, end: Point3D, radius: number, segments: num
 }
 
 // Cached unit-sphere edges (generated once, never changes)
-let _unitEdges: [Point3D, Point3D][] | null = null;
-function getUnitEdges() {
-  if (!_unitEdges) _unitEdges = generateUnitIcosahedronEdges();
-  return _unitEdges;
+let _unitMesh: GlobeMesh | null = null;
+function getUnitMesh() {
+  if (!_unitMesh) _unitMesh = generateUnitIcosahedronMesh();
+  return _unitMesh;
 }
 
 export function CanvasGlobe() {
@@ -165,28 +167,32 @@ export function CanvasGlobe() {
 
     const rot = rotationRef.current;
     const tiltX = tiltRef.current.x;
+    const cosRotation = Math.cos(rot), sinRotation = Math.sin(rot);
+    const cosTilt = Math.cos(tiltX), sinTilt = Math.sin(tiltX);
 
     function transform(p: Point3D) {
-      return rotateX(rotateY(p, rot), tiltX);
+      const x = p.x * cosRotation + p.z * sinRotation;
+      const z = -p.x * sinRotation + p.z * cosRotation;
+      return { x, y: p.y * cosTilt - z * sinTilt, z: p.y * sinTilt + z * cosTilt };
     }
 
-    // Scale unit edges to current radius
-    const unitEdges = getUnitEdges();
+    // Project each shared vertex once instead of repeating it for every adjoining edge.
+    const mesh = getUnitMesh();
+    const vertices = mesh.vertices.map((point) => {
+      const transformed = transform({ x: point.x * radius, y: point.y * radius, z: point.z * radius });
+      return { ...project(transformed, cx, cy, fov), z: transformed.z };
+    });
 
     // Draw icosahedron wireframe
     // Three.js uses flat opacity 0.15; Canvas 2D needs slight depth variation
     // to avoid looking completely flat, centered around 0.14
     ctx.lineWidth = 0.7;
-    for (const [a, b] of unitEdges) {
-      const sa = { x: a.x * radius, y: a.y * radius, z: a.z * radius };
-      const sb = { x: b.x * radius, y: b.y * radius, z: b.z * radius };
-      const ta = transform(sa);
-      const tb = transform(sb);
-      const avgZ = (ta.z + tb.z) / 2;
+    for (const [a, b] of mesh.edges) {
+      const pa = vertices[a];
+      const pb = vertices[b];
+      const avgZ = (pa.z + pb.z) / 2;
       const depthAlpha = 0.08 + 0.07 * ((avgZ + radius) / (2 * radius));
       ctx.strokeStyle = `rgba(6, 182, 212, ${depthAlpha.toFixed(3)})`;
-      const pa = project(ta, cx, cy, fov);
-      const pb = project(tb, cx, cy, fov);
       ctx.beginPath();
       ctx.moveTo(pa.x, pa.y);
       ctx.lineTo(pb.x, pb.y);

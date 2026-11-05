@@ -196,7 +196,7 @@ export function EventDetail({ event }: EventDetailProps) {
                 href={event.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-control text-sm font-medium hover:bg-primary-500 transition-colors duration-150"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-control text-sm font-medium hover:bg-primary-700 transition-colors duration-150"
               >
                 <ExternalLink className="w-4 h-4" />
                 View on LinkedIn
@@ -218,7 +218,7 @@ export function EventDetail({ event }: EventDetailProps) {
                 href={event.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-control text-sm font-medium hover:bg-emerald-500 transition-colors duration-150"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-700 text-white rounded-control text-sm font-medium hover:bg-emerald-800 transition-colors duration-150"
               >
                 <Globe className="w-4 h-4" />
                 Visit Website

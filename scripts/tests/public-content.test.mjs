@@ -14,7 +14,7 @@ async function fixture() {
     'og:image': `${origin}/og-default.png`, 'twitter:image': `${origin}/og-default.png`,
     'og:image:width': '1200', 'og:image:height': '630', 'twitter:card': 'summary_large_image',
   };
-  await writeFile(path.join(root, 'index.html'), `<!doctype html><html><head><title>Hadi Abou Daya</title><link rel="canonical" href="${origin}/">${Object.entries(meta).map(([property, content]) => `<meta property="${property}" content="${content}">`).join('')}</head><body><h1>Experience</h1><img src="/Media/work/logo.webp"><p>Consulting work and delivery.</p></body></html>`);
+  await writeFile(path.join(root, 'index.html'), `<!doctype html><html lang="en"><head><title>Hadi Abou Daya</title><link rel="canonical" href="${origin}/">${Object.entries(meta).map(([property, content]) => `<meta property="${property}" content="${content}">`).join('')}</head><body><h1>Experience</h1><img src="/Media/work/logo.webp"><p>Consulting work and delivery.</p></body></html>`);
   const items = caseStudies.map(item => ({ id: `project-${item.slug}`, title: item.title, category: 'experience', href: `/experience/#project-${item.slug}` }));
   items.push({ id: 'cv-en', category: 'cv', href: '/cv/HadiAbouDayaCV.pdf' }, { id: 'cv-fr', category: 'cv', href: '/cv/HadiAbouDayaCV-fr.pdf' });
   const index = { schemaVersion: 1, contentRevision: 'test-revision', items };
@@ -22,7 +22,8 @@ async function fixture() {
   await mkdir(path.join(root, 'experience'));
   const experienceBody = `<section id="professional-experience" tabindex="-1">${caseStudies.map(item => `<section id="project-${item.slug}" tabindex="-1" data-project-evidence><p>${item.stage}</p><h3>${item.title}</h3><p>${item.summary}</p><details data-project-details><summary>Read contribution and outcome</summary><p>Substantial project detail.</p></details></section>`).join('')}</section><section id="education-experience" tabindex="-1"><p>Education is visible.</p></section>`;
   const experienceHead = `<title>Experience | Hadi Abou Daya</title><link rel="canonical" href="${origin}/experience/">${Object.entries({ ...meta, 'og:url': `${origin}/experience/` }).map(([property, content]) => `<meta property="${property}" content="${content}">`).join('')}`;
-  await writeFile(path.join(root, 'experience/index.html'), `<!doctype html><html><head>${experienceHead}</head><body>${experienceBody}</body></html>`);
+  await writeFile(path.join(root, 'experience/index.html'), `<!doctype html><html lang="en"><head>${experienceHead}</head><body>${experienceBody}</body></html>`);
+  await writeFile(path.join(root, 'sitemap.xml'), `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${origin}/</loc></url><url><loc>${origin}/experience/</loc></url></urlset>`);
 
   const profile = `## Project experience\n\n${caseStudies.map(item => `[${item.title}](${origin}/experience/#project-${item.slug})`).join('\n\n')}`;
   await writeFile(path.join(root, 'llms.txt'), profile);
@@ -56,4 +57,29 @@ test('both generated public profiles must preserve project links to Experience',
   const { root } = await fixture();
   await writeFile(path.join(root, 'llms-full.txt'), '## Project experience\n');
   await assert.rejects(verifyPublicContent(root), /llms-full\.txt: missing project evidence link/);
+});
+
+test('sitemap must cover every public page exactly once and exclude private, missing and noncanonical URLs', async () => {
+  const { root } = await fixture();
+  const urls = [
+    'https://hadi.aboudaya.com/',
+    'https://hadi.aboudaya.com/',
+    'https://hadi.aboudaya.com/luna/',
+    'https://hadi.aboudaya.com/missing/',
+    'https://hadi.aboudaya.com/experience',
+    'https://example.com/experience/',
+  ];
+  await writeFile(path.join(root, 'sitemap.xml'), `<urlset>${urls.map(url => `<url><loc>${url}</loc></url>`).join('')}</urlset>`);
+  await assert.rejects(verifyPublicContent(root), error =>
+    /duplicate URL/.test(error.message) &&
+    /missing public page https:\/\/hadi\.aboudaya\.com\/experience\//.test(error.message) &&
+    urls.slice(2).every(url => error.message.includes(`not an exported public canonical page: ${url}`)));
+});
+
+test('document language is required even on error pages excluded from the sitemap', async () => {
+  const { root } = await fixture();
+  await writeFile(path.join(root, '404.html'), '<!doctype html><html><head><title>Not found</title></head><body><h1>Not found</h1></body></html>');
+  await assert.rejects(verifyPublicContent(root), /404\.html: missing document language/);
+  await writeFile(path.join(root, '404.html'), '<!doctype html><html lang="en"><head><title>Not found</title></head><body><h1>Not found</h1></body></html>');
+  assert.equal((await verifyPublicContent(root)).professionalPages, 2);
 });

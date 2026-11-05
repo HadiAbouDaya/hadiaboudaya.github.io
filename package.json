@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "preview": "node scripts/preview.mjs out",
     "test:tooling": "node --experimental-strip-types --test scripts/tests/*.test.mjs",
-    "test:runtime": "node --experimental-strip-types --test scripts/reading-progress.test.ts"
+    "test:runtime": "node --experimental-strip-types --test scripts/reading-progress.test.ts",
+    "test:browser": "node scripts/run-browser-qa.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

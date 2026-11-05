@@ -15,7 +15,11 @@ export function Footer() {
   }
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Move the keyboard reading position with the viewport, so the next Tab
+    // resumes at the page content instead of jumping back down to the footer.
+    document.getElementById("main-content")?.focus({ preventScroll: true });
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reducedMotion ? "instant" : "smooth" });
   };
 
   return (
@@ -75,6 +79,7 @@ export function Footer() {
               <Mail className="w-5 h-5" />
             </a>
             <button
+              type="button"
               onClick={scrollToTop}
               className="p-2 rounded-pill border border-line text-fg-mid hover:text-fg hover:border-line-strong transition-colors"
               aria-label="Back to top"

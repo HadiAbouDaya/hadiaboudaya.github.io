@@ -7,3 +7,5 @@ allowBuilds:
 # Upstream constraints otherwise retain versions with published security fixes.
 overrides:
   '@tailwindcss/typography>postcss-selector-parser': ^7.1.6
+  # GHSA-g3hv-75wg-m249: keep the TypeScript lint parser's glob matcher patched.
+  '@typescript-eslint/typescript-estree>minimatch': 11.0.1

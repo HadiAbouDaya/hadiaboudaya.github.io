@@ -48,6 +48,7 @@ export function ImageLightbox({ images, alt, children }: ImageLightboxProps) {
     <Modal open={validIndex !== null} onClose={close} label={`${alt} image viewer`} initialFocusRef={closeButton}
       className="m-0 h-dvh w-full max-w-none max-h-none bg-transparent p-0 border-0"
       onKeyDown={(event) => {
+        if (event.altKey || event.ctrlKey || event.metaKey) return;
         if (event.key === "ArrowLeft") { event.preventDefault(); move(-1); }
         if (event.key === "ArrowRight") { event.preventDefault(); move(1); }
       }}>
@@ -62,10 +63,10 @@ export function ImageLightbox({ images, alt, children }: ImageLightboxProps) {
           {scale > 1 ? <ZoomOut className="w-5 h-5" /> : <ZoomIn className="w-5 h-5" />}
           <span className="text-xs">{Math.round(scale * 100)}%</span>
         </button>
-        {validIndex > 0 && <button type="button" onClick={() => move(-1)} aria-label="Previous image"
-          className="absolute left-2 sm:left-4 top-1/2 w-11 h-11 rounded-pill bg-black/60 text-white z-10"><ChevronLeft className="w-6 h-6 mx-auto" /></button>}
-        {validIndex < images.length - 1 && <button type="button" onClick={() => move(1)} aria-label="Next image"
-          className="absolute right-2 sm:right-4 top-1/2 w-11 h-11 rounded-pill bg-black/60 text-white z-10"><ChevronRight className="w-6 h-6 mx-auto" /></button>}
+        {images.length > 1 && <button type="button" onClick={() => move(-1)} aria-label="Previous image" aria-disabled={validIndex === 0}
+          className="absolute left-2 sm:left-4 top-1/2 w-11 h-11 rounded-pill bg-black/60 text-white z-10 aria-disabled:opacity-40"><ChevronLeft className="w-6 h-6 mx-auto" /></button>}
+        {images.length > 1 && <button type="button" onClick={() => move(1)} aria-label="Next image" aria-disabled={validIndex === images.length - 1}
+          className="absolute right-2 sm:right-4 top-1/2 w-11 h-11 rounded-pill bg-black/60 text-white z-10 aria-disabled:opacity-40"><ChevronRight className="w-6 h-6 mx-auto" /></button>}
         <div className="max-w-[90vw] max-h-[80dvh] overflow-hidden rounded-card"
           onWheel={(event) => { event.stopPropagation(); changeZoom(zoom.get() + (event.deltaY > 0 ? -0.25 : 0.25)); }}>
           <m.div style={{ x, y, scale: zoom, touchAction: scale > 1 ? "none" : "auto", cursor: scale > 1 ? "grab" : "zoom-in" }}

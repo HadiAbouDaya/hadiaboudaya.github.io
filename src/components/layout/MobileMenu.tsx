@@ -17,6 +17,10 @@ export function MobileMenu({ pathname, open, onClose }: { pathname: string; open
     <div className="flex justify-between items-center mb-8"><span className="font-semibold">Explore</span><button type="button" onClick={close} aria-label="Close menu" className="p-2"><X /></button></div>
     <nav aria-label="Mobile navigation" className="flex flex-col gap-2">{NAV_LINKS.map((link, index) => <Link ref={index === 0 ? first : undefined} key={link.href} href={`${link.href}/`} aria-current={pathname.replace(/\/$/, "") === link.href ? "page" : undefined}
       className="px-4 py-3 text-lg rounded-control hover:bg-surface-raised aria-[current=page]:bg-primary-500/10"
-      onClick={event => { event.preventDefault(); navigating.current = true; onClose(); router.push(`${link.href}/`); }}>{link.label}</Link>)}</nav>
+      onClick={event => {
+        // Preserve the browser's new-tab/window and download shortcuts.
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault(); navigating.current = true; onClose(); router.push(`${link.href}/`);
+      }}>{link.label}</Link>)}</nav>
   </Modal>;
 }

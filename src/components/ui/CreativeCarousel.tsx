@@ -24,8 +24,9 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
     if (settle) requested.current = null;
     const max = Math.max(0, el.scrollWidth - el.clientWidth);
     const rect = el.getBoundingClientRect();
+    const inset = Number.parseFloat(getComputedStyle(el).scrollPaddingLeft) || 0;
     const positions = slides.current.slice(0, images.length).map(slide => slide
-      ? Math.max(0, Math.min(max, slide.getBoundingClientRect().left - rect.left + el.scrollLeft - el.clientLeft)) : 0);
+      ? Math.max(0, Math.min(max, slide.getBoundingClientRect().left - rect.left + el.scrollLeft - el.clientLeft - inset)) : 0);
     let nearest = 0;
     let distance = Infinity;
     positions.forEach((position, index) => {
@@ -94,7 +95,8 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
     const slide = slides.current[index];
     if (!el || !slide) return;
     const max = Math.max(0, el.scrollWidth - el.clientWidth);
-    const left = Math.max(0, Math.min(max, slide.getBoundingClientRect().left - el.getBoundingClientRect().left + el.scrollLeft - el.clientLeft));
+    const inset = Number.parseFloat(getComputedStyle(el).scrollPaddingLeft) || 0;
+    const left = Math.max(0, Math.min(max, slide.getBoundingClientRect().left - el.getBoundingClientRect().left + el.scrollLeft - el.clientLeft - inset));
     requested.current = index;
     active.current = index;
     setState(old => ({ ...old, active: index }));
@@ -105,7 +107,7 @@ export function CreativeCarousel({ images, alt, onImageClick }: CreativeCarousel
 
   if (!images.length) return null;
   return <div className="relative my-8 group" role="region" aria-label={`${alt} gallery`}>
-    <div ref={scrollRef} className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 px-2 [scrollbar-width:thin]">
+    <div ref={scrollRef} className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-px-2 pb-4 px-2 [scrollbar-width:thin]">
       {images.map((src, index) => <div key={`${src}-${index}`} ref={node => { slides.current[index] = node; }}
         className="relative shrink-0 snap-start group/card w-[min(320px,85vw)] sm:w-[360px]">
         <button type="button" onClick={() => onImageClick?.(index)} aria-label={`Open ${alt}, image ${index + 1} of ${images.length}`}

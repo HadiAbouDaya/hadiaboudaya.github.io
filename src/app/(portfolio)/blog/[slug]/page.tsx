@@ -5,6 +5,7 @@ import rehypeSlug from "rehype-slug";
 import { PostContent } from "@/components/blog/PostContent";
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
 import { ArticleTable } from "@/components/blog/ArticleTable";
+import { ArticleCodeBlock } from "@/components/blog/ArticleCodeBlock";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { articleJsonLd, breadcrumbJsonLd, serializeJsonLd } from "@/lib/jsonld";
@@ -77,7 +78,7 @@ export default async function BlogPostPage({
       <PostContent post={post} prevPost={prevPost} nextPost={nextPost}>
         <MDXRemote
           source={post.content}
-          components={{ table: ArticleTable }}
+          components={{ table: ArticleTable, pre: ArticleCodeBlock }}
           options={{
             mdxOptions: {
               remarkPlugins: [remarkGfm, remarkValidateMdx],

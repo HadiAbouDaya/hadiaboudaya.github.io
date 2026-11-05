@@ -11,6 +11,7 @@ async function files(dir) { const entries = await readdir(dir,{withFileTypes:tru
 export async function verifyPublicContent(outDir = 'out') {
   const root = path.resolve(outDir);
   const errors = [];
+  const publicUrls = new Set();
   let pages = 0, schemas = 0;
   for (const file of await files(root)) {
     if (!/\.(html|json|txt|js|css|xml)$/.test(file)) continue;
@@ -24,6 +25,9 @@ export async function verifyPublicContent(outDir = 'out') {
     }
     if (!file.endsWith('.html')) continue;
     const all = nodes(parse(text));
+    if (!all.find(node => node.tagName === 'html')?.attrs.some(attr => attr.name === 'lang' && attr.value.trim())) {
+      errors.push(`${relative}: missing document language`);
+    }
     for (const node of all) {
       const attr = Object.fromEntries((node.attrs ?? []).map(a=>[a.name,a.value]));
       if (node.tagName === 'script' && attr.type === 'application/ld+json') {
@@ -39,6 +43,7 @@ export async function verifyPublicContent(outDir = 'out') {
       const a = Object.fromEntries(n.attrs.map(a=>[a.name,a.value])); return [a.property ?? a.name,a.content];
     }));
     const expected = origin + '/' + relative.replace(/index\.html$/,'');
+    publicUrls.add(expected);
     const canonicalNode = all.find(n=>n.tagName==='link' && n.attrs.some(a=>a.name==='rel'&&a.value==='canonical'));
     const canonical = canonicalNode?.attrs.find(a=>a.name==='href')?.value;
     if (canonical !== expected) errors.push(`${relative}: canonical ${canonical} differs from ${expected}`);
@@ -50,6 +55,21 @@ export async function verifyPublicContent(outDir = 'out') {
     const title = all.find(n=>n.tagName==='title')?.childNodes.map(n=>n.value??'').join('') ?? '';
     if ((title.match(/Hadi Abou Daya/g) ?? []).length !== 1) errors.push(`${relative}: author missing or duplicated in title`);
     if (ogImage?.endsWith('/og-default.png') && (meta.get('og:image:width') !== '1200' || meta.get('og:image:height') !== '630')) errors.push(`${relative}: default sharing dimensions missing`);
+  }
+  // Canonical exported pages are the source of truth for discovery. Verify the
+  // actual artifact so omitted routes, stale URLs and private pages fail release.
+  const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8');
+  const sitemapNodes = nodes(parse(sitemap));
+  if (!sitemapNodes.some(node => node.tagName === 'urlset')) errors.push('sitemap.xml: missing URL set');
+  const sitemapUrls = new Set();
+  for (const node of sitemapNodes.filter(node => node.tagName === 'loc')) {
+    const url = (node.childNodes ?? []).map(child => child.value ?? '').join('').trim();
+    if (sitemapUrls.has(url)) errors.push(`sitemap.xml: duplicate URL ${url}`);
+    sitemapUrls.add(url);
+    if (!publicUrls.has(url)) errors.push(`sitemap.xml: URL is not an exported public canonical page: ${url}`);
+  }
+  for (const url of publicUrls) {
+    if (!sitemapUrls.has(url)) errors.push(`sitemap.xml: missing public page ${url}`);
   }
   const index = JSON.parse(await readFile(path.join(root,'search-index.json'),'utf8'));
   const experienceMarkup = await readFile(path.join(root, 'experience/index.html'), 'utf8');

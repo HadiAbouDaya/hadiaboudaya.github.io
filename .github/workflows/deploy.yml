@@ -52,6 +52,12 @@ jobs:
           NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
           NEXT_PUBLIC_POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
 
+      - name: Install browser for interaction checks
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Browser regression checks
+        run: pnpm test:browser
+
       - name: Upload artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
