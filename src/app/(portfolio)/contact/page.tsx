@@ -29,7 +29,7 @@ export default function ContactPage() {
       <div className="container-main max-w-5xl">
         <SectionHeading
           title="Get in Touch"
-          subtitle="Have a project in mind or just want to chat? I'd love to hear from you."
+          subtitle="Have an AI project in mind, or a workflow you'd like to improve? Tell me what you're trying to achieve and where you need help."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:items-end">

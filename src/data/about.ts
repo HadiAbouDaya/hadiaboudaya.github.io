@@ -2,7 +2,7 @@ import type { KeyFact, Language } from "@/types";
 
 export const BIO_PARAGRAPHS = [
   "I'm an AI consultant based in Paris, with a background in software engineering. I combine hands-on work in AI agents and cloud solutions with client discovery and solution design.",
-  "I'm currently developing further in enterprise AI architecture, agent reliability and evaluation, and AI strategy and business value. I enjoy exploring what AI makes possible and making technical ideas accessible to people without a technical background.",
+  "My projects span production AI agents, enterprise knowledge assistants and architecture roadmaps. I work with clients to clarify priorities and constraints, and enjoy making technical ideas accessible to people without a technical background.",
 ];
 export const BIO = BIO_PARAGRAPHS.join("\n\n");
 

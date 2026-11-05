@@ -146,7 +146,7 @@ export function ContactForm() {
           rows={5}
           onChange={(event) => event.currentTarget.setCustomValidity("")}
           className="w-full px-4 py-3 rounded-control border border-line bg-surface-raised text-fg placeholder-fg-lo focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/30 transition-colors duration-300 resize-y min-h-40"
-          placeholder="Tell me about your project..."
+          placeholder="What would you like to improve, and what is getting in the way?"
         />
       </div>
 

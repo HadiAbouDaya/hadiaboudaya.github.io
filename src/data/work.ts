@@ -6,7 +6,7 @@ export const caseStudies: CaseStudy[] = [
     "title": "Salesforce agent and MCP integration",
     "engagementId": "supportful",
     "stage": "Production",
-    "summary": "Sales work involved retrieving customer context and carrying out updates across existing business tools. The application brought those tasks into a conversational workflow while respecting each user's existing access.",
+    "summary": "Sales teams needed to retrieve customer context and update records across business tools. I built and deployed a conversational workflow that respected users' permissions and let production users complete several CRM actions in one conversation.",
     "sections": [
       {
         "heading": "The need",
@@ -37,7 +37,7 @@ export const caseStudies: CaseStudy[] = [
       "AWS",
       "Terraform"
     ],
-    "updatedAt": "2026-10-19",
+    "updatedAt": "2026-11-05",
     "context": "B2B Sales Intelligence Platform"
   },
   {
@@ -45,7 +45,7 @@ export const caseStudies: CaseStudy[] = [
     "title": "Multi-tenant agentic platform pilot on AWS",
     "engagementId": "aws",
     "stage": "Customer pilot",
-    "summary": "The pilot explored how enterprise users could access company knowledge and carry out business workflows through AI agents while meeting hosting, data-sovereignty and security requirements.",
+    "summary": "Enterprise users needed access to company knowledge and business workflows within hosting, data-sovereignty and security constraints. I worked backwards from those requirements to design, develop and deploy a multi-tenant AI platform that reached a customer-facing pilot.",
     "sections": [
       {
         "heading": "The need",
@@ -73,14 +73,14 @@ export const caseStudies: CaseStudy[] = [
       "A2A",
       "AWS"
     ],
-    "updatedAt": "2026-10-19"
+    "updatedAt": "2026-11-05"
   },
   {
     "slug": "mopo-conversational-ai",
     "title": "From concept to production: enterprise conversational AI",
     "engagementId": "mopo",
     "stage": "Production launch",
-    "summary": "MOPO's product enabled customers to obtain answers grounded in company knowledge and automate customer-facing conversations.",
+    "summary": "MOPO's product enabled customers to obtain answers grounded in company knowledge and automate customer-facing conversations. I led the project from initial concept through production launch, coordinating engineering and business stakeholders and translating customer needs into delivery priorities.",
     "acquisition": {
       "buyer": "Act-On",
       "date": "2026-01",
@@ -119,14 +119,14 @@ export const caseStudies: CaseStudy[] = [
       "PostgreSQL",
       "vector search"
     ],
-    "updatedAt": "2026-10-21"
+    "updatedAt": "2026-11-05"
   },
   {
     "slug": "minervahub-portal-advisory",
     "title": "From organisational pain points to an employee-portal roadmap",
     "engagementId": "minervahub",
     "stage": "Advisory / blueprint / roadmap",
-    "summary": "MinervaHub faced challenges in internal communication, knowledge sharing and cultural integration across its fashion and luxury supply-chain group.",
+    "summary": "MinervaHub faced challenges in internal communication, knowledge sharing and cultural integration across its fashion and luxury supply-chain group. I assessed those needs and helped the project team develop a portal blueprint and roadmap that informed prioritisation of the next phase.",
     "sections": [
       {
         "heading": "The need",
@@ -154,14 +154,14 @@ export const caseStudies: CaseStudy[] = [
       "solution architecture",
       "governance requirements and delivery planning"
     ],
-    "updatedAt": "2026-10-19"
+    "updatedAt": "2026-11-05"
   },
   {
     "slug": "towardschange-enterprise-knowledge",
     "title": "Enterprise knowledge access across on-premise and cloud delivery",
     "engagementId": "towardschange",
     "stage": "Selected-user on-premise pilot; separate customer-used cloud-product contributions",
-    "summary": "Enterprise knowledge assistants must fit the client's documents, workflows and hosting requirements. My work at TowardsChange covered two distinct solutions.",
+    "summary": "Clients needed knowledge assistants suited to their documents, workflows and hosting requirements. I developed an on-premise solution used in a selected-user pilot and separately contributed retrieval and document-processing capabilities to FridayGPT's customer-used cloud product.",
     "sections": [
       {
         "heading": "The need",
@@ -197,14 +197,14 @@ export const caseStudies: CaseStudy[] = [
       "Python",
       "FastAPI"
     ],
-    "updatedAt": "2026-10-19"
+    "updatedAt": "2026-11-05"
   },
   {
     "slug": "client-engagement-portal",
     "title": "Client engagement portal for an AI consulting firm",
     "engagementId": "supportful",
     "stage": "Delivered portal; prospective-client demonstrations",
-    "summary": "Client leadership needed an accessible view of engagement progress, outstanding actions and the context of previous discussions.",
+    "summary": "Client leadership needed an accessible view of engagement progress, outstanding actions and the context of previous discussions. I helped design and develop a portal whose demonstrations to prospective clients contributed to signed new contracts.",
     "sections": [
       {
         "heading": "The need",
@@ -231,7 +231,7 @@ export const caseStudies: CaseStudy[] = [
       "engagement visibility",
       "meeting knowledge and commercial demonstrations"
     ],
-    "updatedAt": "2026-10-19",
+    "updatedAt": "2026-11-05",
     "context": "AI Consulting Firm"
   },
   {
@@ -239,7 +239,7 @@ export const caseStudies: CaseStudy[] = [
     "title": "Conversational booking and analytics for sports facilities",
     "engagementId": "supportful",
     "stage": "Production",
-    "summary": "The platform supported court and training bookings and gave managers access to operational information through conversation.",
+    "summary": "The platform supported court and training bookings and gave managers access to operational information through conversation. I built web, WhatsApp and telephone booking agents, plus conversational analytics, all used by real users in production.",
     "sections": [
       {
         "heading": "The need",
@@ -271,7 +271,7 @@ export const caseStudies: CaseStudy[] = [
       "voice agents",
       "LangSmith"
     ],
-    "updatedAt": "2026-10-19",
+    "updatedAt": "2026-11-05",
     "context": "Sports Facility Management Platform"
   },
   {
@@ -279,7 +279,7 @@ export const caseStudies: CaseStudy[] = [
     "title": "Causal analysis for industrial decision-making",
     "engagementId": "savencia",
     "stage": "Analysis and recommendations",
-    "summary": "The project investigated factors influencing lactoferrin production yield, with the aim of informing industrial process decisions.",
+    "summary": "The project investigated factors influencing lactoferrin production yield to inform industrial process decisions. I led the causal-inference analysis and presented its assumptions, findings and process recommendations to R&D and engineering teams.",
     "sections": [
       {
         "heading": "The need",
@@ -309,7 +309,7 @@ export const caseStudies: CaseStudy[] = [
       "Double Machine Learning",
       "causal forests"
     ],
-    "updatedAt": "2026-10-19"
+    "updatedAt": "2026-11-05"
   }
 ];
 
