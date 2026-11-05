@@ -2,12 +2,16 @@
 #
 # GitHub Pages ignores this file and cannot send custom response
 # headers, so on Pages the Content-Security-Policy and Referrer-Policy
-# are delivered via <meta> tags from src/app/layout.tsx instead. Placing
+# are delivered via <meta> tags from the respective root layouts instead. Placing
 # a CDN that honours _headers (or equivalent header rules) in front of
 # the site activates everything below, including the directives a meta
-# tag cannot express. Keep the CSP in sync with src/lib/security.ts.
+# tag cannot express. This is the shared ceiling for both root layouts:
+# the portfolio meta policy restricts media to 'self', while the personal
+# root permits decrypted blob media and restricts connections to 'self'.
+# Browsers intersect header and meta policies; a shared header must permit
+# both roots' resources. Keep these policies aligned with src/lib/security.ts.
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://*.posthog.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self'; connect-src 'self' https://*.posthog.com https://formspree.io; form-action 'self' https://formspree.io; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://*.posthog.com; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' blob:; worker-src 'self'; connect-src 'self' https://*.posthog.com https://formspree.io; form-action 'self' https://formspree.io; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin

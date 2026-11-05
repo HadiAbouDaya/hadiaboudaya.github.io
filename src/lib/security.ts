@@ -6,7 +6,8 @@
 // (frame-ancestors) and headers with no meta equivalent (HSTS,
 // X-Content-Type-Options, X-Frame-Options, Permissions-Policy) live in
 // public/_headers instead: any header-capable static host or CDN placed
-// in front of the site applies them from there. Keep the two in sync.
+// in front of the site applies them from there. The shared header permits
+// both roots' resources; each root's meta policy further restricts them.
 //
 // 'unsafe-inline' for scripts/styles is required by the inline theme
 // script, Next.js inline bootstrap scripts, JSON-LD blocks, and
@@ -15,10 +16,12 @@
 export const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' https://*.posthog.com",
+  "script-src-attr 'none'",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self' data:",
   "media-src 'self'",
+  "worker-src 'self'",
   "connect-src 'self' https://*.posthog.com https://formspree.io",
   "form-action 'self' https://formspree.io",
   "frame-src 'none'",
@@ -32,6 +35,7 @@ export const CONTENT_SECURITY_POLICY = [
 export const LUNA_CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline'",
+  "script-src-attr 'none'",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' blob: data:",
   "font-src 'self'",

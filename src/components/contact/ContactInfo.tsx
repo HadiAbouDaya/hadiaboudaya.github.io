@@ -66,6 +66,7 @@ export function ContactInfo() {
               {method.href ? (
                 <a
                   href={method.href}
+                  className="block rounded-card"
                   target={method.external ? "_blank" : undefined}
                   rel={method.external ? "noopener noreferrer" : undefined}
                   onClick={() => trackEvent(EVENTS.EXTERNAL_LINK_CLICKED, { url: method.href, context: "contact_info" })}

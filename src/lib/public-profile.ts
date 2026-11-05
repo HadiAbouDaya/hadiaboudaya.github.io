@@ -14,7 +14,7 @@ function relationship(id: string) {
   return [practice?.company, engagement?.company].filter(Boolean).join(" / ");
 }
 export function publicProfileText(full = false) {
-  const lines = [`# ${PROFILE.name}`, `> ${PROFILE.role} & ${PROFILE.supportingRole} · ${PROFILE.location}`, "", PROFILE.description, "", ...BIO_PARAGRAPHS, "", "## Main pages", ...["experience", "about", "certifications", "events", "blog", "contact"].map(path => `- [${path}](${PROFILE.url}/${path}/)`), "", "## CV downloads", ...CV_FILES.map(file => `- [${file.label}](${PROFILE.url}/contact/#cv-downloads)`), "", "## Project experience"];
+  const lines = [`# ${PROFILE.name}`, `> ${PROFILE.role} & ${PROFILE.supportingRole} · ${PROFILE.location}`, "", PROFILE.description, "", ...BIO_PARAGRAPHS, "", "## Main pages", ...["experience", "about", "certifications", "events", "blog", "contact"].map(path => `- [${path}](${PROFILE.url}/${path}/)`), "", "## CV downloads", ...CV_FILES.map(file => `- [${file.label}](${PROFILE.url}${file.href})`), "", "## Project experience"];
   for (const item of caseStudies) {
     const link = `[${item.title}](${PROFILE.url}/experience/#project-${item.slug})`;
     const context = `${relationship(item.engagementId)}${item.context ? ` / ${item.context}` : ""}. ${item.stage}.`;

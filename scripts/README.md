@@ -14,7 +14,7 @@ build dependencies with `pnpm install --frozen-lockfile`.
 
 After `pnpm build`, run `pnpm test:browser`. The runner starts an ephemeral static
 preview, executes the interaction, search, and contact suites, then closes it.
-CI runs this gate before uploading a deployment artifact. Tests intercept every
+CI runs this gate and a representative accessibility/layout scan before uploading a deployment artifact. Tests intercept every
 contact submission and block external writes, including analytics.
 
 `PORTFOLIO_CHROME_PATH` selects a Chromium executable. By default tests use
@@ -101,3 +101,24 @@ All checks ran in temporary copies; no benchmark wrote to public/ or out/.
 Use `node scripts/benchmark-images.mjs` for a new temporary benchmark, optionally
 with `IMAGE_CONCURRENCY=4` to reproduce the original worker limit. It requires
 Git history containing the legacy baseline commit fe66dd6.
+
+## Whole-site accessibility and layout audit
+
+Run `pnpm audit:site` after building. It starts and closes its own loopback preview,
+reads every public route from the exported sitemap, and checks light/dark themes
+at 320px and 1440px. It checks WCAG A/AA rules through axe (including WCAG 2.2),
+one main heading, horizontal overflow, browser errors, HTTP status, and image
+loading failures. Below-fold images are eagerly loaded for this audit only.
+External requests and writes are blocked. Automated results do not certify
+accessibility: keyboard, assistive-technology and editorial review remain useful.
+
+`PORTFOLIO_AUDIT_SCOPE=templates` scans ten representative routes for a shorter
+CI gate; omit it to include all articles and event details.
+`PORTFOLIO_AUDIT_SCREENSHOTS=1` captures representative public layouts.
+`PORTFOLIO_CHROME_PATH` selects an installed Chromium executable. JSON reports
+and optional screenshots are written to a printed temporary directory, never to
+`public/` or `out/`. Incomplete axe checks are retained for manual review.
+
+The browser regression suite also checks the hero globe's 30-fps paint budget,
+2x pixel-density cap, and suspension for Save Data, reduced motion and offscreen
+content. These are resource-use regressions, not real-user Core Web Vitals.

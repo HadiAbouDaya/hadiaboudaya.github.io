@@ -24,10 +24,10 @@ export function EventCard({ event, isExpanded, onToggle }: EventCardProps) {
   const detailId = `event-preview-${event.slug}`;
 
   return (
-    <article className={cn("col-span-1 flex flex-col rounded-card bg-surface-raised border border-line overflow-hidden shadow-card", featured && "sm:col-span-2 lg:col-span-2 featured-ring")}>
-      <Link href={`/events/${event.slug}/`} aria-label={`Read ${event.title}`} className="group relative aspect-video sm:aspect-[16/7] overflow-hidden bg-surface-sunken border-b border-line">
+    <article className={cn("col-span-1 flex flex-col rounded-card bg-surface-raised border border-line overflow-hidden shadow-card", featured && "featured-ring")}>
+      <Link href={`/events/${event.slug}/`} aria-label={`Read ${event.role ?? config.label}: ${event.title}`} className="group relative aspect-video sm:aspect-[16/7] overflow-hidden bg-surface-sunken border-b border-line focus-visible:outline-offset-[-3px]">
         {event.coverImage ? (
-          <Image src={event.coverImage} alt="" fill sizes={featured ? "(max-width: 1024px) 100vw, 66vw" : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"} className={cn("object-cover transition-transform duration-300 group-hover:scale-[1.03]", event.imagePosition === "top" && "object-top", event.imagePosition === "bottom" && "object-bottom")} />
+          <Image src={event.coverImage} alt="" fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className={cn("object-cover transition-transform duration-300 group-hover:scale-[1.03]", event.imagePosition === "top" && "object-top", event.imagePosition === "bottom" && "object-bottom")} />
         ) : (
           <div className={cn("absolute inset-0 flex items-center justify-center", accent.chip)}><Icon className="h-12 w-12" aria-hidden="true" /></div>
         )}

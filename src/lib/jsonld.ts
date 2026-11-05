@@ -1,9 +1,21 @@
 import type { Event, EventCategory, Certification, BlogPost } from "@/types";
 
 import { SITE_URL, pageUrl, assetUrl } from "@/lib/urls";
+import { PROFILE } from "@/data/profile";
 
 export function serializeJsonLd(value: unknown): string {
   return JSON.stringify(value).replace(/</g, "\\u003c");
+}
+
+// Each document must identify its author without requiring a crawler to merge
+// the home page's graph first. Keep one stable entity ID across the site.
+function authorJsonLd() {
+  return {
+    "@type": "Person",
+    "@id": `${SITE_URL}/#person`,
+    name: PROFILE.name,
+    url: pageUrl("/about/"),
+  };
 }
 
 const MONTH_MAP: Record<string, string> = {
@@ -45,11 +57,12 @@ export function websiteJsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
-    name: "Hadi Abou Daya",
-    url: SITE_URL,
+    name: PROFILE.name,
+    url: pageUrl("/"),
     description:
       "AI Consultant & Software Engineer based in Paris. Client discovery, solution design and hands-on AI delivery.",
-    publisher: { "@id": `${SITE_URL}/#person` },
+    publisher: authorJsonLd(),
+    inLanguage: "en",
   };
 }
 
@@ -58,8 +71,8 @@ export function personJsonLd() {
     "@context": "https://schema.org",
     "@type": "Person",
     "@id": `${SITE_URL}/#person`,
-    name: "Hadi Abou Daya",
-    url: SITE_URL,
+    name: PROFILE.name,
+    url: pageUrl("/about/"),
     description:
       "AI Consultant & Software Engineer based in Paris. Client discovery, solution design and hands-on AI delivery.",
     jobTitle: "AI Consultant & Software Engineer",
@@ -92,7 +105,7 @@ export function personJsonLd() {
       "Causal Inference",
       "Software Engineering",
     ],
-    image: `${SITE_URL}/Media/profile/headshot.jpg`,
+    image: assetUrl("/Media/profile/headshot.webp"),
     email: "hadi.aboudaya@hotmail.com",
     telephone: "+33783267868",
     address: {
@@ -109,7 +122,10 @@ export function profilePageJsonLd() {
     "@type": "ProfilePage",
     "@id": `${SITE_URL}/about/#profilepage`,
     url: `${SITE_URL}/about/`,
-    mainEntity: { "@id": `${SITE_URL}/#person` },
+    name: `About ${PROFILE.name}`,
+    mainEntity: personJsonLd(),
+    inLanguage: "en",
+    isPartOf: { "@id": `${SITE_URL}/#website` },
   };
 }
 
@@ -124,26 +140,18 @@ export function articleJsonLd(post: {
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    "@id": `${pageUrl(`/blog/${post.slug}`)}#article`,
     headline: post.title,
     description: post.excerpt,
     datePublished: post.date,
     dateModified: post.updatedAt ?? post.date,
-    author: {
-      "@type": "Person",
-      "@id": `${SITE_URL}/#person`,
-      name: "Hadi Abou Daya",
-      url: SITE_URL,
-    },
-    publisher: {
-      "@type": "Person",
-      "@id": `${SITE_URL}/#person`,
-      name: "Hadi Abou Daya",
-    },
-    image: post.coverImage
-      ? `${SITE_URL}${post.coverImage}`
-      : `${SITE_URL}/og-default.png`,
-    url: `${SITE_URL}/blog/${post.slug}/`,
-    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}/`,
+    author: authorJsonLd(),
+    publisher: authorJsonLd(),
+    image: assetUrl(post.coverImage || "/og-default.png"),
+    url: pageUrl(`/blog/${post.slug}`),
+    mainEntityOfPage: pageUrl(`/blog/${post.slug}`),
+    inLanguage: "en",
+    isPartOf: { "@type": "Blog", "@id": `${SITE_URL}/blog/#blog`, url: pageUrl("/blog/") },
   };
 }
 
@@ -176,7 +184,7 @@ export function eventJsonLd(event: Event) {
     ...(event.dateMeaning === "announcement" && event.datePrecision === "day" ? { datePublished: event.date } : {}),
     ...(event.updatedAt ? { dateModified: event.updatedAt } : {}),
     ...(event.datePrecision === "month" ? { temporalCoverage: event.date.slice(0, 7) } : {}),
-    author: { "@id": `${SITE_URL}/#person` },
+    author: authorJsonLd(),
   };
   const online = /online|remote|virtual/i.test(event.location);
   return {
@@ -240,15 +248,19 @@ export function blogJsonLd(posts: Pick<BlogPost, "title" | "slug" | "date" | "ex
   return {
     "@context": "https://schema.org",
     "@type": "Blog",
+    "@id": `${SITE_URL}/blog/#blog`,
     name: "Hadi Abou Daya's Blog",
     url: `${SITE_URL}/blog/`,
-    author: { "@id": `${SITE_URL}/#person` },
+    author: authorJsonLd(),
+    inLanguage: "en",
     blogPost: posts.map((post) => ({
       "@type": "BlogPosting",
+      "@id": `${pageUrl(`/blog/${post.slug}`)}#article`,
       headline: post.title,
       url: `${SITE_URL}/blog/${post.slug}/`,
       datePublished: post.date,
       description: post.excerpt,
+      author: authorJsonLd(),
     })),
   };
 }
@@ -260,8 +272,7 @@ export function contactPointJsonLd() {
     name: "Contact Hadi Abou Daya",
     url: `${SITE_URL}/contact/`,
     mainEntity: {
-      "@type": "Person",
-      "@id": `${SITE_URL}/#person`,
+      ...authorJsonLd(),
       contactPoint: {
         "@type": "ContactPoint",
         email: "hadi.aboudaya@hotmail.com",

@@ -12,7 +12,8 @@
     "preview": "node scripts/preview.mjs out",
     "test:tooling": "node --experimental-strip-types --test scripts/tests/*.test.mjs",
     "test:runtime": "node --experimental-strip-types --test scripts/reading-progress.test.ts",
-    "test:browser": "node scripts/run-browser-qa.mjs"
+    "test:browser": "node scripts/run-browser-qa.mjs",
+    "audit:site": "node scripts/site-audit.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -28,6 +29,7 @@
     "yaml": "^2.8.3"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "^1.64.1",
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",

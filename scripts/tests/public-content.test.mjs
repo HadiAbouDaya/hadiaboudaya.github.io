@@ -9,6 +9,7 @@ import { verifyPublicContent } from '../verify-public-content.mjs';
 async function fixture() {
   const root = await mkdtemp(path.join(tmpdir(), 'website-public-content-test-'));
   const origin = 'https://hadi.aboudaya.com';
+  await writeFile(path.join(root, 'og-default.png'), 'sharing-image-fixture');
   const meta = {
     'og:url': `${origin}/`, 'og:title': 'Hadi Abou Daya', 'og:description': 'AI consulting experience',
     'og:image': `${origin}/og-default.png`, 'twitter:image': `${origin}/og-default.png`,
@@ -82,4 +83,26 @@ test('document language is required even on error pages excluded from the sitema
   await assert.rejects(verifyPublicContent(root), /404\.html: missing document language/);
   await writeFile(path.join(root, '404.html'), '<!doctype html><html lang="en"><head><title>Not found</title></head><body><h1>Not found</h1></body></html>');
   assert.equal((await verifyPublicContent(root)).professionalPages, 2);
+});
+
+test('profile and article structured data must identify their entities in the current document', async () => {
+  const { root } = await fixture();
+  const file = path.join(root, 'index.html');
+  const markup = await readFile(file, 'utf8');
+  const schema = data => `<script type="application/ld+json">${JSON.stringify(data)}</script>`;
+  await writeFile(file, markup + schema({ '@type': 'ProfilePage', mainEntity: { '@id': 'https://hadi.aboudaya.com/#person' } }) + schema({ '@type': 'Blog', blogPost: [{ '@type': 'BlogPosting', author: { '@id': 'https://hadi.aboudaya.com/#person' } }] }));
+  await assert.rejects(verifyPublicContent(root), error => /ProfilePage must identify/.test(error.message) && /BlogPosting must identify/.test(error.message));
+  const person = { '@type': 'Person', name: 'Hadi Abou Daya', url: 'https://hadi.aboudaya.com/about/' };
+  await writeFile(file, markup + schema({ '@type': 'ProfilePage', mainEntity: person }) + schema({ '@type': 'BlogPosting', author: person }));
+  assert.equal((await verifyPublicContent(root)).jsonLdBlocks, 2);
+});
+
+test('sharing images must resolve to an exported HTTPS asset', async () => {
+  const { root } = await fixture();
+  const file = path.join(root, 'index.html');
+  const markup = await readFile(file, 'utf8');
+  await writeFile(file, markup.replaceAll('/og-default.png', '/missing-cover.png'));
+  await assert.rejects(verifyPublicContent(root), /sharing image is not an exported file/);
+  await writeFile(file, markup.replaceAll('https://hadi.aboudaya.com/og-default.png', 'http://hadi.aboudaya.com/og-default.png'));
+  await assert.rejects(verifyPublicContent(root), /sharing image must use HTTPS/);
 });

@@ -20,13 +20,15 @@ export async function generateMetadata({
   const { slug } = await params;
   const event = events.find((e) => e.slug === slug);
   if (!event) return { title: "Event Not Found" };
+  const sharingImage = event.images?.[0];
+  const images = sharingImage ? [{ url: sharingImage, alt: event.title }] : undefined;
 
   return {
     title: event.title,
     description: event.summary,
     alternates: { canonical: `/events/${slug}/` },
-    openGraph: { ...DEFAULT_OPEN_GRAPH, title: event.title, description: event.summary, url: `/events/${slug}/` },
-    twitter: { ...DEFAULT_TWITTER, title: event.title, description: event.summary },
+    openGraph: { ...DEFAULT_OPEN_GRAPH, title: event.title, description: event.summary, url: `/events/${slug}/`, ...(images ? { images } : {}) },
+    twitter: { ...DEFAULT_TWITTER, title: event.title, description: event.summary, ...(images ? { images } : {}) },
   };
 }
 

@@ -227,27 +227,30 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ===== LAYOUT ===== */
-.section-padding {
-  padding: 4rem 1rem;
-}
-
-@media (min-width: 640px) {
+/* Layout defaults belong below utilities: page-specific max-width and top
+   spacing must be able to override them (Tailwind v4 uses cascade layers). */
+@layer components {
   .section-padding {
-    padding: 5rem 1.5rem;
+    padding: 4rem 1rem;
   }
-}
 
-@media (min-width: 1024px) {
-  .section-padding {
-    padding: 6rem 2rem;
+  @media (min-width: 640px) {
+    .section-padding {
+      padding: 5rem 1.5rem;
+    }
   }
-}
 
-.container-main {
-  max-width: 80rem;
-  margin-left: auto;
-  margin-right: auto;
+  @media (min-width: 1024px) {
+    .section-padding {
+      padding: 6rem 2rem;
+    }
+  }
+
+  .container-main {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 
@@ -374,6 +377,11 @@ body {
   outline-offset: 2px;
 }
 
+/* Direct article fragments must stay below the fixed navigation. */
+[data-article-body] :where(h1, h2, h3, h4, h5, h6)[id] {
+  scroll-margin-top: 6rem;
+}
+
 /* ===== SCROLLBAR ===== */
 * {
   scrollbar-width: thin;
@@ -439,7 +447,21 @@ body {
   }
 }
 @media print {
-  html, body { background: white !important; color: black !important; }
+  html, body { background: white !important; color: #111827 !important; color-scheme: light; }
+  /* Printing must remain readable when the visitor chose dark mode or the
+     browser omits background graphics (including gradient-clipped headings). */
+  body * {
+    color: #111827 !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  body > header, nav, button, [role="radiogroup"] { display: none !important; }
+  .section-padding { padding: 1rem 0 !important; }
+  a { text-decoration: underline; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid; }
+  p, li { orphans: 3; widows: 3; }
   [data-motion-reveal] { opacity: 1 !important; transform: none !important; }
   details { display: block !important; }
   details > :not(summary) { display: block !important; }

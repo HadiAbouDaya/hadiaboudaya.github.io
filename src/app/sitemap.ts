@@ -10,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = ["/", "/about/", "/experience/", "/events/", "/certifications/", "/blog/", "/contact/", "/privacy/"].map(path => ({ url: pageUrl(path), changeFrequency: path === "/blog/" ? "weekly" : "monthly", priority: path === "/" ? 1 : 0.7 }));
   return [...staticPages,
     ...getAllPosts().map(item => ({ url: pageUrl(`/blog/${item.slug}`), lastModified: item.updatedAt ?? item.date, changeFrequency: "monthly" as const, priority: 0.7 })),
-    ...events.map(item => ({ url: pageUrl(`/events/${item.slug}`), lastModified: item.updatedAt ?? item.date, changeFrequency: "yearly" as const, priority: 0.5 })),
+    // An event's historical occurrence (or month-level sorting date) is not the
+    // publication/modification date of its retrospective page.
+    ...events.map(item => ({ url: pageUrl(`/events/${item.slug}`), ...(item.updatedAt ? { lastModified: item.updatedAt } : {}), changeFrequency: "yearly" as const, priority: 0.5 })),
   ];
 }

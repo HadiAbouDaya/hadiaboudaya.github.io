@@ -10,7 +10,7 @@ try {
     server.listen(0, "127.0.0.1", resolve);
   });
   const origin = process.env.PORTFOLIO_TEST_ORIGIN ?? `http://127.0.0.1:${server.address().port}`;
-  for (const script of ["public-content-browser-qa.mjs", "public-interactions-qa.mjs", "search-browser-qa.mjs", "contact-browser-qa.mjs"]) {
+  for (const script of ["public-content-browser-qa.mjs", "public-interactions-qa.mjs", "search-browser-qa.mjs", "contact-browser-qa.mjs", "performance-browser-qa.mjs"]) {
     await new Promise((resolve, reject) => {
       const child = spawn(process.execPath, [`scripts/${script}`], {
         stdio: "inherit", env: { ...process.env, PORTFOLIO_TEST_ORIGIN: origin },

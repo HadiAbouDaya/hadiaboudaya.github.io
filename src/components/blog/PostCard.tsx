@@ -16,7 +16,7 @@ interface PostCardProps {
 export function PostCard({ post, featured = false }: PostCardProps) {
   return (
     <ScrollReveal>
-      <Link href={`/blog/${post.slug}/`} data-blog-slug={post.slug}>
+      <Link href={`/blog/${post.slug}/`} data-blog-slug={post.slug} className="block rounded-card">
         <Card
           variant={featured ? "featured" : "interactive"}
           className="overflow-hidden group"
@@ -28,7 +28,9 @@ export function PostCard({ post, featured = false }: PostCardProps) {
               alt={post.title}
               width={800}
               height={400}
-              sizes="(max-width:896px) 100vw, 400px"
+              sizes="(max-width: 640px) calc(100vw - 2rem), (max-width: 944px) calc(100vw - 3rem), 896px"
+              loading={featured ? "eager" : "lazy"}
+              fetchPriority={featured ? "high" : undefined}
               fallbackText={post.title.slice(0, 2)}
               className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
               fallbackClassName="w-full h-full text-lg"

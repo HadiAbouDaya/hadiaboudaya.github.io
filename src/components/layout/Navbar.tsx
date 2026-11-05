@@ -77,12 +77,12 @@ function ProfessionalNavbar({ contentRevision }: NavbarProps) {
             className="hover:opacity-80 transition-opacity"
           >
             <Image
-              src="/Media/branding/logo.webp"
+              src="/Media/branding/logo-nav.webp"
               alt="Hadi Abou Daya logo"
               width={40}
               height={40}
               className="rounded-full"
-              priority
+              loading="eager"
             />
           </Link>
 
@@ -104,7 +104,7 @@ function ProfessionalNavbar({ contentRevision }: NavbarProps) {
             <button
               onClick={() => { setSearchMounted(true); setSearchOpen(true); }}
               className="ml-2 flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-control border border-line bg-surface-raised/50 text-sm text-fg-mid hover:text-fg hover:border-primary-500/30 transition-colors"
-              aria-label="Search"
+              aria-keyshortcuts="Control+K Meta+K"
             >
               <Search className="w-4 h-4" />
               <span>Search</span>

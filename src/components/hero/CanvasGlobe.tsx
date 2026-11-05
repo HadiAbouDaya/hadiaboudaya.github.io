@@ -140,6 +140,11 @@ export function CanvasGlobe() {
     const ctx = context;
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     let reduced = media.matches;
+    // Save Data is optional; unsupported browsers retain the normal animation.
+    const connection = (navigator as Navigator & {
+      connection?: EventTarget & { saveData?: boolean };
+    }).connection;
+    let saveData = connection?.saveData === true;
     let width = 0;
     let height = 0;
     let idleReady = false;
@@ -258,6 +263,12 @@ export function CanvasGlobe() {
 
     function loop(time: number) {
       if (!running || disposed) return;
+      // A decorative background does not need the display's full 60–144 Hz.
+      // Keep elapsed-time rotation while bounding canvas paint work to 30 fps.
+      if (lastTime !== null && time - lastTime < 1000 / 30 - 0.5) {
+        frameRef.current = requestAnimationFrame(loop);
+        return;
+      }
       // Reset on resume and cap gaps so a suspended tab cannot jump the globe.
       const dt = lastTime === null ? 0 : Math.min((time - lastTime) / 1000, 0.1);
       lastTime = time;
@@ -268,7 +279,7 @@ export function CanvasGlobe() {
       frameRef.current = requestAnimationFrame(loop);
     }
     function sync() {
-      const shouldRun = !disposed && idleReady && inView && !document.hidden && !reduced && width > 0 && height > 0;
+      const shouldRun = !disposed && idleReady && inView && !document.hidden && !reduced && !saveData && width > 0 && height > 0;
       if (shouldRun && !running) {
         running = true;
         lastTime = null;
@@ -284,7 +295,8 @@ export function CanvasGlobe() {
       width = rect.width;
       height = rect.height;
       if (width > 0 && height > 0) {
-        const dpr = window.devicePixelRatio || 1;
+        // Cap decorative raster work on high-density phones and 4K displays.
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
         const pixelWidth = Math.max(1, Math.round(width * dpr));
         const pixelHeight = Math.max(1, Math.round(height * dpr));
         if (canvas!.width !== pixelWidth || canvas!.height !== pixelHeight) {
@@ -298,7 +310,9 @@ export function CanvasGlobe() {
     }
     const onPreference = () => { reduced = media.matches; sync(); draw(); };
     const onVisibility = () => { sync(); };
+    const onConnection = () => { saveData = connection?.saveData === true; sync(); };
     media.addEventListener("change", onPreference);
+    connection?.addEventListener("change", onConnection);
     document.addEventListener("visibilitychange", onVisibility);
     window.addEventListener("resize", resize);
     const resizeObserver = typeof ResizeObserver !== "undefined" ? new ResizeObserver(resize) : null;
@@ -323,6 +337,7 @@ export function CanvasGlobe() {
       observer?.disconnect();
       resizeObserver?.disconnect();
       media.removeEventListener("change", onPreference);
+      connection?.removeEventListener("change", onConnection);
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("resize", resize);
       if (idleId !== undefined) window.cancelIdleCallback(idleId);

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtemp, mkdir, writeFile } from "node:fs/promises";
+import { mkdtemp, mkdir, writeFile, symlink, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { createPreview } from "../preview.mjs";
@@ -19,6 +19,7 @@ test("preview serves deep routes, PNG MIME, byte ranges, HEAD and real 404s", as
     const redirect = await fetch(base + "/nested/test?foo=1", { redirect: "manual" });
     assert.equal(redirect.status, 308); assert.equal(redirect.headers.get("location"), "/nested/test/?foo=1");
     const image = await fetch(base + "/og-default.png", { method: "HEAD" });
+    assert.equal(image.headers.get("x-content-type-options"), "nosniff");
     assert.equal(image.headers.get("content-type"), "image/png"); assert.equal(await image.text(), "");
     const range = await fetch(base + "/og-default.png", { headers: { Range: "bytes=0-2" } });
     assert.equal(range.status, 206); assert.equal(await range.text(), "png");
@@ -26,6 +27,29 @@ test("preview serves deep routes, PNG MIME, byte ranges, HEAD and real 404s", as
     const missing = await fetch(base + "/unknown/"); assert.equal(missing.status, 404); assert.equal(await missing.text(), "custom missing page");
     assert.equal((await fetch(base + "/", { method: "POST" })).status, 405);
   } finally { server.closeAllConnections(); await new Promise(resolve => server.close(resolve)); }
+});
+
+test("preview never serves outside symlink targets, including its 404 fallback", async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), "website-preview-boundary-"));
+  const root = path.join(directory, "public");
+  await mkdir(root);
+  await writeFile(path.join(directory, "private.txt"), "private authoring data");
+  await symlink(path.join(directory, "private.txt"), path.join(root, "linked.txt"));
+  await symlink(path.join(directory, "private.txt"), path.join(root, "404.html"));
+  const server = createPreview(root);
+  await new Promise((resolve, reject) => { server.once("error", reject); server.listen(0, "127.0.0.1", resolve); });
+  try {
+    const base = `http://127.0.0.1:${server.address().port}`;
+    for (const route of ["/linked.txt", "/missing/", "/%2e%2e%2fprivate.txt", "/%00"]) {
+      const response = await fetch(base + route);
+      assert.ok([400, 403].includes(response.status), route);
+      assert.doesNotMatch(await response.text(), /private authoring data/);
+    }
+  } finally {
+    server.closeAllConnections();
+    await new Promise(resolve => server.close(resolve));
+    await rm(directory, { recursive: true, force: true });
+  }
 });
 
 test("preview CLI accepts pnpm-forwarded --port and validates arguments", async () => {

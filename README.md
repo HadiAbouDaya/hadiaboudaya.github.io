@@ -20,6 +20,7 @@ pnpm lint
 pnpm typecheck
 pnpm build
 pnpm test:browser
+pnpm audit:site
 pnpm preview --port 3000
 ```
 
@@ -63,11 +64,11 @@ Analytics is optional through `NEXT_PUBLIC_POSTHOG_KEY` and `NEXT_PUBLIC_POSTHOG
 
 The release uses Next 16.4.2, React 19.3.1 and Sharp 0.35.5 with a frozen lockfile. Article frontmatter uses the YAML parser directly: executable engines, duplicate keys, custom tags and aliases are rejected. The typography plugin uses the patched selector parser through `pnpm-workspace.yaml`; pnpm 11 reads overrides there.
 
-The full dependency audit passed with zero advisories on 5 November 2026. A scoped override pins the TypeScript lint parser's `minimatch` dependency to 11.0.1 for [GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249). Remove that override once the parser's own dependency range includes the fix. ESLint remains on the compatible 9.x line for this release.
+The full dependency audit passed with zero advisories on 6 November 2026. A scoped override pins the TypeScript lint parser's `minimatch` dependency to 11.0.1 for [GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249). Remove that override once the parser's own dependency range includes the fix. ESLint remains on the compatible 9.x line for this release. It is past upstream support; upgrading to 10 currently requires coordinated updates to the React, accessibility and import plugins, whose installed peer ranges exclude 10. Track that migration separately; a clean advisory audit is not a support guarantee.
 
 ## Publication
 
-The GitHub Pages workflow validates the frozen install, tests, lint, types and export before publishing. A push to `main` or a manual workflow dispatch starts that workflow. Use the local preview for review; deploy only when explicitly requested.
+The GitHub Pages workflow validates the frozen install, tests, lint, types and export before publishing. A push to `main` or a manual workflow dispatch starts that workflow. Publication is restricted to `main`; other branches can validate without deploying. Build jobs have read-only permissions, deployment permissions are scoped to the deploy job, and third-party actions are pinned to commit SHAs. Use the local preview for review; deploy only when explicitly requested.
 
 ## Encrypted personal space
 

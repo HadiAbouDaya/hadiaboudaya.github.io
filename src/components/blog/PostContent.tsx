@@ -29,7 +29,8 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
           alt={post.title}
           width={1200}
           height={600}
-          priority
+          loading="eager"
+          fetchPriority="high"
           sizes="100vw"
           fallbackText={post.title.slice(0, 2)}
           className="w-full h-full object-cover"
@@ -88,28 +89,30 @@ export function PostContent({ post, prevPost, nextPost, children }: PostContentP
 
           {/* Prev / Next navigation */}
           {(prevPost || nextPost) && (
-            <nav className="mt-12 pt-8 border-t border-line flex items-start justify-between gap-4">
+            <nav aria-label="More articles" className="mt-12 pt-8 border-t border-line grid gap-4 sm:grid-cols-2">
               {prevPost ? (
                 <Link
-                  href={`/blog/${prevPost.slug}`}
-                  className="group flex items-center gap-2 text-sm text-fg-mid hover:text-primary-700 dark:hover:text-primary-400 transition-colors min-w-0"
+                  href={`/blog/${prevPost.slug}/`}
+                  rel="prev"
+                  className="flex items-start gap-3 rounded-card border border-line p-4 text-sm hover:bg-surface-sunken transition-colors min-w-0"
                 >
-                  <ArrowLeft className="w-4 h-4 shrink-0 group-hover:-translate-x-0.5 transition-transform" />
-                  <span className="truncate">{prevPost.title}</span>
+                  <ArrowLeft className="w-4 h-4 shrink-0 mt-0.5 text-primary-700 dark:text-primary-300" aria-hidden="true" />
+                  <span><span className="block mb-2 text-xs text-fg-mid">Older article</span><span className="font-medium text-fg">{prevPost.title}</span></span>
                 </Link>
               ) : (
-                <span />
+                <span className="hidden sm:block" />
               )}
               {nextPost ? (
                 <Link
-                  href={`/blog/${nextPost.slug}`}
-                  className="group flex items-center gap-2 text-sm text-fg-mid hover:text-primary-700 dark:hover:text-primary-400 transition-colors min-w-0 text-right ml-auto"
+                  href={`/blog/${nextPost.slug}/`}
+                  rel="next"
+                  className="flex items-start justify-between gap-3 rounded-card border border-line p-4 text-sm hover:bg-surface-sunken transition-colors min-w-0 sm:text-right"
                 >
-                  <span className="truncate">{nextPost.title}</span>
-                  <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                  <span><span className="block mb-2 text-xs text-fg-mid">Newer article</span><span className="font-medium text-fg">{nextPost.title}</span></span>
+                  <ArrowRight className="w-4 h-4 shrink-0 mt-0.5 text-primary-700 dark:text-primary-300" aria-hidden="true" />
                 </Link>
               ) : (
-                <span />
+                <span className="hidden sm:block" />
               )}
             </nav>
           )}

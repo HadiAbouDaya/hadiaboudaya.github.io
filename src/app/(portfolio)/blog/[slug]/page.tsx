@@ -9,6 +9,9 @@ import { ArticleCodeBlock } from "@/components/blog/ArticleCodeBlock";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { articleJsonLd, breadcrumbJsonLd, serializeJsonLd } from "@/lib/jsonld";
+import { DEFAULT_OPEN_GRAPH, DEFAULT_SOCIAL_IMAGE, DEFAULT_TWITTER } from "@/lib/metadata";
+import { PROFILE } from "@/data/profile";
+import { pageUrl } from "@/lib/urls";
 
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -23,26 +26,28 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post) return { title: "Blog Post" };
 
-  const description =
-    post.excerpt.length > 155
-      ? post.excerpt.slice(0, 152) + "..."
-      : post.excerpt;
+  // Keep the editorial summary intact. Search engines and sharing clients fit
+  // snippets to their display; a fixed character slice cuts words and meaning.
+  const description = post.excerpt;
 
   return {
     title: post.title,
     description,
+    authors: [{ name: PROFILE.name, url: pageUrl("/about/") }],
     alternates: { canonical: `/blog/${slug}/` },
     openGraph: {
+      ...DEFAULT_OPEN_GRAPH,
       title: post.title,
       description,
       url: `/blog/${slug}/`,
       type: "article",
       publishedTime: post.date,
       modifiedTime: post.updatedAt ?? post.date,
-      images: [{ url: post.coverImage || "/og-default.png" }],
+      authors: [pageUrl("/about/")],
+      images: [post.coverImage ? { url: post.coverImage, alt: post.title } : DEFAULT_SOCIAL_IMAGE],
     },
     twitter: {
-      card: "summary_large_image",
+      ...DEFAULT_TWITTER,
       title: post.title,
       description,
       images: [post.coverImage || "/og-default.png"],

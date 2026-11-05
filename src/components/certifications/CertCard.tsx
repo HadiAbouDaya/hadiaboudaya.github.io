@@ -31,6 +31,7 @@ export function CertCard({ cert, ref }: CertCardProps) {
   return (
     <m.div
       ref={ref}
+      role="article"
       id={`cert-${cert.id}`}
       tabIndex={-1}
       aria-labelledby={`cert-title-${cert.id}`}

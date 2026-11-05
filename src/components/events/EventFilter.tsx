@@ -75,6 +75,10 @@ export function EventFilter({ events }: { events: EventSummary[] }) {
           className="mb-8"
         />
 
+        <p role="status" className="mb-6 text-sm text-fg-mid">
+          {filtered.length} {filtered.length === 1 ? "event" : "events"}
+        </p>
+
         {/* Year-grouped events */}
         <div className="space-y-12">
           <AnimatePresence initial={false} mode="popLayout">
@@ -89,15 +93,14 @@ export function EventFilter({ events }: { events: EventSummary[] }) {
                 >
                   {/* Sticky year header */}
                   <div className="sticky top-20 z-10 flex justify-center mb-6">
-                    <span className="bg-surface-overlay glass-2 text-fg rounded-pill px-5 py-1.5 text-sm font-bold shadow-card">
+                    <h2 className="bg-surface-overlay glass-2 text-fg rounded-pill px-5 py-1.5 text-sm font-bold shadow-card">
                       {year}
-                    </span>
+                    </h2>
                   </div>
 
                   {/* Events grid */}
                   <div
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-                    style={{ gridAutoFlow: "dense" }}
                   >
                     {yearEvents.map((event) => (
                       <EventCard

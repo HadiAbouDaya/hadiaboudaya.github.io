@@ -110,12 +110,16 @@ export function SearchDialog({ open, onClose, contentRevision }: { open: boolean
           if (event.key === "ArrowUp") { event.preventDefault(); setSelected(i => Math.max(0, i - 1)); }
           if (event.key === "Enter" && results[selected]) { event.preventDefault(); navigate(results[selected].item, selected); }
         }} className="min-w-0 flex-1 bg-transparent py-5 text-base outline-none" />
-      <button type="button" aria-label="Close search" onClick={onClose} className="p-2 rounded-control hover:bg-surface-raised"><X className="h-5 w-5" /></button>
+      <button type="button" aria-label="Close search" onClick={onClose} className="inline-flex shrink-0 min-h-11 min-w-11 items-center justify-center rounded-control hover:bg-surface-raised"><X className="h-5 w-5" /></button>
     </div>
     <div className="max-h-[65svh] overflow-y-auto p-2">
       <p id="search-status" role="status" className="px-3 py-2 text-sm text-fg-mid">{loading ? "Loading search…" : error || (query ? `${results.length} results` : "Search across experience, skills, learning and writing.")}</p>
       {error && <div className="p-3 flex gap-4"><button onClick={() => { setLoading(true); setError(""); setAttempt(i => i + 1); }} className="underline">Try again</button><button onClick={() => window.location.reload()} className="underline">Reload page</button></div>}
-      {!query && !loading && !error && <div className="p-3 flex flex-wrap gap-2">{["Salesforce MCP", "AWS", "MinervaHub", "CV"].map(term => <button key={term} onClick={() => { setQuery(term); setSelected(0); }} className="rounded-pill border border-line px-3 py-1.5 text-sm hover:bg-surface-raised">{term}</button>)}</div>}
+      {!query && !loading && !error && <div className="p-3 flex flex-wrap gap-2">{["Salesforce MCP", "AWS", "MinervaHub", "CV"].map(term => <button key={term} onClick={() => { setQuery(term); setSelected(0); input.current?.focus(); }} className="min-h-11 rounded-pill border border-line px-3 py-1.5 text-sm hover:bg-surface-raised">{term}</button>)}</div>}
+      {query.trim() && !loading && !error && results.length === 0 && <div className="px-3 pb-4 text-sm text-fg-mid">
+        <p>Try a broader term, such as a skill, company, or topic.</p>
+        <button type="button" onClick={() => { setQuery(""); setSelected(0); input.current?.focus(); }} className="min-h-11 mt-2 font-medium text-primary-700 dark:text-primary-300 underline underline-offset-4">Clear search</button>
+      </div>}
       <ol id="search-results" role="listbox" aria-label="Search results" className="space-y-1">{!loading && !error && results.map(({ item }, index) => <li key={item.id} role="none">
         <a id={`search-option-${index}`} role="option" aria-selected={selected === index} tabIndex={-1} href={item.href} onClick={event => {
           if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;

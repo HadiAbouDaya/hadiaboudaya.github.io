@@ -1,4 +1,4 @@
-import { readFile, readdir } from 'node:fs/promises';
+import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { parse } from 'parse5';
@@ -8,6 +8,22 @@ import { experienceContractErrors } from './lib/experience-contract.mjs';
 const origin = 'https://hadi.aboudaya.com';
 function nodes(node, result = []) { if (node.tagName) result.push(node); for (const child of node.childNodes ?? []) nodes(child, result); return result; }
 async function files(dir) { const entries = await readdir(dir,{withFileTypes:true}); return (await Promise.all(entries.map(entry => entry.isDirectory() ? files(path.join(dir,entry.name)) : [path.join(dir,entry.name)]))).flat(); }
+function structuredDataErrors(value) {
+  if (!value || typeof value !== 'object') return [];
+  if (Array.isArray(value)) return value.flatMap(structuredDataErrors);
+  const errors = [];
+  if (value['@type'] === 'ProfilePage' &&
+      (!['Person', 'Organization'].includes(value.mainEntity?.['@type']) || !value.mainEntity?.name?.trim())) {
+    errors.push('ProfilePage must identify a named Person or Organization in this document');
+  }
+  if (value['@type'] === 'BlogPosting') {
+    const authors = Array.isArray(value.author) ? value.author : [value.author];
+    if (!authors.length || authors.some(author => !author?.name?.trim() || !/^https:\/\//.test(author?.url ?? ''))) {
+      errors.push('BlogPosting must identify its author with a name and HTTPS profile URL');
+    }
+  }
+  return errors.concat(Object.values(value).flatMap(structuredDataErrors));
+}
 export async function verifyPublicContent(outDir = 'out') {
   const root = path.resolve(outDir);
   const errors = [];
@@ -33,7 +49,8 @@ export async function verifyPublicContent(outDir = 'out') {
       if (node.tagName === 'script' && attr.type === 'application/ld+json') {
         schemas++;
         const body = (node.childNodes ?? []).map(n=>n.value ?? '').join('');
-        try { JSON.parse(body); } catch { errors.push(`${relative}: invalid JSON-LD`); }
+        try { errors.push(...structuredDataErrors(JSON.parse(body)).map(error => `${relative}: ${error}`)); }
+        catch { errors.push(`${relative}: invalid JSON-LD`); }
         if (body.includes('<')) errors.push(`${relative}: JSON-LD contains an unescaped less-than character`);
       }
     }
@@ -50,6 +67,15 @@ export async function verifyPublicContent(outDir = 'out') {
     if (meta.get('og:url') !== canonical) errors.push(`${relative}: OG URL differs from canonical`);
     const ogImage = meta.get('og:image');
     if (!ogImage || ogImage !== meta.get('twitter:image')) errors.push(`${relative}: missing or mismatched sharing images`);
+    if (ogImage) {
+      try {
+        const url = new URL(ogImage);
+        if (url.protocol !== 'https:') errors.push(`${relative}: sharing image must use HTTPS`);
+        if (url.origin === origin && !(await stat(path.join(root, decodeURIComponent(url.pathname))).catch(() => null))?.isFile()) {
+          errors.push(`${relative}: sharing image is not an exported file: ${url.pathname}`);
+        }
+      } catch { errors.push(`${relative}: sharing image must be an absolute URL`); }
+    }
     if (meta.get('twitter:card') !== 'summary_large_image') errors.push(`${relative}: missing large Twitter card`);
     if (!meta.get('og:title') || !meta.get('og:description')) errors.push(`${relative}: missing sharing copy`);
     const title = all.find(n=>n.tagName==='title')?.childNodes.map(n=>n.value??'').join('') ?? '';

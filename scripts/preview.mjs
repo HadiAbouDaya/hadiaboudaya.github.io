@@ -7,6 +7,8 @@ const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; ch
 export function createPreview(rootDir = "out") {
   const root = path.resolve(rootDir);
   return createServer(async (req, res) => {
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
     const reply = (status, message) => { res.writeHead(status, { "Content-Type": "text/plain; charset=utf-8" }); res.end(req.method === "HEAD" ? undefined : message); };
     if (!["GET", "HEAD"].includes(req.method)) { res.setHeader("Allow", "GET, HEAD"); reply(405, "Method not allowed"); return; }
     let url, target, info;
@@ -27,7 +29,16 @@ export function createPreview(rootDir = "out") {
       const real = await realpath(target), realRoot = await realpath(root);
       if (!real.startsWith(realRoot + path.sep)) { reply(403, "Forbidden"); return; }
     } catch {
-      try { target = path.join(root, "404.html"); info = await stat(target); res.statusCode = 404; }
+      try {
+        target = path.join(root, "404.html");
+        const real = await realpath(target), realRoot = await realpath(root);
+        // The fallback must obey the same boundary as ordinary files.
+        if (!real.startsWith(realRoot + path.sep)) { reply(403, "Forbidden"); return; }
+        info = await stat(real);
+        if (!info.isFile()) throw new Error("Not a file");
+        target = real;
+        res.statusCode = 404;
+      }
       catch { reply(404, "Not found"); return; }
     }
     res.setHeader("Content-Type", TYPES[path.extname(target).toLowerCase()] ?? "application/octet-stream");
@@ -46,6 +57,7 @@ export function createPreview(rootDir = "out") {
     res.setHeader("Content-Length", Math.max(0, end - start + 1));
     if (req.method === "HEAD" || info.size === 0) { res.end(); return; }
     const stream = createReadStream(target, { start, end });
+    res.on("close", () => stream.destroy());
     stream.on("error", () => res.destroy()); stream.pipe(res);
   });
 }
