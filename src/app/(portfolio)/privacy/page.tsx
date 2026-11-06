@@ -1,5 +1,6 @@
 import { DEFAULT_OPEN_GRAPH, DEFAULT_TWITTER } from "@/lib/metadata";
 import type { Metadata } from "next";
+import { SOCIAL_LINKS } from "@/data/social";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { breadcrumbJsonLd, serializeJsonLd } from "@/lib/jsonld";
 
@@ -109,8 +110,8 @@ export default function PrivacyPage() {
           </ul>
           <p>
             To exercise any of these rights, contact{" "}
-            <a href="mailto:hadi.aboudaya@hotmail.com">
-              hadi.aboudaya@hotmail.com
+            <a href={`mailto:${SOCIAL_LINKS.email}`}>
+              {SOCIAL_LINKS.email}
             </a>
             .
           </p>
@@ -133,8 +134,8 @@ export default function PrivacyPage() {
           <h2>Contact</h2>
           <p>
             For privacy-related questions, reach out at{" "}
-            <a href="mailto:hadi.aboudaya@hotmail.com">
-              hadi.aboudaya@hotmail.com
+            <a href={`mailto:${SOCIAL_LINKS.email}`}>
+              {SOCIAL_LINKS.email}
             </a>
             .
           </p>

@@ -1,12 +1,9 @@
-import { existsSync } from "node:fs";
-import { chromium, webkit, expect } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { launchPublicBrowser } from "./lib/public-browser.mjs";
 
 // Every Formspree request is intercepted. These checks never send a contact message.
 const origin = process.env.PORTFOLIO_TEST_ORIGIN ?? "http://127.0.0.1:4173";
-const engine = process.env.PORTFOLIO_BROWSER === "webkit" ? webkit : chromium;
-const browser = await engine.launch(engine === chromium ? {
-  executablePath: process.env.PORTFOLIO_CHROME_PATH ?? (existsSync("/usr/bin/google-chrome") ? "/usr/bin/google-chrome" : undefined),
-} : {});
+const { browser, engine } = await launchPublicBrowser();
 const context = await browser.newContext({
   viewport: { width: 320, height: 800 },
   reducedMotion: "reduce",
@@ -124,7 +121,7 @@ try {
     expect(payload).toContain("Intercepted browser validation. Never delivered.");
   }
   expect(errors).toEqual([]);
-  console.log(`Contact and article browser QA passed (${engine === webkit ? "WebKit" : "Chromium"}); ${attempts} intercepted submissions, zero messages sent.`);
+  console.log(`Contact and article browser QA passed (${engine === "webkit" ? "WebKit" : "Chromium"}); ${attempts} intercepted submissions, zero messages sent.`);
 } finally {
   await browser.close();
 }

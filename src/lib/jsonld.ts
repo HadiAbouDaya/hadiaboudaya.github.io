@@ -2,6 +2,7 @@ import type { Event, EventCategory, Certification, BlogPost } from "@/types";
 
 import { SITE_URL, pageUrl, assetUrl } from "@/lib/urls";
 import { PROFILE } from "@/data/profile";
+import { SOCIAL_LINKS } from "@/data/social";
 
 export function serializeJsonLd(value: unknown): string {
   return JSON.stringify(value).replace(/</g, "\\u003c");
@@ -87,8 +88,8 @@ export function personJsonLd() {
     knowsLanguage: ["en", "fr", "ar"],
     nationality: { "@type": "Country", name: "Lebanon" },
     sameAs: [
-      "https://www.linkedin.com/in/hadiai",
-      "https://github.com/HadiAbouDaya",
+      SOCIAL_LINKS.linkedin,
+      SOCIAL_LINKS.github,
     ],
     knowsAbout: [
       "Artificial Intelligence",
@@ -106,8 +107,8 @@ export function personJsonLd() {
       "Software Engineering",
     ],
     image: assetUrl("/Media/profile/headshot.webp"),
-    email: "hadi.aboudaya@hotmail.com",
-    telephone: "+33783267868",
+    email: SOCIAL_LINKS.email,
+    telephone: SOCIAL_LINKS.phone.replace(/\s/g, ""),
     address: {
       "@type": "PostalAddress",
       addressLocality: "Paris",
@@ -275,8 +276,8 @@ export function contactPointJsonLd() {
       ...authorJsonLd(),
       contactPoint: {
         "@type": "ContactPoint",
-        email: "hadi.aboudaya@hotmail.com",
-        telephone: "+33783267868",
+        email: SOCIAL_LINKS.email,
+        telephone: SOCIAL_LINKS.phone.replace(/\s/g, ""),
         contactType: "professional",
         availableLanguage: ["English", "French", "Arabic"],
       },

@@ -29,7 +29,9 @@
       "@/content/*": [
         "./content/*"
       ]
-    }
+    },
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "include": [
     "next-env.d.ts",

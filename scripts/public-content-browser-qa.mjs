@@ -1,12 +1,9 @@
-import { chromium, webkit, expect } from "@playwright/test";
-import { existsSync } from "node:fs";
+import { expect } from "@playwright/test";
+import { launchPublicBrowser } from "./lib/public-browser.mjs";
 import sharp from "sharp";
 
 const origin = process.env.PORTFOLIO_TEST_ORIGIN ?? "http://127.0.0.1:4173";
-const engine = process.env.PORTFOLIO_BROWSER === "webkit" ? webkit : chromium;
-const browser = await engine.launch(engine === chromium ? {
-  executablePath: process.env.PORTFOLIO_CHROME_PATH ?? (existsSync("/usr/bin/google-chrome") ? "/usr/bin/google-chrome" : undefined),
-} : {});
+const { browser, engine } = await launchPublicBrowser();
 const paths = [
   "/", "/about/", "/experience/", "/events/", "/certifications/", "/blog/",
   "/blog/michelin-principle-ai-software-factories/", "/contact/", "/privacy/",
@@ -58,7 +55,7 @@ try {
     }
     await context.close();
   }
-  console.log(`No-JavaScript public content QA passed (${engine === webkit ? "WebKit" : "Chromium"}); ${checked} route/viewport checks.`);
+  console.log(`No-JavaScript public content QA passed (${engine === "webkit" ? "WebKit" : "Chromium"}); ${checked} route/viewport checks.`);
 } finally {
   await browser.close();
 }

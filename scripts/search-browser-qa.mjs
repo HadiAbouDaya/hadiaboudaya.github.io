@@ -1,12 +1,8 @@
-import { existsSync } from "node:fs";
-import { chromium, webkit, expect } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { launchPublicBrowser } from "./lib/public-browser.mjs";
 
 const origin = new URL(process.env.PORTFOLIO_TEST_ORIGIN ?? "http://127.0.0.1:4173").origin;
-const engine = process.env.PORTFOLIO_BROWSER ?? "chromium";
-if (!["chromium", "webkit"].includes(engine)) throw new Error("PORTFOLIO_BROWSER must be chromium or webkit");
-const browser = await (engine === "webkit" ? webkit.launch() : chromium.launch({
-  executablePath: process.env.PORTFOLIO_CHROME_PATH ?? (existsSync("/usr/bin/google-chrome") ? "/usr/bin/google-chrome" : undefined),
-}));
+const { browser, engine } = await launchPublicBrowser();
 const errors = [];
 async function scenario(name, task) {
   const context = await browser.newContext({
@@ -42,6 +38,23 @@ try {
     await expect(page.getByRole("status")).toContainText("Search could not be loaded");
     await page.getByRole("button", { name: "Try again", exact: true }).click();
     await page.getByRole("combobox").fill("AWS");
+    await expect(page.getByRole("option").first()).toBeVisible();
+    expect(attempts).toBe(2);
+  });
+
+  await scenario("malformed index entries show recovery without crashing", async (page, context) => {
+    let attempts = 0;
+    await context.route("**/search-index.json", async route => {
+      if (++attempts > 1) return route.continue();
+      const response = await route.fetch();
+      const index = await response.json();
+      return route.fulfill({ response, json: { ...index, items: [null] } });
+    });
+    await openSearch(page);
+    await page.getByRole("combobox").fill("AWS");
+    await expect(page.getByRole("status")).toContainText("Search is temporarily unavailable");
+    await expect(page.getByRole("option")).toHaveCount(0);
+    await page.getByRole("button", { name: "Try again", exact: true }).click();
     await expect(page.getByRole("option").first()).toBeVisible();
     expect(attempts).toBe(2);
   });

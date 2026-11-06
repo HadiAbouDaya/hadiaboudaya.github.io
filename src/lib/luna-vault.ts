@@ -52,11 +52,18 @@ export function validAsset(value: unknown): value is VaultAsset {
   const asset = value as VaultAsset;
   return !!asset && /^[a-f0-9-]{36}$/.test(asset.id) && Number.isSafeInteger(asset.bytes) && asset.bytes >= 28 && typeof asset.mime === "string";
 }
+function isPlainRecord(value: unknown): value is Record<string, unknown> {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  const prototype = Object.getPrototypeOf(value);
+  return prototype === Object.prototype || prototype === null;
+}
 export function validateManifest(value: unknown): asserts value is VaultManifest {
   const manifest = value as VaultManifest;
   if (!manifest || ![1, 2, 3].includes(manifest.version) || !Array.isArray(manifest.photos) || manifest.photos.length > 10_000 ||
       !Array.isArray(manifest.chapters) || !manifest.album || typeof manifest.album.title !== "string" ||
-      !Array.isArray(manifest.album.coverIds) || !manifest.birthday?.text || !manifest.birthday.assets || !Array.isArray(manifest.birthday.photos)) throw new Error("Invalid album contents");
+      !Array.isArray(manifest.album.coverIds) || !isPlainRecord(manifest.birthday) || !isPlainRecord(manifest.birthday.text) ||
+      !isPlainRecord(manifest.birthday.assets) || !Array.isArray(manifest.birthday.photos)) throw new Error("Invalid album contents");
+  if (Object.values(manifest.birthday.text).some(text => typeof text !== "string")) throw new Error("Invalid keepsake text");
   const ids = new Set<string>();
   for (const photo of manifest.photos) {
     if (!photo || typeof photo.id !== "string" || ids.has(photo.id) || !Number.isFinite(photo.width) || photo.width < 1 ||
@@ -66,6 +73,11 @@ export function validateManifest(value: unknown): asserts value is VaultManifest
     ids.add(photo.id);
   }
   for (const asset of Object.values(manifest.birthday.assets)) if (!validAsset(asset)) throw new Error("Invalid keepsake asset");
+  for (const photo of manifest.birthday.photos) {
+    if (!isPlainRecord(photo) || !Object.hasOwn(photo, "asset") || typeof photo.asset !== "string" ||
+        !Object.hasOwn(manifest.birthday.assets, photo.asset) || !Object.hasOwn(photo, "alt") || typeof photo.alt !== "string" ||
+        !Object.hasOwn(photo, "shape") || typeof photo.shape !== "string") throw new Error("Invalid keepsake photograph");
+  }
   const chapterIds = new Set<string>();
   for (const chapter of manifest.chapters) {
     if (!chapter || typeof chapter.id !== "string" || chapterIds.has(chapter.id) || typeof chapter.title !== "string" ||
