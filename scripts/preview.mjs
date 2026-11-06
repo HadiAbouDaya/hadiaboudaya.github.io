@@ -45,8 +45,10 @@ export function createPreview(rootDir = "out") {
     res.setHeader("Cache-Control", "no-cache");
     res.setHeader("Accept-Ranges", "bytes");
     let start = 0, end = info.size - 1;
-    if (req.headers.range && res.statusCode !== 404) {
-      const range = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range);
+    // Range is defined for GET only. Unsupported units are ignored, as required
+    // by HTTP semantics; recognized but invalid byte ranges are rejected below.
+    if (req.method === "GET" && /^bytes=/i.test(req.headers.range ?? "") && res.statusCode !== 404) {
+      const range = /^bytes=(\d*)-(\d*)$/i.exec(req.headers.range);
       if (range && (range[1] || range[2])) {
         start = range[1] ? Number(range[1]) : Math.max(0, info.size - Number(range[2]));
         end = range[1] && range[2] ? Math.min(Number(range[2]), end) : end;

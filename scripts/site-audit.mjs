@@ -1,15 +1,14 @@
-import { chromium } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { existsSync } from 'node:fs';
 import { mkdtemp, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { createPreview } from './preview.mjs';
+import { launchPublicBrowser } from './lib/public-browser.mjs';
 
 // Scan the actual release artifact, including every article and event detail.
 // Reports and screenshots stay outside the public repository/export.
 const reportDir = await mkdtemp(path.join(tmpdir(), 'portfolio-site-audit-'));
-const server = createPreview('out');
+const server = process.env.PORTFOLIO_TEST_ORIGIN ? undefined : createPreview('out');
 let browser;
 const results = [];
 let reportWrite = Promise.resolve();
@@ -19,23 +18,24 @@ function saveReport() {
   return reportWrite;
 }
 try {
-  await new Promise((resolve, reject) => {
+  if (server) await new Promise((resolve, reject) => {
     server.once('error', reject);
     server.listen(0, '127.0.0.1', resolve);
   });
-  const origin = `http://127.0.0.1:${server.address().port}`;
+  const origin = new URL(process.env.PORTFOLIO_TEST_ORIGIN ?? `http://127.0.0.1:${server.address().port}`).origin;
   const sitemap = await (await fetch(`${origin}/sitemap.xml`)).text();
   const publicPaths = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => new URL(match[1]).pathname);
   const templates = new Set(['/', '/about/', '/experience/', '/events/', '/certifications/', '/blog/', '/contact/', '/privacy/',
     '/blog/michelin-principle-ai-software-factories/', '/events/copyalpha-launch/']);
   const paths = process.env.PORTFOLIO_AUDIT_SCOPE === 'templates' ? publicPaths.filter(route => templates.has(route)) : publicPaths;
   if (!paths.length) throw new Error('No public routes found in sitemap');
-  browser = await chromium.launch({
-    executablePath: process.env.PORTFOLIO_CHROME_PATH ?? (existsSync('/usr/bin/google-chrome') ? '/usr/bin/google-chrome' : undefined),
-  });
+  ({ browser } = await launchPublicBrowser());
   await Promise.all(['light', 'dark'].map(async colorScheme => {
     for (const width of [320, 1440]) {
-      const context = await browser.newContext({ viewport: { width, height: 900 }, colorScheme, reducedMotion: 'reduce' });
+      const context = await browser.newContext({
+        viewport: { width, height: 900 }, colorScheme, reducedMotion: 'reduce',
+        ignoreHTTPSErrors: ['127.0.0.1', 'localhost', '[::1]'].includes(new URL(origin).hostname),
+      });
       await context.route('**/*', route => {
         const request = route.request();
         return ['GET', 'HEAD'].includes(request.method()) && new URL(request.url()).origin === origin
@@ -86,8 +86,10 @@ try {
 } finally {
   await saveReport();
   await browser?.close();
-  server.closeAllConnections();
-  await new Promise(resolve => server.close(resolve));
+  if (server) {
+    server.closeAllConnections();
+    await new Promise(resolve => server.close(resolve));
+  }
   console.log(`Audit report: ${reportDir}/report.json`);
 }
 const failures = results.filter(r => r.status !== 200 || r.h1Count !== 1 || r.overflow || r.brokenImages.length || r.errors.length || r.violations.length);

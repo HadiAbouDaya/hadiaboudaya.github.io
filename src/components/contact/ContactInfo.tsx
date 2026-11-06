@@ -2,6 +2,7 @@
 
 import { Mail, Linkedin, Phone, MapPin, Calendar } from "lucide-react";
 import { SOCIAL_LINKS } from "@/data/social";
+import { PROFILE } from "@/data/profile";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { Button } from "@/components/ui/Button";
 import { trackEvent, EVENTS } from "@/lib/analytics";
@@ -16,11 +17,11 @@ const contactMethods = [
   {
     icon: Linkedin,
     label: "LinkedIn",
-    value: "linkedin.com/in/hadiai",
+    value: SOCIAL_LINKS.linkedin.replace(/^https?:\/\//, ""),
     href: SOCIAL_LINKS.linkedin,
     external: true,
   },
-{
+  {
     icon: Phone,
     label: "Phone",
     value: SOCIAL_LINKS.phone,
@@ -29,7 +30,7 @@ const contactMethods = [
   {
     icon: MapPin,
     label: "Location",
-    value: "Paris, France",
+    value: PROFILE.location,
   },
 ];
 

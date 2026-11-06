@@ -1,13 +1,9 @@
-import { existsSync } from "node:fs";
 // Run against a built static export. No messages or external requests are sent.
-import { chromium, webkit, expect } from '@playwright/test';
+import { expect } from '@playwright/test';
+import { launchPublicBrowser } from './lib/public-browser.mjs';
 
 const origin = new URL(process.env.PORTFOLIO_TEST_ORIGIN ?? 'http://127.0.0.1:4173').origin;
-const engine = process.env.PORTFOLIO_BROWSER ?? 'chromium';
-if (!['chromium', 'webkit'].includes(engine)) throw new Error('PORTFOLIO_BROWSER must be chromium or webkit');
-const browser = await (engine === 'webkit' ? webkit.launch() : chromium.launch({
-  executablePath: process.env.PORTFOLIO_CHROME_PATH ?? (existsSync("/usr/bin/google-chrome") ? "/usr/bin/google-chrome" : undefined),
-}));
+const { browser, engine } = await launchPublicBrowser();
 const context = await browser.newContext({
   viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce',
   ignoreHTTPSErrors: ['127.0.0.1', 'localhost', '[::1]'].includes(new URL(origin).hostname),

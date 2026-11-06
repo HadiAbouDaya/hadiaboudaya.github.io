@@ -43,6 +43,32 @@ test("invalid cryptographic parameters and album shapes fail closed", () => {
   assert.throws(() => validateManifest({ version: 1, photos: [] }));
 });
 
+test("keepsake catalogs preserve legacy and empty records while validating text and gallery references", () => {
+  const asset = { id: crypto.randomUUID(), mime: "image/webp", bytes: 128 };
+  const galleryPhoto = { asset: "fixture", alt: "Synthetic keepsake", shape: "custom-compatible-shape" };
+  const manifest = { version: 1, album: { title: "Synthetic album", coverIds: [] }, chapters: [], photos: [], birthday: { text: {}, assets: {}, photos: [] } };
+  const birthday = { text: { entryTitle: "Synthetic title" }, assets: { fixture: asset }, photos: [galleryPhoto] };
+  for (const version of [1, 2, 3]) {
+    assert.doesNotThrow(() => validateManifest({ ...manifest, version }));
+    assert.doesNotThrow(() => validateManifest({ ...manifest, version, birthday }));
+  }
+  const check = changes => validateManifest({ ...manifest, birthday: { ...birthday, ...changes } });
+  for (const value of [null, true, 1, "text", [], Object.create({ inherited: "text" })]) {
+    assert.throws(() => check({ text: value }), /Invalid album contents/);
+    assert.throws(() => check({ assets: value }), /Invalid album contents/);
+  }
+  for (const value of [null, true, 1, [], {}]) {
+    assert.throws(() => check({ text: { entryTitle: value } }), /Invalid keepsake text/);
+  }
+  for (const photo of [null, [], false, "photo", {}, { ...galleryPhoto, asset: "missing" },
+    { ...galleryPhoto, asset: "constructor" }, { ...galleryPhoto, asset: "__proto__" },
+    { ...galleryPhoto, alt: null }, { ...galleryPhoto, shape: 1 }, Object.create(galleryPhoto)]) {
+    assert.throws(() => check({ photos: [photo] }), /Invalid keepsake photograph/);
+  }
+  assert.throws(() => check({ assets: Object.create({ fixture: asset }) }), /Invalid album contents/);
+  assert.doesNotThrow(() => check({ text: Object.create(null), assets: Object.assign(Object.create(null), { fixture: asset }) }));
+});
+
 test("journey catalog accepts legacy albums and fails closed on invalid themes or photo order", () => {
   const asset = { id: crypto.randomUUID(), mime: "image/webp", bytes: 128 };
   const photo = { id: crypto.randomUUID(), width: 800, height: 600, thumb: asset, medium: asset, full: asset, alt: "Synthetic photo", group: "journey", sequence: 0 };

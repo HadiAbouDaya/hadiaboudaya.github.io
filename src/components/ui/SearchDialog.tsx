@@ -7,6 +7,7 @@ import { requestFragmentReveal } from "@/lib/fragments";
 import { Modal } from "@/components/ui/Modal";
 import { search, type SearchIndex, type SearchItem } from "@/lib/search";
 import { trackEvent, EVENTS } from "@/lib/analytics";
+import { parseSearchIndex } from "@/lib/search-validation";
 
 let cached: SearchIndex | undefined;
 let pending: Promise<SearchIndex> | undefined;
@@ -17,8 +18,7 @@ async function loadIndex(revision: string, retry = false): Promise<SearchIndex> 
     const timeout = window.setTimeout(() => controller.abort(), 15_000);
     const request = fetch("/search-index.json", { cache: retry ? "reload" : "no-cache", signal: controller.signal }).then(async response => {
       if (!response.ok) throw new Error("Search could not be loaded. Please try again.");
-      const data: SearchIndex = await response.json();
-      if (data.schemaVersion !== 1 || !Array.isArray(data.items)) throw new Error("Search is temporarily unavailable.");
+      const data = parseSearchIndex(await response.json());
       if (data.contentRevision !== revision) throw new Error("The site has been updated. Reload this page to use the latest search.");
       cached = data; return data;
     }).catch((error: unknown) => {

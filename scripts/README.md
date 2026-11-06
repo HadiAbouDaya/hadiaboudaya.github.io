@@ -17,6 +17,8 @@ preview, executes the interaction, search, and contact suites, then closes it.
 CI runs this gate and a representative accessibility/layout scan before uploading a deployment artifact. Tests intercept every
 contact submission and block external writes, including analytics.
 
+All public suites use `scripts/lib/public-browser.mjs` for engine selection, including the performance checks. Unsupported `PORTFOLIO_BROWSER` values fail explicitly rather than falling back to Chromium.
+
 `PORTFOLIO_CHROME_PATH` selects a Chromium executable. By default tests use
 system Chrome when available, otherwise the browser installed by Playwright.
 `PORTFOLIO_TEST_ORIGIN` selects an existing preview or production origin and
@@ -115,6 +117,8 @@ accessibility: keyboard, assistive-technology and editorial review remain useful
 `PORTFOLIO_AUDIT_SCOPE=templates` scans ten representative routes for a shorter
 CI gate; omit it to include all articles and event details.
 `PORTFOLIO_AUDIT_SCREENSHOTS=1` captures representative public layouts.
+`PORTFOLIO_BROWSER` and `PORTFOLIO_TEST_ORIGIN` select the same engine and existing origin as the regression suite. Use an HTTPS origin for WebKit; an audit of an existing origin does not start a local server. External writes remain blocked.
+
 `PORTFOLIO_CHROME_PATH` selects an installed Chromium executable. JSON reports
 and optional screenshots are written to a printed temporary directory, never to
 `public/` or `out/`. Incomplete axe checks are retained for manual review.

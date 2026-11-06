@@ -10,13 +10,12 @@
    in this codebase belongs to exactly one tier; do not borrow effects upward.
    ----------------------------------------------------------------------------
    Display     | Hero only. Parallax globe, staggered text reveal, brand
-               | gradient text (text-gradient-brand), magnetic CTAs. The globe
-               | and typing cursor are the ONLY sanctioned permanent ambient
-               | animations.
+               | gradient text (text-gradient-brand), CTA hover feedback. The globe
+               | is the only permanent ambient animation.
    Featured    | tier==="featured" events + latest blog card. Animated conic
-               | gradient ring on hover (featured-ring), cursor spotlight
+               | gradient ring on hover (featured-ring), radial surface glow
                | (card-spotlight), colored glow on hover (shadow-glow).
-   Interactive | Standard cards, highlights, certs. Cursor spotlight +
+   Interactive | Standard cards, highlights, certs. Radial surface glow +
                | shadow-glow-sm + 1px lift + 1.03 media zoom.
    Micro       | Links, pills, icons, nav. Color / opacity / background only,
                | never transforms.
@@ -48,13 +47,8 @@
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
 
-  --animate-lazy-fade-in: lazyFadeIn 0.3s ease-out both;
   --animate-shimmer: shimmer 2.5s linear infinite;
 
-  @keyframes lazyFadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
   @keyframes shimmer {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
@@ -256,9 +250,8 @@ body {
 
 /* ===== SIGNATURE EFFECTS (Interactive tier) ===== */
 
-/* Cursor-tracking spotlight. A delegated pointermove handler writes
-   --spot-x / --spot-y on the card; the ::before fades in a soft radial wash
-   that follows the cursor. Compositor-only (opacity), no layout work. */
+/* Centered radial surface glow, faded in on hover without pointer listeners.
+   Optional --spot-x / --spot-y properties can customize the CSS focal point. */
 .card-spotlight {
   position: relative;
 }

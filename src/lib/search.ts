@@ -33,7 +33,7 @@ export function search(query: string, items: SearchItem[] = []): SearchResult[] 
     ].map(field => ({ ...field, value: normalize(field.value) }));
     let score = 0, matched = 0, matchedIn = "";
     for (const token of tokens) {
-      const expansions = [token, ...(synonyms[token] ?? [])];
+      const expansions = [token, ...(Object.hasOwn(synonyms, token) ? synonyms[token] : [])];
       const field = fields.find(field => expansions.some(term => field.value.includes(term)));
       if (field) { score += field.weight; matched++; matchedIn ||= field.label; }
     }

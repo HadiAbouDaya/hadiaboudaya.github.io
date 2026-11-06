@@ -60,3 +60,40 @@ test("preview CLI accepts pnpm-forwarded --port and validates arguments", async 
   assert.throws(() => previewOptions(["--port"], {}), /Preview port/);
   assert.throws(() => previewOptions(["--typo"], {}), /Unknown preview/);
 });
+
+test("preview applies byte ranges only to GET and ignores unsupported units", async (t) => {
+  const root = await mkdtemp(path.join(tmpdir(), "website-preview-ranges-"));
+  await writeFile(path.join(root, "file.txt"), "0123456789");
+  const server = createPreview(root);
+  await new Promise((resolve, reject) => { server.once("error", reject); server.listen(0, "127.0.0.1", resolve); });
+  t.after(async () => {
+    server.closeAllConnections();
+    await new Promise(resolve => server.close(resolve));
+    await rm(root, { recursive: true, force: true });
+  });
+  const url = `http://127.0.0.1:${server.address().port}/file.txt`;
+  for (const range of ["bytes=2-3", "bytes=99-100", "items=2-3"]) {
+    const head = await fetch(url, { method: "HEAD", headers: { Range: range } });
+    assert.equal(head.status, 200, range);
+    assert.equal(head.headers.get("content-length"), "10", range);
+    assert.equal(head.headers.get("content-range"), null, range);
+    assert.equal(await head.text(), "");
+  }
+  const unknownUnit = await fetch(url, { headers: { Range: "items=2-3" } });
+  assert.equal(unknownUnit.status, 200);
+  assert.equal(unknownUnit.headers.get("content-range"), null);
+  assert.equal(await unknownUnit.text(), "0123456789");
+  for (const [range, body, contentRange] of [
+    ["BYTES=2-3", "23", "bytes 2-3/10"],
+    ["bytes=-2", "89", "bytes 8-9/10"],
+    ["bytes=8-", "89", "bytes 8-9/10"],
+  ]) {
+    const response = await fetch(url, { headers: { Range: range } });
+    assert.equal(response.status, 206, range);
+    assert.equal(response.headers.get("content-range"), contentRange, range);
+    assert.equal(await response.text(), body, range);
+  }
+  const invalid = await fetch(url, { headers: { Range: "bytes=7-2" } });
+  assert.equal(invalid.status, 416);
+  assert.equal(invalid.headers.get("content-range"), "bytes */10");
+});

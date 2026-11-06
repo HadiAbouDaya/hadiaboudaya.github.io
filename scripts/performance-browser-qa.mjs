@@ -1,11 +1,12 @@
-import { chromium, expect } from '@playwright/test';
-import { existsSync } from 'node:fs';
+import { expect } from '@playwright/test';
+import { launchPublicBrowser } from './lib/public-browser.mjs';
 const origin = process.env.PORTFOLIO_TEST_ORIGIN ?? 'http://127.0.0.1:4173';
-const browser = await chromium.launch({
-  executablePath: process.env.PORTFOLIO_CHROME_PATH ?? (existsSync('/usr/bin/google-chrome') ? '/usr/bin/google-chrome' : undefined),
-});
+const { browser, engine } = await launchPublicBrowser();
 try {
-  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3 });
+  const context = await browser.newContext({
+    viewport: { width: 390, height: 844 }, deviceScaleFactor: 3,
+    ignoreHTTPSErrors: ['127.0.0.1', 'localhost', '[::1]'].includes(new URL(origin).hostname),
+  });
   await context.route('**/*', route => ['GET', 'HEAD'].includes(route.request().method()) && new URL(route.request().url()).origin === new URL(origin).origin ? route.continue() : route.abort());
   await context.addInitScript(() => {
     window.__globePaints = 0;
@@ -42,7 +43,7 @@ try {
   // Let the intersection callback cancel the last scheduled animation frame.
   await page.waitForTimeout(100);
   expect((await samples()).paints).toBe(0);
-  console.log('PASS: globe paint budget, DPR cap, Save Data, reduced motion and offscreen suspension');
+  console.log(`PASS ${engine}: globe paint budget, DPR cap, Save Data, reduced motion and offscreen suspension`);
   await context.close();
 } finally {
   await browser.close();
