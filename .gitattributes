@@ -1,0 +1,3 @@
+# Preserve upstream AI-DLC bytes; its manifest verifies these files exactly.
+.codex/aidlc-common/protocols/stage-protocol-*.md whitespace=-blank-at-eof
+docs/AI-DLC-LICENSE whitespace=-blank-at-eof

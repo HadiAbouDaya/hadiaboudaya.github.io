@@ -37,6 +37,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Verify AI-DLC adoption
+        run: pnpm check:aidlc
+
       - name: Tooling tests
         run: pnpm test:tooling
 

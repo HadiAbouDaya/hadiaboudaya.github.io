@@ -41,6 +41,10 @@
   "exclude": [
     "node_modules",
     "out",
-    "Knowledge"
+    "Knowledge",
+    ".aidlc",
+    ".agents",
+    ".codex",
+    "aidlc"
   ]
 }

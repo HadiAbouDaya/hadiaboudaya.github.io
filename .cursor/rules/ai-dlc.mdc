@@ -1,0 +1,6 @@
+---
+description: Apply AI-DLC to all work on this website
+alwaysApply: true
+---
+
+Read and follow AGENTS.md and docs/ai-dlc.md at the repository root for every task. Automatically adopt AI-DLC without requiring a special command. Use the installed native integration for this harness when available, otherwise follow the documented methodology mode. Preserve the user's chosen provider, model, permissions and current authorization.
