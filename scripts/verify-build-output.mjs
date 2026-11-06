@@ -11,6 +11,8 @@ import { SITE_ORIGIN, REQUIRED_ROUTES, RETIRED_ROUTES, CV_HASHES } from "./expor
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const exists = async (file) => { try { return (await stat(file)).isFile(); } catch { return false; } };
+// Agent runtimes and workflow records are repository tooling, never site assets.
+const workflowPath = /(^|\/)(?:\.aidlc|\.agents|\.codex|\.claude|\.cursor|\.kiro|\.opencode|aidlc|aidlc-docs)(?:\/|$)|(^|\/)(?:AGENTS(?:\.override)?|CLAUDE)\.md$|(^|\/)\.github\/(?:copilot-instructions\.md$|(?:agents|instructions|prompts|skills)\/)/i;
 function elements(node, result = []) {
   if (node.tagName) result.push(node);
   for (const child of node.childNodes ?? []) elements(child, result);
@@ -24,6 +26,7 @@ export async function verifyExport({ outDir = "out", publicDir = "public", requi
   for (const file of allFiles) {
     const relative = slash(path.relative(root, file));
     if (/(^|\/)(Knowledge|\.env[^/]*)(\/|$)/i.test(relative) || /(^|\/)IMAGE_GUIDE\.md$/i.test(relative)) fail(`Private/authoring file in artifact: ${relative}`);
+    if (workflowPath.test(relative)) fail(`Agent/workflow file in artifact: ${relative}`);
     if (/\.(?:html|json|txt|xml|js|map|md)$/i.test(file)) {
       for (const label of privateAuthoringMarkers(await readFile(file, "utf8"))) fail(`${relative}: ${label} in public content`);
     }

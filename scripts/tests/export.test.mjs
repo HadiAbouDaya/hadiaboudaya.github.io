@@ -67,3 +67,44 @@ test("private authoring markers in JSON/RSC/HTML fail without banning retained c
   await writeFile(path.join(f.outDir, "data.json"), JSON.stringify({ source: "Knowledge/MasterFile.md" }));
   await assert.rejects(verifyExport(f), error => /local workstation source path/.test(error.message) && /Knowledge authoring reference/.test(error.message));
 });
+
+test("agent runtimes, workflow records and entrypoints cannot be published", async () => {
+  const f = await fixture();
+  const workflowFiles = [
+    ".aidlc/audit/events.jsonl",
+    ".agents/skills/aidlc/SKILL.md",
+    ".codex/config.toml",
+    ".claude/settings.json",
+    ".cursor/rules/aidlc.mdc",
+    ".kiro/steering/aidlc.md",
+    ".opencode/commands/aidlc.md",
+    "aidlc/spaces/website/intent.md",
+    "aidlc-docs/inception/requirements.md",
+    "AGENTS.md",
+    "nested/AGENTS.override.md",
+    "nested/CLAUDE.md",
+    ".github/copilot-instructions.md",
+    ".github/agents/aidlc.agent.md",
+    ".github/instructions/aidlc.instructions.md",
+    ".github/prompts/aidlc.prompt.md",
+    ".github/skills/aidlc/SKILL.md",
+    "nested/.aidlc/state.json",
+  ];
+  for (const relative of workflowFiles) {
+    const file = path.join(f.outDir, relative);
+    await mkdir(path.dirname(file), { recursive: true });
+    await writeFile(file, "workflow tooling");
+  }
+  await assert.rejects(verifyExport(f), error => workflowFiles.every(relative => error.message.includes(`Agent/workflow file in artifact: ${relative}`)));
+});
+
+test("public articles about AI-DLC and approved badge media remain publishable", async () => {
+  const f = await fixture();
+  const article = path.join(f.outDir, "blog/ai-dlc-workflows/index.html");
+  const badge = "Media/certifications/badges/aws-ai-dlc-ambassador.webp";
+  await mkdir(path.dirname(article), { recursive: true });
+  await mkdir(path.dirname(path.join(f.outDir, badge)), { recursive: true });
+  await writeFile(path.join(f.outDir, badge), "approved badge");
+  await writeFile(article, `${csp}<h1>AI-DLC workflows</h1><p>AI-DLC uses AGENTS.md instructions and .aidlc workflow records.</p><img src="/${badge}">`);
+  assert.equal((await verifyExport(f)).htmlPages, 2);
+});

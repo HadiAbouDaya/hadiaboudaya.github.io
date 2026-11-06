@@ -2,6 +2,10 @@
 
 A static Next.js portfolio for AI consulting and engineering work. It is exported to GitHub Pages; there is no application server.
 
+## AI-DLC workflow
+
+All website work follows AI-DLC automatically through [AGENTS.md](AGENTS.md). No special command or reminder is needed. The pinned native Codex integration, other agent entrypoints, T3 methodology mode and privacy rules are documented in [the workflow guide](docs/ai-dlc.md). On another clone, run `sh scripts/setup-aidlc.sh` (Python 3.11+, curl and SHA-256 tools required). `pnpm check:aidlc` validates the committed setup without running an AI agent.
+
 ## Local development and review
 
 Use Node 22 and pnpm 11.1.2.
