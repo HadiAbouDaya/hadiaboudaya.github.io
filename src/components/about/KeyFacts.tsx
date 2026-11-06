@@ -34,10 +34,10 @@ export function KeyFacts() {
                 {Icon && (
                   <Icon className="w-8 h-8 text-primary-600 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" />
                 )}
-                <p className="text-sm text-fg-mid font-medium">
+                <p className="text-sm leading-snug text-fg-mid font-medium">
                   {fact.label}
                 </p>
-                <p className="text-title text-fg mt-1">
+                <p className="text-xl font-semibold leading-snug tracking-tight text-balance text-fg mt-2">
                   {(() => {
                     const parsed = parseCountable(fact.value);
                     if (parsed) return <CountingNumber value={parsed.number} suffix={parsed.suffix} />;
@@ -45,7 +45,7 @@ export function KeyFacts() {
                   })()}
                 </p>
                 {fact.detail && (
-                  <p className="text-xs text-fg-lo mt-2">{fact.detail}</p>
+                  <p className="text-sm leading-relaxed text-fg-mid mt-3">{fact.detail}</p>
                 )}
               </Card>
             </StaggerItem>

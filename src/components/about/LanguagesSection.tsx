@@ -7,8 +7,8 @@ import { Fragment } from "react";
 export function LanguagesSection() {
   return (
     <section className="mt-16 lg:mt-24 mb-12 px-4">
-      <div className="text-center mb-10">
-        <h2 className="text-eyebrow uppercase text-fg-lo">
+      <div className="text-center mb-6">
+        <h2 className="text-lg font-semibold leading-snug tracking-tight text-fg">
           Languages
         </h2>
       </div>
@@ -22,7 +22,7 @@ export function LanguagesSection() {
               <StaggerItem
                 className="flex justify-between sm:justify-center items-center gap-4 sm:gap-3 px-6 sm:px-8 py-4 sm:py-3.5 group cursor-default w-full sm:w-auto hover:bg-surface-sunken/50 transition-colors flex-1"
               >
-                <span className="text-base sm:text-lg font-bold text-fg group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300">
+                <span className="text-base sm:text-lg font-semibold text-fg group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300">
                   {lang.name}
                 </span>
                 <span className="text-sm flex-shrink-0 font-medium text-fg-mid bg-surface-sunken sm:bg-transparent px-3 py-1 sm:p-0 rounded-pill transition-colors group-hover:bg-primary-50 dark:group-hover:bg-primary-900/40 sm:group-hover:bg-transparent sm:dark:group-hover:bg-transparent sm:group-hover:text-primary-700 sm:dark:group-hover:text-primary-400">

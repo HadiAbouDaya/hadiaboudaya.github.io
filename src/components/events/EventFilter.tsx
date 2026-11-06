@@ -10,6 +10,9 @@ import MotionMaxProvider from "@/components/animations/MotionMaxProvider";
 import { fadeUp } from "@/lib/motion";
 import { trackEvent, EVENTS } from "@/lib/analytics";
 
+import { layoutEventCards } from "@/lib/event-card-layout";
+import styles from "./events-grid.module.css";
+
 type EventFilterKey = "all" | (typeof FILTER_GROUPS)[number]["key"];
 
 export function EventFilter({ events }: { events: EventSummary[] }) {
@@ -100,12 +103,14 @@ export function EventFilter({ events }: { events: EventSummary[] }) {
 
                   {/* Events grid */}
                   <div
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                    className={styles.grid}
+                    data-event-grid
                   >
-                    {yearEvents.map((event) => (
+                    {layoutEventCards(yearEvents).map(({ event, span }) => (
                       <EventCard
                         key={event.slug}
                         event={event}
+                        span={span}
                         isExpanded={expandedSlug === event.slug}
                         onToggle={() => handleToggle(event.slug)}
                       />

@@ -40,15 +40,15 @@ export const FILTER_GROUPS: FilterGroup[] = [
 export type EventSummary = Pick<Event,
   "slug" | "title" | "date" | "datePrecision" | "dateMeaning" | "category" |
   "filterOverride" | "role" | "location" | "summary" | "organizations" |
-  "tier" | "imagePosition" | "caseStudySlug" | "relatedExperienceId"
+  "tier" | "imagePosition" | "coverFit" | "caseStudySlug" | "relatedExperienceId"
 > & { coverImage?: string };
 
 // Deliberately exclude detail prose, image galleries, source URLs and enrichment.
 export function toEventSummary(event: Event): EventSummary {
   const { slug, title, date, datePrecision, dateMeaning, category, filterOverride,
-    role, location, summary, organizations, tier, imagePosition, caseStudySlug, relatedExperienceId } = event;
+    role, location, summary, organizations, tier, imagePosition, coverFit, caseStudySlug, relatedExperienceId } = event;
   return { slug, title, date, datePrecision, dateMeaning, category, filterOverride,
-    role, location, summary, organizations, tier, imagePosition, caseStudySlug, relatedExperienceId,
+    role, location, summary, organizations, tier, imagePosition, coverFit, caseStudySlug, relatedExperienceId,
     coverImage: event.images?.[0] };
 }
 

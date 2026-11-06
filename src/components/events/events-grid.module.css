@@ -1,0 +1,30 @@
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+}
+.card { min-width: 0; }
+.media { aspect-ratio: 16 / 9; flex-shrink: 0; }
+.poster .media { height: 20rem; aspect-ratio: auto; background: #0a0f1a; }
+.title { font-size: 1.25rem; line-height: 1.3; font-weight: 600; letter-spacing: -0.015em; text-wrap: pretty; }
+.featured .title { font-size: 1.375rem; }
+@media (min-width: 640px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .third { grid-column: span 2; }
+  .half { grid-column: span 3; }
+  .wide { grid-column: span 4; }
+  .full { grid-column: span 6; flex-direction: row; }
+  /* Consistent media height aligns adjacent card bodies, while their widths
+     provide the editorial hierarchy. Never change keyboard/reading order. */
+  .media { height: 15rem; aspect-ratio: auto; }
+  .featured .title { font-size: 1.625rem; line-height: 1.25; }
+  .featured .summary { font-size: 1rem; line-height: 1.65; }
+  .poster.wide { flex-direction: row; }
+  .poster.wide .media { width: 36%; height: auto; min-height: 24rem; border-bottom: 0; border-right: 1px solid var(--border-subtle); }
+  .poster.wide .content { min-width: 0; }
+  .full .media { width: 32%; height: auto; min-height: 15rem; border-bottom: 0; border-right: 1px solid var(--border-subtle); }
+  .full .content { min-width: 0; justify-content: center; }
+}

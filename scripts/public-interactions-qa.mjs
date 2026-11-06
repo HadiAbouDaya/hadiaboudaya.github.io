@@ -141,6 +141,44 @@ try {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   });
 
+  await run('event emphasis fills rows without changing chronological reading order', async () => {
+    await resize({ width: 1440, height: 1000 });
+    await visit('/events/');
+    const wide = page.locator('[data-event-slug="ai-era-students-guide"]');
+    const standard = page.locator('[data-event-slug="aws-saa-ai-practitioner-certifications"]');
+    expect((await wide.boundingBox()).width / (await standard.boundingBox()).width).toBeGreaterThan(1.8);
+    const verify = async (fillRows = false) => {
+      const problems = await page.locator('[data-event-grid]').evaluateAll((grids, full) => {
+        const errors = [];
+        for (const grid of grids) {
+          const bounds = grid.getBoundingClientRect();
+          const cards = [...grid.querySelectorAll('[data-event-slug]')].map(card => card.getBoundingClientRect());
+          for (let i = 1; i < cards.length; i++) {
+            if (cards[i].top < cards[i - 1].top - 2 || (Math.abs(cards[i].top - cards[i - 1].top) < 2 && cards[i].left < cards[i - 1].right - 2)) errors.push('reading order or overlap');
+          }
+          if (full) for (let i = 0; i < cards.length; i++) {
+            if ((i === 0 || Math.abs(cards[i].top - cards[i - 1].top) > 2) && Math.abs(cards[i].left - bounds.left) > 2) errors.push('row starts with a hole');
+            if ((i === cards.length - 1 || Math.abs(cards[i].top - cards[i + 1].top) > 2) && Math.abs(cards[i].right - bounds.right) > 2) errors.push('row ends with a hole');
+          }
+        }
+        return errors;
+      }, fillRows);
+      expect(problems).toEqual([]);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    };
+    const filters = page.getByRole('radiogroup', { name: 'Filter events by category' }).getByRole('radio');
+    for (const filter of await filters.all()) {
+      await filter.click();
+      await page.waitForLoadState('networkidle');
+      await verify(true);
+    }
+    await filters.first().click();
+    for (const width of [320, 768, 1024, 1440]) {
+      await resize({ width, height: 1000 });
+      await verify(width >= 1024);
+    }
+  });
+
   await run('page layout respects reading widths and fixed-header spacing', async () => {
     await resize({ width: 1440, height: 900 });
     for (const [path, width] of [['/blog/', 896], ['/privacy/', 768], ['/contact/', 1024]]) {
@@ -323,7 +361,7 @@ try {
   });
   if (errors.length) console.log(JSON.stringify({ failedRequests }, null, 2));
   expect(errors, 'No uncaught page errors').toEqual([]);
-  console.log(`public-interactions-qa: ${engine} passed all 10 scenarios`);
+  console.log(`public-interactions-qa: ${engine} passed all 11 scenarios`);
 } catch (error) {
   console.error(`public-interactions-qa failed (${engine}, ${phase}): ${error.message}`);
   process.exitCode = 1;

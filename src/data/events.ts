@@ -1,5 +1,7 @@
 import type { Event } from "@/types";
 
+// Featured cards emphasize owned delivery, substantive teaching, assessed contributions
+// and major career transitions. Attendance and routine learning stay standard.
 // Dates used for month-level milestones are sorting values, not verified event days.
 export const events: Event[] = [
   {
@@ -27,6 +29,7 @@ export const events: Event[] = [
       "/Media/events/ai-era-students-guide/1.webp"
     ],
     imagePosition: "top",
+    coverFit: "contain",
     tags: [
       "AI",
       "Engineering",
@@ -65,7 +68,7 @@ export const events: Event[] = [
       "Cloud",
       "AI"
     ],
-    tier: "featured",
+    tier: "standard",
     datePrecision: "day",
     dateMeaning: "completion",
     updatedAt: "2026-10-19"
@@ -222,7 +225,7 @@ export const events: Event[] = [
       "/Media/events/bobine-ai-video-generator/1.webp"
     ],
     videoUrl: "/Media/events/bobine-ai-video-generator/muse-spark.mp4",
-    tier: "featured",
+    tier: "standard",
     datePrecision: "day",
     dateMeaning: "milestone",
     updatedAt: "2026-10-19"
@@ -252,7 +255,7 @@ export const events: Event[] = [
       "FastAPI",
       "Next.js"
     ],
-    tier: "standard",
+    tier: "featured",
     datePrecision: "day",
     dateMeaning: "milestone",
     updatedAt: "2026-10-19"
@@ -286,7 +289,7 @@ export const events: Event[] = [
       "Workshop",
       "University"
     ],
-    tier: "featured",
+    tier: "standard",
     datePrecision: "day",
     dateMeaning: "occurrence",
     updatedAt: "2026-10-19"
@@ -414,7 +417,7 @@ export const events: Event[] = [
       "Machine Learning",
       "Cloud"
     ],
-    tier: "featured",
+    tier: "standard",
     datePrecision: "month",
     dateMeaning: "announcement",
     updatedAt: "2026-10-19"
@@ -509,7 +512,7 @@ export const events: Event[] = [
       "Databricks",
       "Manufacturing"
     ],
-    tier: "standard",
+    tier: "featured",
     datePrecision: "month",
     dateMeaning: "milestone",
     updatedAt: "2026-10-19",
@@ -544,7 +547,7 @@ export const events: Event[] = [
       "Canada",
       "Google"
     ],
-    tier: "featured",
+    tier: "standard",
     datePrecision: "month",
     dateMeaning: "start",
     updatedAt: "2026-10-19"
@@ -577,7 +580,7 @@ export const events: Event[] = [
       "Workshop",
       "AUST"
     ],
-    tier: "featured",
+    tier: "standard",
     datePrecision: "month",
     dateMeaning: "occurrence",
     updatedAt: "2026-10-19"
@@ -717,7 +720,7 @@ export const events: Event[] = [
       "emlyon",
       "Speaking"
     ],
-    tier: "featured",
+    tier: "standard",
     datePrecision: "month",
     dateMeaning: "milestone",
     updatedAt: "2026-10-19"
@@ -838,7 +841,7 @@ export const events: Event[] = [
       "SaaS",
       "Startups"
     ],
-    tier: "featured",
+    tier: "standard",
     datePrecision: "month",
     dateMeaning: "occurrence",
     updatedAt: "2026-10-19"
@@ -927,7 +930,7 @@ export const events: Event[] = [
       "AWS ECS",
       "Technical Leadership"
     ],
-    tier: "standard",
+    tier: "featured",
     datePrecision: "month",
     dateMeaning: "milestone",
     updatedAt: "2026-10-23",
@@ -1017,7 +1020,7 @@ export const events: Event[] = [
       "Michel Daher Foundation",
       "Beirut AI"
     ],
-    tier: "featured",
+    tier: "standard",
     datePrecision: "day",
     dateMeaning: "occurrence",
     updatedAt: "2026-10-19"
@@ -1181,7 +1184,7 @@ export const events: Event[] = [
       "AI Education",
       "Community"
     ],
-    tier: "featured",
+    tier: "standard",
     datePrecision: "day",
     dateMeaning: "occurrence",
     updatedAt: "2026-10-19"
@@ -1217,7 +1220,7 @@ export const events: Event[] = [
       "Beirut AI",
       "Technical Ambassadors"
     ],
-    tier: "featured",
+    tier: "standard",
     datePrecision: "day",
     dateMeaning: "occurrence",
     updatedAt: "2026-10-19"
@@ -1282,7 +1285,7 @@ export const events: Event[] = [
       "Workshop",
       "International"
     ],
-    tier: "featured",
+    tier: "standard",
     datePrecision: "day",
     dateMeaning: "occurrence",
     updatedAt: "2026-10-19"
@@ -1548,7 +1551,7 @@ export const events: Event[] = [
       "DeepStream",
       "ADAS"
     ],
-    tier: "standard",
+    tier: "featured",
     datePrecision: "month",
     dateMeaning: "milestone",
     updatedAt: "2026-10-19",
@@ -1807,7 +1810,7 @@ export const events: Event[] = [
       "Community",
       "Lebanon"
     ],
-    tier: "featured",
+    tier: "standard",
     datePrecision: "month",
     dateMeaning: "occurrence",
     updatedAt: "2026-10-19"
@@ -1891,7 +1894,7 @@ export const events: Event[] = [
       "ESIB",
       "Computer Science"
     ],
-    tier: "featured",
+    tier: "standard",
     datePrecision: "month",
     dateMeaning: "milestone",
     updatedAt: "2026-10-19"
@@ -1920,7 +1923,7 @@ export const events: Event[] = [
       "BERT",
       "YOLO"
     ],
-    tier: "featured",
+    tier: "standard",
     datePrecision: "month",
     dateMeaning: "occurrence",
     updatedAt: "2026-10-19"
