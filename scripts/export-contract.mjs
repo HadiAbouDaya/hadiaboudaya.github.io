@@ -11,6 +11,6 @@ export const RETIRED_ROUTES = [
   "/work/sports-booking-agents/", "/work/savencia-causal-inference/",
 ];
 export const CV_HASHES = {
-  "/cv/HadiAbouDayaCV.pdf": "7dc04b36ea41998dd237af2faea7d9ebd15a7f3a4c3143120a788128a319338e",
-  "/cv/HadiAbouDayaCV-fr.pdf": "0faef83fa6db802c5b1f9111a0184188d0ac1f6d1649aae23fa73614f2fc55e2",
+  "/cv/HadiAbouDayaCV.pdf": "dc50ef8fcfb98423bd966d4bb7a0e2c02b256186428ae0977ff2dfdc5732a666",
+  "/cv/HadiAbouDayaCV-fr.pdf": "38768192f5fb4c98d6b4a449be5524ff73452842b33bc0928ec5b23df70699b3",
 };
