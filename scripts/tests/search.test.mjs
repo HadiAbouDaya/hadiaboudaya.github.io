@@ -22,10 +22,8 @@ test('declared synonyms still match expanded phrases and require every query ter
   const items = [
     item('ml', 'Machine learning platforms'),
     item('aws', 'Amazon Web Services', 'Cloud architecture'),
-    item('cv', 'Curriculum vitae'),
   ];
   assert.equal(search('ML', items)[0].item.id, 'ml');
   assert.equal(search('aws architecture', items)[0].item.id, 'aws');
-  assert.equal(search('resume', items)[0].item.id, 'cv');
   assert.deepEqual(search('aws missing', items), []);
 });

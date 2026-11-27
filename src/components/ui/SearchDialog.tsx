@@ -33,7 +33,7 @@ async function loadIndex(revision: string, retry = false): Promise<SearchIndex> 
   return pending;
 }
 
-const labels: Record<SearchItem["category"], string> = { page: "Page", experience: "Experience", event: "Event", certification: "Learning", blog: "Writing", cv: "CV · PDF" };
+const labels: Record<SearchItem["category"], string> = { page: "Page", experience: "Experience", event: "Event", certification: "Learning", blog: "Writing" };
 
 export function SearchDialog({ open, onClose, contentRevision }: { open: boolean; onClose: () => void; contentRevision: string }) {
   const [query, setQuery] = useState("");
@@ -100,7 +100,7 @@ export function SearchDialog({ open, onClose, contentRevision }: { open: boolean
     className="w-[calc(100%-2rem)] max-w-2xl rounded-card-lg p-0 bg-surface text-fg shadow-overlay border border-line">
     <div className="flex items-center gap-3 px-4 border-b border-line">
       <Search className="h-5 w-5 text-primary-600 shrink-0" aria-hidden="true" />
-      <label htmlFor="site-search" className="sr-only">Search experience, skills, writing and CVs</label>
+      <label htmlFor="site-search" className="sr-only">Search experience, skills and writing</label>
       <input ref={input} id="site-search" type="search" value={query} autoComplete="off" placeholder="Search experience, skills, writing…" role="combobox" aria-autocomplete="list" aria-expanded={open} aria-controls="search-results" aria-activedescendant={results[selected] && !loading && !error ? `search-option-${selected}` : undefined} aria-describedby="search-status"
         onChange={event => { setQuery(event.target.value); setSelected(0); }}
         onKeyDown={event => {

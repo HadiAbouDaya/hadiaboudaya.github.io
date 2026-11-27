@@ -2,7 +2,7 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { parse } from 'parse5';
-import { RETIRED_ROUTES } from './export-contract.mjs';
+import { RETIRED_ROUTES, RETIRED_CV_PDF } from './export-contract.mjs';
 import { experienceContractErrors } from './lib/experience-contract.mjs';
 
 const origin = 'https://hadi.aboudaya.com';
@@ -36,6 +36,9 @@ export async function verifyPublicContent(outDir = 'out') {
     const normalized = text.replace(/\\\//g, '/').replace(/\\u002f/gi, '/').replace(/\\u0022/gi, '"');
     if (/(?:^|["'(\s=>]|https?:\/\/hadi\.aboudaya\.com)\/work(?:[/?#"'()<\s]|$)/i.test(normalized)) errors.push(`${relative}: retired Work URL in public content`);
     if (/selected\s+work/i.test(normalized)) errors.push(`${relative}: retired Selected Work label in public content`);
+    if (RETIRED_CV_PDF.test(normalized) || /\bcv-downloads\b|^## CV downloads\s*$/im.test(normalized)) {
+      errors.push(`${relative}: retired CV download in public content`);
+    }
     for (const marker of ['/home/oem/', 'Hadi-Abou-Daya-Website-Implementation-Brief-', 'Detailed_Engagements_2026-10-18.md', 'Knowledge/MasterFile.md']) {
       if (text.includes(marker)) errors.push(`${relative}: private source marker ${marker}`);
     }
@@ -105,7 +108,7 @@ export async function verifyPublicContent(outDir = 'out') {
   if (projects.length !== expectedProjects.length || new Set(projects.map(item => item.id)).size !== expectedProjects.length || expectedProjects.some(id => !projects.some(item => item.id === id))) errors.push('Search must retain all eight project evidence records');
   if (index.items.some(item => item.category === 'work')) errors.push('Search must not contain a retired work category');
   if (projects.some(item => item.category !== 'experience' || item.href !== `/experience/#${item.id}`)) errors.push('Project search evidence must target its precise Experience project anchor');
-  if (index.items.filter(item=>item.category==='cv').length !== 2) errors.push('Search must include two CVs');
+  if (index.items.some(item => item.category === 'cv')) errors.push('Search must not contain a retired CV category');
   if (index.items.some(item => ['content','source','internalNotes','privateNotes'].some(key=>key in item))) errors.push('Unexpected private/body field in public search');
   for (const name of ['llms.txt', 'llms-full.txt']) {
     const text = await readFile(path.join(root, name), 'utf8');

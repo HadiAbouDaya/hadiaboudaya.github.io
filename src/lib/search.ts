@@ -1,5 +1,5 @@
 // Pure matching code: the browser never imports the full content collections.
-export type SearchCategory = "page" | "experience" | "event" | "certification" | "blog" | "cv";
+export type SearchCategory = "page" | "experience" | "event" | "certification" | "blog";
 export interface SearchItem {
   id: string;
   title: string;
@@ -13,7 +13,7 @@ export interface SearchResult { item: SearchItem; score: number; matchedIn: stri
 export interface SearchIndex { schemaVersion: 1; contentRevision: string; items: SearchItem[] }
 
 const synonyms: Record<string, string[]> = {
-  cv: ["curriculum vitae", "resume", "computer vision"], resume: ["cv", "curriculum vitae"],
+  cv: ["computer vision"],
   ml: ["machine learning"], nlp: ["natural language processing"], ai: ["artificial intelligence"],
   llm: ["large language model"], rag: ["retrieval augmented generation"], aws: ["amazon web services"],
   mcp: ["model context protocol"], a2a: ["agent2agent"], sso: ["single sign-on"],
@@ -41,7 +41,6 @@ export function search(query: string, items: SearchItem[] = []): SearchResult[] 
     if (matched !== tokens.length) continue;
     if (normalize(item.title).includes(normalize(query))) score += 12;
     if (item.category === "experience") score += 5;
-    if (item.category === "cv" && tokens.some(t => ["cv", "resume", "curriculum"].includes(t))) score += 25;
     results.push({ item, score, matchedIn });
   }
   return results.sort((a, b) => b.score - a.score || a.item.title.localeCompare(b.item.title)).slice(0, 20);

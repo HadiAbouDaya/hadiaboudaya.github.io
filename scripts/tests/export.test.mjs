@@ -11,7 +11,7 @@ import { RETIRED_ROUTES } from "../export-contract.mjs";
 const csp = '<meta http-equiv="Content-Security-Policy" content="default-src \'self\'">';
 async function fixture() {
   const root = await mkdtemp(path.join(tmpdir(), "website-export-test-"));
-  const options = { outDir: root, requiredRoutes: ["/"], retiredRoutes: ["/retired/"], cvHashes: {}, checkImages: false, checkData: false };
+  const options = { outDir: root, requiredRoutes: ["/"], retiredRoutes: ["/retired/"], checkImages: false, checkData: false };
   await writeFile(path.join(root, "index.html"), `${csp}<h1 id="home">Home</h1><a href="/#home">Home</a>`);
   return options;
 }
@@ -24,10 +24,12 @@ test("detects duplicate IDs, missing link targets and missing fragments after en
   await writeFile(path.join(f.outDir, "index.html"), `${csp}<div id="same"></div><div id="same"></div><a href="/#absent">x</a><img src="/absent.webp"><a href="/a?x=1&amp;y=2">query</a>`);
   await assert.rejects(verifyExport(f), error => /duplicate id same/.test(error.message) && /missing fragment/.test(error.message) && /missing internal target/.test(error.message));
 });
-test("required/retired pages and exact CV hashes are release gates", async () => {
+test("required pages, retired pages and retired CV files are release gates", async () => {
   const f = await fixture(); await mkdir(path.join(f.outDir, "retired")); await writeFile(path.join(f.outDir, "retired/index.html"), csp);
-  await writeFile(path.join(f.outDir, "cv.pdf"), "wrong bytes");
-  await assert.rejects(verifyExport({ ...f, requiredRoutes: ["/experience/"], cvHashes: { "/cv.pdf": hash("approved bytes") } }), error => /Required route missing/.test(error.message) && /Retired page/.test(error.message) && /CV bytes differ/.test(error.message));
+  await mkdir(path.join(f.outDir, "cv"));
+  await writeFile(path.join(f.outDir, "cv/HadiAbouDayaCV-fr.pdf"), "retired PDF");
+  await writeFile(path.join(f.outDir, "Hadi_AbouDaya_CV.pdf"), "retired PDF at old root URL");
+  await assert.rejects(verifyExport({ ...f, requiredRoutes: ["/experience/"] }), error => /Required route missing/.test(error.message) && /Retired page/.test(error.message) && /Retired CV file in artifact: cv\/HadiAbouDayaCV-fr\.pdf/.test(error.message) && /Retired CV file in artifact: Hadi_AbouDaya_CV\.pdf/.test(error.message));
 });
 test("retired Work hub and all eight detail routes fail release verification", async () => {
   const f = await fixture();

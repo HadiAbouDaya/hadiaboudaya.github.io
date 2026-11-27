@@ -7,7 +7,7 @@ const index = (items = [item]) => ({ schemaVersion: 1, contentRevision: 'revisio
 const invalid = value => assert.throws(() => parseSearchIndex(value), /temporarily unavailable/);
 
 test('valid public projections retain all supported categories and metadata', () => {
-  const value = index(['page', 'experience', 'event', 'certification', 'blog', 'cv'].map((category, i) => ({
+  const value = index(['page', 'experience', 'event', 'certification', 'blog'].map((category, i) => ({
     ...item, id: String(i), category, keywords: ['AI', 'résumé'],
     meta: { date: '2026-11', location: 'Paris', technologies: ['TypeScript'], tags: ['AI'] },
   })));
@@ -32,7 +32,7 @@ test('search destinations reject external protocols, private routes and malforme
     '/%2fluna/', '/%5cluna/', '/.codex/onboarding.md', '/about/#bad%escape',
     '/about/\n', '/about/%00', '/about/#%0a',
   ]) invalid(index([{ ...item, href }]));
-  for (const href of ['/', '/about/', '/experience/#exp-aws', '/certifications/#cert-1', '/blog/example/', '/cv/example.pdf', '/contact/#cv-downloads']) {
+  for (const href of ['/', '/about/', '/experience/#exp-aws', '/certifications/#cert-1', '/blog/example/', '/contact/']) {
     assert.equal(parseSearchIndex(index([{ ...item, href }])).items[0].href, href);
   }
 });

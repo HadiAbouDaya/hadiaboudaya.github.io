@@ -73,8 +73,8 @@ project, no nested disclosures and no education disclosures. Content tests
 verify complete narrative preservation and unique additional contributions;
 controller tests isolate URL/focus/event boundaries, with real browser checks
 recorded separately.
-Verification also requires exact approved CV bytes, generated
-LLM text and a real 1200x630 PNG sharing image. It also checks every HTML CSP,
+Verification requires generated LLM text and a real 1200x630 PNG sharing image.
+The export must omit the retired CV downloads. Verification also checks every HTML CSP,
 document language (including error pages), unique IDs, internal links/fragments,
 image source preservation and dimensions.
 The sitemap must list every exported professional page exactly once at its

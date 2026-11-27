@@ -48,9 +48,7 @@ test('search result order is deterministic and delivery evidence outranks incide
   items.push({ id:'course', title:'Introduction to MCP', description:'A course', category:'certification', href:'/certifications/' });
   assert.equal(search('MCP', items)[0].item.id, 'salesforce-agent-mcp');
   assert.equal(search('MinervaHub', [{ id:'m',title:'MinervaHub',description:'Portal advisory',category:'experience',href:'/experience/#exp-minervahub' }])[0].item.id, 'm');
-  const cv = { id:'cv',title:'CV in English',description:'Download résumé PDF',category:'cv',href:'/cv/HadiAbouDayaCV.pdf',keywords:['resume','curriculum vitae'] };
-  assert.equal(search('resume', [...items,cv])[0].item.id, 'cv');
-  assert.equal(search('computer vision', [{ id:'vision',title:'Computer vision',description:'Edge AI',category:'experience',href:'/experience/' },cv])[0].item.id,'vision');
+  assert.equal(search('cv', [{ id:'vision',title:'Computer vision',description:'Edge AI',category:'experience',href:'/experience/' }])[0].item.id,'vision');
   assert.deepEqual(search('no-such-topic', items), []);
 });
 

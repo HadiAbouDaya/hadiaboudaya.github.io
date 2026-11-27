@@ -17,7 +17,6 @@ async function fixture() {
   };
   await writeFile(path.join(root, 'index.html'), `<!doctype html><html lang="en"><head><title>Hadi Abou Daya</title><link rel="canonical" href="${origin}/">${Object.entries(meta).map(([property, content]) => `<meta property="${property}" content="${content}">`).join('')}</head><body><h1>Experience</h1><img src="/Media/work/logo.webp"><p>Consulting work and delivery.</p></body></html>`);
   const items = caseStudies.map(item => ({ id: `project-${item.slug}`, title: item.title, category: 'experience', href: `/experience/#project-${item.slug}` }));
-  items.push({ id: 'cv-en', category: 'cv', href: '/cv/HadiAbouDayaCV.pdf' }, { id: 'cv-fr', category: 'cv', href: '/cv/HadiAbouDayaCV-fr.pdf' });
   const index = { schemaVersion: 1, contentRevision: 'test-revision', items };
   await writeFile(path.join(root, 'search-index.json'), JSON.stringify(index));
   await mkdir(path.join(root, 'experience'));
@@ -34,7 +33,7 @@ async function fixture() {
 
 test('public projections retain eight Experience project records and approved customer media paths', async () => {
   const { root } = await fixture();
-  assert.equal((await verifyPublicContent(root)).searchItems, 10);
+  assert.equal((await verifyPublicContent(root)).searchItems, 8);
 });
 
 test('public verification rejects retired categories, missing project evidence and incorrect targets', async () => {
@@ -58,6 +57,20 @@ test('both generated public profiles must preserve project links to Experience',
   const { root } = await fixture();
   await writeFile(path.join(root, 'llms-full.txt'), '## Project experience\n');
   await assert.rejects(verifyPublicContent(root), /llms-full\.txt: missing project evidence link/);
+});
+
+test('retired CV downloads are rejected in search, HTML and generated profile text', async () => {
+  const { root, index } = await fixture();
+  index.items.push({ id: 'cv-en', category: 'cv', href: '/contact/' });
+  await writeFile(path.join(root, 'search-index.json'), JSON.stringify(index));
+  const page = path.join(root, 'index.html');
+  await writeFile(page, `${await readFile(page, 'utf8')}<a href="/contact/#cv-downloads">Downloads</a>`);
+  const profile = path.join(root, 'llms-full.txt');
+  await writeFile(profile, `${await readFile(profile, 'utf8')}\n[English CV](https://hadi.aboudaya.com/cv/HadiAbouDayaCV.pdf?v=old)`);
+  await assert.rejects(verifyPublicContent(root), error =>
+    /retired CV category/.test(error.message) &&
+    /index\.html: retired CV download/.test(error.message) &&
+    /llms-full\.txt: retired CV download/.test(error.message));
 });
 
 test('sitemap must cover every public page exactly once and exclude private, missing and noncanonical URLs', async () => {

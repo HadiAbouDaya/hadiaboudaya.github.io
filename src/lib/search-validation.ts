@@ -1,6 +1,6 @@
 import type { SearchCategory, SearchIndex } from "./search";
 
-const categories: readonly SearchCategory[] = ["page", "experience", "event", "certification", "blog", "cv"];
+const categories: readonly SearchCategory[] = ["page", "experience", "event", "certification", "blog"];
 const searchOrigin = "https://search.invalid";
 const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === "object" && value !== null && !Array.isArray(value);
 const isStringList = (value: unknown) => Array.isArray(value) && value.every(item => typeof item === "string");

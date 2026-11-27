@@ -34,7 +34,7 @@ pnpm preview --port 3000
 
 ## Content and relationships
 
-- `src/data/profile.ts`: public identity and exact bilingual CV downloads.
+- `src/data/profile.ts`: public identity.
 - `src/data/experience.ts`: professional and education chronology, with consulting engagements nested under one independent practice. Month dates express engagement periods. Professional entries sort by end month.
 - `src/data/work.ts`: eight project evidence records connected to engagement IDs. Project search results and public profile text point to `/experience/#project-{slug}`; role links use `#exp-{id}`. The catalog has no standalone public routes. Optional product-acquisition records keep buyer, month, continuation and product link separate from the engagement period; Experience, the Home consulting highlight, search and public profile text derive their wording from that shared record.
 - `src/data/skills.ts`: capabilities linked to delivery evidence.
@@ -48,13 +48,11 @@ Experience filters persist in `?view=professional|education`, with Back/Forward 
 
 Search fetches a public projection from `/search-index.json` when opened. The root passes only its content revision. `/llms.txt`, `/llms-full.txt`, the sitemap and `/og-default.png` are static generated routes. Shared metadata includes the sharing image explicitly because nested Next metadata objects replace inherited values.
 
-## Media and CVs
+## Media
 
 Keep existing media originals and URLs. The image pipeline selects owners for colliding source stems, caches equivalent transforms by content and settings, and emits every existing responsive width URL. See [build-tool documentation](scripts/README.md).
 
-The PDFs in `public/cv/` are exact approved artifacts, verified by SHA-256. Change the register and verification hashes only when replacing them with newly approved source files. Do not regenerate them during website builds.
-
-The 23 October 2026 timeline reconciliation follows the current bilingual CVs and live LinkedIn profile: AWS May–Oct 2026, Independent AI Consulting Jun 2023–May 2026, Supportful Dec 2025–May 2026 and MOPO Jun 2023–Jan 2026. Related start milestones use June 2023 at month precision. The downloadable PDFs are exact copies of those current CVs; earlier reports describe their dated artifacts.
+The 23 October 2026 timeline reconciliation recorded AWS May–Oct 2026, Independent AI Consulting Jun 2023–May 2026, Supportful Dec 2025–May 2026 and MOPO Jun 2023–Jan 2026. Related start milestones use June 2023 at month precision.
 
 ## Private authoring records
 

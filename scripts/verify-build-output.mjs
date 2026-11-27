@@ -7,7 +7,7 @@ import { filesUnder, hash, slash, fileHash } from "./lib/files.mjs";
 import { imageInventory } from "./generate-image-variants.mjs";
 import { IMAGE_WIDTHS, IMAGE_SETTINGS } from "./image-families.mjs";
 import { privateAuthoringMarkers } from "./lib/public-boundary.mjs";
-import { SITE_ORIGIN, REQUIRED_ROUTES, RETIRED_ROUTES, CV_HASHES } from "./export-contract.mjs";
+import { SITE_ORIGIN, REQUIRED_ROUTES, RETIRED_ROUTES, RETIRED_CV_PDF } from "./export-contract.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const exists = async (file) => { try { return (await stat(file)).isFile(); } catch { return false; } };
@@ -20,13 +20,14 @@ function elements(node, result = []) {
   return result;
 }
 const attributes = (node) => Object.fromEntries((node.attrs ?? []).map(({ name, value }) => [name, value]));
-export async function verifyExport({ outDir = "out", publicDir = "public", requiredRoutes = REQUIRED_ROUTES, retiredRoutes = RETIRED_ROUTES, cvHashes = CV_HASHES, baselinePath = path.join(here, "raster-baseline.json"), checkImages = true, checkData = true } = {}) {
+export async function verifyExport({ outDir = "out", publicDir = "public", requiredRoutes = REQUIRED_ROUTES, retiredRoutes = RETIRED_ROUTES, baselinePath = path.join(here, "raster-baseline.json"), checkImages = true, checkData = true } = {}) {
   const root = path.resolve(outDir), errors = [], warnings = [], pages = new Map(), allFiles = await filesUnder(root);
   const fail = (message) => errors.push(message);
   for (const file of allFiles) {
     const relative = slash(path.relative(root, file));
     if (/(^|\/)(Knowledge|\.env[^/]*)(\/|$)/i.test(relative) || /(^|\/)IMAGE_GUIDE\.md$/i.test(relative)) fail(`Private/authoring file in artifact: ${relative}`);
     if (workflowPath.test(relative)) fail(`Agent/workflow file in artifact: ${relative}`);
+    if (RETIRED_CV_PDF.test(relative)) fail(`Retired CV file in artifact: ${relative}`);
     if (/\.(?:html|json|txt|xml|js|map|md)$/i.test(file)) {
       for (const label of privateAuthoringMarkers(await readFile(file, "utf8"))) fail(`${relative}: ${label} in public content`);
     }
@@ -71,11 +72,6 @@ export async function verifyExport({ outDir = "out", publicDir = "public", requi
         if (fragment && !fragment.startsWith(":~:text=") && !pages.get(resolved).ids.has(fragment)) fail(`${relative}: missing fragment ${reference}`);
       }
     }
-  }
-  for (const [url, expected] of Object.entries(cvHashes)) {
-    const file = path.join(root, url.slice(1));
-    if (!await exists(file)) fail(`Missing CV ${url}`);
-    else if (await fileHash(file) !== expected) fail(`CV bytes differ from approved artifact: ${url}`);
   }
   if (checkImages) {
     try {

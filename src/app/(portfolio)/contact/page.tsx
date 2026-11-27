@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { breadcrumbJsonLd, contactPointJsonLd, serializeJsonLd } from "@/lib/jsonld";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { CVDownloads } from "@/components/contact/CVDownloads";
 import { ContactInfo } from "@/components/contact/ContactInfo";
 
 export const metadata: Metadata = {
@@ -39,9 +38,6 @@ export default function ContactPage() {
           <div className="lg:col-span-2">
             <ContactInfo />
           </div>
-        </div>
-        <div className="mt-10">
-          <CVDownloads />
         </div>
       </div>
     </div>

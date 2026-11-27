@@ -39,3 +39,9 @@ After that release, the owner updated both canonical CVs and requested the websi
 | French | `38768192f5fb4c98d6b4a449be5524ff73452842b33bc0928ec5b23df70699b3` | `38768192f5fb` |
 
 The same minimal methodology mode and omitted stages apply. Local `pnpm check:aidlc`, `pnpm lint` and `pnpm build` passed. The approved, public and exported PDF hashes match; homepage and contact exports contain the new versioned links. The existing Pages pipeline runs its full checks before deployment; production verification is reported in the task delivery result.
+
+## Retirement on 27 November
+
+The owner requested removal of both CVs from the website. The release deletes the public PDFs and removes their homepage and contact links, search entries and public profile references. The export checks reject the retired filenames, including the historical root alias, and their references. The existing publication workflow delivers the removal. Acceptance requires HTTP 404 at the former download URLs and no download entries in the live pages or generated indexes.
+
+This change uses AI-DLC Express in methodology mode. Native hooks and gate receipts are unavailable in T3. A separate design and a new deployment pipeline were unnecessary because the change retires downloads within the existing site.
